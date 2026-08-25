@@ -1,204 +1,377 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baza | কেনা-বেচার সহজ মাধ্যম</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: #f4f6f8; color: #333; line-height: 1.6; }
-        
-        .navbar { background-color: #008069; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { color: white; font-size: 22px; font-weight: bold; text-decoration: none; }
-        .logo span { color: #ffce00; }
-        
-        .nav-right { display: flex; align-items: center; gap: 8px; }
-        .btn-auth { color: white; font-weight: bold; font-size: 13px; border: 1px solid rgba(255,255,255,0.4); padding: 6px 12px; border-radius: 20px; cursor: pointer; background: transparent; }
-        .btn-post { background-color: #ffce00; color: #111; padding: 8px 12px; font-weight: bold; border-radius: 20px; text-decoration: none; font-size: 13px; border: none; cursor: pointer; }
-        
-        .hero { background-color: #008069; color: white; text-align: center; padding: 30px 15px; }
-        .search-container { max-width: 400px; margin: 15px auto 0; display: flex; gap: 5px; }
-        .search-container input { flex: 1; padding: 10px; border: none; border-radius: 4px; outline: none; }
-        .search-container button { background-color: #ffce00; border: none; padding: 10px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; }
-        
-        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-        .categories { display: flex; gap: 10px; margin: 15px 0 25px; flex-wrap: wrap; }
-        .cat-btn { background: white; padding: 10px 15px; border-radius: 6px; border: 1px solid #ddd; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .cat-btn:hover, .cat-btn.active { background: #008069; color: white; border-color: #008069; }
-        
-        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        .card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; }
-        .card img { width: 100%; height: 140px; object-fit: cover; border-radius: 6px; margin-bottom: 8px; }
-        .price { color: #008069; font-size: 16px; font-weight: bold; margin-top: 5px; }
-        .badge { display: inline-block; background: #eef7f5; color: #008069; font-size: 11px; padding: 2px 6px; border-radius: 4px; margin-bottom: 5px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baza | কেনা-বেচার সহজ মাধ্যম</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #f4f6f8;
+      color: #333;
+      font-family: Arial, sans-serif;
+    }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 380px; position: relative; max-height: 90vh; overflow-y: auto; }
-        .close-btn { position: absolute; right: 15px; top: 10px; font-size: 20px; cursor: pointer; }
-        .modal input, .modal select, .modal textarea { width: 100%; margin: 8px 0; padding: 9px; border: 1px solid #ccc; border-radius: 4px; }
-        .modal-btn { background: #008069; color: white; border: none; width: 100%; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-    </style>
+    .navbar {
+      background-color: #008069;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .logo span {
+      color: #ffce00;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-auth {
+      color: white;
+      font-weight: bold;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-post {
+      background-color: #ffce00;
+      color: #008069;
+      font-weight: bold;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .hero {
+      background-color: #008069;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .search-container {
+      max-width: 400px;
+      margin: 15px auto 0 auto;
+      display: flex;
+    }
+    .search-container input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+    .search-container button {
+      background-color: #ffce00;
+      color: #333;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+    .categories {
+      display: flex;
+      gap: 10px;
+      margin: 15px 0 25px 0;
+      flex-wrap: wrap;
+    }
+    .cat-btn {
+      background: white;
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .cat-btn:hover, .cat-btn.active {
+      background-color: #008069;
+      color: white;
+      border-color: #008069;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .price {
+      color: #008069;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    .badge {
+      display: inline-block;
+      background: #eee;
+      padding: 2px 6px;
+      font-size: 11px;
+      border-radius: 4px;
+      margin: 6px 0;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      max-width: 400px;
+      margin: 80px auto;
+      border-radius: 8px;
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .modal input, .modal select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .modal-btn {
+      background: #008069;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-<nav class="navbar">
+  <!-- Navbar -->
+  <nav class="navbar">
     <a href="#" class="logo">Baza<span>.com.bd</span></a>
     <div class="nav-right">
-        <button id="userBtn" class="btn-auth" onclick="openModal('loginModal')">লগইন / একাউন্ট</button>
-        <button class="btn-post" onclick="openModal('postModal')">+ বিজ্ঞাপন দিন</button>
+      <button id="userBtn" class="btn-auth" onclick="openModal('loginModal')">লগইন</button>
+      <button class="btn-post" onclick="openModal('postModal')">বিজ্ঞাপন দিন</button>
     </div>
-</nav>
+  </nav>
 
-<header class="hero">
+  <!-- Hero Section -->
+  <header class="hero">
     <h2>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h2>
     <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="কী খুঁজছেন?...">
-        <button>খুঁজুন</button>
+      <input type="text" id="searchInput" placeholder="কী খুঁজছেন?" onkeyup="searchProducts()">
+      <button onclick="searchProducts()">খুঁজুন</button>
     </div>
-</header>
+  </header>
 
-<div class="container">
+  <!-- Main Container -->
+  <div class="container">
     <h3>পপুলার ক্যাটাগরি</h3>
     <div class="categories">
-        <button class="cat-btn active" onclick="filterCategory('সব')">সবগুলো</button>
-        <button class="cat-btn" onclick="filterCategory('মোবাইল')">📱 মোবাইল</button>
-        <button class="cat-btn" onclick="filterCategory('ইলেকট্রনিক্স')">💻 ইলেকট্রনিক্স</button>
-        <button class="cat-btn" onclick="filterCategory('বাইক')">🏍️ বাইক</button>
+      <button class="cat-btn active" onclick="filterCategory('সব', this)">সব</button>
+      <button class="cat-btn" onclick="filterCategory('মোবাইল', this)">মোবাইল</button>
+      <button class="cat-btn" onclick="filterCategory('বাইক', this)">বাইক</button>
+      <button class="cat-btn" onclick="filterCategory('ইলেকট্রনিক্স', this)">ইলেকট্রনিক্স</button>
     </div>
 
     <h3>সর্বশেষ বিজ্ঞাপন</h3>
     <div class="products" id="productList">
-        <div class="card" data-category="মোবাইল">
-            <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400" alt="Samsung S22 Ultra">
-            <span class="badge">মোবাইল</span>
-            <h4>Samsung S22 Ultra</h4>
-            <p style="font-size:12px; color:#666;">📍 চট্টগ্রাম</p>
-            <div class="price">৳ ৬৫,০০০</div>
-        </div>
-        <div class="card" data-category="বাইক">
-            <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=400" alt="Yamaha FZ-S V3">
-            <span class="badge">বাইক</span>
-            <h4>Yamaha FZ-S V3</h4>
-            <p style="font-size:12px; color:#666;">📍 চট্টগ্রাম</p>
-            <div class="price">৳ ১,৮৫,০০০</div>
-        </div>
-    </div>
-</div>
+      
+      <!-- Card 1 -->
+      <div class="card" data-category="মোবাইল">
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300" alt="Samsung S22 Ultra">
+        <span class="badge">মোবাইল</span>
+        <h4>Samsung S22 Ultra</h4>
+        <p style="font-size:12px; color:#666;">ঢাকা</p>
+        <div class="price">৳ ৬৫,০০০</div>
+      </div>
 
-<!-- Login Modal -->
-<div id="loginModal" class="modal">
+      <!-- Card 2 -->
+      <div class="card" data-category="বাইক">
+        <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=300" alt="Yamaha FZ-S V3">
+        <span class="badge">বাইক</span>
+        <h4>Yamaha FZ-S V3</h4>
+        <p style="font-size:12px; color:#666;">চট্টগ্রাম</p>
+        <div class="price">৳ ১,৮৫,০০০</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
-        <h3 style="margin-bottom: 10px;">লগইন করুন</h3>
-        <input type="text" id="loginInput" placeholder="আপনার নাম বা ইমেইল">
-        <input type="password" placeholder="পাসওয়ার্ড">
-        <button class="modal-btn" onclick="handleLogin()">প্রবেশ করুন</button>
+      <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+      <h3 style="margin-bottom: 10px;">লগইন করুন</h3>
+      <input type="text" id="loginInput" placeholder="নাম বা ইমেইল">
+      <input type="password" placeholder="পাসওয়ার্ড">
+      <button class="modal-btn" onclick="handleLogin()">লগইন</button>
     </div>
-</div>
+  </div>
 
-<!-- Post Ad Modal -->
-<div id="postModal" class="modal">
+  <!-- Post Ad Modal -->
+  <div id="postModal" class="modal">
     <div class="modal-content">
-        <span class="close-btn" onclick="closeModal('postModal')">&times;</span>
-        <h3 style="margin-bottom: 10px;">বিজ্ঞাপন পোস্ট করুন</h3>
-        <input type="text" id="postTitle" placeholder="পণ্যের নাম">
-        <select id="postCategory">
-            <option value="মোবাইল">📱 মোবাইল</option>
-            <option value="ইলেকট্রনিক্স">💻 ইলেকট্রনিক্স</option>
-            <option value="বাইক">🏍️ বাইক</option>
-        </select>
-        <input type="text" id="postPrice" placeholder="দাম (যেমন: ৳ ১৫,০০০)">
-        <input type="text" id="postLocation" placeholder="লোকেশন (যেমন: চট্টগ্রাম)">
-        <label style="font-size:12px; display:block; margin-top:5px; color:#555;">ছবি নির্বাচন করুন:</label>
-        <input type="file" id="postImage" accept="image/*">
-        <button class="modal-btn" onclick="handlePost()">পোস্ট করুন</button>
+      <span class="close-btn" onclick="closeModal('postModal')">&times;</span>
+      <h3 style="margin-bottom: 10px;">বিজ্ঞাপন পোস্ট করুন</h3>
+      <input type="text" id="postTitle" placeholder="শিরোনাম">
+      <select id="postCategory">
+        <option value="মোবাইল">📱 মোবাইল</option>
+        <option value="বাইক">🏍️ বাইক</option>
+        <option value="ইলেকট্রনিক্স">💻 ইলেকট্রনিক্স</option>
+      </select>
+      <input type="text" id="postPrice" placeholder="দাম (টাকা)">
+      <input type="text" id="postLocation" placeholder="লোকেশন">
+      <label style="font-size:12px; display:block; margin-bottom:5px;">ছবি সিলেক্ট করুন (ঐচ্ছিক):</label>
+      <input type="file" id="postImage" accept="image/*">
+      <button class="modal-btn" onclick="handlePost()">পোস্ট করুন</button>
     </div>
-</div>
+  </div>
 
-<script>
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+  <!-- JavaScript -->
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
 
     function handleLogin() {
-        var user = document.getElementById('loginInput').value;
-        if(user) {
-            document.getElementById('userBtn').innerText = "👤 " + user;
-            closeModal('loginModal');
-            alert('সফলভাবে লগইন হয়েছে!');
-        } else {
-            alert('অনুগ্রহ করে নাম বা ইমেইল লিখুন!');
-        }
+      var user = document.getElementById('loginInput').value;
+      if (user) {
+        document.getElementById('userBtn').innerText = user;
+        closeModal('loginModal');
+        alert('সফলভাবে লগইন হয়েছে!');
+      } else {
+        alert('অনুগ্ৰহ করে নাম বা ইমেইল লিখুন!');
+      }
     }
 
     function handlePost() {
-        var title = document.getElementById('postTitle').value;
-        var category = document.getElementById('postCategory').value;
-        var price = document.getElementById('postPrice').value;
-        var loc = document.getElementById('postLocation').value;
-        var imageInput = document.getElementById('postImage');
+      var title = document.getElementById('postTitle').value;
+      var category = document.getElementById('postCategory').value;
+      var price = document.getElementById('postPrice').value;
+      var loc = document.getElementById('postLocation').value;
+      var imageInput = document.getElementById('postImage');
 
-        if(title && price && loc) {
-            var imgUrl = "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400"; // Default image
-            
-            var createCard = function(src) {
-                var newCard = document.createElement('div');
-                newCard.className = 'card';
-                newCard.setAttribute('data-category', category);
-                newCard.innerHTML = '<img src="' + src + '" alt="' + title + '"><span class="badge">' + category + '</span><h4>' + title + '</h4><p style="font-size:12px; color:#666;">📍 ' + loc + '</p><div class="price">' + price + '</div>';
-                
-                document.getElementById('productList').prepend(newCard);
-                closeModal('postModal');
-                alert('আপনার বিজ্ঞাপন পোস্ট করা হয়েছে!');
-                
-                // Clear fields
-                document.getElementById('postTitle').value = '';
-                document.getElementById('postPrice').value = '';
-                document.getElementById('postLocation').value = '';
-                document.getElementById('postImage').value = '';
-            };
+      if (title && price && loc) {
+        var imgUrl = "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300";
 
-            if (imageInput.files && imageInput.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) { createCard(e.target.result); };
-                reader.readAsDataURL(imageInput.files[0]);
-            } else {
-                createCard(imgUrl);
-            }
+        var createCard = function(src) {
+          var newCard = document.createElement('div');
+          newCard.className = 'card';
+          newCard.setAttribute('data-category', category);
+          newCard.innerHTML = `
+            <img src="${src}" alt="${title}">
+            <span class="badge">${category}</span>
+            <h4>${title}</h4>
+            <p style="font-size:12px; color:#666;">${loc}</p>
+            <div class="price">৳ ${price}</div>
+          `;
+
+          document.getElementById('productList').prepend(newCard);
+          closeModal('postModal');
+          alert('আপনার বিজ্ঞাপন পোস্ট করা হয়েছে!');
+
+          // Clear fields
+          document.getElementById('postTitle').value = '';
+          document.getElementById('postPrice').value = '';
+          document.getElementById('postLocation').value = '';
+          document.getElementById('postImage').value = '';
+        };
+
+        if (imageInput.files && imageInput.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            createCard(e.target.result);
+          };
+          reader.readAsDataURL(imageInput.files[0]);
         } else {
-            alert('সবগুলো ঘর পূরণ করুন!');
+          createCard(imgUrl);
         }
+      } else {
+        alert('সবগুলো ঘর পূরণ করুন!');
+      }
     }
 
-    function filterCategory(cat) {
-        var cards = document.querySelectorAll('.card');
-        var buttons = document.querySelectorAll('.cat-btn');
-        
-        buttons.forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
+    function filterCategory(cat, btnElement) {
+      var cards = document.querySelectorAll('.card');
+      var buttons = document.querySelectorAll('.cat-btn');
 
-        cards.forEach(card => {
-            if (cat === 'সব' || card.getAttribute('data-category') === cat) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+      buttons.forEach(btn => btn.classList.remove('active'));
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
+
+      cards.forEach(card => {
+        if (cat === 'সব' || card.getAttribute('data-category') === cat) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     }
 
     function searchProducts() {
-        var input = document.getElementById('searchInput').value.toLowerCase();
-        var cards = document.querySelectorAll('.card');
+      var input = document.getElementById('searchInput').value.toLowerCase();
+      var cards = document.querySelectorAll('.card');
 
-        cards.forEach(card => {
-            var title = card.querySelector('h4').innerText.toLowerCase();
-            if (title.includes(input)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+      cards.forEach(card => {
+        var titleEl = card.querySelector('h4');
+        if (titleEl) {
+          var title = titleEl.textContent.toLowerCase();
+          if (title.includes(input)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
     }
-</script>
+  </script>
 
 </body>
 </html>
