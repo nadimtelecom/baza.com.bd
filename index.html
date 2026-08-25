@@ -7,14 +7,20 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
         body { background-color: #f4f6f8; color: #333; line-height: 1.6; }
+        
         .navbar { background-color: #008069; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
         .logo { color: white; font-size: 22px; font-weight: bold; text-decoration: none; }
         .logo span { color: #ffce00; }
+        
+        .nav-right { display: flex; align-items: center; gap: 10px; }
+        .btn-auth { color: white; text-decoration: none; font-weight: bold; font-size: 13px; border: 1px solid rgba(255,255,255,0.4); padding: 6px 12px; border-radius: 20px; }
         .btn-post { background-color: #ffce00; color: #111; padding: 8px 12px; font-weight: bold; border-radius: 20px; text-decoration: none; font-size: 13px; }
+        
         .hero { background-color: #008069; color: white; text-align: center; padding: 30px 15px; }
         .search-container { max-width: 400px; margin: 15px auto 0; display: flex; gap: 5px; }
-        .search-container input { flex: 1; padding: 10px; border: none; border-radius: 4px; }
+        .search-container input { flex: 1; padding: 10px; border: none; border-radius: 4px; outline: none; }
         .search-container button { background-color: #ffce00; border: none; padding: 10px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        
         .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
         .categories { display: flex; gap: 10px; margin: 15px 0 25px; flex-wrap: wrap; }
         .cat-btn { background: white; padding: 10px 15px; border-radius: 6px; border: 1px solid #ddd; font-weight: bold; }
@@ -27,7 +33,10 @@
 
 <nav class="navbar">
     <a href="#" class="logo">Baza<span>.com.bd</span></a>
-    <a href="#" class="btn-post">+ বিজ্ঞাপন দিন</a>
+    <div class="nav-right">
+        <a href="#" class="btn-auth">লগইন / একাউন্ট</a>
+        <a href="#" class="btn-post">+ বিজ্ঞাপন দিন</a>
+    </div>
 </nav>
 
 <header class="hero">
