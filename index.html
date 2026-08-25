@@ -12,9 +12,9 @@
         .logo { color: white; font-size: 22px; font-weight: bold; text-decoration: none; }
         .logo span { color: #ffce00; }
         
-        .nav-right { display: flex; align-items: center; gap: 10px; }
-        .btn-auth { color: white; text-decoration: none; font-weight: bold; font-size: 13px; border: 1px solid rgba(255,255,255,0.4); padding: 6px 12px; border-radius: 20px; }
-        .btn-post { background-color: #ffce00; color: #111; padding: 8px 12px; font-weight: bold; border-radius: 20px; text-decoration: none; font-size: 13px; }
+        .nav-right { display: flex; align-items: center; gap: 8px; }
+        .btn-auth { color: white; text-decoration: none; font-weight: bold; font-size: 13px; border: 1px solid rgba(255,255,255,0.4); padding: 6px 12px; border-radius: 20px; cursor: pointer; background: transparent; }
+        .btn-post { background-color: #ffce00; color: #111; padding: 8px 12px; font-weight: bold; border-radius: 20px; text-decoration: none; font-size: 13px; border: none; cursor: pointer; }
         
         .hero { background-color: #008069; color: white; text-align: center; padding: 30px 15px; }
         .search-container { max-width: 400px; margin: 15px auto 0; display: flex; gap: 5px; }
@@ -27,6 +27,13 @@
         .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
         .card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .price { color: #008069; font-size: 16px; font-weight: bold; margin-top: 5px; }
+
+        /* Modal Styles */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 350px; position: relative; }
+        .close-btn { position: absolute; right: 15px; top: 10px; font-size: 20px; cursor: pointer; }
+        .modal input, .modal select, .modal textarea { width: 100%; margin: 8px 0; padding: 9px; border: 1px solid #ccc; border-radius: 4px; }
+        .modal-btn { background: #008069; color: white; border: none; width: 100%; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -34,8 +41,8 @@
 <nav class="navbar">
     <a href="#" class="logo">Baza<span>.com.bd</span></a>
     <div class="nav-right">
-        <a href="#" class="btn-auth">লগইন / একাউন্ট</a>
-        <a href="#" class="btn-post">+ বিজ্ঞাপন দিন</a>
+        <button class="btn-auth" onclick="openModal('loginModal')">লগইন / একাউন্ট</button>
+        <button class="btn-post" onclick="openModal('postModal')">+ বিজ্ঞাপন দিন</button>
     </div>
 </nav>
 
@@ -69,6 +76,35 @@
         </div>
     </div>
 </div>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+        <h3 style="margin-bottom: 10px;">লগইন করুন</h3>
+        <input type="text" placeholder="মোবাইল নম্বর বা ইমেইল">
+        <input type="password" placeholder="পাসওয়ার্ড">
+        <button class="modal-btn">প্রবেশ করুন</button>
+    </div>
+</div>
+
+<!-- Post Ad Modal -->
+<div id="postModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('postModal')">&times;</span>
+        <h3 style="margin-bottom: 10px;">বিজ্ঞাপন পোস্ট করুন</h3>
+        <input type="text" placeholder="পণ্যের শিরোনাম">
+        <input type="number" placeholder="দাম (৳)">
+        <input type="text" placeholder="লোকেশন (যেমন: চট্টগ্রাম)">
+        <textarea placeholder="পণ্যের বিবরণ"></textarea>
+        <button class="modal-btn">পোস্ট করুন</button>
+    </div>
+</div>
+
+<script>
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+</script>
 
 </body>
 </html>
