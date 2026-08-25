@@ -5,46 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baza | কেনা-বেচার সহজ মাধ্যম</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f8f9fa; }
-        
-        /* Navigation Bar */
-        .navbar { background-color: #008069; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
-        .logo { color: white; font-size: 28px; font-weight: bold; text-decoration: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: #f4f6f8; color: #333; line-height: 1.6; }
+        .navbar { background-color: #008069; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: white; font-size: 22px; font-weight: bold; text-decoration: none; }
         .logo span { color: #ffce00; }
-        .nav-btns .btn-post { background-color: #ffce00; color: #333; padding: 10px 18px; font-weight: bold; border-radius: 20px; text-decoration: none; }
-        
-        /* Hero Header Section */
-        .hero { background: linear-gradient(rgba(0,128,105,0.8), rgba(0,128,105,0.8)), url('https://via.placeholder.com/1200x400'); background-size: cover; color: white; text-align: center; padding: 60px 20px; }
-        .hero h1 { font-size: 32px; margin-bottom: 10px; }
-        .hero p { font-size: 18px; margin-bottom: 25px; opacity: 0.9; }
-        
-        /* Search Bar Box */
-        .search-box { max-width: 600px; margin: 0 auto; display: flex; gap: 10px; }
-        .search-box input { flex: 1; padding: 14px; border: none; border-radius: 6px; font-size: 16px; outline: none; }
-        .search-box button { background-color: #ffce00; border: none; padding: 14px 25px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .btn-post { background-color: #ffce00; color: #111; padding: 8px 12px; font-weight: bold; border-radius: 20px; text-decoration: none; font-size: 13px; }
+        .hero { background-color: #008069; color: white; text-align: center; padding: 30px 15px; }
+        .search-container { max-width: 400px; margin: 15px auto 0; display: flex; gap: 5px; }
+        .search-container input { flex: 1; padding: 10px; border: none; border-radius: 4px; }
+        .search-container button { background-color: #ffce00; border: none; padding: 10px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+        .categories { display: flex; gap: 10px; margin: 15px 0 25px; flex-wrap: wrap; }
+        .cat-btn { background: white; padding: 10px 15px; border-radius: 6px; border: 1px solid #ddd; font-weight: bold; }
+        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        .card { background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .price { color: #008069; font-size: 16px; font-weight: bold; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-<!-- Top Navigation -->
 <nav class="navbar">
     <a href="#" class="logo">Baza<span>.com.bd</span></a>
-    <div class="nav-btns">
-        <a href="#" class="btn-post">+ বিজ্ঞাপন দিন</a>
-    </div>
+    <a href="#" class="btn-post">+ বিজ্ঞাপন দিন</a>
 </nav>
 
-<!-- Hero Section -->
 <header class="hero">
-    <h1>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
-    <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
-    
-    <div class="search-box">
-        <input type="text" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক, ফ্রিজ)...">
+    <h2>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h2>
+    <div class="search-container">
+        <input type="text" placeholder="কী খুঁজছেন?...">
         <button>খুঁজুন</button>
     </div>
 </header>
+
+<div class="container">
+    <h3>পপুলার ক্যাটাগরি</h3>
+    <div class="categories">
+        <div class="cat-btn">📱 মোবাইল</div>
+        <div class="cat-btn">💻 ইলেকট্রনিক্স</div>
+        <div class="cat-btn">🏍️ বাইক</div>
+    </div>
+
+    <h3>সর্বশেষ বিজ্ঞাপন</h3>
+    <div class="products">
+        <div class="card">
+            <h4>Samsung S22 Ultra</h4>
+            <p style="font-size:12px; color:#666;">📍 চট্টগ্রাম</p>
+            <div class="price">৳ ৬৫,০০০</div>
+        </div>
+        <div class="card">
+            <h4>Yamaha FZ-S V3</h4>
+            <p style="font-size:12px; color:#666;">📍 চট্টগ্রাম</p>
+            <div class="price">৳ ১,৮৫,০০০</div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
