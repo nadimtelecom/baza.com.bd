@@ -12,7 +12,7 @@
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', sans-serif; }
-    body { background-color: #ffffff; color: #2c3e50; }
+    body { background-color: #f4f6f8; color: #2c3e50; }
 
     /* Top Navigation Header */
     .top-nav {
@@ -75,7 +75,7 @@
       cursor: pointer;
     }
 
-    /* Location & Search Filter Bar (Green Bar) */
+    /* Location & Search Filter Bar */
     .filter-bar {
       background-color: #00a664;
       padding: 10px 15px;
@@ -89,7 +89,7 @@
       padding: 8px 10px;
       font-size: 13px;
       outline: none;
-      width: 40%;
+      width: 45%;
     }
     .input-search-bar {
       background: #ffffff;
@@ -112,8 +112,11 @@
     .container { padding: 20px 15px; max-width: 900px; margin: 0 auto; }
     .grid-categories {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 15px 10px;
+    }
+    @media (min-width: 600px) {
+      .grid-categories { grid-template-columns: repeat(6, 1fr); }
     }
     .cat-item {
       text-align: center;
@@ -135,8 +138,12 @@
     .cat-item span { font-size: 12px; font-weight: 600; color: #333; display: block; line-height: 1.2; }
 
     /* Ads Section */
-    .section-title { font-size: 18px; font-weight: 700; margin: 25px 0 15px; color: #167a62; }
-    .ads-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin: 25px 0 15px; }
+    .section-title { font-size: 18px; font-weight: 700; color: #167a62; }
+    .btn-clear-ads { background: #ff4d4d; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; }
+    .ads-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; min-height: 50px; }
+    .no-ads-msg { font-size: 14px; color: #888; text-align: center; grid-column: 1 / -1; padding: 20px 0; }
+    
     .ad-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.08); border: 1px solid #eee; }
     .ad-card img { width: 100%; height: 130px; object-fit: cover; }
     .ad-details { padding: 10px; }
@@ -157,7 +164,7 @@
     .modal-box {
       background: white;
       width: 90%;
-      max-width: 450px;
+      max-width: 480px;
       border-radius: 10px;
       padding: 20px;
       max-height: 85vh;
@@ -167,6 +174,15 @@
     .modal-header h3 { font-size: 18px; color: #167a62; }
     .close-btn { cursor: pointer; font-size: 20px; color: #888; }
     
+    .subcat-item {
+      padding: 12px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .subcat-item:hover { background: #eefdf5; color: #167a62; font-weight: 600; }
+
     .form-group { margin-bottom: 12px; }
     .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
     .form-group input, .form-group select, .form-group textarea {
@@ -213,8 +229,8 @@
 
   <!-- Location Dropdown & Input Search Bar -->
   <div class="filter-bar">
-    <select class="select-location" id="all-districts">
-      <!-- Dynamic Load: Bangladesh 64 Districts -->
+    <select class="select-location" id="all-locations">
+      <!-- Dynamic Load: Divisions & Districts -->
     </select>
     <div class="input-search-bar">
       <input type="text" placeholder="I am looking for...">
@@ -224,84 +240,30 @@
 
   <!-- Category Icons Grid -->
   <div class="container">
-    <div class="grid-categories">
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-fire" style="color:#ff4500;"></i></div>
-        <span>Trending</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-car"></i></div>
-        <span>Vehicles</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-house-chimney"></i></div>
-        <span>Property</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-mobile-screen-button"></i></div>
-        <span>Phones & Tablets</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-laptop"></i></div>
-        <span>Electronics</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-couch"></i></div>
-        <span>Home & Furniture</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-shirt"></i></div>
-        <span>Fashion</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-pump-soap"></i></div>
-        <span>Beauty & Personal Care</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-        <span>Services</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-helmet-safety"></i></div>
-        <span>Repair & Construction</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-gears"></i></div>
-        <span>Commercial Tools</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-futbol"></i></div>
-        <span>Leisure & Activities</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-teddy-bear"></i></div>
-        <span>Babies & Kids</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-wheat-awn"></i></div>
-        <span>Agriculture & Food</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-dog"></i></div>
-        <span>Animals & Pets</span>
-      </div>
-      <div class="cat-item">
-        <div class="icon-box"><i class="fa-solid fa-briefcase"></i></div>
-        <span>Jobs</span>
-      </div>
+    <div class="grid-categories" id="categories-grid">
+      <!-- Dynamic Categories Load -->
     </div>
 
     <!-- Live Ads List Section -->
-    <div class="section-title">সাম্প্রতিক বিজ্ঞাপনসমূহ</div>
+    <div class="section-header">
+      <div class="section-title">সাম্প্রতিক বিজ্ঞাপনসমূহ</div>
+      <button class="btn-clear-ads" onclick="clearAllAds()">সব মুছুন</button>
+    </div>
+    
+    <!-- Ads Container (Empty by default) -->
     <div class="ads-list" id="ads-container">
-      <div class="ad-card">
-        <img src="https://via.placeholder.com/200x130?text=Phone" alt="Ad">
-        <div class="ad-details">
-          <h4>OPPO Reno 14 5G (Fresh Condition)</h4>
-          <div class="price">৳ ৩৪,৫০০</div>
-          <div class="loc"><i class="fa-solid fa-location-dot"></i> চট্টগ্রাম ইপিজেড</div>
-        </div>
+      <div class="no-ads-msg" id="empty-msg">বর্তমানে কোনো বিজ্ঞাপন নেই। "+ বিজ্ঞাপন দিন" বাটনে ক্লিক করে প্রথম বিজ্ঞাপন প্রকাশ করুন!</div>
+    </div>
+  </div>
+
+  <!-- POPUP: Sub-Categories Modal -->
+  <div class="modal-overlay" id="subcat-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="cat-modal-title">সাব-ক্যাটাগরি</h3>
+        <i class="fa-solid fa-xmark close-btn" onclick="closeModal('subcat-modal')"></i>
       </div>
+      <div id="subcat-modal-body"></div>
     </div>
   </div>
 
@@ -319,26 +281,19 @@
         </div>
         <div class="form-group">
           <label>ক্যাটাগরি</label>
-          <select required>
-            <option value="">নির্বাচন করুন</option>
-            <option>Phones & Tablets</option>
-            <option>Electronics</option>
-            <option>Vehicles</option>
-            <option>Property</option>
-            <option>Fashion</option>
-          </select>
+          <select id="ad-category-select" required></select>
         </div>
         <div class="form-group">
           <label>দাম (টাকা)</label>
           <input type="number" id="ad-price" placeholder="যেমন: ২৫০০০" required>
         </div>
         <div class="form-group">
-          <label>জেলা</label>
-          <select id="ad-district" required></select>
+          <label>লোকেশন</label>
+          <select id="ad-location-select" required></select>
         </div>
         <div class="form-group">
-          <label>থানা / এলাকা</label>
-          <input type="text" id="ad-area" placeholder="যেমন: EPZ, হালিশহর" required>
+          <label>বিস্তারিত ঠিকানা / এলাকা</label>
+          <input type="text" id="ad-area" placeholder="যেমন: আগ্রাবাদ / জিইসি মোড়" required>
         </div>
         <button type="submit" class="submit-btn">বিজ্ঞাপন প্রকাশ করুন</button>
       </form>
@@ -394,71 +349,177 @@
     </div>
   </div>
 
-  <!-- All Logic Javascript Code -->
+  <!-- JavaScript Logic -->
   <script>
-    // Bangladesh All 64 Districts List
-    const bdDistricts = [
-      "চট্টগ্রাম", "ঢাকা", "কক্সবাজার", "কুমিল্লা", "ফেনী", "নোয়াখালী", "ব্রাহ্মণবাড়িয়া", "চাঁদপুর", "লক্ষ্মীপুর", "খাগড়াছড়ি", "রাঙ্গামাটি", "বান্দরবান",
-      "গাজীপুর", "নারায়ণগঞ্জ", "টাঙ্গাইল", "ফরিদপুর", "মানিকগঞ্জ", "মুন্সিগঞ্জ", "নরসিংদী", "শরীয়তপুর", "মাদারীপুর", "গোপালগঞ্জ", "রাজবাড়ী",
-      "রাজশাহী", "বগুড়া", "পাবনা", "সিরাজগঞ্জ", "নওগাঁ", "নাটোর", "চাঁপাইনবাবগঞ্জ", "জয়পুরহাট",
-      "খুলনা", "যশোর", "কুষ্টিয়া", "সাতক্ষীরা", "বাগেরহাট", "ঝিনাইদহ", "মেহেরপুর", "নড়াইল", "মাগুরা", "চুয়াডাঙ্গা",
-      "সিলেট", "মৌলভীবাজার", "হবিগঞ্জ", "সুনামগঞ্জ",
-      "বরিশাল", "পটুয়াখালী", "ভোলা", "পিরোজপুর", "বরগুনা", "ঝালকাঠি",
-      "রংপুর", "দিনাজপুর", "গাইবান্ধা", "কুড়িগ্রাম", "নীলফামারী", "পঞ্চগড়", "ঠাকুরগাঁও", "লালমনিরহাট",
-      "ময়মনসিংহ", "জামালপুর", "নেত্রকোনা", "শেরপুর"
+    // Categories & Subcategories Data
+    const categoryData = [
+      {
+        id: "mobiles",
+        name: "মোবাইল (Mobiles)",
+        icon: "fa-mobile-screen-button",
+        subs: ["মোবাইল ফোন (Mobile Phones)", "মোবাইল এক্সেসরিজ (Mobile Accessories)", "স্মার্টওয়াচ (Smartwatches)", "সিম কার্ড (SIM Cards)"]
+      },
+      {
+        id: "electronics",
+        name: "ইলেকট্রনিক্স (Electronics)",
+        icon: "fa-laptop",
+        subs: ["ডেস্কটপ ও ল্যাপটপ (Computers)", "টিভি (TVs)", "অডিও সিস্টেম (Audio)", "ক্যামেরা (Cameras)", "হোম অ্যাপ্লায়েন্স (Home Appliances)"]
+      },
+      {
+        id: "vehicles",
+        name: "যানবাহন (Vehicles)",
+        icon: "fa-car",
+        subs: ["কার (Cars)", "মোটর বাইক (Motorbikes)", "বাইসাইকেল (Bicycles)", "অটো পার্টস (Auto Parts)"]
+      },
+      {
+        id: "property",
+        name: "প্রোপার্টি (Property)",
+        icon: "fa-house-chimney",
+        subs: ["ফ্ল্যাট বিক্রয় (Apartments for Sale)", "ফ্ল্যাট ভাড়া (Apartments for Rent)", "জমি (Land)"]
+      },
+      {
+        id: "home",
+        name: "হোম ও লিভিং (Home & Living)",
+        icon: "fa-couch",
+        subs: ["ফার্নিচার (Furniture)", "হোম ডেকোর (Home Decor)"]
+      },
+      {
+        id: "pets",
+        name: "পোষা প্রাণী (Pets)",
+        icon: "fa-cat",
+        subs: ["বিড়াল (Cats)", "পাখি (Birds)", "মাছ (Fish)", "কুকুর (Dogs)"]
+      }
     ];
 
-    // Populate District Select Options
-    function loadDistricts() {
-      const selectTop = document.getElementById('all-districts');
-      const selectForm = document.getElementById('ad-district');
-      
-      let html = '<option value="">সমস্ত বাংলাদেশ (৬৪ জেলা)</option>';
-      let formHtml = '<option value="">জেলা নির্বাচন করুন</option>';
+    // Location Hierarchy Data
+    const locationData = {
+      "১. চট্টগ্রাম বিভাগ": {
+        "চট্টগ্রাম শহর": ["আগ্রাবাদ", "জিইসি মোড়", "হালিশহর", "চট্টগ্রাম ইপিজেড", "পতেঙ্গা", "চান্দগাঁও", "চকবাজার", "কোতোয়ালি", "পঞ্চলাইশ", "খুলশী"],
+        "চট্টগ্রামের উপজেলা": ["হাটহাজারী", "রাউজান", "ফটিকছড়ি", "পটিয়া", "সীতাকুণ্ড", "মিরসরাই"],
+        "অন্যান্য জেলা": ["কক্সবাজার", "কুমিল্লা", "ফেনী", "নোয়াখালী", "চাঁদপুর", "ব্রাহ্মণবাড়িয়া", "রাঙ্গামাটি", "বান্দরবান", "খাগড়াছড়ি"]
+      },
+      "২. ঢাকা বিভাগ": {
+        "ঢাকা শহর": ["মিরপুর", "উত্তরা", "ধানমন্ডি", "গুলশান", "বনানী", "মোহাম্মদপুর", "বাড্ডা", "যাত্রাবাড়ী", "সাভার", "কেরানীগঞ্জ"],
+        "অন্যান্য জেলা": ["গাজীপুর", "নারায়ণগঞ্জ", "টাঙ্গাইল", "নরসিংদী", "ফরিদপুর", "মানিকগঞ্জ", "মুন্সীগঞ্জ"]
+      },
+      "৩. অন্যান্য বিভাগ": {
+        "রাজশাহী বিভাগ": ["রাজশাহী", "বগুড়া", "পাবনা", "সিরাজগঞ্জ"],
+        "খুলনা বিভাগ": ["খুলনা", "যশোর", "কুষ্টিয়া", "সাতক্ষীরা"],
+        "সিলেট বিভাগ": ["সিলেট", "মৌলভীবাজার", "হবিগঞ্জ", "সুনামগঞ্জ"],
+        "বরিশাল বিভাগ": ["বরিশাল", "পটুয়াখালী", "ভোলা"],
+        "রংপুর বিভাগ": ["রংপুর", "দিনাজপুর", "গাইবান্ধা"],
+        "ময়মনসিংহ বিভাগ": ["ময়মনসিংহ", "জামালপুর", "নেত্রকোণা"]
+      }
+    };
 
-      bdDistricts.forEach(d => {
-        html += `<option value="${d}">${d}</option>`;
-        formHtml += `<option value="${d}">${d}</option>`;
+    // Render Categories Component
+    function renderCategories() {
+      const grid = document.getElementById('categories-grid');
+      const adCatSelect = document.getElementById('ad-category-select');
+      
+      let gridHtml = '';
+      let selectHtml = '<option value="">ক্যাটাগরি নির্বাচন করুন</option>';
+
+      categoryData.forEach(c => {
+        gridHtml += `
+          <div class="cat-item" onclick="openSubCategories('${c.id}')">
+            <div class="icon-box"><i class="fa-solid ${c.icon}"></i></div>
+            <span>${c.name}</span>
+          </div>`;
+          
+        selectHtml += `<optgroup label="${c.name}">`;
+        c.subs.forEach(sub => {
+          selectHtml += `<option value="${sub}">${sub}</option>`;
+        });
+        selectHtml += `</optgroup>`;
       });
+
+      grid.innerHTML = gridHtml;
+      adCatSelect.innerHTML = selectHtml;
+    }
+
+    // Render Location Dropdowns
+    function renderLocations() {
+      const selectTop = document.getElementById('all-locations');
+      const selectForm = document.getElementById('ad-location-select');
+      
+      let html = '<option value="">সমস্ত বাংলাদেশ (সকল বিভাগ ও জেলা)</option>';
+      let formHtml = '<option value="">লোকেশন নির্বাচন করুন</option>';
+
+      for (let division in locationData) {
+        html += `<optgroup label="${division}">`;
+        formHtml += `<optgroup label="${division}">`;
+        
+        for (let subGroup in locationData[division]) {
+          locationData[division][subGroup].forEach(loc => {
+            html += `<option value="${loc}">${subGroup} - ${loc}</option>`;
+            formHtml += `<option value="${loc}">${loc}</option>`;
+          });
+        }
+        
+        html += `</optgroup>`;
+        formHtml += `</optgroup>`;
+      }
 
       selectTop.innerHTML = html;
       selectForm.innerHTML = formHtml;
     }
-    loadDistricts();
 
-    // Modal Control Functions
-    function openModal(id) {
-      document.getElementById(id).style.display = 'flex';
-    }
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
+    // Modal Operations
+    function openSubCategories(catId) {
+      const category = categoryData.find(c => c.id === catId);
+      document.getElementById('cat-modal-title').innerText = category.name;
+      
+      let html = '';
+      category.subs.forEach(sub => {
+        html += `<div class="subcat-item" onclick="closeModal('subcat-modal')">${sub}</div>`;
+      });
+      
+      document.getElementById('subcat-modal-body').innerHTML = html;
+      openModal('subcat-modal');
     }
 
-    // Dynamic Post Ad Submission Logic
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    // Dynamic Post Ad Submit Function
     function handlePostAd(e) {
       e.preventDefault();
       const title = document.getElementById('ad-title').value;
       const price = document.getElementById('ad-price').value;
-      const district = document.getElementById('ad-district').value;
+      const location = document.getElementById('ad-location-select').value;
       const area = document.getElementById('ad-area').value;
+
+      const emptyMsg = document.getElementById('empty-msg');
+      if(emptyMsg) emptyMsg.remove();
 
       const adsContainer = document.getElementById('ads-container');
       const newAdHTML = `
         <div class="ad-card">
-          <img src="https://via.placeholder.com/200x130?text=New+Product" alt="Ad">
+          <img src="https://via.placeholder.com/200x130?text=Product" alt="Ad">
           <div class="ad-details">
             <h4>${title}</h4>
             <div class="price">৳ ${Number(price).toLocaleString('bn-BD')}</div>
-            <div class="loc"><i class="fa-solid fa-location-dot"></i> ${district}, ${area}</div>
+            <div class="loc"><i class="fa-solid fa-location-dot"></i> ${area}, ${location}</div>
           </div>
         </div>
       `;
 
       adsContainer.insertAdjacentHTML('afterbegin', newAdHTML);
-      alert('আপনার বিজ্ঞাপনটি সফলভাবে যুক্ত হয়েছে!');
+      alert('আপনার বিজ্ঞাপনটি সফলভাবে প্রকাশ করা হয়েছে!');
       closeModal('postad-modal');
       e.target.reset();
     }
+
+    // Function to Clear All Ads
+    function clearAllAds() {
+      const adsContainer = document.getElementById('ads-container');
+      adsContainer.innerHTML = '<div class="no-ads-msg" id="empty-msg">বর্তমানে কোনো বিজ্ঞাপন নেই। "+ বিজ্ঞাপন দিন" বাটনে ক্লিক করে প্রথম বিজ্ঞাপন প্রকাশ করুন!</div>';
+    }
+
+    // Initialize Page
+    renderCategories();
+    renderLocations();
   </script>
 </body>
 </html>
