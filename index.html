@@ -9,21 +9,20 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: #f8f9fa;
+            background-color: #f4f6f8;
             color: #333;
         }
 
-        /* Top Header & Search Area */
+        /* Header Bar */
         .top-bar {
             background-color: #008069;
             padding: 12px 15px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             gap: 10px;
             position: sticky;
             top: 0;
@@ -33,51 +32,52 @@
         .location-select {
             background: #ffffff;
             border: none;
-            padding: 10px 8px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: bold;
-            color: #444;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
             outline: none;
             cursor: pointer;
-            max-width: 120px;
+            width: 35%;
         }
 
         .search-box {
-            flex: 1;
+            width: 65%;
             display: flex;
             align-items: center;
             background: white;
-            border-radius: 6px;
-            padding: 0 10px;
+            border-radius: 8px;
+            padding: 0 12px;
         }
 
         .search-box input {
             width: 100%;
-            padding: 10px 5px;
+            padding: 10px 0;
             border: none;
             outline: none;
-            font-size: 13px;
+            font-size: 14px;
+            color: #666;
         }
 
         .search-box button {
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 16px;
+            color: #666;
         }
 
-        /* Categories Section */
+        /* Main Category Grid */
         .category-section {
-            padding: 20px 12px;
+            padding: 20px 15px;
             background: #ffffff;
-            margin-bottom: 10px;
         }
 
         .category-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px 10px;
+            gap: 20px 10px;
             text-align: center;
         }
 
@@ -86,37 +86,38 @@
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            text-decoration: none;
-            color: #333;
         }
 
         .icon-box {
-            width: 65px;
-            height: 65px;
-            background-color: #eef2f6;
-            border-radius: 16px;
+            width: 64px;
+            height: 64px;
+            background-color: #f2f4f8;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            margin-bottom: 6px;
-            transition: background 0.2s;
+            font-size: 30px;
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
         }
 
         .cat-item:hover .icon-box {
-            background-color: #e0e7ff;
+            background-color: #e0f2fe;
+            transform: translateY(-2px);
         }
 
         .cat-label {
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 500;
             line-height: 1.3;
-            color: #444;
+            color: #4a4a4a;
         }
 
-        /* Recent Ads Section */
+        /* Ads & Content Container */
         .ads-section {
-            padding: 15px;
+            padding: 20px 15px;
+            background: #ffffff;
+            margin-top: 10px;
         }
 
         .section-header {
@@ -126,28 +127,36 @@
             margin-bottom: 15px;
         }
 
+        .section-header h3 {
+            font-size: 18px;
+            color: #222;
+            font-weight: 600;
+        }
+
         .btn-post {
             background-color: #ffce00;
-            color: #008069;
+            color: #000;
             font-weight: bold;
-            padding: 8px 12px;
+            padding: 8px 14px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 13px;
         }
 
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 12px;
+            margin-bottom: 25px;
         }
 
         .card {
             background: white;
             padding: 10px;
             border-radius: 8px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -195,6 +204,57 @@
             font-size: 12px;
         }
 
+        /* Detailed Sub-Categories Section (All in One Page) */
+        .all-categories-detail {
+            background: #ffffff;
+            padding: 20px 15px;
+            margin-top: 10px;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .all-categories-detail h3 {
+            font-size: 16px;
+            color: #008069;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #008069;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        .category-block {
+            margin-bottom: 20px;
+        }
+
+        .category-block h4 {
+            font-size: 14px;
+            color: #222;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sub-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .sub-tag {
+            background: #f0f4f8;
+            color: #555;
+            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .sub-tag:hover {
+            background: #008069;
+            color: #fff;
+        }
+
         /* Modal Styles */
         .modal {
             display: none;
@@ -212,7 +272,7 @@
             padding: 20px;
             max-width: 400px;
             margin: 60px auto;
-            border-radius: 8px;
+            border-radius: 12px;
             position: relative;
         }
 
@@ -246,18 +306,18 @@
 
         /* Footer */
         footer {
-            background: #222;
-            color: #ccc;
+            background: #1e2022;
+            color: #aaa;
             text-align: center;
             padding: 20px;
-            margin-top: 30px;
             font-size: 12px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Section with Location and Search -->
+    <!-- Header Section -->
     <div class="top-bar">
         <select class="location-select">
             <option>Chattogram</option>
@@ -278,74 +338,74 @@
     <!-- Category Grid Section -->
     <div class="category-section">
         <div class="category-grid">
-            <div class="cat-item" onclick="filterCategory('Trending')">
+            <div class="cat-item" onclick="scrollToCat('trending')">
                 <div class="icon-box">🔥</div>
                 <div class="cat-label">Trending</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Vehicles')">
+            <div class="cat-item" onclick="scrollToCat('vehicles')">
                 <div class="icon-box">🚗</div>
                 <div class="cat-label">Vehicles</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Property')">
-                <div class="icon-box">🏠</div>
+            <div class="cat-item" onclick="scrollToCat('property')">
+                <div class="icon-box">🏡</div>
                 <div class="cat-label">Property</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Phones & Tablets')">
+            <div class="cat-item" onclick="scrollToCat('phones')">
                 <div class="icon-box">📱</div>
                 <div class="cat-label">Phones & Tablets</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Electronics')">
+            <div class="cat-item" onclick="scrollToCat('electronics')">
                 <div class="icon-box">💻</div>
                 <div class="cat-label">Electronics</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Home & Furniture')">
+            <div class="cat-item" onclick="scrollToCat('home')">
                 <div class="icon-box">🛋️</div>
                 <div class="cat-label">Home, Furniture & Appliances</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Fashion')">
+            <div class="cat-item" onclick="scrollToCat('fashion')">
                 <div class="icon-box">👗</div>
                 <div class="cat-label">Fashion</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Beauty')">
+            <div class="cat-item" onclick="scrollToCat('beauty')">
                 <div class="icon-box">🧴</div>
                 <div class="cat-label">Beauty & Personal Care</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Services')">
+            <div class="cat-item" onclick="scrollToCat('services')">
                 <div class="icon-box">🔧</div>
                 <div class="cat-label">Services</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Construction')">
+            <div class="cat-item" onclick="scrollToCat('construction')">
                 <div class="icon-box">👷</div>
                 <div class="cat-label">Repair & Construction</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Tools')">
+            <div class="cat-item" onclick="scrollToCat('tools')">
                 <div class="icon-box">⚙️</div>
                 <div class="cat-label">Commercial Equipment</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Activities')">
+            <div class="cat-item" onclick="scrollToCat('activities')">
                 <div class="icon-box">🏃</div>
                 <div class="cat-label">Leisure & Activities</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Kids')">
+            <div class="cat-item" onclick="scrollToCat('kids')">
                 <div class="icon-box">🧸</div>
                 <div class="cat-label">Babies & Kids</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Agriculture')">
+            <div class="cat-item" onclick="scrollToCat('agriculture')">
                 <div class="icon-box">🌾</div>
                 <div class="cat-label">Food & Agriculture</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Pets')">
+            <div class="cat-item" onclick="scrollToCat('pets')">
                 <div class="icon-box">🐶</div>
                 <div class="cat-label">Animals & Pets</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Jobs')">
+            <div class="cat-item" onclick="scrollToCat('jobs')">
                 <div class="icon-box">💼</div>
                 <div class="cat-label">Jobs</div>
             </div>
         </div>
     </div>
 
-    <!-- Recent Ads Section -->
+    <!-- Active Ads List -->
     <div class="ads-section">
         <div class="section-header">
             <h3>Trending Ads</h3>
@@ -366,6 +426,83 @@
         </div>
     </div>
 
+    <!-- Detailed Sub-Categories Section (All Category Items Combined) -->
+    <div class="all-categories-detail" id="categoryDetails">
+        <h3>সকল ক্যাটাগরির বিস্তারিত</h3>
+
+        <div class="category-block" id="property">
+            <h4>🏡 Property (প্রপার্টি)</h4>
+            <div class="sub-tags">
+                <span class="sub-tag">Apartments for Sale</span>
+                <span class="sub-tag">Land & Plots for Sale</span>
+                <span class="sub-tag">Houses & Apartments for Rent</span>
+                <span class="sub-tag">Commercial Properties</span>
+                <span class="sub-tag">Flatshares & Roommates</span>
+            </div>
+        </div>
+
+        <div class="category-block" id="vehicles">
+            <h4>🚗 Vehicles (যানবাহন)</h4>
+            <div class="sub-tags">
+                <span class="sub-tag">Cars</span>
+                <span class="sub-tag">Motorcycles & Scooters</span>
+                <span class="sub-tag">Bicycles</span>
+                <span class="sub-tag">Trucks & Commercial Vehicles</span>
+                <span class="sub-tag">Auto Parts & Accessories</span>
+            </div>
+        </div>
+
+        <div class="category-block" id="phones">
+            <h4>📱 Phones & Tablets (মোবাইল ও ট্যাবলেট)</h4>
+            <div class="sub-tags">
+                <span class="sub-tag">Mobile Phones</span>
+                <span class="sub-tag">Tablets</span>
+                <span class="sub-tag">Smart Watches</span>
+                <span class="sub-tag">Mobile Accessories</span>
+            </div>
+        </div>
+
+        <div class="category-block" id="electronics">
+            <h4>💻 Electronics (ইলেকট্রনিক্স)</h4>
+            <div class="sub-tags">
+                <span class="sub-tag">Laptops & Computers</span>
+                <span class="sub-tag">TVs & Video Accessories</span>
+                <span class="sub-tag">Cameras & Camcorders</span>
+                <span class="sub-tag">Desktop Accessories</span>
+            </div>
+        </div>
+
+        <div class="category-block" id="home">
+            <h4>🛋️ Home, Furniture & Appliances (হোম ও ফার্নিচার)</h4>
+            <div class="sub-tags">
+                <span class="sub-tag">Furniture</span>
+                <span class="sub-tag">Home Appliances</span>
+                <span class="sub-tag">Kitchen Appliances</span>
+                <span class="sub-tag">Home Decor & Garden</span>
+            </div>
+        </div>
+
+        <div class="category-block" id="services">
+            <h4>🔧 Services (সার্ভিস)</h4>
+            <div class="sub-tags">
+                <span class="sub-tag">AC Repair & Maintenance</span>
+                <span class="sub-tag">Plumbing & Electrician</span>
+                <span class="sub-tag">Car Rentals</span>
+                <span class="sub-tag">Home Cleaning Services</span>
+            </div>
+        </div>
+
+        <div class="category-block" id="jobs">
+            <h4>💼 Jobs (চাকরি)</h4>
+            <div class="sub-tags">
+                <span class="sub-tag">Full-time Jobs</span>
+                <span class="sub-tag">Part-time Jobs</span>
+                <span class="sub-tag">Work From Home</span>
+                <span class="sub-tag">Internships</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Post Ad Modal -->
     <div id="postModal" class="modal">
         <div class="modal-content">
@@ -376,7 +513,7 @@
                 <option value="Phones & Tablets">📱 Phones & Tablets</option>
                 <option value="Vehicles">🚗 Vehicles</option>
                 <option value="Electronics">💻 Electronics</option>
-                <option value="Property">🏠 Property</option>
+                <option value="Property">🏡 Property</option>
             </select>
             <input type="text" id="postPrice" placeholder="মূল্য (৳)">
             <input type="text" id="postLocation" placeholder="লোকেশন">
@@ -400,16 +537,11 @@
             document.getElementById(id).style.display = 'none';
         }
 
-        function filterCategory(cat) {
-            var cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                var cardCategory = card.getAttribute('data-category');
-                if (cat === 'Trending' || cardCategory === cat) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+        function scrollToCat(id) {
+            var element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function searchProducts() {
