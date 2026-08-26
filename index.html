@@ -17,10 +17,51 @@
             color: #333;
         }
 
-        /* Top Header */
+        /* Top Header Bar */
+        .header-brand {
+            background-color: #006b58;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-area span {
+            color: #ffce00;
+        }
+
+        .home-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Search Bar Section */
         .top-bar {
             background-color: #008069;
-            padding: 12px 15px;
+            padding: 10px 15px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -65,7 +106,7 @@
             cursor: pointer;
         }
 
-        /* Interactive Category Grid Icons */
+        /* Category Grid */
         .category-section {
             padding: 15px;
             background: #ffffff;
@@ -115,7 +156,7 @@
             line-height: 1.2;
         }
 
-        /* Product Ads Grid */
+        /* Ads Grid */
         .ads-section {
             padding: 15px;
             background: #ffffff;
@@ -251,7 +292,7 @@
             color: #008069;
         }
 
-        /* Direct Payment Info Box */
+        /* Payment Info Box */
         .visible-payment-section {
             padding: 15px;
             background: #ffffff;
@@ -278,7 +319,7 @@
             color: #2c3e50;
         }
 
-        /* Modal Styles */
+        /* Modals */
         .modal {
             display: none;
             position: fixed;
@@ -340,7 +381,17 @@
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Brand & Home Bar -->
+    <div class="header-brand">
+        <a href="#" class="logo-area" onclick="filterCategory('All', document.querySelector('.cat-item'))">
+            🛍️ Baza<span>.com.bd</span>
+        </a>
+        <button class="home-btn" onclick="filterCategory('All', document.querySelector('.cat-item'))">
+            🏠 Home
+        </button>
+    </div>
+
+    <!-- Search Section -->
     <div class="top-bar">
         <select class="location-select">
             <option>Chattogram</option>
@@ -537,7 +588,7 @@
         </div>
     </div>
 
-    <!-- Post Ad Modal Window -->
+    <!-- Post Ad Modal -->
     <div id="postModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postModal')">&times;</span>
@@ -558,7 +609,7 @@
         </div>
     </div>
 
-    <!-- Payment Confirmation Modal Window -->
+    <!-- Payment Confirmation Modal -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
@@ -573,7 +624,7 @@
         <p>&copy; 2026 Baza.com.bd — All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript Functionalities -->
+    <!-- Scripts -->
     <script>
         function openModal(id) {
             document.getElementById(id).style.display = 'block';
@@ -587,10 +638,13 @@
             var cards = document.querySelectorAll('.card');
             var title = document.getElementById('categoryTitle');
             
+            var items = document.querySelectorAll('.cat-item');
+            items.forEach(item => item.classList.remove('active'));
+
             if (element) {
-                var items = document.querySelectorAll('.cat-item');
-                items.forEach(item => item.classList.remove('active'));
                 element.classList.add('active');
+            } else {
+                items[0].classList.add('active');
             }
 
             title.innerText = cat === 'All' ? 'Trending Ads' : cat + ' Ads';
@@ -603,6 +657,8 @@
                     card.style.display = 'none';
                 }
             });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function openPayment(title, price) {
