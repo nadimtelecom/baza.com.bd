@@ -44,6 +44,23 @@
             color: #ffcc00;
         }
 
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-auth {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
         .btn-post-ad {
             background-color: #ffcc00;
             color: #000;
@@ -250,7 +267,7 @@
             color: white;
         }
 
-        /* Modal Styles (Hidden Payment Details) */
+        /* Modal Base Styles */
         .modal {
             display: none;
             position: fixed;
@@ -271,6 +288,8 @@
             max-width: 450px;
             width: 90%;
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .close-btn {
@@ -282,6 +301,39 @@
             color: #666;
         }
 
+        /* Form Controls inside Modals */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #008069;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        /* Payment Box Info */
         .payment-box {
             background: #f8f9fa;
             border: 1px dashed #008069;
@@ -301,7 +353,10 @@
     <!-- Header -->
     <header>
         <a href="#" class="logo">Baza<span>.com.bd</span></a>
-        <button class="btn-post-ad" onclick="openPaymentModal('বিজ্ঞাপন পোস্ট / টপ-আপ')">+ বিজ্ঞাপন দিন</button>
+        <div class="header-right">
+            <button class="btn-auth" onclick="openModal('authModal')">লগইন / সাইনআপ</button>
+            <button class="btn-post-ad" onclick="openModal('postAdModal')">+ বিজ্ঞাপন দিন</button>
+        </div>
     </header>
 
     <!-- Hero Search Section -->
@@ -388,13 +443,13 @@
             </div>
         </div>
 
-        <!-- Trending Section Header -->
+        <!-- Section Header -->
         <div class="section-header">
             <h2>Trending</h2>
         </div>
 
         <!-- Product Listings -->
-        <div class="product-grid">
+        <div class="product-grid" id="productGrid">
             <div class="product-card">
                 <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=500&q=80" alt="Apartment">
                 <div class="product-details">
@@ -442,12 +497,76 @@
         </div>
     </div>
 
-    <!-- Hidden Payment Modal -->
+    <!-- 1. Post Ad Modal (বিজ্ঞাপন পোস্ট ফর্ম) -->
+    <div id="postAdModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
+            <h3 style="color:#008069; margin-bottom: 12px;">আপনার বিজ্ঞাপন দিন</h3>
+            <form onsubmit="handleAdSubmit(event)">
+                <div class="form-group">
+                    <label>পণ্যের নাম / শিরোনাম</label>
+                    <input type="text" required placeholder="যেমন: স্যামসাং গ্যালাক্সি এস২৪ Ultra">
+                </div>
+                <div class="form-group">
+                    <label>ক্যাটাগরি</label>
+                    <select required>
+                        <option value="">ক্যাটাগরি নির্বাচন করুন</option>
+                        <option>Phones & Tablets</option>
+                        <option>Electronics</option>
+                        <option>Vehicles</option>
+                        <option>Property</option>
+                        <option>Fashion</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>মূল্য (টাকা)</label>
+                    <input type="number" required placeholder="যেমন: ২৫০০০">
+                </div>
+                <div class="form-group">
+                    <label>অবস্থান</label>
+                    <input type="text" required placeholder="যেমন: চট্টগ্রাম, ইপিজেড">
+                </div>
+                <div class="form-group">
+                    <label>পণ্যের ছবি</label>
+                    <input type="file" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label>পণ্যের বিস্তারিত বিবরণ</label>
+                    <textarea rows="3" placeholder="পণ্য সম্পর্কে বিস্তারিত লিখুন..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">বিজ্ঞাপন সাবমিট করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. Auth Modal (Login / Signup) -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('authModal')">&times;</span>
+            <h3 style="color:#008069; margin-bottom: 15px; text-align:center;">অ্যাাকাউন্টে প্রবেশ করুন</h3>
+            <form onsubmit="handleAuth(event)">
+                <div class="form-group">
+                    <label>মোবাইল নম্বর / ইমেইল</label>
+                    <input type="text" required placeholder="017XXXXXXXX">
+                </div>
+                <div class="form-group">
+                    <label>পাসওয়ার্ড</label>
+                    <input type="password" required placeholder="******">
+                </div>
+                <button type="submit" class="btn-submit">লগইন</button>
+            </form>
+            <p style="text-align:center; font-size:12px; margin-top:15px; color:#666;">
+                নতুন ইউজার? <a href="#" style="color:#008069; font-weight:bold;" onclick="alert('সাইনআপ সুবিধা শীঘ্রই সম্পূর্ণ চালু হচ্ছে')">এখানে সাইনআপ করুন</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 3. Payment Modal (বিজ্ঞাপন পোস্টের পর বা বুস্টের সময় আসবে) -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h3 id="modalTitle" style="color:#008069; margin-bottom: 10px;">পেমেন্ট অপশন</h3>
-            <p style="font-size:13px; color:#555;">পেমেন্ট নিশ্চিত করতে নিচের অ্যাকাউন্টে টাকা পাঠান:</p>
+            <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
+            <h3 id="modalTitle" style="color:#008069; margin-bottom: 10px;">পেমেন্ট করুন</h3>
+            <p style="font-size:13px; color:#555;">আপনার পোস্টটি প্রকাশ বা প্রমোট করতে নিচের অ্যাকাউন্টে পেমেন্ট করুন:</p>
 
             <div class="payment-box">
                 <p><strong>বিকাশ / নগদ / রকেট (Personal):</strong></p>
@@ -461,7 +580,7 @@
                 <p><strong>A/C No:</strong> <span style="font-weight:bold; color:#008069;">1106104006949001</span></p>
             </div>
 
-            <p style="font-size:11px; color:#777; margin-top:10px;">* টাকা পাঠানোর পর আপনার ট্রানজেকশন আইডি (TxnID) সাপোর্ট নম্বরে পাঠিয়ে দিন।</p>
+            <p style="font-size:11px; color:#777; margin-top:10px;">* টাকা পাঠানোর পর আপনার ট্রানজেকশন আইডি (TxnID) দিয়ে নিশ্চিত করুন।</p>
         </div>
     </div>
 
@@ -470,20 +589,35 @@
             alert(categoryName + ' ক্যাটাগরির পণ্যসমূহ লোড হচ্ছে...');
         }
 
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
         function openPaymentModal(serviceName) {
             document.getElementById('modalTitle').innerText = serviceName + ' - পেমেন্ট করুন';
-            document.getElementById('paymentModal').style.display = 'flex';
+            openModal('paymentModal');
         }
 
-        function closeModal() {
-            document.getElementById('paymentModal').style.display = 'none';
+        function handleAdSubmit(e) {
+            e.preventDefault();
+            closeModal('postAdModal');
+            openPaymentModal('বিজ্ঞাপন প্রকাশ ফি');
         }
 
-        // Close modal when clicking outside content
+        function handleAuth(e) {
+            e.preventDefault();
+            alert('সফলভাবে লগইন হয়েছে!');
+            closeModal('authModal');
+        }
+
+        // Close modal when clicking outside
         window.onclick = function(event) {
-            var modal = document.getElementById('paymentModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
             }
         }
     </script>
