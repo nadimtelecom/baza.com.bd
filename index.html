@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baza.com.bd</title>
+    <title>Baza.com.bd - All in One Platform</title>
     <style>
         * {
             margin: 0;
@@ -17,7 +17,7 @@
             color: #333;
         }
 
-        /* Header Bar */
+        /* Top Header */
         .top-bar {
             background-color: #008069;
             padding: 12px 15px;
@@ -32,13 +32,12 @@
         .location-select {
             background: #ffffff;
             border: none;
-            padding: 10px 12px;
+            padding: 10px 8px;
             border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 13px;
+            font-weight: 600;
             color: #333;
             outline: none;
-            cursor: pointer;
             width: 35%;
         }
 
@@ -48,7 +47,7 @@
             align-items: center;
             background: white;
             border-radius: 8px;
-            padding: 0 12px;
+            padding: 0 10px;
         }
 
         .search-box input {
@@ -56,28 +55,26 @@
             padding: 10px 0;
             border: none;
             outline: none;
-            font-size: 14px;
-            color: #666;
+            font-size: 13px;
         }
 
         .search-box button {
             background: none;
             border: none;
+            font-size: 15px;
             cursor: pointer;
-            font-size: 16px;
-            color: #666;
         }
 
         /* Main Category Grid */
         .category-section {
-            padding: 20px 15px;
+            padding: 15px;
             background: #ffffff;
         }
 
         .category-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px 10px;
+            gap: 15px 10px;
             text-align: center;
         }
 
@@ -89,33 +86,27 @@
         }
 
         .icon-box {
-            width: 64px;
-            height: 64px;
-            background-color: #f2f4f8;
-            border-radius: 20px;
+            width: 58px;
+            height: 58px;
+            background-color: #f0f4f8;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            margin-bottom: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .cat-item:hover .icon-box {
-            background-color: #e0f2fe;
-            transform: translateY(-2px);
+            font-size: 26px;
+            margin-bottom: 6px;
         }
 
         .cat-label {
             font-size: 11px;
             font-weight: 500;
-            line-height: 1.3;
-            color: #4a4a4a;
+            color: #444;
+            line-height: 1.2;
         }
 
-        /* Ads & Content Container */
+        /* Recent Ads */
         .ads-section {
-            padding: 20px 15px;
+            padding: 15px;
             background: #ffffff;
             margin-top: 10px;
         }
@@ -124,13 +115,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .section-header h3 {
-            font-size: 18px;
-            color: #222;
-            font-weight: 600;
+            margin-bottom: 12px;
         }
 
         .btn-post {
@@ -139,16 +124,15 @@
             font-weight: bold;
             padding: 8px 14px;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .products {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 12px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
         }
 
         .card {
@@ -156,7 +140,6 @@
             padding: 10px;
             border-radius: 8px;
             border: 1px solid #eee;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -164,13 +147,12 @@
 
         .card img {
             width: 100%;
-            height: 120px;
+            height: 110px;
             object-fit: cover;
             border-radius: 6px;
         }
 
         .badge {
-            display: inline-block;
             background: #eef2f5;
             padding: 2px 6px;
             font-size: 10px;
@@ -179,83 +161,81 @@
             width: fit-content;
         }
 
-        .card h4 {
-            font-size: 13px;
-            color: #222;
-        }
-
         .price {
             color: #008069;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             margin-top: 4px;
         }
 
         .btn-boost {
             margin-top: 8px;
-            width: 100%;
             background: #ffce00;
             color: #008069;
             border: none;
-            padding: 8px;
+            padding: 6px;
             cursor: pointer;
             border-radius: 4px;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11px;
         }
 
-        /* Detailed Sub-Categories Section (All in One Page) */
-        .all-categories-detail {
+        /* Separate Folders Category View */
+        .folder-section {
+            padding: 15px;
             background: #ffffff;
-            padding: 20px 15px;
             margin-top: 10px;
-            border-top: 1px solid #eaeaea;
         }
 
-        .all-categories-detail h3 {
+        .folder-section h3 {
             font-size: 16px;
             color: #008069;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #008069;
-            padding-bottom: 5px;
-            display: inline-block;
+            margin-bottom: 12px;
+            border-left: 4px solid #008069;
+            padding-left: 8px;
         }
 
-        .category-block {
-            margin-bottom: 20px;
+        .category-folder {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
         }
 
-        .category-block h4 {
-            font-size: 14px;
-            color: #222;
-            margin-bottom: 8px;
+        .folder-header {
+            padding: 14px 15px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            justify-content: space-between;
+            cursor: pointer;
+            background: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+            color: #2c3e50;
         }
 
-        .sub-tags {
+        .folder-body {
+            padding: 12px 15px;
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
+            background: #f8fafc;
+            border-top: 1px solid #edf2f7;
         }
 
-        .sub-tag {
-            background: #f0f4f8;
-            color: #555;
-            font-size: 11px;
-            padding: 5px 10px;
-            border-radius: 15px;
+        .tag-item {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
             cursor: pointer;
-            text-decoration: none;
         }
 
-        .sub-tag:hover {
-            background: #008069;
-            color: #fff;
-        }
-
-        /* Modal Styles */
+        /* Modals & Payment Styles */
         .modal {
             display: none;
             position: fixed;
@@ -263,15 +243,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             z-index: 1000;
         }
 
         .modal-content {
             background: white;
             padding: 20px;
-            max-width: 400px;
-            margin: 60px auto;
+            max-width: 420px;
+            margin: 30px auto;
             border-radius: 12px;
             position: relative;
         }
@@ -290,7 +270,7 @@
             padding: 10px;
             margin-bottom: 12px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 6px;
         }
 
         .modal-btn {
@@ -299,35 +279,64 @@
             border: none;
             padding: 10px;
             width: 100%;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 14px;
         }
 
-        /* Footer */
+        /* Payment Tabs */
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .pay-option {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .pay-option.selected {
+            border-color: #008069;
+            background-color: #e6f4f1;
+            color: #008069;
+        }
+
+        .pay-info-box {
+            background: #f0f4f8;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
         footer {
             background: #1e2022;
             color: #aaa;
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             font-size: 12px;
-            margin-top: 10px;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Header Bar -->
     <div class="top-bar">
         <select class="location-select">
             <option>Chattogram</option>
             <option>Dhaka</option>
             <option>Sylhet</option>
             <option>Rajshahi</option>
-            <option>Khulna</option>
-            <option>Barishal</option>
-            <option>Rangpur</option>
-            <option>Mymensingh</option>
         </select>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="I am looking for...">
@@ -335,170 +344,152 @@
         </div>
     </div>
 
-    <!-- Category Grid Section -->
+    <!-- Main Grid Icons Section -->
     <div class="category-section">
         <div class="category-grid">
-            <div class="cat-item" onclick="scrollToCat('trending')">
-                <div class="icon-box">🔥</div>
-                <div class="cat-label">Trending</div>
-            </div>
-            <div class="cat-item" onclick="scrollToCat('vehicles')">
-                <div class="icon-box">🚗</div>
-                <div class="cat-label">Vehicles</div>
-            </div>
-            <div class="cat-item" onclick="scrollToCat('property')">
+            <div class="cat-item" onclick="scrollToFolder('cat-property')">
                 <div class="icon-box">🏡</div>
                 <div class="cat-label">Property</div>
             </div>
-            <div class="cat-item" onclick="scrollToCat('phones')">
+            <div class="cat-item" onclick="scrollToFolder('cat-vehicles')">
+                <div class="icon-box">🚗</div>
+                <div class="cat-label">Vehicles</div>
+            </div>
+            <div class="cat-item" onclick="scrollToFolder('cat-phones')">
                 <div class="icon-box">📱</div>
                 <div class="cat-label">Phones & Tablets</div>
             </div>
-            <div class="cat-item" onclick="scrollToCat('electronics')">
+            <div class="cat-item" onclick="scrollToFolder('cat-electronics')">
                 <div class="icon-box">💻</div>
                 <div class="cat-label">Electronics</div>
             </div>
-            <div class="cat-item" onclick="scrollToCat('home')">
+            <div class="cat-item" onclick="scrollToFolder('cat-home')">
                 <div class="icon-box">🛋️</div>
-                <div class="cat-label">Home, Furniture & Appliances</div>
+                <div class="cat-label">Home & Living</div>
             </div>
-            <div class="cat-item" onclick="scrollToCat('fashion')">
-                <div class="icon-box">👗</div>
-                <div class="cat-label">Fashion</div>
-            </div>
-            <div class="cat-item" onclick="scrollToCat('beauty')">
-                <div class="icon-box">🧴</div>
-                <div class="cat-label">Beauty & Personal Care</div>
-            </div>
-            <div class="cat-item" onclick="scrollToCat('services')">
+            <div class="cat-item" onclick="scrollToFolder('cat-services')">
                 <div class="icon-box">🔧</div>
                 <div class="cat-label">Services</div>
             </div>
-            <div class="cat-item" onclick="scrollToCat('construction')">
-                <div class="icon-box">👷</div>
-                <div class="cat-label">Repair & Construction</div>
-            </div>
-            <div class="cat-item" onclick="scrollToCat('tools')">
-                <div class="icon-box">⚙️</div>
-                <div class="cat-label">Commercial Equipment</div>
-            </div>
-            <div class="cat-item" onclick="scrollToCat('activities')">
-                <div class="icon-box">🏃</div>
-                <div class="cat-label">Leisure & Activities</div>
-            </div>
-            <div class="cat-item" onclick="scrollToCat('kids')">
-                <div class="icon-box">🧸</div>
-                <div class="cat-label">Babies & Kids</div>
-            </div>
-            <div class="cat-item" onclick="scrollToCat('agriculture')">
-                <div class="icon-box">🌾</div>
-                <div class="cat-label">Food & Agriculture</div>
-            </div>
-            <div class="cat-item" onclick="scrollToCat('pets')">
-                <div class="icon-box">🐶</div>
-                <div class="cat-label">Animals & Pets</div>
-            </div>
-            <div class="cat-item" onclick="scrollToCat('jobs')">
+            <div class="cat-item" onclick="scrollToFolder('cat-jobs')">
                 <div class="icon-box">💼</div>
                 <div class="cat-label">Jobs</div>
+            </div>
+            <div class="cat-item" onclick="scrollToFolder('cat-pets')">
+                <div class="icon-box">🐶</div>
+                <div class="cat-label">Animals & Pets</div>
             </div>
         </div>
     </div>
 
-    <!-- Active Ads List -->
+    <!-- Active Ads & E-commerce Items -->
     <div class="ads-section">
         <div class="section-header">
             <h3>Trending Ads</h3>
             <button class="btn-post" onclick="openModal('postModal')">+ Post Ad</button>
         </div>
-
         <div class="products" id="productList">
-            <div class="card" data-category="Phones & Tablets">
+            <div class="card">
                 <div>
                     <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="Mobile">
                     <span class="badge">Phones & Tablets</span>
                     <h4>Samsung S22 Ultra</h4>
-                    <p style="font-size: 11px; color: #666;">Chattogram</p>
+                    <p style="font-size: 10px; color: #666;">Chattogram</p>
                     <div class="price">৳ ৬৫,০০০</div>
                 </div>
-                <button class="btn-boost" onclick="boostAd('Samsung S22 Ultra', 200)">Boost Ad (৳200)</button>
+                <button class="btn-boost" onclick="openPayment('Samsung S22 Ultra', 200)">Boost Ad (৳200)</button>
             </div>
         </div>
     </div>
 
-    <!-- Detailed Sub-Categories Section (All Category Items Combined) -->
-    <div class="all-categories-detail" id="categoryDetails">
-        <h3>সকল ক্যাটাগরির বিস্তারিত</h3>
+    <!-- Category Folders Section -->
+    <div class="folder-section">
+        <h3>ক্যাটাগরি সমূহ (ফোল্ডার ভিউ)</h3>
 
-        <div class="category-block" id="property">
-            <h4>🏡 Property (প্রপার্টি)</h4>
-            <div class="sub-tags">
-                <span class="sub-tag">Apartments for Sale</span>
-                <span class="sub-tag">Land & Plots for Sale</span>
-                <span class="sub-tag">Houses & Apartments for Rent</span>
-                <span class="sub-tag">Commercial Properties</span>
-                <span class="sub-tag">Flatshares & Roommates</span>
+        <div class="category-folder" id="cat-property">
+            <div class="folder-header">
+                <span>🏡 Property (প্রপার্টি)</span>
+                <span>▼</span>
+            </div>
+            <div class="folder-body">
+                <span class="tag-item">Apartments for Sale</span>
+                <span class="tag-item">Land & Plots for Sale</span>
+                <span class="tag-item">Houses & Apartments for Rent</span>
+                <span class="tag-item">Commercial Properties</span>
             </div>
         </div>
 
-        <div class="category-block" id="vehicles">
-            <h4>🚗 Vehicles (যানবাহন)</h4>
-            <div class="sub-tags">
-                <span class="sub-tag">Cars</span>
-                <span class="sub-tag">Motorcycles & Scooters</span>
-                <span class="sub-tag">Bicycles</span>
-                <span class="sub-tag">Trucks & Commercial Vehicles</span>
-                <span class="sub-tag">Auto Parts & Accessories</span>
+        <div class="category-folder" id="cat-vehicles">
+            <div class="folder-header">
+                <span>🚗 Vehicles (যানবাহন)</span>
+                <span>▼</span>
+            </div>
+            <div class="folder-body">
+                <span class="tag-item">Cars</span>
+                <span class="tag-item">Motorcycles & Scooters</span>
+                <span class="tag-item">Bicycles</span>
+                <span class="tag-item">Trucks & Commercial Vehicles</span>
             </div>
         </div>
 
-        <div class="category-block" id="phones">
-            <h4>📱 Phones & Tablets (মোবাইল ও ট্যাবলেট)</h4>
-            <div class="sub-tags">
-                <span class="sub-tag">Mobile Phones</span>
-                <span class="sub-tag">Tablets</span>
-                <span class="sub-tag">Smart Watches</span>
-                <span class="sub-tag">Mobile Accessories</span>
+        <div class="category-folder" id="cat-phones">
+            <div class="folder-header">
+                <span>📱 Phones & Tablets (মোবাইল ও ট্যাবলেট)</span>
+                <span>▼</span>
+            </div>
+            <div class="folder-body">
+                <span class="tag-item">Mobile Phones</span>
+                <span class="tag-item">Tablets</span>
+                <span class="tag-item">Smart Watches</span>
+                <span class="tag-item">Mobile Accessories</span>
             </div>
         </div>
 
-        <div class="category-block" id="electronics">
-            <h4>💻 Electronics (ইলেকট্রনিক্স)</h4>
-            <div class="sub-tags">
-                <span class="sub-tag">Laptops & Computers</span>
-                <span class="sub-tag">TVs & Video Accessories</span>
-                <span class="sub-tag">Cameras & Camcorders</span>
-                <span class="sub-tag">Desktop Accessories</span>
+        <div class="category-folder" id="cat-electronics">
+            <div class="folder-header">
+                <span>💻 Electronics (ইলেকট্রনিক্স)</span>
+                <span>▼</span>
+            </div>
+            <div class="folder-body">
+                <span class="tag-item">Laptops & Computers</span>
+                <span class="tag-item">TVs & Video Accessories</span>
+                <span class="tag-item">Cameras & Camcorders</span>
             </div>
         </div>
 
-        <div class="category-block" id="home">
-            <h4>🛋️ Home, Furniture & Appliances (হোম ও ফার্নিচার)</h4>
-            <div class="sub-tags">
-                <span class="sub-tag">Furniture</span>
-                <span class="sub-tag">Home Appliances</span>
-                <span class="sub-tag">Kitchen Appliances</span>
-                <span class="sub-tag">Home Decor & Garden</span>
+        <div class="category-folder" id="cat-home">
+            <div class="folder-header">
+                <span>🛋️ Home & Living (হোম ও ফার্নিচার)</span>
+                <span>▼</span>
+            </div>
+            <div class="folder-body">
+                <span class="tag-item">Furniture</span>
+                <span class="tag-item">Home Appliances</span>
+                <span class="tag-item">Kitchen Appliances</span>
             </div>
         </div>
 
-        <div class="category-block" id="services">
-            <h4>🔧 Services (সার্ভিস)</h4>
-            <div class="sub-tags">
-                <span class="sub-tag">AC Repair & Maintenance</span>
-                <span class="sub-tag">Plumbing & Electrician</span>
-                <span class="sub-tag">Car Rentals</span>
-                <span class="sub-tag">Home Cleaning Services</span>
+        <div class="category-folder" id="cat-services">
+            <div class="folder-header">
+                <span>🔧 Services (সার্ভিস)</span>
+                <span>▼</span>
+            </div>
+            <div class="folder-body">
+                <span class="tag-item">AC Repair & Maintenance</span>
+                <span class="tag-item">Plumbing & Electrician</span>
+                <span class="tag-item">Car Rentals</span>
             </div>
         </div>
 
-        <div class="category-block" id="jobs">
-            <h4>💼 Jobs (চাকরি)</h4>
-            <div class="sub-tags">
-                <span class="sub-tag">Full-time Jobs</span>
-                <span class="sub-tag">Part-time Jobs</span>
-                <span class="sub-tag">Work From Home</span>
-                <span class="sub-tag">Internships</span>
+        <div class="category-folder" id="cat-jobs">
+            <div class="folder-header">
+                <span>💼 Jobs (চাকরি)</span>
+                <span>▼</span>
+            </div>
+            <div class="folder-body">
+                <span class="tag-item">Full-time Jobs</span>
+                <span class="tag-item">Part-time Jobs</span>
+                <span class="tag-item">Work From Home</span>
             </div>
         </div>
     </div>
@@ -517,17 +508,47 @@
             </select>
             <input type="text" id="postPrice" placeholder="মূল্য (৳)">
             <input type="text" id="postLocation" placeholder="লোকেশন">
-            <input type="file" id="postImage" accept="image/*">
             <button class="modal-btn" onclick="handlePost()">পোস্ট করুন</button>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Complete Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
+            <h3>পেমেন্ট সম্পন্ন করুন</h3>
+            <p style="font-size: 12px; color: #666; margin-top: 4px;" id="payItemDetails">পরিমাণ: ৳২০০</p>
+
+            <div class="payment-options">
+                <div class="pay-option selected" onclick="switchPay('mobile', this)">Mobile Banking</div>
+                <div class="pay-option" onclick="switchPay('bank', this)">Bank Transfer</div>
+            </div>
+
+            <!-- Mobile Banking -->
+            <div id="mobilePaySection" class="pay-info-box">
+                <b>bKash / Nagad / Rocket (Personal):</b><br>
+                📱 <span style="font-size: 14px; font-weight: bold; color: #008069;">01716390762</span><br><br>
+                টাকা পাঠিয়ে নিচের বক্সে Transaction ID দিন:
+            </div>
+
+            <!-- Bank Details -->
+            <div id="bankPaySection" class="pay-info-box" style="display: none;">
+                <b>Bank Account Details:</b><br>
+                🏦 <b>Bank Name:</b> BRAC Bank PLC<br>
+                🔢 <b>Account No:</b> 1106104006949001<br>
+                📍 <b>Branch:</b> Bandartila, Chattogram<br><br>
+                ব্যাংক ডিপোজিট স্লিপ বা রেফারেন্স নম্বর দিন:
+            </div>
+
+            <input type="text" id="trxId" placeholder="Transaction ID / Bank Ref No.">
+            <button class="modal-btn" onclick="confirmPayment()">কনফার্ম করুন</button>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 Baza.com.bd — All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript -->
     <script>
         function openModal(id) {
             document.getElementById(id).style.display = 'block';
@@ -537,11 +558,40 @@
             document.getElementById(id).style.display = 'none';
         }
 
-        function scrollToCat(id) {
-            var element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+        function scrollToFolder(id) {
+            var el = document.getElementById(id);
+            if(el) {
+                el.scrollIntoView({ behavior: 'smooth' });
             }
+        }
+
+        function openPayment(title, price) {
+            document.getElementById('payItemDetails').innerText = title + ' - পরিমাণ: ৳' + price;
+            openModal('paymentModal');
+        }
+
+        function switchPay(type, element) {
+            var options = document.querySelectorAll('.pay-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+
+            if (type === 'mobile') {
+                document.getElementById('mobilePaySection').style.display = 'block';
+                document.getElementById('bankPaySection').style.display = 'none';
+            } else {
+                document.getElementById('mobilePaySection').style.display = 'none';
+                document.getElementById('bankPaySection').style.display = 'block';
+            }
+        }
+
+        function confirmPayment() {
+            var trx = document.getElementById('trxId').value;
+            if (!trx) {
+                alert('অনুগ্রহ করে Transaction ID অথবা Bank Reference দিন!');
+                return;
+            }
+            alert('আপনার পেমেন্ট ভেরিফিকেশনের জন্য সফলভাবে জমা নেওয়া হয়েছে!');
+            closeModal('paymentModal');
         }
 
         function searchProducts() {
@@ -566,50 +616,26 @@
             var category = document.getElementById('postCategory').value;
             var price = document.getElementById('postPrice').value;
             var loc = document.getElementById('postLocation').value;
-            var imageInput = document.getElementById('postImage');
 
             if (title && price && loc) {
-                var createCard = function(src) {
-                    var newCard = document.createElement('div');
-                    newCard.className = 'card';
-                    newCard.setAttribute('data-category', category);
-                    newCard.innerHTML = `
-                        <div>
-                            <img src="${src}" alt="${title}">
-                            <span class="badge">${category}</span>
-                            <h4>${title}</h4>
-                            <p style="font-size: 11px; color: #666;">${loc}</p>
-                            <div class="price">৳ ${price}</div>
-                        </div>
-                        <button class="btn-boost" onclick="boostAd('${title}', 200)">Boost Ad (৳200)</button>
-                    `;
-                    document.getElementById('productList').prepend(newCard);
-                    closeModal('postModal');
-                    alert('আপনার বিজ্ঞাপন পোস্ট করা হয়েছে!');
-
-                    document.getElementById('postTitle').value = '';
-                    document.getElementById('postPrice').value = '';
-                    document.getElementById('postLocation').value = '';
-                    document.getElementById('postImage').value = '';
-                };
-
-                if (imageInput.files && imageInput.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        createCard(e.target.result);
-                    };
-                    reader.readAsDataURL(imageInput.files[0]);
-                } else {
-                    createCard('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9');
-                }
+                var newCard = document.createElement('div');
+                newCard.className = 'card';
+                newCard.innerHTML = `
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="${title}">
+                        <span class="badge">${category}</span>
+                        <h4>${title}</h4>
+                        <p style="font-size: 10px; color: #666;">${loc}</p>
+                        <div class="price">৳ ${price}</div>
+                    </div>
+                    <button class="btn-boost" onclick="openPayment('${title}', 200)">Boost Ad (৳200)</button>
+                `;
+                document.getElementById('productList').prepend(newCard);
+                closeModal('postModal');
+                alert('আপনার পোস্ট সফলভাবে তৈরি হয়েছে!');
             } else {
                 alert('সবগুলো ঘর পূরণ করুন!');
             }
-        }
-
-        function boostAd(title, amount) {
-            var myBkashNumber = "01716390762";
-            alert('বিজ্ঞাপন বুস্ট করতে ৳' + amount + ' টাকা সেন্ড মানি করুন।\nবিকাশ (Personal) নম্বর: ' + myBkashNumber + '\nটাকা পাঠিয়ে ট্রানজেকশন আইডি (TrxID) সংরক্ষণ করুন।');
         }
     </script>
 </body>
