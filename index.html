@@ -106,7 +106,7 @@
             cursor: pointer;
         }
 
-        /* Category Grid */
+        /* Top Category Grid */
         .category-section {
             padding: 15px;
             background: #ffffff;
@@ -139,7 +139,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 24px;
             margin-bottom: 6px;
             border: 2px solid transparent;
         }
@@ -156,82 +156,6 @@
             line-height: 1.2;
         }
 
-        /* Ads Grid */
-        .ads-section {
-            padding: 15px;
-            background: #ffffff;
-            margin-top: 10px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .btn-post {
-            background-color: #ffce00;
-            color: #000;
-            font-weight: bold;
-            padding: 8px 14px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-        }
-
-        .card {
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #eee;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card img {
-            width: 100%;
-            height: 110px;
-            object-fit: cover;
-            border-radius: 6px;
-        }
-
-        .badge {
-            background: #eef2f5;
-            padding: 2px 6px;
-            font-size: 10px;
-            border-radius: 4px;
-            margin: 6px 0 4px 0;
-            width: fit-content;
-        }
-
-        .price {
-            color: #008069;
-            font-size: 13px;
-            font-weight: bold;
-            margin-top: 4px;
-        }
-
-        .btn-boost {
-            margin-top: 8px;
-            background: #ffce00;
-            color: #008069;
-            border: none;
-            padding: 6px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 11px;
-        }
-
         /* Folder Categories Section */
         .folder-section {
             padding: 15px;
@@ -240,7 +164,7 @@
         }
 
         .folder-section h3 {
-            font-size: 16px;
+            font-size: 15px;
             color: #008069;
             margin-bottom: 12px;
             border-left: 4px solid #008069;
@@ -292,7 +216,83 @@
             color: #008069;
         }
 
-        /* Payment Info Box */
+        /* Product Listing Section */
+        .ads-section {
+            padding: 15px;
+            background: #ffffff;
+            margin-top: 10px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .btn-post {
+            background-color: #ffce00;
+            color: #000;
+            font-weight: bold;
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .card {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .badge {
+            background: #eef2f5;
+            padding: 2px 6px;
+            font-size: 10px;
+            border-radius: 4px;
+            margin: 6px 0 4px 0;
+            width: fit-content;
+        }
+
+        .price {
+            color: #008069;
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        .btn-boost {
+            margin-top: 8px;
+            background: #ffce00;
+            color: #008069;
+            border: none;
+            padding: 6px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        /* Payment Info Section */
         .visible-payment-section {
             padding: 15px;
             background: #ffffff;
@@ -357,6 +357,14 @@
             border-radius: 6px;
         }
 
+        .file-input-label {
+            display: block;
+            font-size: 12px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
         .modal-btn {
             background: #008069;
             color: white;
@@ -381,7 +389,7 @@
 </head>
 <body>
 
-    <!-- Brand & Home Bar -->
+    <!-- Header -->
     <div class="header-brand">
         <a href="#" class="logo-area" onclick="filterCategory('All', document.querySelector('.cat-item'))">
             🛍️ Baza<span>.com.bd</span>
@@ -405,45 +413,88 @@
         </div>
     </div>
 
-    <!-- Category Grid -->
+    <!-- Main Categories Grid -->
     <div class="category-section">
         <div class="category-grid">
             <div class="cat-item active" onclick="filterCategory('All', this)">
                 <div class="icon-box">📦</div>
                 <div class="cat-label">All Ads</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Property', this)">
-                <div class="icon-box">🏡</div>
-                <div class="cat-label">Property</div>
-            </div>
-            <div class="cat-item" onclick="filterCategory('Vehicles', this)">
-                <div class="icon-box">🚗</div>
-                <div class="cat-label">Vehicles</div>
-            </div>
             <div class="cat-item" onclick="filterCategory('Phones & Tablets', this)">
                 <div class="icon-box">📱</div>
                 <div class="cat-label">Phones & Tablets</div>
+            </div>
+            <div class="cat-item" onclick="filterCategory('Mobile Accessories', this)">
+                <div class="icon-box">🎧</div>
+                <div class="cat-label">Mobile Accessories</div>
+            </div>
+            <div class="cat-item" onclick="filterCategory('Computer Accessories', this)">
+                <div class="icon-box">⌨️</div>
+                <div class="cat-label">Computer Accessories</div>
             </div>
             <div class="cat-item" onclick="filterCategory('Electronics', this)">
                 <div class="icon-box">💻</div>
                 <div class="cat-label">Electronics</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Home & Living', this)">
-                <div class="icon-box">🛋️</div>
-                <div class="cat-label">Home & Living</div>
+            <div class="cat-item" onclick="filterCategory('Vehicles', this)">
+                <div class="icon-box">🚗</div>
+                <div class="cat-label">Vehicles</div>
+            </div>
+            <div class="cat-item" onclick="filterCategory('Property', this)">
+                <div class="icon-box">🏡</div>
+                <div class="cat-label">Property</div>
             </div>
             <div class="cat-item" onclick="filterCategory('Services', this)">
                 <div class="icon-box">🔧</div>
                 <div class="cat-label">Services</div>
             </div>
-            <div class="cat-item" onclick="filterCategory('Jobs', this)">
-                <div class="icon-box">💼</div>
-                <div class="cat-label">Jobs</div>
+        </div>
+    </div>
+
+    <!-- Sub Category Folders Section -->
+    <div class="folder-section">
+        <h3>ক্যাটাগরি নির্দেশিকা (Folder View)</h3>
+
+        <div class="category-folder">
+            <div class="folder-header" onclick="filterCategory('Mobile Accessories')">
+                <span>🎧 Mobile Accessories (মোবাইল এক্সসেসরিজ)</span>
+                <span>▼</span>
+            </div>
+            <div class="folder-body">
+                <span class="tag-item" onclick="filterCategory('Mobile Accessories')">Headphones & TWS</span>
+                <span class="tag-item" onclick="filterCategory('Mobile Accessories')">Chargers & Adapters</span>
+                <span class="tag-item" onclick="filterCategory('Mobile Accessories')">Power Banks</span>
+                <span class="tag-item" onclick="filterCategory('Mobile Accessories')">Covers & Cases</span>
+            </div>
+        </div>
+
+        <div class="category-folder">
+            <div class="folder-header" onclick="filterCategory('Computer Accessories')">
+                <span>⌨️ Computer Accessories (কম্পিউটার এক্সসেসরিজ)</span>
+                <span>▼</span>
+            </div>
+            <div class="folder-body">
+                <span class="tag-item" onclick="filterCategory('Computer Accessories')">Keyboards & Mouse</span>
+                <span class="tag-item" onclick="filterCategory('Computer Accessories')">Monitors</span>
+                <span class="tag-item" onclick="filterCategory('Computer Accessories')">RAM & SSD / HDD</span>
+                <span class="tag-item" onclick="filterCategory('Computer Accessories')">Routers</span>
+            </div>
+        </div>
+
+        <div class="category-folder">
+            <div class="folder-header" onclick="filterCategory('Property')">
+                <span>🏡 Property (প্রপার্টি)</span>
+                <span>▼</span>
+            </div>
+            <div class="folder-body">
+                <span class="tag-item" onclick="filterCategory('Property')">Apartments for Sale</span>
+                <span class="tag-item" onclick="filterCategory('Property')">Land & Plots</span>
+                <span class="tag-item" onclick="filterCategory('Property')">Houses for Rent</span>
             </div>
         </div>
     </div>
 
-    <!-- Live Products List Section -->
+    <!-- Products Feed -->
     <div class="ads-section">
         <div class="section-header">
             <h3 id="categoryTitle">Trending Ads</h3>
@@ -473,100 +524,7 @@
         </div>
     </div>
 
-    <!-- Category Folders Section -->
-    <div class="folder-section">
-        <h3>ক্যাটাগরি সমূহ (ফোল্ডার ভিউ)</h3>
-
-        <div class="category-folder">
-            <div class="folder-header" onclick="filterCategory('Property')">
-                <span>🏡 Property (প্রপার্টি)</span>
-                <span>▼</span>
-            </div>
-            <div class="folder-body">
-                <span class="tag-item" onclick="filterCategory('Property')">Apartments for Sale</span>
-                <span class="tag-item" onclick="filterCategory('Property')">Land & Plots</span>
-                <span class="tag-item" onclick="filterCategory('Property')">Houses for Rent</span>
-                <span class="tag-item" onclick="filterCategory('Property')">Commercial Properties</span>
-            </div>
-        </div>
-
-        <div class="category-folder">
-            <div class="folder-header" onclick="filterCategory('Vehicles')">
-                <span>🚗 Vehicles (যানবাহন)</span>
-                <span>▼</span>
-            </div>
-            <div class="folder-body">
-                <span class="tag-item" onclick="filterCategory('Vehicles')">Cars</span>
-                <span class="tag-item" onclick="filterCategory('Vehicles')">Motorcycles & Scooters</span>
-                <span class="tag-item" onclick="filterCategory('Vehicles')">Bicycles</span>
-                <span class="tag-item" onclick="filterCategory('Vehicles')">Trucks & Commercial Vehicles</span>
-            </div>
-        </div>
-
-        <div class="category-folder">
-            <div class="folder-header" onclick="filterCategory('Phones & Tablets')">
-                <span>📱 Phones & Tablets (মোবাইল ও ট্যাবলেট)</span>
-                <span>▼</span>
-            </div>
-            <div class="folder-body">
-                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Mobile Phones</span>
-                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Tablets</span>
-                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Smart Watches</span>
-                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Chargers & Adapters</span>
-                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Power Banks</span>
-                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Headphones & Earphones</span>
-                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Covers & Cases</span>
-                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Screen Protectors</span>
-                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Cables & OTG</span>
-            </div>
-        </div>
-
-        <div class="category-folder">
-            <div class="folder-header" onclick="filterCategory('Electronics')">
-                <span>💻 Electronics & Computer (ইলেকট্রনিক্স ও কম্পিউটার)</span>
-                <span>▼</span>
-            </div>
-            <div class="folder-body">
-                <span class="tag-item" onclick="filterCategory('Electronics')">Laptops</span>
-                <span class="tag-item" onclick="filterCategory('Electronics')">Desktops & PC</span>
-                <span class="tag-item" onclick="filterCategory('Electronics')">TVs & Video Accessories</span>
-                <span class="tag-item" onclick="filterCategory('Electronics')">Monitors</span>
-                <span class="tag-item" onclick="filterCategory('Electronics')">Keyboards & Mouse</span>
-                <span class="tag-item" onclick="filterCategory('Electronics')">RAM & SSD / HDD</span>
-                <span class="tag-item" onclick="filterCategory('Electronics')">Graphics Cards</span>
-                <span class="tag-item" onclick="filterCategory('Electronics')">Pen Drives & Memory Cards</span>
-                <span class="tag-item" onclick="filterCategory('Electronics')">Routers & Networking</span>
-                <span class="tag-item" onclick="filterCategory('Electronics')">Printers & Scanners</span>
-            </div>
-        </div>
-
-        <div class="category-folder">
-            <div class="folder-header" onclick="filterCategory('Services')">
-                <span>🔧 Services (সার্ভিস)</span>
-                <span>▼</span>
-            </div>
-            <div class="folder-body">
-                <span class="tag-item" onclick="filterCategory('Services')">AC Repair & Maintenance</span>
-                <span class="tag-item" onclick="filterCategory('Services')">Plumbing & Electrician</span>
-                <span class="tag-item" onclick="filterCategory('Services')">Mobile & Laptop Repair</span>
-                <span class="tag-item" onclick="filterCategory('Services')">Car Rentals</span>
-            </div>
-        </div>
-
-        <div class="category-folder">
-            <div class="folder-header" onclick="filterCategory('Jobs')">
-                <span>💼 Jobs (চাকরি)</span>
-                <span>▼</span>
-            </div>
-            <div class="folder-body">
-                <span class="tag-item" onclick="filterCategory('Jobs')">Full-time Jobs</span>
-                <span class="tag-item" onclick="filterCategory('Jobs')">Part-time Jobs</span>
-                <span class="tag-item" onclick="filterCategory('Jobs')">Work From Home</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Direct Payment Info Box -->
+    <!-- Official Payment Info -->
     <div class="visible-payment-section">
         <h3 style="color: #008069; border-left: 4px solid #008069; padding-left: 8px;">💳 অফিশিয়াল পেমেন্ট মেথড</h3>
         
@@ -574,7 +532,7 @@
             <h4>📱 মোবাইল ব্যাংকিং (বিকাশ / নগদ / রকেট)</h4>
             <div class="payment-details-list">
                 • <b>পার্সোনাল নম্বর:</b> <span style="color: #008069; font-size: 15px;">01716390762</span><br>
-                • টাকা পাঠানোর পর Transaction ID টি সংরক্ষণ করুন।
+                • টাকা পাঠানোর পর Transaction ID টি নিচে ফর্ম ব্যবহার করার সময়ে প্রদান করুন।
             </div>
         </div>
 
@@ -588,28 +546,32 @@
         </div>
     </div>
 
-    <!-- Post Ad Modal -->
+    <!-- Modal 1: Post Ad -->
     <div id="postModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postModal')">&times;</span>
             <h3 style="margin-bottom: 12px;">বিজ্ঞাপন পোস্ট করুন</h3>
-            <input type="text" id="postTitle" placeholder="শিরোনাম">
+            <input type="text" id="postTitle" placeholder="শিরোনাম (যেমন: Xiaomi Buds)">
             <select id="postCategory">
                 <option value="Phones & Tablets">📱 Phones & Tablets</option>
-                <option value="Vehicles">🚗 Vehicles</option>
+                <option value="Mobile Accessories">🎧 Mobile Accessories</option>
+                <option value="Computer Accessories">⌨️ Computer Accessories</option>
                 <option value="Electronics">💻 Electronics</option>
+                <option value="Vehicles">🚗 Vehicles</option>
                 <option value="Property">🏡 Property</option>
-                <option value="Home & Living">🛋️ Home & Living</option>
                 <option value="Services">🔧 Services</option>
-                <option value="Jobs">💼 Jobs</option>
             </select>
             <input type="text" id="postPrice" placeholder="মূল্য (৳)">
-            <input type="text" id="postLocation" placeholder="লোকেশন">
+            <input type="text" id="postLocation" placeholder="লোকেশন (যেমন: Chattogram)">
+            
+            <label class="file-input-label">পণ্যের ছবি সিলেক্ট করুন:</label>
+            <input type="file" id="postImage" accept="image/*">
+
             <button class="modal-btn" onclick="handlePost()">পোস্ট করুন</button>
         </div>
     </div>
 
-    <!-- Payment Confirmation Modal -->
+    <!-- Modal 2: Payment Confirmation -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
@@ -624,7 +586,7 @@
         <p>&copy; 2026 Baza.com.bd — All rights reserved.</p>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Logic -->
     <script>
         function openModal(id) {
             document.getElementById(id).style.display = 'block';
@@ -643,8 +605,6 @@
 
             if (element) {
                 element.classList.add('active');
-            } else {
-                items[0].classList.add('active');
             }
 
             title.innerText = cat === 'All' ? 'Trending Ads' : cat + ' Ads';
@@ -657,8 +617,6 @@
                     card.style.display = 'none';
                 }
             });
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function openPayment(title, price) {
@@ -698,27 +656,50 @@
             var category = document.getElementById('postCategory').value;
             var price = document.getElementById('postPrice').value;
             var loc = document.getElementById('postLocation').value;
+            var imageInput = document.getElementById('postImage');
 
-            if (title && price && loc) {
-                var newCard = document.createElement('div');
-                newCard.className = 'card';
-                newCard.setAttribute('data-category', category);
-                newCard.innerHTML = `
-                    <div>
-                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="${title}">
-                        <span class="badge">${category}</span>
-                        <h4>${title}</h4>
-                        <p style="font-size: 10px; color: #666;">${loc}</p>
-                        <div class="price">৳ ${price}</div>
-                    </div>
-                    <button class="btn-boost" onclick="openPayment('${title}', 200)">Boost Ad (৳200)</button>
-                `;
-                document.getElementById('productList').prepend(newCard);
-                closeModal('postModal');
-                alert('আপনার পোস্ট সফলভাবে তৈরি হয়েছে!');
-            } else {
-                alert('সবগুলো ঘর পূরণ করুন!');
+            if (!title || !price || !loc) {
+                alert('অনুগ্রহ করে সবগুলো ঘর পূরণ করুন!');
+                return;
             }
+
+            var imageUrl = "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9";
+
+            if (imageInput.files && imageInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    imageUrl = e.target.result;
+                    appendProductCard(title, category, price, loc, imageUrl);
+                }
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                appendProductCard(title, category, price, loc, imageUrl);
+            }
+        }
+
+        function appendProductCard(title, category, price, loc, imageUrl) {
+            var newCard = document.createElement('div');
+            newCard.className = 'card';
+            newCard.setAttribute('data-category', category);
+            newCard.innerHTML = `
+                <div>
+                    <img src="${imageUrl}" alt="${title}">
+                    <span class="badge">${category}</span>
+                    <h4>${title}</h4>
+                    <p style="font-size: 10px; color: #666;">${loc}</p>
+                    <div class="price">৳ ${price}</div>
+                </div>
+                <button class="btn-boost" onclick="openPayment('${title}', 200)">Boost Ad (৳200)</button>
+            `;
+            document.getElementById('productList').prepend(newCard);
+            closeModal('postModal');
+            
+            document.getElementById('postTitle').value = '';
+            document.getElementById('postPrice').value = '';
+            document.getElementById('postLocation').value = '';
+            document.getElementById('postImage').value = '';
+
+            alert('আপনার বিজ্ঞাপন সফলভাবে পোস্ট করা হয়েছে!');
         }
     </script>
 </body>
