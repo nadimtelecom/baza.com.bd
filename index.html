@@ -1,625 +1,165 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Search Console Verification Meta Tag -->
-    <meta name="google-site-verification" content="enFUE9G2pbJwvJOqPqd8q-nIOkAh3nsFH4zTGwR_95Y" />
-    <title>Baza.com.bd | কেনা-বেচা করুন সহজে</title>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f4f6f9;
-            color: #333;
-        }
-
-        /* Top Header */
-        header {
-            background-color: #008069;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: #ffcc00;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-auth {
-            background-color: transparent;
-            color: white;
-            border: 1px solid white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .btn-post-ad {
-            background-color: #ffcc00;
-            color: #000;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* Search Banner Section */
-        .hero-banner {
-            background-color: #008069;
-            color: white;
-            text-align: center;
-            padding: 30px 15px 40px 15px;
-        }
-
-        .hero-banner h1 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .hero-banner p {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        .search-container {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            gap: 8px;
-            background: white;
-            padding: 5px;
-            border-radius: 8px;
-        }
-
-        .location-select {
-            border: none;
-            outline: none;
-            padding: 10px;
-            background: #eef2f5;
-            border-radius: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .search-container input {
-            flex: 1;
-            border: none;
-            outline: none;
-            padding: 10px;
-            font-size: 14px;
-        }
-
-        .search-container button {
-            background-color: #ffcc00;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* Category Icons Grid */
-        .container {
-            max-width: 1100px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-        @media (min-width: 768px) {
-            .category-grid {
-                grid-template-columns: repeat(8, 1fr);
-            }
-        }
-
-        .category-card {
-            background: white;
-            padding: 15px 5px;
-            border-radius: 12px;
-            text-align: center;
-            text-decoration: none;
-            color: #333;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: 0.2s;
-            cursor: pointer;
-        }
-
-        .category-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .category-card i {
-            font-size: 26px;
-            color: #008069;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .category-card span {
-            font-size: 12px;
-            font-weight: 600;
-            display: block;
-            line-height: 1.2;
-        }
-
-        /* Listings Section */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .section-header h2 {
-            font-size: 18px;
-            color: #333;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 15px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-        }
-
-        .product-details {
-            padding: 12px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .product-price {
-            color: #008069;
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-
-        .product-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #222;
-        }
-
-        .product-location {
-            font-size: 11px;
-            color: #777;
-            margin-bottom: 10px;
-        }
-
-        .action-btns {
-            display: flex;
-            gap: 5px;
-        }
-
-        .btn-boost, .btn-topup {
-            flex: 1;
-            padding: 6px;
-            border: none;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .btn-boost {
-            background-color: #ff9900;
-            color: white;
-        }
-
-        .btn-topup {
-            background-color: #008069;
-            color: white;
-        }
-
-        /* Modal Base Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            max-width: 450px;
-            width: 90%;
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 22px;
-            cursor: pointer;
-            color: #666;
-        }
-
-        /* Form Controls inside Modals */
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 13px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            background-color: #008069;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-
-        /* Payment Box Info */
-        .payment-box {
-            background: #f8f9fa;
-            border: 1px dashed #008069;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-
-        .payment-box p {
-            font-size: 13px;
-            margin-bottom: 5px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category & Location Selector</title>
+  <style>
+    .filter-container {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <a href="#" class="logo">Baza<span>.com.bd</span></a>
-        <div class="header-right">
-            <button class="btn-auth" onclick="openModal('authModal')">লগইন / সাইনআপ</button>
-            <button class="btn-post-ad" onclick="openModal('postAdModal')">+ বিজ্ঞাপন দিন</button>
-        </div>
-    </header>
+<div class="filter-container">
+  <h2>ক্যাটাগরি ও লোকেশন ফিল্টার</h2>
 
-    <!-- Hero Search Section -->
-    <div class="hero-banner">
-        <h1>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
-        <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
-        <div class="search-container">
-            <select class="location-select">
-                <option>Chattogram</option>
-                <option>Dhaka</option>
-                <option>Sylhet</option>
-            </select>
-            <input type="text" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)">
-            <button onclick="alert('খোঁজা হচ্ছে...')"><i class="fa-solid fa-magnifying-glass"></i> খুঁজুন</button>
-        </div>
-    </div>
+  <!-- Category Selection -->
+  <div class="form-group">
+    <label for="main-category">মূল ক্যাটাগরি:</label>
+    <select id="main-category" onchange="updateSubCategories()">
+      <option value="">ক্যাটাগরি নির্বাচন করুন</option>
+      <option value="mobiles">মোবাইল (Mobiles)</option>
+      <option value="electronics">ইলেকট্রনিক্স (Electronics)</option>
+      <option value="vehicles">যানবাহন (Vehicles)</option>
+      <option value="property">প্রোপার্টি (Property)</option>
+      <option value="home">হোম ও লিভিং (Home & Living)</option>
+      <option value="pets">পোষা প্রাণী ও পাখি (Pets & Animals)</option>
+      <option value="fashion">ফ্যাশন ও লাইফস্টাইল (Fashion)</option>
+    </select>
+  </div>
 
-    <div class="container">
-        <!-- Categories Grid -->
-        <div class="category-grid">
-            <div class="category-card" onclick="filterCategory('Trending')">
-                <i class="fa-solid fa-fire"></i>
-                <span>Trending</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Vehicles')">
-                <i class="fa-solid fa-car"></i>
-                <span>Vehicles</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Property')">
-                <i class="fa-solid fa-house"></i>
-                <span>Property</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Phones & Tablets')">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-                <span>Phones & Tablets</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Electronics')">
-                <i class="fa-solid fa-laptop"></i>
-                <span>Electronics</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Home & Furniture')">
-                <i class="fa-solid fa-couch"></i>
-                <span>Home & Furniture</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Fashion')">
-                <i class="fa-solid fa-shirt"></i>
-                <span>Fashion</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Beauty & Personal Care')">
-                <i class="fa-solid fa-pump-soap"></i>
-                <span>Beauty & Care</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Services')">
-                <i class="fa-solid fa-wrench"></i>
-                <span>Services</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Repair & Construction')">
-                <i class="fa-solid fa-helmet-safety"></i>
-                <span>Repair & Construction</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Commercial Equipment')">
-                <i class="fa-solid fa-gears"></i>
-                <span>Commercial Tools</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Leisure & Activities')">
-                <i class="fa-solid fa-person-biking"></i>
-                <span>Leisure</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Babies & Kids')">
-                <i class="fa-solid fa-teddy-bear"></i>
-                <span>Babies & Kids</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Food & Agriculture')">
-                <i class="fa-solid fa-basket-shopping"></i>
-                <span>Food & Agriculture</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Animals & Pets')">
-                <i class="fa-solid fa-dog"></i>
-                <span>Animals & Pets</span>
-            </div>
-            <div class="category-card" onclick="filterCategory('Jobs')">
-                <i class="fa-solid fa-briefcase"></i>
-                <span>Jobs</span>
-            </div>
-        </div>
+  <div class="form-group">
+    <label for="sub-category">সাব-ক্যাটাগরি:</label>
+    <select id="sub-category">
+      <option value="">প্রথমে মূল ক্যাটাগরি নির্বাচন করুন</option>
+    </select>
+  </div>
 
-        <!-- Section Header -->
-        <div class="section-header">
-            <h2>Trending</h2>
-        </div>
+  <hr>
 
-        <!-- Product Listings -->
-        <div class="product-grid" id="productGrid">
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=500&q=80" alt="Apartment">
-                <div class="product-details">
-                    <div>
-                        <div class="product-price">BDT 3,000 per month</div>
-                        <div class="product-title">2-bedroom Apartment for Rent</div>
-                        <div class="product-location">Munshiganj, Sreenagar • 2 bedrooms</div>
-                    </div>
-                    <div class="action-btns">
-                        <button class="btn-boost" onclick="openPaymentModal('বুস্ট করুন')">বুস্ট করুন</button>
-                        <button class="btn-topup" onclick="openPaymentModal('টপ-আপ')">টপ-আপ</button>
-                    </div>
-                </div>
-            </div>
+  <!-- Location Selection -->
+  <div class="form-group">
+    <label for="division">বিভাগ:</label>
+    <select id="division" onchange="updateDistricts()">
+      <option value="">বিভাগ নির্বাচন করুন</option>
+      <option value="ctg">চট্টগ্রাম বিভাগ</option>
+      <option value="dhaka">ঢাকা বিভাগ</option>
+      <option value="rajshahi">রাজশাহী বিভাগ</option>
+      <option value="khulna">খুলনা বিভাগ</option>
+      <option value="sylhet">সিলেট বিভাগ</option>
+      <option value="barishal">বরিশাল বিভাগ</option>
+      <option value="rangpur">রংপুর বিভাগ</option>
+      <option value="mymensingh">ময়মনসিংহ বিভাগ</option>
+    </select>
+  </div>
 
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=500&q=80" alt="Studio Apartment">
-                <div class="product-details">
-                    <div>
-                        <div class="product-price">BDT 1,000,000</div>
-                        <div class="product-title">Gorgeous Studio Type Duplex Apartment</div>
-                        <div class="product-location">Dhaka, Baridhara • 1 bedroom</div>
-                    </div>
-                    <div class="action-btns">
-                        <button class="btn-boost" onclick="openPaymentModal('বুস্ট করুন')">বুস্ট করুন</button>
-                        <button class="btn-topup" onclick="openPaymentModal('টপ-আপ')">টপ-আপ</button>
-                    </div>
-                </div>
-            </div>
+  <div class="form-group">
+    <label for="district">জেলা:</label>
+    <select id="district" onchange="updateThanas()">
+      <option value="">প্রথমে বিভাগ নির্বাচন করুন</option>
+    </select>
+  </div>
 
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=500&q=80" alt="Apartment">
-                <div class="product-details">
-                    <div>
-                        <div class="product-price">BDT 130,000 per month</div>
-                        <div class="product-title">3-Bedroom Apartment in Anik Real Estate</div>
-                        <div class="product-location">Dhaka, Baridhara • 3 bedrooms</div>
-                    </div>
-                    <div class="action-btns">
-                        <button class="btn-boost" onclick="openPaymentModal('বুস্ট করুন')">বুস্ট করুন</button>
-                        <button class="btn-topup" onclick="openPaymentModal('টপ-আপ')">টপ-আপ</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="form-group">
+    <label for="thana">থানা / এলাকা:</label>
+    <select id="thana">
+      <option value="">প্রথমে জেলা নির্বাচন করুন</option>
+    </select>
+  </div>
+</div>
 
-    <!-- 1. Post Ad Modal (বিজ্ঞাপন পোস্ট ফর্ম) -->
-    <div id="postAdModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
-            <h3 style="color:#008069; margin-bottom: 12px;">আপনার বিজ্ঞাপন দিন</h3>
-            <form onsubmit="handleAdSubmit(event)">
-                <div class="form-group">
-                    <label>পণ্যের নাম / শিরোনাম</label>
-                    <input type="text" required placeholder="যেমন: স্যামসাং গ্যালাক্সি এস২৪ Ultra">
-                </div>
-                <div class="form-group">
-                    <label>ক্যাটাগরি</label>
-                    <select required>
-                        <option value="">ক্যাটাগরি নির্বাচন করুন</option>
-                        <option>Phones & Tablets</option>
-                        <option>Electronics</option>
-                        <option>Vehicles</option>
-                        <option>Property</option>
-                        <option>Fashion</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>মূল্য (টাকা)</label>
-                    <input type="number" required placeholder="যেমন: ২৫০০০">
-                </div>
-                <div class="form-group">
-                    <label>অবস্থান</label>
-                    <input type="text" required placeholder="যেমন: চট্টগ্রাম, ইপিজেড">
-                </div>
-                <div class="form-group">
-                    <label>পণ্যের ছবি</label>
-                    <input type="file" accept="image/*">
-                </div>
-                <div class="form-group">
-                    <label>পণ্যের বিস্তারিত বিবরণ</label>
-                    <textarea rows="3" placeholder="পণ্য সম্পর্কে বিস্তারিত লিখুন..."></textarea>
-                </div>
-                <button type="submit" class="btn-submit">বিজ্ঞাপন সাবমিট করুন</button>
-            </form>
-        </div>
-    </div>
+<script>
+  // Category Data
+  const subCategories = {
+    mobiles: ["মোবাইল ফোন", "মোবাইল এক্সেসরিজ", "স্মার্টওয়াচ ও ওয়্যারএবলস", "সিম কার্ড"],
+    electronics: ["ডেস্কটপ ও ল্যাপটপ", "কম্পিউটার এক্সেসরিজ", "টিভি ও ভিডিও অ্যাপ্লায়েন্স", "অডিও ও মিউজিক", "ক্যামেরা ও সিকিউরিটি", "হোম অ্যাপ্লায়েন্স"],
+    vehicles: ["প্রাইভেট কার", "মোটর বাইক ও স্কুটার", "বাইসাইকেল", "অটো রিকশা ও থ্রি-হুইলার", "ট্রাক ও বাণিজ্যিক গাড়ি", "স্পেয়ার পার্টস"],
+    property: ["ফ্ল্যাট/বাসা বিক্রয়", "ফ্ল্যাট/বাসা ভাড়া", "জমি ও প্লট", "কমার্শিয়াল প্রোপার্টি", "রুম ভাড়া"],
+    home: ["ফার্নিচার", "হোম ডেকোর ও আলো", "গৃহস্থালি সামগ্রী", "বাগান ও অন্যান্য"],
+    pets: ["বিড়াল ও কিটেন", "পাখি", "মাছ ও অ্যাকোয়ারিয়াম", "কুকুর ও পাপিস", "পেট ফুড ও এক্সেসরিজ"],
+    fashion: ["পোশাক ও জুতা", "ঘড়ি ও এক্সেসরিজ", "হেলথ ও বিউটি"]
+  };
 
-    <!-- 2. Auth Modal (Login / Signup) -->
-    <div id="authModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('authModal')">&times;</span>
-            <h3 style="color:#008069; margin-bottom: 15px; text-align:center;">অ্যাাকাউন্টে প্রবেশ করুন</h3>
-            <form onsubmit="handleAuth(event)">
-                <div class="form-group">
-                    <label>মোবাইল নম্বর / ইমেইল</label>
-                    <input type="text" required placeholder="017XXXXXXXX">
-                </div>
-                <div class="form-group">
-                    <label>পাসওয়ার্ড</label>
-                    <input type="password" required placeholder="******">
-                </div>
-                <button type="submit" class="btn-submit">লগইন</button>
-            </form>
-            <p style="text-align:center; font-size:12px; margin-top:15px; color:#666;">
-                নতুন ইউজার? <a href="#" style="color:#008069; font-weight:bold;" onclick="alert('সাইনআপ সুবিধা শীঘ্রই সম্পূর্ণ চালু হচ্ছে')">এখানে সাইনআপ করুন</a>
-            </p>
-        </div>
-    </div>
+  // Location Data
+  const districts = {
+    ctg: ["চট্টগ্রাম জেলা", "কক্সবাজার", "কুমিল্লা", "ফেনী", "নোয়াখালী", "লক্ষ্মীপুর", "চাঁদপুর", "ব্রাহ্মণবাড়িয়া", "রাঙ্গামাটি", "বান্দরবান", "খাগড়াছড়ি"],
+    dhaka: ["ঢাকা জেলা", "গাজীপুর", "নারায়ণগঞ্জ", "টাঙ্গাইল", "নরসিংদী", "ফরিদপুর", "মানিকগঞ্জ", "মুন্সীগঞ্জ", "রাজবাড়ী", "গোপালগঞ্জ", "মাদারীপুর", "শরীয়তপুর", "কিশোরগঞ্জ"],
+    rajshahi: ["রাজশাহী", "বগুড়া", "পাবনা", "সিরাজগঞ্জ", "নওগাঁ", "নাটোর", "চাঁপাইনবাবগঞ্জ", "জয়পুরহাট"],
+    khulna: ["খুলনা", "যশোর", "কুষ্টিয়া", "সাতক্ষীরা", "বাগেরহাট", "ঝিনাইদহ", "চুয়াডাঙ্গা", "মেহেরপুর", "নড়াইল", "মাগুরা"],
+    sylhet: ["সিলেট", "মৌলভীবাজার", "হবিগঞ্জ", "সুনামগঞ্জ"],
+    barishal: ["বরিশাল", "পটুয়াখালী", "ভোলা", "পিরোজপুর", "বরগুনা", "ঝালকাঠি"],
+    rangpur: ["রংপুর", "দিনাজপুর", "গাইবান্ধা", "কুড়িগ্রাম", "নীলফামারী", "পঞ্চগড়", "ঠাকুরগাঁও", "লালমনিরহাট"],
+    mymensingh: ["ময়মনসিংহ", "জামালপুর", "নেত্রকোণা", "শেরপুর"]
+  };
 
-    <!-- 3. Payment Modal (বিজ্ঞাপন পোস্টের পর বা বুস্টের সময় আসবে) -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
-            <h3 id="modalTitle" style="color:#008069; margin-bottom: 10px;">পেমেন্ট করুন</h3>
-            <p style="font-size:13px; color:#555;">আপনার পোস্টটি প্রকাশ বা প্রমোট করতে নিচের অ্যাকাউন্টে পেমেন্ট করুন:</p>
+  const thanas = {
+    "চট্টগ্রাম জেলা": ["চট্টগ্রাম ইপিজেড", "পতেঙ্গা", "হালিশহর", "কোতোয়ালি", "পঞ্চলাইশ", "ডবলমুরিং", "পাহাড়তলী", "বায়েজিদ বোস্তামী", "খুলশী", "আগ্রাবাদ", "জিইসি", "চান্দগাঁও", "চকবাজার", "বন্দর", "আকবর শাহ", "হাটহাজারী", "রাউজান", "ফটিকছড়ি", "পটিয়া", "সীতাকুণ্ড", "মিরসরাই", "আনোয়ারা", "বোয়ালখালী"],
+    "ঢাকা জেলা": ["মিরপুর", "উত্তরা", "ধানমন্ডি", "গুলশান", "বনানী", "মোহাম্মদপুর", "বাড্ডা", "রামপুরা", "যাত্রাবাড়ী", "খিলগাঁও", "বাসাবো", "তেজগাঁও", "মতিঝিল", "মগবাজার", "লালবাগ", "নিউ মার্কেট", "শাহবাগ", "সাভার", "কেরানীগঞ্জ", "ধামরাই"]
+  };
 
-            <div class="payment-box">
-                <p><strong>বিকাশ / নগদ / রকেট (Personal):</strong></p>
-                <p style="font-size:16px; color:#d9534f; font-weight:bold;">01716390762</p>
-            </div>
+  function updateSubCategories() {
+    const main = document.getElementById("main-category").value;
+    const subSelect = document.getElementById("sub-category");
+    subSelect.innerHTML = '<option value="">সাব-ক্যাটাগরি নির্বাচন করুন</option>';
+    
+    if (subCategories[main]) {
+      subCategories[main].forEach(sub => {
+        subSelect.innerHTML += `<option value="${sub}">${sub}</option>`;
+      });
+    }
+  }
 
-            <div class="payment-box">
-                <p><strong>ব্যাংক ডিটেইলস (E-Commerce):</strong></p>
-                <p><strong>ব্যাংক:</strong> BRAC Bank</p>
-                <p><strong>ব্রাঞ্চ:</strong> Bandartila Branch</p>
-                <p><strong>A/C No:</strong> <span style="font-weight:bold; color:#008069;">1106104006949001</span></p>
-            </div>
+  function updateDistricts() {
+    const div = document.getElementById("division").value;
+    const distSelect = document.getElementById("district");
+    const thanaSelect = document.getElementById("thana");
+    distSelect.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
+    thanaSelect.innerHTML = '<option value="">প্রথমে জেলা নির্বাচন করুন</option>';
 
-            <p style="font-size:11px; color:#777; margin-top:10px;">* টাকা পাঠানোর পর আপনার ট্রানজেকশন আইডি (TxnID) দিয়ে নিশ্চিত করুন।</p>
-        </div>
-    </div>
+    if (districts[div]) {
+      districts[div].forEach(dist => {
+        distSelect.innerHTML += `<option value="${dist}">${dist}</option>`;
+      });
+    }
+  }
 
-    <script>
-        function filterCategory(categoryName) {
-            alert(categoryName + ' ক্যাটাগরির পণ্যসমূহ লোড হচ্ছে...');
-        }
+  function updateThanas() {
+    const dist = document.getElementById("district").value;
+    const thanaSelect = document.getElementById("thana");
+    thanaSelect.innerHTML = '<option value="">থানা / এলাকা নির্বাচন করুন</option>';
 
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
+    if (thanas[dist]) {
+      thanas[dist].forEach(thana => {
+        thanaSelect.innerHTML += `<option value="${thana}">${thana}</option>`;
+      });
+    } else {
+      thanaSelect.innerHTML = '<option value="all">সমগ্র জেলা</option>';
+    }
+  }
+</script>
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function openPaymentModal(serviceName) {
-            document.getElementById('modalTitle').innerText = serviceName + ' - পেমেন্ট করুন';
-            openModal('paymentModal');
-        }
-
-        function handleAdSubmit(e) {
-            e.preventDefault();
-            closeModal('postAdModal');
-            openPaymentModal('বিজ্ঞাপন প্রকাশ ফি');
-        }
-
-        function handleAuth(e) {
-            e.preventDefault();
-            alert('সফলভাবে লগইন হয়েছে!');
-            closeModal('authModal');
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-            }
-        }
-    </script>
 </body>
 </html>
