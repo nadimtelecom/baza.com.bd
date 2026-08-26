@@ -246,7 +246,12 @@
             cursor: pointer;
         }
 
-        /* Visible Payment Box */
+        .tag-item:hover {
+            border-color: #008069;
+            color: #008069;
+        }
+
+        /* Direct Payment Info Box */
         .visible-payment-section {
             padding: 15px;
             background: #ffffff;
@@ -430,6 +435,7 @@
                 <span class="tag-item" onclick="filterCategory('Property')">Apartments for Sale</span>
                 <span class="tag-item" onclick="filterCategory('Property')">Land & Plots</span>
                 <span class="tag-item" onclick="filterCategory('Property')">Houses for Rent</span>
+                <span class="tag-item" onclick="filterCategory('Property')">Commercial Properties</span>
             </div>
         </div>
 
@@ -440,8 +446,9 @@
             </div>
             <div class="folder-body">
                 <span class="tag-item" onclick="filterCategory('Vehicles')">Cars</span>
-                <span class="tag-item" onclick="filterCategory('Vehicles')">Motorcycles</span>
+                <span class="tag-item" onclick="filterCategory('Vehicles')">Motorcycles & Scooters</span>
                 <span class="tag-item" onclick="filterCategory('Vehicles')">Bicycles</span>
+                <span class="tag-item" onclick="filterCategory('Vehicles')">Trucks & Commercial Vehicles</span>
             </div>
         </div>
 
@@ -454,17 +461,31 @@
                 <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Mobile Phones</span>
                 <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Tablets</span>
                 <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Smart Watches</span>
+                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Chargers & Adapters</span>
+                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Power Banks</span>
+                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Headphones & Earphones</span>
+                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Covers & Cases</span>
+                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Screen Protectors</span>
+                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Cables & OTG</span>
             </div>
         </div>
 
         <div class="category-folder">
             <div class="folder-header" onclick="filterCategory('Electronics')">
-                <span>💻 Electronics (ইলেকট্রনিক্স)</span>
+                <span>💻 Electronics & Computer (ইলেকট্রনিক্স ও কম্পিউটার)</span>
                 <span>▼</span>
             </div>
             <div class="folder-body">
                 <span class="tag-item" onclick="filterCategory('Electronics')">Laptops</span>
-                <span class="tag-item" onclick="filterCategory('Electronics')">TVs</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">Desktops & PC</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">TVs & Video Accessories</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">Monitors</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">Keyboards & Mouse</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">RAM & SSD / HDD</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">Graphics Cards</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">Pen Drives & Memory Cards</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">Routers & Networking</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">Printers & Scanners</span>
             </div>
         </div>
 
@@ -474,8 +495,10 @@
                 <span>▼</span>
             </div>
             <div class="folder-body">
-                <span class="tag-item" onclick="filterCategory('Services')">AC Repair</span>
-                <span class="tag-item" onclick="filterCategory('Services')">Plumbing</span>
+                <span class="tag-item" onclick="filterCategory('Services')">AC Repair & Maintenance</span>
+                <span class="tag-item" onclick="filterCategory('Services')">Plumbing & Electrician</span>
+                <span class="tag-item" onclick="filterCategory('Services')">Mobile & Laptop Repair</span>
+                <span class="tag-item" onclick="filterCategory('Services')">Car Rentals</span>
             </div>
         </div>
 
@@ -487,6 +510,7 @@
             <div class="folder-body">
                 <span class="tag-item" onclick="filterCategory('Jobs')">Full-time Jobs</span>
                 <span class="tag-item" onclick="filterCategory('Jobs')">Part-time Jobs</span>
+                <span class="tag-item" onclick="filterCategory('Jobs')">Work From Home</span>
             </div>
         </div>
     </div>
