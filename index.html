@@ -25,6 +25,7 @@
             font-size: 20px;
             font-weight: bold;
             text-decoration: none;
+            cursor: pointer;
         }
         .logo span {
             color: #ffce00;
@@ -189,7 +190,7 @@
 
     <!-- Navbar -->
     <nav class="navbar">
-        <a href="#" class="logo">Baza<span>.com.bd</span></a>
+        <a href="./index.html" class="logo">Baza<span>.com.bd</span></a>
         <div class="nav-right">
             <button id="userBtn" class="btn-auth" onclick="openModal('loginModal')">লগইন</button>
             <button class="btn-post" onclick="openModal('postModal')">বিজ্ঞাপন দিন</button>
@@ -224,7 +225,7 @@
                 <h4>Samsung S22 Ultra</h4>
                 <p style="font-size: 12px; color: #666;">ঢাকা</p>
                 <div class="price">৳ ৬৫,০০০</div>
-                <button onclick="boostAd('S22_Ultra', 200)" style="margin-top: 8px; width: 100%; background: #ffce00; border: none; padding: 5px; cursor: pointer; border-radius: 4px; font-weight: bold;">বুস্ট করুন (৳২০০)</button>
+                <button onclick="boostAd('Samsung S22 Ultra', 200)" style="margin-top: 8px; width: 100%; background: #ffce00; color: #333; border: none; padding: 8px; cursor: pointer; border-radius: 4px; font-weight: bold;">বুস্ট করুন (৳২০০)</button>
             </div>
         </div>
     </div>
@@ -337,13 +338,13 @@
                         <h4>${title}</h4>
                         <p style="font-size: 12px; color: #666;">${loc}</p>
                         <div class="price">৳ ${price}</div>
-                        <button onclick="boostAd('${title}', 200)" style="margin-top: 8px; width: 100%; background: #ffce00; border: none; padding: 5px; cursor: pointer; border-radius: 4px; font-weight: bold;">বুস্ট করুন (৳২০০)</button>
+                        <button onclick="boostAd('${title}', 200)" style="margin-top: 8px; width: 100%; background: #ffce00; color: #333; border: none; padding: 8px; cursor: pointer; border-radius: 4px; font-weight: bold;">বুস্ট করুন (৳২০০)</button>
                     `;
                     document.getElementById('productList').prepend(newCard);
                     closeModal('postModal');
                     alert('আপনার বিজ্ঞাপন পোস্ট করা হয়েছে!');
 
-                    // Reset form
+                    // Reset form fields
                     document.getElementById('postTitle').value = '';
                     document.getElementById('postPrice').value = '';
                     document.getElementById('postLocation').value = '';
@@ -364,9 +365,10 @@
             }
         }
 
-        // Boost Ad Payment Handler (Demo)
+        // Boost Ad Payment Handler with Personal bKash Number
         function boostAd(title, amount) {
-            alert(title + ' বিজ্ঞাপনটি বুস্ট করার জন্য SSLCommerz/bKash পেমেন্ট পেজে রিডাইরেক্ট করা হচ্ছে... (ফি: ৳' + amount + ')');
+            var myBkashNumber = "01716390762";
+            alert('বিজ্ঞাপন বুস্ট করতে ৳' + amount + ' টাকা সেন্ড মানি করুন।\nবিকাশ (Personal) নম্বর: ' + myBkashNumber + '\nটাকা পাঠিয়ে ট্রানজেকশন আইডি (TrxID) সংরক্ষণ করুন।');
         }
     </script>
 </body>
