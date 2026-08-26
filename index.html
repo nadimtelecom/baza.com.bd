@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Search Console Verification Meta Tag -->
     <meta name="google-site-verification" content="enFUE9G2pbJwvJOqPqd8q-nIOkAh3nsFH4zTGwR_95Y" />
-    <title>Baza.com.bd - Marketplace Platform</title>
+    <title>Baza.com.bd | কেনা-বেচা করুন সহজে</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -18,191 +21,471 @@
             color: #333;
         }
 
-        /* Header */
+        /* Top Header */
         header {
             background-color: #008069;
-            color: white;
-            padding: 15px 20px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        header h1 {
+        .logo {
             font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
         }
 
-        /* Container */
+        .logo span {
+            color: #ffcc00;
+        }
+
+        .btn-post-ad {
+            background-color: #ffcc00;
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Search Banner Section */
+        .hero-banner {
+            background-color: #008069;
+            color: white;
+            text-align: center;
+            padding: 30px 15px 40px 15px;
+        }
+
+        .hero-banner h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .hero-banner p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 8px;
+            background: white;
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .location-select {
+            border: none;
+            outline: none;
+            padding: 10px;
+            background: #eef2f5;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .search-container button {
+            background-color: #ffcc00;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Category Icons Grid */
         .container {
             max-width: 1100px;
             margin: 20px auto;
             padding: 0 15px;
         }
 
-        /* Search Section */
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .search-box input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .search-box button {
-            padding: 12px 25px;
-            background-color: #008069;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .search-box button:hover {
-            background-color: #006654;
-        }
-
-        /* Section Title */
-        .section-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #008069;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        /* Product Grid */
-        .grid {
+        .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
         }
 
-        .card {
+        @media (min-width: 768px) {
+            .category-grid {
+                grid-template-columns: repeat(8, 1fr);
+            }
+        }
+
+        .category-card {
+            background: white;
+            padding: 15px 5px;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .category-card i {
+            font-size: 26px;
+            color: #008069;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .category-card span {
+            font-size: 12px;
+            font-weight: 600;
+            display: block;
+            line-height: 1.2;
+        }
+
+        /* Listings Section */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 15px;
+        }
+
+        .product-card {
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card img {
+        .product-card img {
             width: 100%;
-            height: 180px;
+            height: 160px;
             object-fit: cover;
         }
 
-        .card-body {
-            padding: 15px;
+        .product-details {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .card-body h3 {
-            font-size: 16px;
-            margin-bottom: 8px;
-        }
-
-        .card-body .price {
+        .product-price {
             color: #008069;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .product-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #222;
+        }
+
+        .product-location {
+            font-size: 11px;
+            color: #777;
             margin-bottom: 10px;
         }
 
-        .card-body button {
-            width: 100%;
-            padding: 8px;
-            background-color: #ff9900;
-            color: white;
+        .action-btns {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-boost, .btn-topup {
+            flex: 1;
+            padding: 6px;
             border: none;
             border-radius: 4px;
-            cursor: pointer;
+            font-size: 11px;
             font-weight: bold;
+            cursor: pointer;
         }
 
-        .card-body button:hover {
-            background-color: #e68a00;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            background-color: #222;
+        .btn-boost {
+            background-color: #ff9900;
             color: white;
+        }
+
+        .btn-topup {
+            background-color: #008069;
+            color: white;
+        }
+
+        /* Modal Styles (Hidden Payment Details) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .payment-box {
+            background: #f8f9fa;
+            border: 1px dashed #008069;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .payment-box p {
+            font-size: 13px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header>
-        <h1>Baza.com.bd</h1>
-        <span>অনলাইন মার্কেটপ্লেস</span>
+        <a href="#" class="logo">Baza<span>.com.bd</span></a>
+        <button class="btn-post-ad" onclick="openPaymentModal('বিজ্ঞাপন পোস্ট / টপ-আপ')">+ বিজ্ঞাপন দিন</button>
     </header>
 
+    <!-- Hero Search Section -->
+    <div class="hero-banner">
+        <h1>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
+        <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
+        <div class="search-container">
+            <select class="location-select">
+                <option>Chattogram</option>
+                <option>Dhaka</option>
+                <option>Sylhet</option>
+            </select>
+            <input type="text" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)">
+            <button onclick="alert('খোঁজা হচ্ছে...')"><i class="fa-solid fa-magnifying-glass"></i> খুঁজুন</button>
+        </div>
+    </div>
+
     <div class="container">
-        <!-- Search -->
-        <div class="search-box">
-            <input type="text" placeholder="পণ্য বা অ্যাক্সেসরিজ খুঁজুন...">
-            <button>সার্চ</button>
+        <!-- Categories Grid -->
+        <div class="category-grid">
+            <div class="category-card" onclick="filterCategory('Trending')">
+                <i class="fa-solid fa-fire"></i>
+                <span>Trending</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Vehicles')">
+                <i class="fa-solid fa-car"></i>
+                <span>Vehicles</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Property')">
+                <i class="fa-solid fa-house"></i>
+                <span>Property</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Phones & Tablets')">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <span>Phones & Tablets</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Electronics')">
+                <i class="fa-solid fa-laptop"></i>
+                <span>Electronics</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Home & Furniture')">
+                <i class="fa-solid fa-couch"></i>
+                <span>Home & Furniture</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Fashion')">
+                <i class="fa-solid fa-shirt"></i>
+                <span>Fashion</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Beauty & Personal Care')">
+                <i class="fa-solid fa-pump-soap"></i>
+                <span>Beauty & Care</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Services')">
+                <i class="fa-solid fa-wrench"></i>
+                <span>Services</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Repair & Construction')">
+                <i class="fa-solid fa-helmet-safety"></i>
+                <span>Repair & Construction</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Commercial Equipment')">
+                <i class="fa-solid fa-gears"></i>
+                <span>Commercial Tools</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Leisure & Activities')">
+                <i class="fa-solid fa-person-biking"></i>
+                <span>Leisure</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Babies & Kids')">
+                <i class="fa-solid fa-teddy-bear"></i>
+                <span>Babies & Kids</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Food & Agriculture')">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span>Food & Agriculture</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Animals & Pets')">
+                <i class="fa-solid fa-dog"></i>
+                <span>Animals & Pets</span>
+            </div>
+            <div class="category-card" onclick="filterCategory('Jobs')">
+                <i class="fa-solid fa-briefcase"></i>
+                <span>Jobs</span>
+            </div>
         </div>
 
-        <!-- Featured Products -->
-        <h2 class="section-title">সর্বশেষ পণ্যসমূহ</h2>
-        
-        <div class="grid">
-            <div class="card">
-                <img src="https://via.placeholder.com/200" alt="Product Image">
-                <div class="card-body">
-                    <h3>মোবাইল ফোন ও অ্যাক্সেসরিজ</h3>
-                    <div class="price">৳ ১,৫০০</div>
-                    <button>বিস্তারিত দেখুন</button>
+        <!-- Trending Section Header -->
+        <div class="section-header">
+            <h2>Trending</h2>
+        </div>
+
+        <!-- Product Listings -->
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=500&q=80" alt="Apartment">
+                <div class="product-details">
+                    <div>
+                        <div class="product-price">BDT 3,000 per month</div>
+                        <div class="product-title">2-bedroom Apartment for Rent</div>
+                        <div class="product-location">Munshiganj, Sreenagar • 2 bedrooms</div>
+                    </div>
+                    <div class="action-btns">
+                        <button class="btn-boost" onclick="openPaymentModal('বুস্ট করুন')">বুস্ট করুন</button>
+                        <button class="btn-topup" onclick="openPaymentModal('টপ-আপ')">টপ-আপ</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="card">
-                <img src="https://via.placeholder.com/200" alt="Product Image">
-                <div class="card-body">
-                    <h3>ওয়্যারলেস ইয়ারবাডস</h3>
-                    <div class="price">৳ ১,২০০</div>
-                    <button>বিস্তারিত দেখুন</button>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=500&q=80" alt="Studio Apartment">
+                <div class="product-details">
+                    <div>
+                        <div class="product-price">BDT 1,000,000</div>
+                        <div class="product-title">Gorgeous Studio Type Duplex Apartment</div>
+                        <div class="product-location">Dhaka, Baridhara • 1 bedroom</div>
+                    </div>
+                    <div class="action-btns">
+                        <button class="btn-boost" onclick="openPaymentModal('বুস্ট করুন')">বুস্ট করুন</button>
+                        <button class="btn-topup" onclick="openPaymentModal('টপ-আপ')">টপ-আপ</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="card">
-                <img src="https://via.placeholder.com/200" alt="Product Image">
-                <div class="card-body">
-                    <h3>ওয়াইফাই রাউটার</h3>
-                    <div class="price">৳ ২,৮০০</div>
-                    <button>বিস্তারিত দেখুন</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/200" alt="Product Image">
-                <div class="card-body">
-                    <h3>স্মার্টওয়াচ</h3>
-                    <div class="price">৳ ২,১০০</div>
-                    <button>বিস্তারিত দেখুন</button>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=500&q=80" alt="Apartment">
+                <div class="product-details">
+                    <div>
+                        <div class="product-price">BDT 130,000 per month</div>
+                        <div class="product-title">3-Bedroom Apartment in Anik Real Estate</div>
+                        <div class="product-location">Dhaka, Baridhara • 3 bedrooms</div>
+                    </div>
+                    <div class="action-btns">
+                        <button class="btn-boost" onclick="openPaymentModal('বুস্ট করুন')">বুস্ট করুন</button>
+                        <button class="btn-topup" onclick="openPaymentModal('টপ-আপ')">টপ-আপ</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Baza.com.bd - সর্বস্বত্ব সংরক্ষিত</p>
-    </footer>
+    <!-- Hidden Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle" style="color:#008069; margin-bottom: 10px;">পেমেন্ট অপশন</h3>
+            <p style="font-size:13px; color:#555;">পেমেন্ট নিশ্চিত করতে নিচের অ্যাকাউন্টে টাকা পাঠান:</p>
 
+            <div class="payment-box">
+                <p><strong>বিকাশ / নগদ / রকেট (Personal):</strong></p>
+                <p style="font-size:16px; color:#d9534f; font-weight:bold;">01716390762</p>
+            </div>
+
+            <div class="payment-box">
+                <p><strong>ব্যাংক ডিটেইলস (E-Commerce):</strong></p>
+                <p><strong>ব্যাংক:</strong> BRAC Bank</p>
+                <p><strong>ব্রাঞ্চ:</strong> Bandartila Branch</p>
+                <p><strong>A/C No:</strong> <span style="font-weight:bold; color:#008069;">1106104006949001</span></p>
+            </div>
+
+            <p style="font-size:11px; color:#777; margin-top:10px;">* টাকা পাঠানোর পর আপনার ট্রানজেকশন আইডি (TxnID) সাপোর্ট নম্বরে পাঠিয়ে দিন।</p>
+        </div>
+    </div>
+
+    <script>
+        function filterCategory(categoryName) {
+            alert(categoryName + ' ক্যাটাগরির পণ্যসমূহ লোড হচ্ছে...');
+        }
+
+        function openPaymentModal(serviceName) {
+            document.getElementById('modalTitle').innerText = serviceName + ' - পেমেন্ট করুন';
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            var modal = document.getElementById('paymentModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
