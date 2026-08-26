@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baza.com.bd - All in One Platform</title>
+    <title>Baza.com.bd - Marketplace Platform</title>
     <style>
         * {
             margin: 0;
@@ -65,7 +65,7 @@
             cursor: pointer;
         }
 
-        /* Main Category Grid */
+        /* Interactive Category Grid Icons */
         .category-section {
             padding: 15px;
             background: #ffffff;
@@ -83,6 +83,11 @@
             flex-direction: column;
             align-items: center;
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .cat-item:active {
+            transform: scale(0.95);
         }
 
         .icon-box {
@@ -95,6 +100,12 @@
             justify-content: center;
             font-size: 26px;
             margin-bottom: 6px;
+            border: 2px solid transparent;
+        }
+
+        .cat-item.active .icon-box {
+            border-color: #008069;
+            background-color: #e6f4f1;
         }
 
         .cat-label {
@@ -104,7 +115,7 @@
             line-height: 1.2;
         }
 
-        /* Recent Ads */
+        /* Product Ads Grid */
         .ads-section {
             padding: 15px;
             background: #ffffff;
@@ -180,7 +191,7 @@
             font-size: 11px;
         }
 
-        /* Separate Folders Category View */
+        /* Folder Categories Section */
         .folder-section {
             padding: 15px;
             background: #ffffff;
@@ -235,7 +246,34 @@
             cursor: pointer;
         }
 
-        /* Modals & Payment Styles */
+        /* Visible Payment Box */
+        .visible-payment-section {
+            padding: 15px;
+            background: #ffffff;
+            margin-top: 10px;
+        }
+
+        .payment-card {
+            background: #e6f4f1;
+            border: 1px solid #008069;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .payment-card h4 {
+            color: #008069;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .payment-details-list {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -285,39 +323,6 @@
             font-size: 14px;
         }
 
-        /* Payment Tabs */
-        .payment-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin: 12px 0;
-        }
-
-        .pay-option {
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
-        }
-
-        .pay-option.selected {
-            border-color: #008069;
-            background-color: #e6f4f1;
-            color: #008069;
-        }
-
-        .pay-info-box {
-            background: #f0f4f8;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
         footer {
             background: #1e2022;
             color: #aaa;
@@ -330,7 +335,7 @@
 </head>
 <body>
 
-    <!-- Header Bar -->
+    <!-- Header Section -->
     <div class="top-bar">
         <select class="location-select">
             <option>Chattogram</option>
@@ -339,57 +344,57 @@
             <option>Rajshahi</option>
         </select>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="I am looking for...">
+            <input type="text" id="searchInput" placeholder="I am looking for..." onkeyup="searchProducts()">
             <button onclick="searchProducts()">🔍</button>
         </div>
     </div>
 
-    <!-- Main Grid Icons Section -->
+    <!-- Category Grid -->
     <div class="category-section">
         <div class="category-grid">
-            <div class="cat-item" onclick="scrollToFolder('cat-property')">
+            <div class="cat-item active" onclick="filterCategory('All', this)">
+                <div class="icon-box">📦</div>
+                <div class="cat-label">All Ads</div>
+            </div>
+            <div class="cat-item" onclick="filterCategory('Property', this)">
                 <div class="icon-box">🏡</div>
                 <div class="cat-label">Property</div>
             </div>
-            <div class="cat-item" onclick="scrollToFolder('cat-vehicles')">
+            <div class="cat-item" onclick="filterCategory('Vehicles', this)">
                 <div class="icon-box">🚗</div>
                 <div class="cat-label">Vehicles</div>
             </div>
-            <div class="cat-item" onclick="scrollToFolder('cat-phones')">
+            <div class="cat-item" onclick="filterCategory('Phones & Tablets', this)">
                 <div class="icon-box">📱</div>
                 <div class="cat-label">Phones & Tablets</div>
             </div>
-            <div class="cat-item" onclick="scrollToFolder('cat-electronics')">
+            <div class="cat-item" onclick="filterCategory('Electronics', this)">
                 <div class="icon-box">💻</div>
                 <div class="cat-label">Electronics</div>
             </div>
-            <div class="cat-item" onclick="scrollToFolder('cat-home')">
+            <div class="cat-item" onclick="filterCategory('Home & Living', this)">
                 <div class="icon-box">🛋️</div>
                 <div class="cat-label">Home & Living</div>
             </div>
-            <div class="cat-item" onclick="scrollToFolder('cat-services')">
+            <div class="cat-item" onclick="filterCategory('Services', this)">
                 <div class="icon-box">🔧</div>
                 <div class="cat-label">Services</div>
             </div>
-            <div class="cat-item" onclick="scrollToFolder('cat-jobs')">
+            <div class="cat-item" onclick="filterCategory('Jobs', this)">
                 <div class="icon-box">💼</div>
                 <div class="cat-label">Jobs</div>
-            </div>
-            <div class="cat-item" onclick="scrollToFolder('cat-pets')">
-                <div class="icon-box">🐶</div>
-                <div class="cat-label">Animals & Pets</div>
             </div>
         </div>
     </div>
 
-    <!-- Active Ads & E-commerce Items -->
+    <!-- Live Products List Section -->
     <div class="ads-section">
         <div class="section-header">
-            <h3>Trending Ads</h3>
+            <h3 id="categoryTitle">Trending Ads</h3>
             <button class="btn-post" onclick="openModal('postModal')">+ Post Ad</button>
         </div>
         <div class="products" id="productList">
-            <div class="card">
+            <div class="card" data-category="Phones & Tablets">
                 <div>
                     <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="Mobile">
                     <span class="badge">Phones & Tablets</span>
@@ -399,6 +404,16 @@
                 </div>
                 <button class="btn-boost" onclick="openPayment('Samsung S22 Ultra', 200)">Boost Ad (৳200)</button>
             </div>
+            <div class="card" data-category="Vehicles">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d" alt="Car">
+                    <span class="badge">Vehicles</span>
+                    <h4>Toyota Corolla 2018</h4>
+                    <p style="font-size: 10px; color: #666;">Chattogram</p>
+                    <div class="price">৳ ১৮,৫০,০০০</div>
+                </div>
+                <button class="btn-boost" onclick="openPayment('Toyota Corolla 2018', 200)">Boost Ad (৳200)</button>
+            </div>
         </div>
     </div>
 
@@ -406,95 +421,99 @@
     <div class="folder-section">
         <h3>ক্যাটাগরি সমূহ (ফোল্ডার ভিউ)</h3>
 
-        <div class="category-folder" id="cat-property">
-            <div class="folder-header">
+        <div class="category-folder">
+            <div class="folder-header" onclick="filterCategory('Property')">
                 <span>🏡 Property (প্রপার্টি)</span>
                 <span>▼</span>
             </div>
             <div class="folder-body">
-                <span class="tag-item">Apartments for Sale</span>
-                <span class="tag-item">Land & Plots for Sale</span>
-                <span class="tag-item">Houses & Apartments for Rent</span>
-                <span class="tag-item">Commercial Properties</span>
+                <span class="tag-item" onclick="filterCategory('Property')">Apartments for Sale</span>
+                <span class="tag-item" onclick="filterCategory('Property')">Land & Plots</span>
+                <span class="tag-item" onclick="filterCategory('Property')">Houses for Rent</span>
             </div>
         </div>
 
-        <div class="category-folder" id="cat-vehicles">
-            <div class="folder-header">
+        <div class="category-folder">
+            <div class="folder-header" onclick="filterCategory('Vehicles')">
                 <span>🚗 Vehicles (যানবাহন)</span>
                 <span>▼</span>
             </div>
             <div class="folder-body">
-                <span class="tag-item">Cars</span>
-                <span class="tag-item">Motorcycles & Scooters</span>
-                <span class="tag-item">Bicycles</span>
-                <span class="tag-item">Trucks & Commercial Vehicles</span>
+                <span class="tag-item" onclick="filterCategory('Vehicles')">Cars</span>
+                <span class="tag-item" onclick="filterCategory('Vehicles')">Motorcycles</span>
+                <span class="tag-item" onclick="filterCategory('Vehicles')">Bicycles</span>
             </div>
         </div>
 
-        <div class="category-folder" id="cat-phones">
-            <div class="folder-header">
+        <div class="category-folder">
+            <div class="folder-header" onclick="filterCategory('Phones & Tablets')">
                 <span>📱 Phones & Tablets (মোবাইল ও ট্যাবলেট)</span>
                 <span>▼</span>
             </div>
             <div class="folder-body">
-                <span class="tag-item">Mobile Phones</span>
-                <span class="tag-item">Tablets</span>
-                <span class="tag-item">Smart Watches</span>
-                <span class="tag-item">Mobile Accessories</span>
+                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Mobile Phones</span>
+                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Tablets</span>
+                <span class="tag-item" onclick="filterCategory('Phones & Tablets')">Smart Watches</span>
             </div>
         </div>
 
-        <div class="category-folder" id="cat-electronics">
-            <div class="folder-header">
+        <div class="category-folder">
+            <div class="folder-header" onclick="filterCategory('Electronics')">
                 <span>💻 Electronics (ইলেকট্রনিক্স)</span>
                 <span>▼</span>
             </div>
             <div class="folder-body">
-                <span class="tag-item">Laptops & Computers</span>
-                <span class="tag-item">TVs & Video Accessories</span>
-                <span class="tag-item">Cameras & Camcorders</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">Laptops</span>
+                <span class="tag-item" onclick="filterCategory('Electronics')">TVs</span>
             </div>
         </div>
 
-        <div class="category-folder" id="cat-home">
-            <div class="folder-header">
-                <span>🛋️ Home & Living (হোম ও ফার্নিচার)</span>
-                <span>▼</span>
-            </div>
-            <div class="folder-body">
-                <span class="tag-item">Furniture</span>
-                <span class="tag-item">Home Appliances</span>
-                <span class="tag-item">Kitchen Appliances</span>
-            </div>
-        </div>
-
-        <div class="category-folder" id="cat-services">
-            <div class="folder-header">
+        <div class="category-folder">
+            <div class="folder-header" onclick="filterCategory('Services')">
                 <span>🔧 Services (সার্ভিস)</span>
                 <span>▼</span>
             </div>
             <div class="folder-body">
-                <span class="tag-item">AC Repair & Maintenance</span>
-                <span class="tag-item">Plumbing & Electrician</span>
-                <span class="tag-item">Car Rentals</span>
+                <span class="tag-item" onclick="filterCategory('Services')">AC Repair</span>
+                <span class="tag-item" onclick="filterCategory('Services')">Plumbing</span>
             </div>
         </div>
 
-        <div class="category-folder" id="cat-jobs">
-            <div class="folder-header">
+        <div class="category-folder">
+            <div class="folder-header" onclick="filterCategory('Jobs')">
                 <span>💼 Jobs (চাকরি)</span>
                 <span>▼</span>
             </div>
             <div class="folder-body">
-                <span class="tag-item">Full-time Jobs</span>
-                <span class="tag-item">Part-time Jobs</span>
-                <span class="tag-item">Work From Home</span>
+                <span class="tag-item" onclick="filterCategory('Jobs')">Full-time Jobs</span>
+                <span class="tag-item" onclick="filterCategory('Jobs')">Part-time Jobs</span>
             </div>
         </div>
     </div>
 
-    <!-- Post Ad Modal -->
+    <!-- Direct Payment Info Box -->
+    <div class="visible-payment-section">
+        <h3 style="color: #008069; border-left: 4px solid #008069; padding-left: 8px;">💳 অফিশিয়াল পেমেন্ট মেথড</h3>
+        
+        <div class="payment-card">
+            <h4>📱 মোবাইল ব্যাংকিং (বিকাশ / নগদ / রকেট)</h4>
+            <div class="payment-details-list">
+                • <b>পার্সোনাল নম্বর:</b> <span style="color: #008069; font-size: 15px;">01716390762</span><br>
+                • টাকা পাঠানোর পর Transaction ID টি সংরক্ষণ করুন।
+            </div>
+        </div>
+
+        <div class="payment-card" style="background: #f0f4f8; border-color: #cbd5e1;">
+            <h4 style="color: #1e2022;">🏦 ব্যাংক ট্রান্সফার (BRAC Bank PLC)</h4>
+            <div class="payment-details-list">
+                • <b>Account No:</b> 1106104006949001<br>
+                • <b>Branch:</b> Bandartila, Chattogram<br>
+                • <b>Bank Name:</b> BRAC Bank PLC
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Ad Modal Window -->
     <div id="postModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postModal')">&times;</span>
@@ -505,6 +524,9 @@
                 <option value="Vehicles">🚗 Vehicles</option>
                 <option value="Electronics">💻 Electronics</option>
                 <option value="Property">🏡 Property</option>
+                <option value="Home & Living">🛋️ Home & Living</option>
+                <option value="Services">🔧 Services</option>
+                <option value="Jobs">💼 Jobs</option>
             </select>
             <input type="text" id="postPrice" placeholder="মূল্য (৳)">
             <input type="text" id="postLocation" placeholder="লোকেশন">
@@ -512,35 +534,13 @@
         </div>
     </div>
 
-    <!-- Complete Payment Modal -->
+    <!-- Payment Confirmation Modal Window -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
             <h3>পেমেন্ট সম্পন্ন করুন</h3>
             <p style="font-size: 12px; color: #666; margin-top: 4px;" id="payItemDetails">পরিমাণ: ৳২০০</p>
-
-            <div class="payment-options">
-                <div class="pay-option selected" onclick="switchPay('mobile', this)">Mobile Banking</div>
-                <div class="pay-option" onclick="switchPay('bank', this)">Bank Transfer</div>
-            </div>
-
-            <!-- Mobile Banking -->
-            <div id="mobilePaySection" class="pay-info-box">
-                <b>bKash / Nagad / Rocket (Personal):</b><br>
-                📱 <span style="font-size: 14px; font-weight: bold; color: #008069;">01716390762</span><br><br>
-                টাকা পাঠিয়ে নিচের বক্সে Transaction ID দিন:
-            </div>
-
-            <!-- Bank Details -->
-            <div id="bankPaySection" class="pay-info-box" style="display: none;">
-                <b>Bank Account Details:</b><br>
-                🏦 <b>Bank Name:</b> BRAC Bank PLC<br>
-                🔢 <b>Account No:</b> 1106104006949001<br>
-                📍 <b>Branch:</b> Bandartila, Chattogram<br><br>
-                ব্যাংক ডিপোজিট স্লিপ বা রেফারেন্স নম্বর দিন:
-            </div>
-
-            <input type="text" id="trxId" placeholder="Transaction ID / Bank Ref No.">
+            <input type="text" id="trxId" placeholder="Transaction ID / Ref No.">
             <button class="modal-btn" onclick="confirmPayment()">কনফার্ম করুন</button>
         </div>
     </div>
@@ -549,6 +549,7 @@
         <p>&copy; 2026 Baza.com.bd — All rights reserved.</p>
     </footer>
 
+    <!-- JavaScript Functionalities -->
     <script>
         function openModal(id) {
             document.getElementById(id).style.display = 'block';
@@ -558,11 +559,26 @@
             document.getElementById(id).style.display = 'none';
         }
 
-        function scrollToFolder(id) {
-            var el = document.getElementById(id);
-            if(el) {
-                el.scrollIntoView({ behavior: 'smooth' });
+        function filterCategory(cat, element) {
+            var cards = document.querySelectorAll('.card');
+            var title = document.getElementById('categoryTitle');
+            
+            if (element) {
+                var items = document.querySelectorAll('.cat-item');
+                items.forEach(item => item.classList.remove('active'));
+                element.classList.add('active');
             }
+
+            title.innerText = cat === 'All' ? 'Trending Ads' : cat + ' Ads';
+
+            cards.forEach(card => {
+                var cardCat = card.getAttribute('data-category');
+                if (cat === 'All' || cardCat === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
 
         function openPayment(title, price) {
@@ -570,24 +586,10 @@
             openModal('paymentModal');
         }
 
-        function switchPay(type, element) {
-            var options = document.querySelectorAll('.pay-option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-
-            if (type === 'mobile') {
-                document.getElementById('mobilePaySection').style.display = 'block';
-                document.getElementById('bankPaySection').style.display = 'none';
-            } else {
-                document.getElementById('mobilePaySection').style.display = 'none';
-                document.getElementById('bankPaySection').style.display = 'block';
-            }
-        }
-
         function confirmPayment() {
             var trx = document.getElementById('trxId').value;
             if (!trx) {
-                alert('অনুগ্রহ করে Transaction ID অথবা Bank Reference দিন!');
+                alert('অনুগ্রহ করে Transaction ID বা Reference Number দিন!');
                 return;
             }
             alert('আপনার পেমেন্ট ভেরিফিকেশনের জন্য সফলভাবে জমা নেওয়া হয়েছে!');
@@ -620,6 +622,7 @@
             if (title && price && loc) {
                 var newCard = document.createElement('div');
                 newCard.className = 'card';
+                newCard.setAttribute('data-category', category);
                 newCard.innerHTML = `
                     <div>
                         <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="${title}">
