@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Baza.com.bd</title>
+  <!-- Google Fonts & FontAwesome CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
@@ -13,16 +14,22 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', sans-serif; }
     body { background-color: #ffffff; color: #2c3e50; }
 
-    /* Top Nav Bar */
+    /* Top Navigation Header */
     .top-nav {
       background-color: #167a62;
       padding: 12px 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .brand-logo { font-size: 24px; font-weight: 700; color: #ffffff; }
+    .brand-logo { font-size: 24px; font-weight: 700; color: #ffffff; cursor: pointer; }
     .brand-logo span { color: #ffcc00; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .btn-auth { color: white; background: transparent; border: none; font-size: 14px; font-weight: 600; cursor: pointer; padding: 5px 8px; }
     .btn-post-ad {
       background-color: #ffcc00;
       color: #000;
@@ -68,7 +75,7 @@
       cursor: pointer;
     }
 
-    /* Location & Search Sub-Header (Green Bar) */
+    /* Location & Search Filter Bar (Green Bar) */
     .filter-bar {
       background-color: #00a664;
       padding: 10px 15px;
@@ -82,7 +89,7 @@
       padding: 8px 10px;
       font-size: 13px;
       outline: none;
-      width: 35%;
+      width: 40%;
     }
     .input-search-bar {
       background: #ffffff;
@@ -101,8 +108,8 @@
     }
     .input-search-bar i { color: #888; }
 
-    /* Category Grid Layout */
-    .container { padding: 20px 15px; }
+    /* Category Icons Grid */
+    .container { padding: 20px 15px; max-width: 900px; margin: 0 auto; }
     .grid-categories {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -121,20 +128,80 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: background-color 0.2s;
     }
+    .cat-item:hover .icon-box { background-color: #d8ece2; }
     .icon-box i { font-size: 26px; color: #167a62; }
     .cat-item span { font-size: 12px; font-weight: 600; color: #333; display: block; line-height: 1.2; }
+
+    /* Ads Section */
+    .section-title { font-size: 18px; font-weight: 700; margin: 25px 0 15px; color: #167a62; }
+    .ads-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+    .ad-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.08); border: 1px solid #eee; }
+    .ad-card img { width: 100%; height: 130px; object-fit: cover; }
+    .ad-details { padding: 10px; }
+    .ad-details h4 { font-size: 14px; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; }
+    .ad-details .price { color: #167a62; font-weight: 700; font-size: 14px; margin-bottom: 5px; }
+    .ad-details .loc { font-size: 11px; color: #777; }
+
+    /* Modal Pop-ups */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-box {
+      background: white;
+      width: 90%;
+      max-width: 450px;
+      border-radius: 10px;
+      padding: 20px;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+    .modal-header h3 { font-size: 18px; color: #167a62; }
+    .close-btn { cursor: pointer; font-size: 20px; color: #888; }
+    
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 13px;
+      outline: none;
+    }
+    .submit-btn {
+      width: 100%;
+      background: #167a62;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Top Header -->
+  <!-- Top Header Navigation -->
   <div class="top-nav">
     <div class="brand-logo">Baza<span>.com.bd</span></div>
-    <button class="btn-post-ad">+ বিজ্ঞাপন দিন</button>
+    <div class="header-right">
+      <button class="btn-auth" onclick="openModal('signin-modal')"><i class="fa-solid fa-user"></i> সাইন ইন</button>
+      <button class="btn-post-ad" onclick="openModal('postad-modal')">+ বিজ্ঞাপন দিন</button>
+    </div>
   </div>
 
-  <!-- Hero Section -->
+  <!-- Main Hero Section -->
   <div class="hero-banner">
     <h1>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
     <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
@@ -144,12 +211,10 @@
     </div>
   </div>
 
-  <!-- App-Style Filter Bar -->
+  <!-- Location Dropdown & Input Search Bar -->
   <div class="filter-bar">
-    <select class="select-location">
-      <option>Chattogram...</option>
-      <option>Dhaka</option>
-      <option>Sylhet</option>
+    <select class="select-location" id="all-districts">
+      <!-- Dynamic Load: Bangladesh 64 Districts -->
     </select>
     <div class="input-search-bar">
       <input type="text" placeholder="I am looking for...">
@@ -225,7 +290,175 @@
         <span>Jobs</span>
       </div>
     </div>
+
+    <!-- Live Ads List Section -->
+    <div class="section-title">সাম্প্রতিক বিজ্ঞাপনসমূহ</div>
+    <div class="ads-list" id="ads-container">
+      <div class="ad-card">
+        <img src="https://via.placeholder.com/200x130?text=Phone" alt="Ad">
+        <div class="ad-details">
+          <h4>OPPO Reno 14 5G (Fresh Condition)</h4>
+          <div class="price">৳ ৩৪,৫০০</div>
+          <div class="loc"><i class="fa-solid fa-location-dot"></i> চট্টগ্রাম ইপিজেড</div>
+        </div>
+      </div>
+    </div>
   </div>
 
+  <!-- POPUP 1: Post Ad Modal -->
+  <div class="modal-overlay" id="postad-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>নতুন বিজ্ঞাপন দিন</h3>
+        <i class="fa-solid fa-xmark close-btn" onclick="closeModal('postad-modal')"></i>
+      </div>
+      <form onsubmit="handlePostAd(event)">
+        <div class="form-group">
+          <label>পণ্যের শিরোনাম</label>
+          <input type="text" id="ad-title" placeholder="যেমন: iPhone 13 Pro Max" required>
+        </div>
+        <div class="form-group">
+          <label>ক্যাটাগরি</label>
+          <select required>
+            <option value="">নির্বাচন করুন</option>
+            <option>Phones & Tablets</option>
+            <option>Electronics</option>
+            <option>Vehicles</option>
+            <option>Property</option>
+            <option>Fashion</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>দাম (টাকা)</label>
+          <input type="number" id="ad-price" placeholder="যেমন: ২৫০০০" required>
+        </div>
+        <div class="form-group">
+          <label>জেলা</label>
+          <select id="ad-district" required></select>
+        </div>
+        <div class="form-group">
+          <label>থানা / এলাকা</label>
+          <input type="text" id="ad-area" placeholder="যেমন: EPZ, হালিশহর" required>
+        </div>
+        <button type="submit" class="submit-btn">বিজ্ঞাপন প্রকাশ করুন</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- POPUP 2: Sign In Modal -->
+  <div class="modal-overlay" id="signin-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>সাইন ইন করুন</h3>
+        <i class="fa-solid fa-xmark close-btn" onclick="closeModal('signin-modal')"></i>
+      </div>
+      <form onsubmit="event.preventDefault(); alert('সাইন ইন সফল হয়েছে!'); closeModal('signin-modal');">
+        <div class="form-group">
+          <label>মোবাইল / ইমেইল</label>
+          <input type="text" required placeholder="017xxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label>পাসওয়ার্ড</label>
+          <input type="password" required placeholder="******">
+        </div>
+        <button type="submit" class="submit-btn">লগইন করুন</button>
+        <p style="font-size:12px; text-align:center; margin-top:10px;">
+          অ্যাকাউন্ট নেই? <a href="#" onclick="closeModal('signin-modal'); openModal('signup-modal');">নতুন তৈরি করুন</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- POPUP 3: Sign Up Modal -->
+  <div class="modal-overlay" id="signup-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>নতুন অ্যাকাউন্ট খুলুন</h3>
+        <i class="fa-solid fa-xmark close-btn" onclick="closeModal('signup-modal')"></i>
+      </div>
+      <form onsubmit="event.preventDefault(); alert('অ্যাকাউন্ট তৈরি সফল হয়েছে!'); closeModal('signup-modal');">
+        <div class="form-group">
+          <label>আপনার নাম</label>
+          <input type="text" required placeholder="পূর্ণ নাম">
+        </div>
+        <div class="form-group">
+          <label>মোবাইল নম্বর</label>
+          <input type="tel" required placeholder="017xxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label>পাসওয়ার্ড</label>
+          <input type="password" required placeholder="******">
+        </div>
+        <button type="submit" class="submit-btn">রেজিস্ট্রেশন সম্পন্ন করুন</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- All Logic Javascript Code -->
+  <script>
+    // Bangladesh All 64 Districts List
+    const bdDistricts = [
+      "চট্টগ্রাম", "ঢাকা", "কক্সবাজার", "কুমিল্লা", "ফেনী", "নোয়াখালী", "ব্রাহ্মণবাড়িয়া", "চাঁদপুর", "লক্ষ্মীপুর", "খাগড়াছড়ি", "রাঙ্গামাটি", "বান্দরবান",
+      "গাজীপুর", "নারায়ণগঞ্জ", "টাঙ্গাইল", "ফরিদপুর", "মানিকগঞ্জ", "মুন্সিগঞ্জ", "নরসিংদী", "শরীয়তপুর", "মাদারীপুর", "গোপালগঞ্জ", "রাজবাড়ী",
+      "রাজশাহী", "বগুড়া", "পাবনা", "সিরাজগঞ্জ", "নওগাঁ", "নাটোর", "চাঁপাইনবাবগঞ্জ", "জয়পুরহাট",
+      "খুলনা", "যশোর", "কুষ্টিয়া", "সাতক্ষীরা", "বাগেরহাট", "ঝিনাইদহ", "মেহেরপুর", "নড়াইল", "মাগুরা", "চুয়াডাঙ্গা",
+      "সিলেট", "মৌলভীবাজার", "হবিগঞ্জ", "সুনামগঞ্জ",
+      "বরিশাল", "পটুয়াখালী", "ভোলা", "পিরোজপুর", "বরগুনা", "ঝালকাঠি",
+      "রংপুর", "দিনাজপুর", "গাইবান্ধা", "কুড়িগ্রাম", "নীলফামারী", "পঞ্চগড়", "ঠাকুরগাঁও", "লালমনিরহাট",
+      "ময়মনসিংহ", "জামালপুর", "নেত্রকোনা", "শেরপুর"
+    ];
+
+    // Populate District Select Options
+    function loadDistricts() {
+      const selectTop = document.getElementById('all-districts');
+      const selectForm = document.getElementById('ad-district');
+      
+      let html = '<option value="">সমস্ত বাংলাদেশ (৬৪ জেলা)</option>';
+      let formHtml = '<option value="">জেলা নির্বাচন করুন</option>';
+
+      bdDistricts.forEach(d => {
+        html += `<option value="${d}">${d}</option>`;
+        formHtml += `<option value="${d}">${d}</option>`;
+      });
+
+      selectTop.innerHTML = html;
+      selectForm.innerHTML = formHtml;
+    }
+    loadDistricts();
+
+    // Modal Control Functions
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    // Dynamic Post Ad Submission Logic
+    function handlePostAd(e) {
+      e.preventDefault();
+      const title = document.getElementById('ad-title').value;
+      const price = document.getElementById('ad-price').value;
+      const district = document.getElementById('ad-district').value;
+      const area = document.getElementById('ad-area').value;
+
+      const adsContainer = document.getElementById('ads-container');
+      const newAdHTML = `
+        <div class="ad-card">
+          <img src="https://via.placeholder.com/200x130?text=New+Product" alt="Ad">
+          <div class="ad-details">
+            <h4>${title}</h4>
+            <div class="price">৳ ${Number(price).toLocaleString('bn-BD')}</div>
+            <div class="loc"><i class="fa-solid fa-location-dot"></i> ${district}, ${area}</div>
+          </div>
+        </div>
+      `;
+
+      adsContainer.insertAdjacentHTML('afterbegin', newAdHTML);
+      alert('আপনার বিজ্ঞাপনটি সফলভাবে যুক্ত হয়েছে!');
+      closeModal('postad-modal');
+      e.target.reset();
+    }
+  </script>
 </body>
 </html>
