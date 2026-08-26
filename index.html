@@ -3,163 +3,229 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Category & Location Selector</title>
+  <title>Baza.com.bd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
-    .filter-container {
-      font-family: Arial, sans-serif;
-      max-width: 500px;
-      margin: 20px auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #f9f9f9;
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', sans-serif; }
+    body { background-color: #ffffff; color: #2c3e50; }
+
+    /* Top Nav Bar */
+    .top-nav {
+      background-color: #167a62;
+      padding: 12px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    select {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+    .brand-logo { font-size: 24px; font-weight: 700; color: #ffffff; }
+    .brand-logo span { color: #ffcc00; }
+    .btn-post-ad {
+      background-color: #ffcc00;
+      color: #000;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 700;
       font-size: 14px;
+      border: none;
+      cursor: pointer;
     }
+
+    /* Hero Banner Section */
+    .hero-banner {
+      background-color: #2a9d80;
+      padding: 25px 15px;
+      text-align: center;
+      color: white;
+    }
+    .hero-banner h1 { font-size: 22px; margin-bottom: 8px; font-weight: 700; }
+    .hero-banner p { font-size: 13px; opacity: 0.9; margin-bottom: 20px; }
+    
+    .search-group {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      gap: 8px;
+    }
+    .search-group input {
+      flex: 1;
+      padding: 10px 15px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+      outline: none;
+    }
+    .btn-search {
+      background-color: #ffcc00;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 700;
+      color: #000;
+      cursor: pointer;
+    }
+
+    /* Location & Search Sub-Header (Green Bar) */
+    .filter-bar {
+      background-color: #00a664;
+      padding: 10px 15px;
+      display: flex;
+      gap: 8px;
+    }
+    .select-location {
+      background: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 13px;
+      outline: none;
+      width: 35%;
+    }
+    .input-search-bar {
+      background: #ffffff;
+      border-radius: 6px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+    }
+    .input-search-bar input {
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 8px 5px;
+      font-size: 13px;
+    }
+    .input-search-bar i { color: #888; }
+
+    /* Category Grid Layout */
+    .container { padding: 20px 15px; }
+    .grid-categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px 10px;
+    }
+    .cat-item {
+      text-align: center;
+      cursor: pointer;
+    }
+    .icon-box {
+      background-color: #ebf5f0;
+      width: 65px;
+      height: 65px;
+      border-radius: 16px;
+      margin: 0 auto 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .icon-box i { font-size: 26px; color: #167a62; }
+    .cat-item span { font-size: 12px; font-weight: 600; color: #333; display: block; line-height: 1.2; }
   </style>
 </head>
 <body>
 
-<div class="filter-container">
-  <h2>ক্যাটাগরি ও লোকেশন ফিল্টার</h2>
-
-  <!-- Category Selection -->
-  <div class="form-group">
-    <label for="main-category">মূল ক্যাটাগরি:</label>
-    <select id="main-category" onchange="updateSubCategories()">
-      <option value="">ক্যাটাগরি নির্বাচন করুন</option>
-      <option value="mobiles">মোবাইল (Mobiles)</option>
-      <option value="electronics">ইলেকট্রনিক্স (Electronics)</option>
-      <option value="vehicles">যানবাহন (Vehicles)</option>
-      <option value="property">প্রোপার্টি (Property)</option>
-      <option value="home">হোম ও লিভিং (Home & Living)</option>
-      <option value="pets">পোষা প্রাণী ও পাখি (Pets & Animals)</option>
-      <option value="fashion">ফ্যাশন ও লাইফস্টাইল (Fashion)</option>
-    </select>
+  <!-- Top Header -->
+  <div class="top-nav">
+    <div class="brand-logo">Baza<span>.com.bd</span></div>
+    <button class="btn-post-ad">+ বিজ্ঞাপন দিন</button>
   </div>
 
-  <div class="form-group">
-    <label for="sub-category">সাব-ক্যাটাগরি:</label>
-    <select id="sub-category">
-      <option value="">প্রথমে মূল ক্যাটাগরি নির্বাচন করুন</option>
-    </select>
+  <!-- Hero Section -->
+  <div class="hero-banner">
+    <h1>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
+    <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
+    <div class="search-group">
+      <input type="text" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)">
+      <button class="btn-search">খুঁজুন</button>
+    </div>
   </div>
 
-  <hr>
-
-  <!-- Location Selection -->
-  <div class="form-group">
-    <label for="division">বিভাগ:</label>
-    <select id="division" onchange="updateDistricts()">
-      <option value="">বিভাগ নির্বাচন করুন</option>
-      <option value="ctg">চট্টগ্রাম বিভাগ</option>
-      <option value="dhaka">ঢাকা বিভাগ</option>
-      <option value="rajshahi">রাজশাহী বিভাগ</option>
-      <option value="khulna">খুলনা বিভাগ</option>
-      <option value="sylhet">সিলেট বিভাগ</option>
-      <option value="barishal">বরিশাল বিভাগ</option>
-      <option value="rangpur">রংপুর বিভাগ</option>
-      <option value="mymensingh">ময়মনসিংহ বিভাগ</option>
+  <!-- App-Style Filter Bar -->
+  <div class="filter-bar">
+    <select class="select-location">
+      <option>Chattogram...</option>
+      <option>Dhaka</option>
+      <option>Sylhet</option>
     </select>
+    <div class="input-search-bar">
+      <input type="text" placeholder="I am looking for...">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="district">জেলা:</label>
-    <select id="district" onchange="updateThanas()">
-      <option value="">প্রথমে বিভাগ নির্বাচন করুন</option>
-    </select>
+  <!-- Category Icons Grid -->
+  <div class="container">
+    <div class="grid-categories">
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-fire" style="color:#ff4500;"></i></div>
+        <span>Trending</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-car"></i></div>
+        <span>Vehicles</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-house-chimney"></i></div>
+        <span>Property</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <span>Phones & Tablets</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-laptop"></i></div>
+        <span>Electronics</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-couch"></i></div>
+        <span>Home & Furniture</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-shirt"></i></div>
+        <span>Fashion</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-pump-soap"></i></div>
+        <span>Beauty & Personal Care</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <span>Services</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-helmet-safety"></i></div>
+        <span>Repair & Construction</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-gears"></i></div>
+        <span>Commercial Tools</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-futbol"></i></div>
+        <span>Leisure & Activities</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-teddy-bear"></i></div>
+        <span>Babies & Kids</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-wheat-awn"></i></div>
+        <span>Agriculture & Food</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-dog"></i></div>
+        <span>Animals & Pets</span>
+      </div>
+      <div class="cat-item">
+        <div class="icon-box"><i class="fa-solid fa-briefcase"></i></div>
+        <span>Jobs</span>
+      </div>
+    </div>
   </div>
-
-  <div class="form-group">
-    <label for="thana">থানা / এলাকা:</label>
-    <select id="thana">
-      <option value="">প্রথমে জেলা নির্বাচন করুন</option>
-    </select>
-  </div>
-</div>
-
-<script>
-  // Category Data
-  const subCategories = {
-    mobiles: ["মোবাইল ফোন", "মোবাইল এক্সেসরিজ", "স্মার্টওয়াচ ও ওয়্যারএবলস", "সিম কার্ড"],
-    electronics: ["ডেস্কটপ ও ল্যাপটপ", "কম্পিউটার এক্সেসরিজ", "টিভি ও ভিডিও অ্যাপ্লায়েন্স", "অডিও ও মিউজিক", "ক্যামেরা ও সিকিউরিটি", "হোম অ্যাপ্লায়েন্স"],
-    vehicles: ["প্রাইভেট কার", "মোটর বাইক ও স্কুটার", "বাইসাইকেল", "অটো রিকশা ও থ্রি-হুইলার", "ট্রাক ও বাণিজ্যিক গাড়ি", "স্পেয়ার পার্টস"],
-    property: ["ফ্ল্যাট/বাসা বিক্রয়", "ফ্ল্যাট/বাসা ভাড়া", "জমি ও প্লট", "কমার্শিয়াল প্রোপার্টি", "রুম ভাড়া"],
-    home: ["ফার্নিচার", "হোম ডেকোর ও আলো", "গৃহস্থালি সামগ্রী", "বাগান ও অন্যান্য"],
-    pets: ["বিড়াল ও কিটেন", "পাখি", "মাছ ও অ্যাকোয়ারিয়াম", "কুকুর ও পাপিস", "পেট ফুড ও এক্সেসরিজ"],
-    fashion: ["পোশাক ও জুতা", "ঘড়ি ও এক্সেসরিজ", "হেলথ ও বিউটি"]
-  };
-
-  // Location Data
-  const districts = {
-    ctg: ["চট্টগ্রাম জেলা", "কক্সবাজার", "কুমিল্লা", "ফেনী", "নোয়াখালী", "লক্ষ্মীপুর", "চাঁদপুর", "ব্রাহ্মণবাড়িয়া", "রাঙ্গামাটি", "বান্দরবান", "খাগড়াছড়ি"],
-    dhaka: ["ঢাকা জেলা", "গাজীপুর", "নারায়ণগঞ্জ", "টাঙ্গাইল", "নরসিংদী", "ফরিদপুর", "মানিকগঞ্জ", "মুন্সীগঞ্জ", "রাজবাড়ী", "গোপালগঞ্জ", "মাদারীপুর", "শরীয়তপুর", "কিশোরগঞ্জ"],
-    rajshahi: ["রাজশাহী", "বগুড়া", "পাবনা", "সিরাজগঞ্জ", "নওগাঁ", "নাটোর", "চাঁপাইনবাবগঞ্জ", "জয়পুরহাট"],
-    khulna: ["খুলনা", "যশোর", "কুষ্টিয়া", "সাতক্ষীরা", "বাগেরহাট", "ঝিনাইদহ", "চুয়াডাঙ্গা", "মেহেরপুর", "নড়াইল", "মাগুরা"],
-    sylhet: ["সিলেট", "মৌলভীবাজার", "হবিগঞ্জ", "সুনামগঞ্জ"],
-    barishal: ["বরিশাল", "পটুয়াখালী", "ভোলা", "পিরোজপুর", "বরগুনা", "ঝালকাঠি"],
-    rangpur: ["রংপুর", "দিনাজপুর", "গাইবান্ধা", "কুড়িগ্রাম", "নীলফামারী", "পঞ্চগড়", "ঠাকুরগাঁও", "লালমনিরহাট"],
-    mymensingh: ["ময়মনসিংহ", "জামালপুর", "নেত্রকোণা", "শেরপুর"]
-  };
-
-  const thanas = {
-    "চট্টগ্রাম জেলা": ["চট্টগ্রাম ইপিজেড", "পতেঙ্গা", "হালিশহর", "কোতোয়ালি", "পঞ্চলাইশ", "ডবলমুরিং", "পাহাড়তলী", "বায়েজিদ বোস্তামী", "খুলশী", "আগ্রাবাদ", "জিইসি", "চান্দগাঁও", "চকবাজার", "বন্দর", "আকবর শাহ", "হাটহাজারী", "রাউজান", "ফটিকছড়ি", "পটিয়া", "সীতাকুণ্ড", "মিরসরাই", "আনোয়ারা", "বোয়ালখালী"],
-    "ঢাকা জেলা": ["মিরপুর", "উত্তরা", "ধানমন্ডি", "গুলশান", "বনানী", "মোহাম্মদপুর", "বাড্ডা", "রামপুরা", "যাত্রাবাড়ী", "খিলগাঁও", "বাসাবো", "তেজগাঁও", "মতিঝিল", "মগবাজার", "লালবাগ", "নিউ মার্কেট", "শাহবাগ", "সাভার", "কেরানীগঞ্জ", "ধামরাই"]
-  };
-
-  function updateSubCategories() {
-    const main = document.getElementById("main-category").value;
-    const subSelect = document.getElementById("sub-category");
-    subSelect.innerHTML = '<option value="">সাব-ক্যাটাগরি নির্বাচন করুন</option>';
-    
-    if (subCategories[main]) {
-      subCategories[main].forEach(sub => {
-        subSelect.innerHTML += `<option value="${sub}">${sub}</option>`;
-      });
-    }
-  }
-
-  function updateDistricts() {
-    const div = document.getElementById("division").value;
-    const distSelect = document.getElementById("district");
-    const thanaSelect = document.getElementById("thana");
-    distSelect.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
-    thanaSelect.innerHTML = '<option value="">প্রথমে জেলা নির্বাচন করুন</option>';
-
-    if (districts[div]) {
-      districts[div].forEach(dist => {
-        distSelect.innerHTML += `<option value="${dist}">${dist}</option>`;
-      });
-    }
-  }
-
-  function updateThanas() {
-    const dist = document.getElementById("district").value;
-    const thanaSelect = document.getElementById("thana");
-    thanaSelect.innerHTML = '<option value="">থানা / এলাকা নির্বাচন করুন</option>';
-
-    if (thanas[dist]) {
-      thanas[dist].forEach(thana => {
-        thanaSelect.innerHTML += `<option value="${thana}">${thana}</option>`;
-      });
-    } else {
-      thanaSelect.innerHTML = '<option value="all">সমগ্র জেলা</option>';
-    }
-  }
-</script>
 
 </body>
 </html>
