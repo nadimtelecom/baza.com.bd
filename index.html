@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Baza.com.bd</title>
+  <title>Baza.com.bd - Buy & Sell Everything</title>
   <!-- Google Fonts & FontAwesome CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', sans-serif; }
-    body { background-color: #f4f6f8; color: #2c3e50; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
+    body { background-color: #f4f6f8; color: #2c3e50; padding-bottom: 40px; }
 
     /* Top Navigation Header */
     .top-nav {
@@ -28,7 +28,18 @@
     }
     .brand-logo { font-size: 24px; font-weight: 700; color: #ffffff; cursor: pointer; }
     .brand-logo span { color: #ffcc00; }
-    .header-right { display: flex; align-items: center; gap: 10px; }
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
     .btn-auth { color: white; background: transparent; border: none; font-size: 14px; font-weight: 600; cursor: pointer; padding: 5px 8px; }
     .btn-post-ad {
       background-color: #ffcc00;
@@ -118,10 +129,7 @@
     @media (min-width: 600px) {
       .grid-categories { grid-template-columns: repeat(6, 1fr); }
     }
-    .cat-item {
-      text-align: center;
-      cursor: pointer;
-    }
+    .cat-item { text-align: center; cursor: pointer; }
     .icon-box {
       background-color: #ebf5f0;
       width: 65px;
@@ -144,7 +152,16 @@
     .ads-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; min-height: 50px; }
     .no-ads-msg { font-size: 14px; color: #888; text-align: center; grid-column: 1 / -1; padding: 20px 0; }
     
-    .ad-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.08); border: 1px solid #eee; }
+    .ad-card { 
+      background: white; 
+      border-radius: 8px; 
+      overflow: hidden; 
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08); 
+      border: 1px solid #eee; 
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .ad-card:hover { transform: translateY(-3px); }
     .ad-card img { width: 100%; height: 130px; object-fit: cover; }
     .ad-details { padding: 10px; }
     .ad-details h4 { font-size: 14px; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; }
@@ -204,6 +221,13 @@
       cursor: pointer;
       margin-top: 10px;
     }
+
+    /* Ad Details Viewer Modal Styles */
+    .ad-view-gallery { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 15px; padding-bottom: 5px; }
+    .ad-view-gallery img { width: 90px; height: 70px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; cursor: pointer; }
+    .ad-view-main-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+    .seller-contact-box { background: #eefdf5; border: 1px solid #167a62; border-radius: 6px; padding: 12px; margin-top: 15px; text-align: center; }
+    .seller-contact-box a { color: #167a62; font-weight: 700; text-decoration: none; font-size: 16px; }
   </style>
 </head>
 <body>
@@ -212,28 +236,29 @@
   <div class="top-nav">
     <div class="brand-logo">Baza<span>.com.bd</span></div>
     <div class="header-right">
-      <button class="btn-auth" onclick="openModal('signin-modal')"><i class="fa-solid fa-user"></i> সাইন ইন</button>
-      <button class="btn-post-ad" onclick="openModal('postad-modal')">+ বিজ্ঞাপন দিন</button>
+      <button class="lang-btn" onclick="toggleLanguage()" id="lang-btn">English</button>
+      <button class="btn-auth" onclick="openModal('signin-modal')" id="txt-signin"><i class="fa-solid fa-user"></i> সাইন ইন</button>
+      <button class="btn-post-ad" onclick="openModal('postad-modal')" id="txt-postad">+ বিজ্ঞাপন দিন</button>
     </div>
   </div>
 
   <!-- Main Hero Section -->
   <div class="hero-banner">
-    <h1>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
-    <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
+    <h1 id="txt-hero-title">Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
+    <p id="txt-hero-sub">আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
     <div class="search-group">
-      <input type="text" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)">
-      <button class="btn-search">খুঁজুন</button>
+      <input type="text" id="txt-search-ph" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)">
+      <button class="btn-search" id="txt-btn-search">খুঁজুন</button>
     </div>
   </div>
 
   <!-- Location Dropdown & Input Search Bar -->
   <div class="filter-bar">
     <select class="select-location" id="all-locations">
-      <!-- Dynamic Load: Divisions & Districts -->
+      <!-- Dynamic Load -->
     </select>
     <div class="input-search-bar">
-      <input type="text" placeholder="I am looking for...">
+      <input type="text" placeholder="I am looking for..." id="txt-filter-ph">
       <i class="fa-solid fa-magnifying-glass"></i>
     </div>
   </div>
@@ -246,11 +271,11 @@
 
     <!-- Live Ads List Section -->
     <div class="section-header">
-      <div class="section-title">সাম্প্রতিক বিজ্ঞাপনসমূহ</div>
-      <button class="btn-clear-ads" onclick="clearAllAds()">সব মুছুন</button>
+      <div class="section-title" id="txt-recent-ads">সাম্প্রতিক বিজ্ঞাপনসমূহ</div>
+      <button class="btn-clear-ads" onclick="clearAllAds()" id="txt-clear-ads">সব মুছুন</button>
     </div>
     
-    <!-- Ads Container (Empty by default) -->
+    <!-- Ads Container -->
     <div class="ads-list" id="ads-container">
       <div class="no-ads-msg" id="empty-msg">বর্তমানে কোনো বিজ্ঞাপন নেই। "+ বিজ্ঞাপন দিন" বাটনে ক্লিক করে প্রথম বিজ্ঞাপন প্রকাশ করুন!</div>
     </div>
@@ -267,35 +292,44 @@
     </div>
   </div>
 
-  <!-- POPUP 1: Post Ad Modal -->
+  <!-- POPUP 1: Post Ad Modal (With Mobile & 5 Images) -->
   <div class="modal-overlay" id="postad-modal">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>নতুন বিজ্ঞাপন দিন</h3>
+        <h3 id="txt-postad-title">নতুন বিজ্ঞাপন দিন</h3>
         <i class="fa-solid fa-xmark close-btn" onclick="closeModal('postad-modal')"></i>
       </div>
       <form onsubmit="handlePostAd(event)">
         <div class="form-group">
-          <label>পণ্যের শিরোনাম</label>
+          <label id="lbl-ad-title">পণ্যের শিরোনাম</label>
           <input type="text" id="ad-title" placeholder="যেমন: iPhone 13 Pro Max" required>
         </div>
         <div class="form-group">
-          <label>ক্যাটাগরি</label>
+          <label id="lbl-ad-cat">ক্যাটাগরি</label>
           <select id="ad-category-select" required></select>
         </div>
         <div class="form-group">
-          <label>দাম (টাকা)</label>
+          <label id="lbl-ad-price">দাম (টাকা)</label>
           <input type="number" id="ad-price" placeholder="যেমন: ২৫০০০" required>
         </div>
         <div class="form-group">
-          <label>লোকেশন</label>
+          <label id="lbl-ad-phone">মোবাইল নম্বর (বিক্রেতা)</label>
+          <input type="tel" id="ad-phone" placeholder="017XXXXXXXX" required pattern="[0-9]{11}">
+        </div>
+        <div class="form-group">
+          <label id="lbl-ad-images">পণ্যের ছবি (কমপক্ষে ১টি, সর্বোচ্চ ৫টি)</label>
+          <input type="file" id="ad-images" accept="image/*" multiple required onchange="validateImageCount(this)">
+          <small style="color: #666; font-size: 11px;" id="lbl-img-hint">১ থেকে ৫টি ছবি সিলেক্ট করুন</small>
+        </div>
+        <div class="form-group">
+          <label id="lbl-ad-loc">লোকেশন</label>
           <select id="ad-location-select" required></select>
         </div>
         <div class="form-group">
-          <label>বিস্তারিত ঠিকানা / এলাকা</label>
+          <label id="lbl-ad-area">বিস্তারিত ঠিকানা / এলাকা</label>
           <input type="text" id="ad-area" placeholder="যেমন: আগ্রাবাদ / জিইসি মোড়" required>
         </div>
-        <button type="submit" class="submit-btn">বিজ্ঞাপন প্রকাশ করুন</button>
+        <button type="submit" class="submit-btn" id="btn-submit-ad">বিজ্ঞাপন প্রকাশ করুন</button>
       </form>
     </div>
   </div>
@@ -304,121 +338,229 @@
   <div class="modal-overlay" id="signin-modal">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>সাইন ইন করুন</h3>
+        <h3 id="txt-signin-title">সাইন ইন করুন</h3>
         <i class="fa-solid fa-xmark close-btn" onclick="closeModal('signin-modal')"></i>
       </div>
-      <form onsubmit="event.preventDefault(); alert('সাইন ইন সফল হয়েছে!'); closeModal('signin-modal');">
+      <form onsubmit="handleSignIn(event)">
         <div class="form-group">
-          <label>মোবাইল / ইমেইল</label>
-          <input type="text" required placeholder="017xxxxxxxx">
+          <label id="lbl-signin-id">মোবাইল নম্বর অথবা ইমেইল</label>
+          <input type="text" id="signin-id" required placeholder="017XXXXXXXX / example@mail.com">
         </div>
         <div class="form-group">
-          <label>পাসওয়ার্ড</label>
+          <label id="lbl-signin-pass">পাসওয়ার্ড</label>
           <input type="password" required placeholder="******">
         </div>
-        <button type="submit" class="submit-btn">লগইন করুন</button>
+        <button type="submit" class="submit-btn" id="btn-signin-submit">লগইন করুন</button>
         <p style="font-size:12px; text-align:center; margin-top:10px;">
-          অ্যাকাউন্ট নেই? <a href="#" onclick="closeModal('signin-modal'); openModal('signup-modal');">নতুন তৈরি করুন</a>
+          <span id="txt-no-acc">অ্যাকাউন্ট নেই?</span> <a href="#" onclick="closeModal('signin-modal'); openModal('signup-modal');" id="txt-reg-link">নতুন তৈরি করুন</a>
         </p>
       </form>
     </div>
   </div>
 
-  <!-- POPUP 3: Sign Up Modal -->
+  <!-- POPUP 3: Sign Up Modal (With Mobile & Email) -->
   <div class="modal-overlay" id="signup-modal">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>নতুন অ্যাকাউন্ট খুলুন</h3>
+        <h3 id="txt-signup-title">নতুন অ্যাকাউন্ট খুলুন</h3>
         <i class="fa-solid fa-xmark close-btn" onclick="closeModal('signup-modal')"></i>
       </div>
-      <form onsubmit="event.preventDefault(); alert('অ্যাকাউন্ট তৈরি সফল হয়েছে!'); closeModal('signup-modal');">
+      <form onsubmit="handleSignUp(event)">
         <div class="form-group">
-          <label>আপনার নাম</label>
+          <label id="lbl-signup-name">আপনার নাম</label>
           <input type="text" required placeholder="পূর্ণ নাম">
         </div>
         <div class="form-group">
-          <label>মোবাইল নম্বর</label>
-          <input type="tel" required placeholder="017xxxxxxxx">
+          <label id="lbl-signup-phone">মোবাইল নম্বর</label>
+          <input type="tel" required placeholder="017XXXXXXXX" pattern="[0-9]{11}">
         </div>
         <div class="form-group">
-          <label>পাসওয়ার্ড</label>
+          <label id="lbl-signup-email">ইমেইল ঠিকানা</label>
+          <input type="email" required placeholder="example@mail.com">
+        </div>
+        <div class="form-group">
+          <label id="lbl-signup-pass">পাসওয়ার্ড</label>
           <input type="password" required placeholder="******">
         </div>
-        <button type="submit" class="submit-btn">রেজিস্ট্রেশন সম্পন্ন করুন</button>
+        <button type="submit" class="submit-btn" id="btn-signup-submit">রেজিস্ট্রেশন সম্পন্ন করুন</button>
       </form>
+    </div>
+  </div>
+
+  <!-- POPUP 4: Ad Viewer Modal (For Buyers) -->
+  <div class="modal-overlay" id="adview-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="view-ad-title">বিজ্ঞাপন বিবরণ</h3>
+        <i class="fa-solid fa-xmark close-btn" onclick="closeModal('adview-modal')"></i>
+      </div>
+      <div>
+        <img id="view-main-img" class="ad-view-main-img" src="" alt="Product">
+        <div class="ad-view-gallery" id="view-gallery"></div>
+        
+        <h2 id="view-price" style="color: #167a62; margin-bottom: 5px;"></h2>
+        <p id="view-location" style="font-size: 13px; color: #666; margin-bottom: 10px;"></p>
+        <p id="view-cat" style="font-size: 12px; background: #eee; display: inline-block; padding: 3px 8px; border-radius: 4px;"></p>
+        
+        <div class="seller-contact-box">
+          <div style="font-size: 12px; color: #555;" id="txt-seller-contact">বিক্রেতার সাথে যোগাযোগ করুন:</div>
+          <i class="fa-solid fa-phone"></i> <a id="view-phone" href="#"></a>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- JavaScript Logic -->
   <script>
-    // Categories & Subcategories Data
-    const categoryData = [
-      {
-        id: "mobiles",
-        name: "মোবাইল (Mobiles)",
-        icon: "fa-mobile-screen-button",
-        subs: ["মোবাইল ফোন (Mobile Phones)", "মোবাইল এক্সেসরিজ (Mobile Accessories)", "স্মার্টওয়াচ (Smartwatches)", "সিম কার্ড (SIM Cards)"]
-      },
-      {
-        id: "electronics",
-        name: "ইলেকট্রনিক্স (Electronics)",
-        icon: "fa-laptop",
-        subs: ["ডেস্কটপ ও ল্যাপটপ (Computers)", "টিভি (TVs)", "অডিও সিস্টেম (Audio)", "ক্যামেরা (Cameras)", "হোম অ্যাপ্লায়েন্স (Home Appliances)"]
-      },
-      {
-        id: "vehicles",
-        name: "যানবাহন (Vehicles)",
-        icon: "fa-car",
-        subs: ["কার (Cars)", "মোটর বাইক (Motorbikes)", "বাইসাইকেল (Bicycles)", "অটো পার্টস (Auto Parts)"]
-      },
-      {
-        id: "property",
-        name: "প্রোপার্টি (Property)",
-        icon: "fa-house-chimney",
-        subs: ["ফ্ল্যাট বিক্রয় (Apartments for Sale)", "ফ্ল্যাট ভাড়া (Apartments for Rent)", "জমি (Land)"]
-      },
-      {
-        id: "home",
-        name: "হোম ও লিভিং (Home & Living)",
-        icon: "fa-couch",
-        subs: ["ফার্নিচার (Furniture)", "হোম ডেকোর (Home Decor)"]
-      },
-      {
-        id: "pets",
-        name: "পোষা প্রাণী (Pets)",
-        icon: "fa-cat",
-        subs: ["বিড়াল (Cats)", "পাখি (Birds)", "মাছ (Fish)", "কুকুর (Dogs)"]
-      }
-    ];
+    let currentLang = 'bn';
+    let adsDataStore = [];
 
-    // Location Hierarchy Data
-    const locationData = {
-      "১. চট্টগ্রাম বিভাগ": {
-        "চট্টগ্রাম শহর": ["আগ্রাবাদ", "জিইসি মোড়", "হালিশহর", "চট্টগ্রাম ইপিজেড", "পতেঙ্গা", "চান্দগাঁও", "চকবাজার", "কোতোয়ালি", "পঞ্চলাইশ", "খুলশী"],
-        "চট্টগ্রামের উপজেলা": ["হাটহাজারী", "রাউজান", "ফটিকছড়ি", "পটিয়া", "সীতাকুণ্ড", "মিরসরাই"],
-        "অন্যান্য জেলা": ["কক্সবাজার", "কুমিল্লা", "ফেনী", "নোয়াখালী", "চাঁদপুর", "ব্রাহ্মণবাড়িয়া", "রাঙ্গামাটি", "বান্দরবান", "খাগড়াছড়ি"]
+    // Language Dictionary
+    const translations = {
+      bn: {
+        langBtn: "English",
+        signin: "সাইন ইন",
+        postad: "+ বিজ্ঞাপন দিন",
+        heroTitle: "Baza-তে সবকিছু কেনা-বেচা করুন সহজে",
+        heroSub: "আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম",
+        searchPh: "কী খুঁজছেন? (যেমন: মোবাইল, বাইক)",
+        btnSearch: "খুঁজুন",
+        filterPh: "আমি খুঁজছি...",
+        recentAds: "সাম্প্রতিক বিজ্ঞাপনসমূহ",
+        clearAds: "সব মুছুন",
+        emptyMsg: "বর্তমানে কোনো বিজ্ঞাপন নেই। '+ বিজ্ঞাপন দিন' বাটনে ক্লিক করে প্রথম বিজ্ঞাপন প্রকাশ করুন!",
+        postAdTitle: "নতুন বিজ্ঞাপন দিন",
+        lblTitle: "পণ্যের শিরোনাম",
+        lblCat: "ক্যাটাগরি",
+        lblPrice: "দাম (টাকা)",
+        lblPhone: "মোবাইল নম্বর (বিক্রেতা)",
+        lblImages: "পণ্যের ছবি (কমপক্ষে ১টি, সর্বোচ্চ ৫টি)",
+        lblImgHint: "১ থেকে ৫টি ছবি সিলেক্ট করুন",
+        lblLoc: "লোকেশন",
+        lblArea: "বিস্তারিত ঠিকানা / এলাকা",
+        btnSubmitAd: "বিজ্ঞাপন প্রকাশ করুন",
+        signinTitle: "সাইন ইন করুন",
+        lblSigninId: "মোবাইল নম্বর অথবা ইমেইল",
+        lblSigninPass: "পাসওয়ার্ড",
+        btnSignin: "লগইন করুন",
+        txtNoAcc: "অ্যাকাউন্ট নেই?",
+        txtRegLink: "নতুন তৈরি করুন",
+        signupTitle: "নতুন অ্যাকাউন্ট খুলুন",
+        lblSignupName: "আপনার নাম",
+        lblSignupPhone: "মোবাইল নম্বর",
+        lblSignupEmail: "ইমেইল ঠিকানা",
+        btnSignup: "রেজিস্ট্রেশন সম্পন্ন করুন",
+        sellerContact: "বিক্রেতার সাথে যোগাযোগ করুন:"
       },
-      "২. ঢাকা বিভাগ": {
-        "ঢাকা শহর": ["মিরপুর", "উত্তরা", "ধানমন্ডি", "গুলশান", "বনানী", "মোহাম্মদপুর", "বাড্ডা", "যাত্রাবাড়ী", "সাভার", "কেরানীগঞ্জ"],
-        "অন্যান্য জেলা": ["গাজীপুর", "নারায়ণগঞ্জ", "টাঙ্গাইল", "নরসিংদী", "ফরিদপুর", "মানিকগঞ্জ", "মুন্সীগঞ্জ"]
-      },
-      "৩. অন্যান্য বিভাগ": {
-        "রাজশাহী বিভাগ": ["রাজশাহী", "বগুড়া", "পাবনা", "সিরাজগঞ্জ"],
-        "খুলনা বিভাগ": ["খুলনা", "যশোর", "কুষ্টিয়া", "সাতক্ষীরা"],
-        "সিলেট বিভাগ": ["সিলেট", "মৌলভীবাজার", "হবিগঞ্জ", "সুনামগঞ্জ"],
-        "বরিশাল বিভাগ": ["বরিশাল", "পটুয়াখালী", "ভোলা"],
-        "রংপুর বিভাগ": ["রংপুর", "দিনাজপুর", "গাইবান্ধা"],
-        "ময়মনসিংহ বিভাগ": ["ময়মনসিংহ", "জামালপুর", "নেত্রকোণা"]
+      en: {
+        langBtn: "বাংলা",
+        signin: "Sign In",
+        postad: "+ Post Ad",
+        heroTitle: "Buy & Sell Everything Easily on Baza",
+        heroSub: "The safest platform to buy and sell your used or new products",
+        searchPh: "What are you looking for? (e.g. Mobile, Bike)",
+        btnSearch: "Search",
+        filterPh: "I am looking for...",
+        recentAds: "Recent Advertisements",
+        clearAds: "Clear All",
+        emptyMsg: "No ads currently available. Click '+ Post Ad' to publish the first ad!",
+        postAdTitle: "Post New Ad",
+        lblTitle: "Product Title",
+        lblCat: "Category",
+        lblPrice: "Price (BDT)",
+        lblPhone: "Mobile Number (Seller)",
+        lblImages: "Product Images (Min 1, Max 5)",
+        lblImgHint: "Select between 1 to 5 images",
+        lblLoc: "Location",
+        lblArea: "Detailed Address / Area",
+        btnSubmitAd: "Publish Ad",
+        signinTitle: "Sign In",
+        lblSigninId: "Mobile Number or Email",
+        lblSigninPass: "Password",
+        btnSignin: "Login",
+        txtNoAcc: "Don't have an account?",
+        txtRegLink: "Create New Account",
+        signupTitle: "Create New Account",
+        lblSignupName: "Full Name",
+        lblSignupPhone: "Mobile Number",
+        lblSignupEmail: "Email Address",
+        btnSignup: "Complete Registration",
+        sellerContact: "Contact Seller:"
       }
     };
 
-    // Render Categories Component
+    // Categories Data
+    const categoryData = [
+      { id: "mobiles", name: "মোবাইল (Mobiles)", icon: "fa-mobile-screen-button", subs: ["মোবাইল ফোন (Mobile Phones)", "মোবাইল এক্সেসরিজ (Mobile Accessories)", "স্মার্টওয়াচ (Smartwatches)"] },
+      { id: "electronics", name: "ইলেকট্রনিক্স (Electronics)", icon: "fa-laptop", subs: ["ডেস্কটপ ও ল্যাপটপ (Computers)", "টিভি (TVs)", "ক্যামেরা (Cameras)"] },
+      { id: "vehicles", name: "যানবাহন (Vehicles)", icon: "fa-car", subs: ["কার (Cars)", "মোটর বাইক (Motorbikes)", "বাইসাইকেল (Bicycles)"] },
+      { id: "property", name: "প্রোপার্টি (Property)", icon: "fa-house-chimney", subs: ["ফ্ল্যাট বিক্রয় (Apartments for Sale)", "ফ্ল্যাট ভাড়া (Apartments for Rent)"] },
+      { id: "home", name: "হোম ও লিভিং (Home & Living)", icon: "fa-couch", subs: ["ফার্নিচার (Furniture)", "হোম ডেকোর (Home Decor)"] },
+      { id: "pets", name: "পোষা প্রাণী (Pets)", icon: "fa-cat", subs: ["বিড়াল (Cats)", "পাখি (Birds)", "কুকুর (Dogs)"] }
+    ];
+
+    // Location Data
+    const locationData = {
+      "১. চট্টগ্রাম বিভাগ": {
+        "চট্টগ্রাম শহর": ["আগ্রাবাদ", "জিইসি মোড়", "হালিশহর", "চট্টগ্রাম ইপিজেড", "পতেঙ্গা", "চান্দগাঁও"],
+        "চট্টগ্রামের উপজেলা": ["হাটহাজারী", "রাউজান", "পটিয়া", "সীতাকুণ্ড"]
+      },
+      "২. ঢাকা বিভাগ": {
+        "ঢাকা শহর": ["মিরপুর", "উত্তরা", "ধানমন্ডি", "গুলশান", "বনানী", "সাভার"]
+      }
+    };
+
+    // Toggle Language Function
+    function toggleLanguage() {
+      currentLang = currentLang === 'bn' ? 'en' : 'bn';
+      const t = translations[currentLang];
+
+      document.getElementById('lang-btn').innerText = t.langBtn;
+      document.getElementById('txt-signin').innerHTML = `<i class="fa-solid fa-user"></i> ${t.signin}`;
+      document.getElementById('txt-postad').innerText = t.postad;
+      document.getElementById('txt-hero-title').innerText = t.heroTitle;
+      document.getElementById('txt-hero-sub').innerText = t.heroSub;
+      document.getElementById('txt-search-ph').placeholder = t.searchPh;
+      document.getElementById('txt-btn-search').innerText = t.btnSearch;
+      document.getElementById('txt-filter-ph').placeholder = t.filterPh;
+      document.getElementById('txt-recent-ads').innerText = t.recentAds;
+      document.getElementById('txt-clear-ads').innerText = t.clearAds;
+      
+      const emptyMsg = document.getElementById('empty-msg');
+      if (emptyMsg) emptyMsg.innerText = t.emptyMsg;
+
+      document.getElementById('txt-postad-title').innerText = t.postAdTitle;
+      document.getElementById('lbl-ad-title').innerText = t.lblTitle;
+      document.getElementById('lbl-ad-cat').innerText = t.lblCat;
+      document.getElementById('lbl-ad-price').innerText = t.lblPrice;
+      document.getElementById('lbl-ad-phone').innerText = t.lblPhone;
+      document.getElementById('lbl-ad-images').innerText = t.lblImages;
+      document.getElementById('lbl-img-hint').innerText = t.lblImgHint;
+      document.getElementById('lbl-ad-loc').innerText = t.lblLoc;
+      document.getElementById('lbl-ad-area').innerText = t.lblArea;
+      document.getElementById('btn-submit-ad').innerText = t.btnSubmitAd;
+
+      document.getElementById('txt-signin-title').innerText = t.signinTitle;
+      document.getElementById('lbl-signin-id').innerText = t.lblSigninId;
+      document.getElementById('lbl-signin-pass').innerText = t.lblSigninPass;
+      document.getElementById('btn-signin-submit').innerText = t.btnSignin;
+      document.getElementById('txt-no-acc').innerText = t.txtNoAcc;
+      document.getElementById('txt-reg-link').innerText = t.txtRegLink;
+
+      document.getElementById('txt-signup-title').innerText = t.signupTitle;
+      document.getElementById('lbl-signup-name').innerText = t.lblSignupName;
+      document.getElementById('lbl-signup-phone').innerText = t.lblSignupPhone;
+      document.getElementById('lbl-signup-email').innerText = t.lblSignupEmail;
+      document.getElementById('lbl-signup-pass').innerText = t.lblSigninPass;
+      document.getElementById('btn-signup-submit').innerText = t.btnSignup;
+      document.getElementById('txt-seller-contact').innerText = t.sellerContact;
+    }
+
+    // Render Categories & Locations
     function renderCategories() {
       const grid = document.getElementById('categories-grid');
       const adCatSelect = document.getElementById('ad-category-select');
-      
-      let gridHtml = '';
-      let selectHtml = '<option value="">ক্যাটাগরি নির্বাচন করুন</option>';
+      let gridHtml = '', selectHtml = '<option value="">ক্যাটাগরি নির্বাচন করুন</option>';
 
       categoryData.forEach(c => {
         gridHtml += `
@@ -426,11 +568,8 @@
             <div class="icon-box"><i class="fa-solid ${c.icon}"></i></div>
             <span>${c.name}</span>
           </div>`;
-          
         selectHtml += `<optgroup label="${c.name}">`;
-        c.subs.forEach(sub => {
-          selectHtml += `<option value="${sub}">${sub}</option>`;
-        });
+        c.subs.forEach(sub => { selectHtml += `<option value="${sub}">${sub}</option>`; });
         selectHtml += `</optgroup>`;
       });
 
@@ -438,25 +577,21 @@
       adCatSelect.innerHTML = selectHtml;
     }
 
-    // Render Location Dropdowns
     function renderLocations() {
       const selectTop = document.getElementById('all-locations');
       const selectForm = document.getElementById('ad-location-select');
-      
       let html = '<option value="">সমস্ত বাংলাদেশ (সকল বিভাগ ও জেলা)</option>';
       let formHtml = '<option value="">লোকেশন নির্বাচন করুন</option>';
 
       for (let division in locationData) {
         html += `<optgroup label="${division}">`;
         formHtml += `<optgroup label="${division}">`;
-        
         for (let subGroup in locationData[division]) {
           locationData[division][subGroup].forEach(loc => {
             html += `<option value="${loc}">${subGroup} - ${loc}</option>`;
             formHtml += `<option value="${loc}">${loc}</option>`;
           });
         }
-        
         html += `</optgroup>`;
         formHtml += `</optgroup>`;
       }
@@ -465,59 +600,135 @@
       selectForm.innerHTML = formHtml;
     }
 
-    // Modal Operations
+    // Image Limit Validation (Max 5)
+    function validateImageCount(input) {
+      if (input.files.length > 5) {
+        alert(currentLang === 'bn' ? 'আপনি সর্বোচ্চ ৫টি ছবি আপলোড করতে পারবেন!' : 'You can upload a maximum of 5 images!');
+        input.value = '';
+      }
+    }
+
+    // Handle Post Ad Action
+    function handlePostAd(e) {
+      e.preventDefault();
+      const title = document.getElementById('ad-title').value;
+      const category = document.getElementById('ad-category-select').value;
+      const price = document.getElementById('ad-price').value;
+      const phone = document.getElementById('ad-phone').value;
+      const location = document.getElementById('ad-location-select').value;
+      const area = document.getElementById('ad-area').value;
+      const imageFiles = document.getElementById('ad-images').files;
+
+      if (imageFiles.length === 0) {
+        alert('অনুগ্রহ করে অন্তত ১টি ছবি নির্বাচন করুন।');
+        return;
+      }
+
+      const imageUrls = [];
+      for (let i = 0; i < imageFiles.length; i++) {
+        imageUrls.push(URL.createObjectURL(imageFiles[i]));
+      }
+
+      const adObject = {
+        id: Date.now(),
+        title,
+        category,
+        price,
+        phone,
+        location,
+        area,
+        images: imageUrls
+      };
+
+      adsDataStore.unshift(adObject);
+      renderAdsList();
+
+      alert(currentLang === 'bn' ? 'আপনার বিজ্ঞাপনটি সফলভাবে প্রকাশ করা হয়েছে!' : 'Your ad has been published successfully!');
+      closeModal('postad-modal');
+      e.target.reset();
+    }
+
+    // Render Ads List
+    function renderAdsList() {
+      const adsContainer = document.getElementById('ads-container');
+      
+      if (adsDataStore.length === 0) {
+        adsContainer.innerHTML = `<div class="no-ads-msg" id="empty-msg">${translations[currentLang].emptyMsg}</div>`;
+        return;
+      }
+
+      let html = '';
+      adsDataStore.forEach(ad => {
+        html += `
+          <div class="ad-card" onclick="openAdViewer(${ad.id})">
+            <img src="${ad.images[0]}" alt="Ad Image">
+            <div class="ad-details">
+              <h4>${ad.title}</h4>
+              <div class="price">৳ ${Number(ad.price).toLocaleString('bn-BD')}</div>
+              <div class="loc"><i class="fa-solid fa-location-dot"></i> ${ad.area}, ${ad.location}</div>
+            </div>
+          </div>
+        `;
+      });
+
+      adsContainer.innerHTML = html;
+    }
+
+    // Open Ad Viewer Modal (For Buyers)
+    function openAdViewer(adId) {
+      const ad = adsDataStore.find(a => a.id === adId);
+      if (!ad) return;
+
+      document.getElementById('view-ad-title').innerText = ad.title;
+      document.getElementById('view-price').innerText = `৳ ${Number(ad.price).toLocaleString('bn-BD')}`;
+      document.getElementById('view-location').innerText = `স্থান: ${ad.area}, ${ad.location}`;
+      document.getElementById('view-cat').innerText = `ক্যাটাগরি: ${ad.category}`;
+      document.getElementById('view-phone').innerText = ad.phone;
+      document.getElementById('view-phone').href = `tel:${ad.phone}`;
+
+      const mainImg = document.getElementById('view-main-img');
+      mainImg.src = ad.images[0];
+
+      const gallery = document.getElementById('view-gallery');
+      let galleryHtml = '';
+      ad.images.forEach((imgUrl) => {
+        galleryHtml += `<img src="${imgUrl}" onclick="document.getElementById('view-main-img').src='${imgUrl}'" alt="Thumb">`;
+      });
+      gallery.innerHTML = galleryHtml;
+
+      openModal('adview-modal');
+    }
+
+    // Sign In / Sign Up Handlers
+    function handleSignIn(e) {
+      e.preventDefault();
+      alert(currentLang === 'bn' ? 'সাইন ইন সফল হয়েছে!' : 'Signed in successfully!');
+      closeModal('signin-modal');
+      e.target.reset();
+    }
+
+    function handleSignUp(e) {
+      e.preventDefault();
+      alert(currentLang === 'bn' ? 'অ্যাকাউন্ট তৈরি সফল হয়েছে!' : 'Account created successfully!');
+      closeModal('signup-modal');
+      e.target.reset();
+    }
+
+    // Modal Helpers
     function openSubCategories(catId) {
       const category = categoryData.find(c => c.id === catId);
       document.getElementById('cat-modal-title').innerText = category.name;
-      
       let html = '';
-      category.subs.forEach(sub => {
-        html += `<div class="subcat-item" onclick="closeModal('subcat-modal')">${sub}</div>`;
-      });
-      
+      category.subs.forEach(sub => { html += `<div class="subcat-item" onclick="closeModal('subcat-modal')">${sub}</div>`; });
       document.getElementById('subcat-modal-body').innerHTML = html;
       openModal('subcat-modal');
     }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function clearAllAds() { adsDataStore = []; renderAdsList(); }
 
-    // Dynamic Post Ad Submit Function
-    function handlePostAd(e) {
-      e.preventDefault();
-      const title = document.getElementById('ad-title').value;
-      const price = document.getElementById('ad-price').value;
-      const location = document.getElementById('ad-location-select').value;
-      const area = document.getElementById('ad-area').value;
-
-      const emptyMsg = document.getElementById('empty-msg');
-      if(emptyMsg) emptyMsg.remove();
-
-      const adsContainer = document.getElementById('ads-container');
-      const newAdHTML = `
-        <div class="ad-card">
-          <img src="https://via.placeholder.com/200x130?text=Product" alt="Ad">
-          <div class="ad-details">
-            <h4>${title}</h4>
-            <div class="price">৳ ${Number(price).toLocaleString('bn-BD')}</div>
-            <div class="loc"><i class="fa-solid fa-location-dot"></i> ${area}, ${location}</div>
-          </div>
-        </div>
-      `;
-
-      adsContainer.insertAdjacentHTML('afterbegin', newAdHTML);
-      alert('আপনার বিজ্ঞাপনটি সফলভাবে প্রকাশ করা হয়েছে!');
-      closeModal('postad-modal');
-      e.target.reset();
-    }
-
-    // Function to Clear All Ads
-    function clearAllAds() {
-      const adsContainer = document.getElementById('ads-container');
-      adsContainer.innerHTML = '<div class="no-ads-msg" id="empty-msg">বর্তমানে কোনো বিজ্ঞাপন নেই। "+ বিজ্ঞাপন দিন" বাটনে ক্লিক করে প্রথম বিজ্ঞাপন প্রকাশ করুন!</div>';
-    }
-
-    // Initialize Page
+    // Initialize
     renderCategories();
     renderLocations();
   </script>
