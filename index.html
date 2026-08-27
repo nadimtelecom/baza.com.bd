@@ -7,147 +7,171 @@
   <!-- Google Fonts & FontAwesome CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     :root {
-      --bg-main: #f4f6f8;
+      --bg-main: #f8fafc;
       --bg-card: #ffffff;
-      --text-main: #2c3e50;
-      --text-muted: #666666;
-      --primary: #167a62;
-      --primary-hover: #00a664;
-      --border-color: #eee;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #0d9488;
+      --primary-hover: #0f766e;
+      --primary-light: #ccfbf1;
+      --accent: #f59e0b;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+      --radius: 12px;
     }
 
     body.dark-theme {
-      --bg-main: #121212;
-      --bg-card: #1e1e1e;
-      --text-main: #e0e0e0;
-      --text-muted: #aaaaaa;
-      --primary: #2a9d80;
-      --primary-hover: #167a62;
-      --border-color: #333333;
+      --bg-main: #0f172a;
+      --bg-card: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #14b8a6;
+      --primary-hover: #2dd4bf;
+      --primary-light: rgba(20, 184, 166, 0.15);
+      --border-color: #334155;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
-    body { background-color: var(--bg-main); color: var(--text-main); padding-bottom: 40px; transition: background 0.3s, color 0.3s; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif; transition: background-color 0.2s, color 0.2s, border-color 0.2s; }
+    body { background-color: var(--bg-main); color: var(--text-main); padding-bottom: 50px; }
 
-    /* Top Navigation Header */
+    /* Header Styling */
     .top-nav {
-      background-color: var(--primary);
-      padding: 12px 15px;
+      background: var(--bg-card);
+      padding: 14px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 900;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow-sm);
+      border-bottom: 1px solid var(--border-color);
     }
-    .brand-logo { font-size: 24px; font-weight: 700; color: #ffffff; cursor: pointer; }
-    .brand-logo span { color: #ffcc00; }
-    .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .brand-logo { font-size: 24px; font-weight: 800; color: var(--primary); cursor: pointer; letter-spacing: -0.5px; }
+    .brand-logo span { color: var(--accent); }
+    .header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     
-    .wallet-badge { background: #ffcc00; color: #000; padding: 4px 10px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; }
-    .btn-icon-nav { background: rgba(255,255,255,0.2); color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 14px; }
-    .btn-toggle-view { background: #ffffff; color: #167a62; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; cursor: pointer; }
-    .lang-btn { background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 4px; padding: 4px 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
-    .btn-auth { color: white; background: transparent; border: none; font-size: 14px; font-weight: 600; cursor: pointer; padding: 5px 8px; }
-    .btn-post-ad { background-color: #ffcc00; color: #000; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; }
+    .wallet-badge { background: var(--primary-light); color: var(--primary); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; border: 1px solid var(--primary); }
+    .btn-icon-nav { background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-icon-nav:hover { background: var(--border-color); }
+    .btn-toggle-view { background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); padding: 7px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .lang-btn { background: transparent; color: var(--text-main); border: 1px solid var(--border-color); border-radius: 8px; padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-auth { color: var(--text-main); background: transparent; border: none; font-size: 14px; font-weight: 600; cursor: pointer; padding: 6px 10px; }
+    .btn-post-ad { background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; padding: 8px 18px; border-radius: 20px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3); }
+    .btn-post-ad:hover { transform: translateY(-1px); }
 
     /* Hero Banner Section */
-    .hero-banner { background-color: var(--primary-hover); padding: 25px 15px; text-align: center; color: white; }
-    .hero-banner h1 { font-size: 22px; margin-bottom: 8px; font-weight: 700; }
-    .hero-banner p { font-size: 13px; opacity: 0.9; margin-bottom: 20px; }
+    .hero-banner { 
+      background: linear-gradient(135deg, var(--primary), var(--primary-hover)); 
+      padding: 40px 20px; 
+      text-align: center; 
+      color: white; 
+      border-radius: 0 0 24px 24px;
+      margin-bottom: 25px;
+    }
+    .hero-banner h1 { font-size: 28px; margin-bottom: 8px; font-weight: 800; }
+    .hero-banner p { font-size: 14px; opacity: 0.9; margin-bottom: 24px; font-weight: 400; }
     
-    .search-group { max-width: 500px; margin: 0 auto; display: flex; gap: 8px; }
-    .search-group input { flex: 1; padding: 10px 15px; border-radius: 6px; border: none; font-size: 14px; outline: none; }
-    .btn-search { background-color: #ffcc00; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 700; color: #000; cursor: pointer; }
+    .search-group { max-width: 580px; margin: 0 auto; display: flex; gap: 8px; background: white; padding: 6px; border-radius: 12px; box-shadow: var(--shadow-lg); }
+    .search-group input { flex: 1; padding: 10px 16px; border: none; font-size: 14px; outline: none; background: transparent; color: #0f172a; }
+    .btn-search { background-color: var(--primary); border: none; padding: 10px 24px; border-radius: 8px; font-weight: 700; color: white; cursor: pointer; }
+    .btn-search:hover { background-color: var(--primary-hover); }
 
-    /* Advanced Filtering Controls */
-    .advanced-filter-bar { background: var(--bg-card); padding: 12px 15px; border-bottom: 1px solid var(--border-color); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 15px; }
-    .advanced-filter-bar select, .advanced-filter-bar input { padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-card); color: var(--text-main); font-size: 13px; }
+    /* Filters Bar */
+    .advanced-filter-bar { background: var(--bg-card); padding: 14px 18px; border-radius: var(--radius); border: 1px solid var(--border-color); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 25px; box-shadow: var(--shadow-sm); }
+    .advanced-filter-bar select, .advanced-filter-bar input { padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-main); font-size: 13px; outline: none; }
 
-    /* Category Icons Grid */
-    .container { padding: 20px 15px; max-width: 950px; margin: 0 auto; }
-    .grid-categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px 10px; }
-    @media (min-width: 600px) { .grid-categories { grid-template-columns: repeat(6, 1fr); } }
-    .cat-item { text-align: center; cursor: pointer; }
-    .icon-box { background-color: rgba(22, 122, 98, 0.1); width: 65px; height: 65px; border-radius: 16px; margin: 0 auto 6px; display: flex; justify-content: center; align-items: center; }
-    .cat-item span { font-size: 12px; font-weight: 600; display: block; }
+    /* Container & Layout */
+    .container { padding: 0 20px; max-width: 1050px; margin: 0 auto; }
+    .grid-categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
+    @media (min-width: 640px) { .grid-categories { grid-template-columns: repeat(6, 1fr); } }
+    
+    .cat-item { background: var(--bg-card); padding: 16px 10px; border-radius: var(--radius); text-align: center; cursor: pointer; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+    .cat-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+    .icon-box { background: var(--primary-light); color: var(--primary); width: 50px; height: 50px; border-radius: 50%; margin: 0 auto 10px; display: flex; justify-content: center; align-items: center; font-size: 18px; }
+    .cat-item span { font-size: 13px; font-weight: 600; display: block; }
 
-    /* Ads Section & Cards */
-    .section-header { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 15px; }
-    .section-title { font-size: 18px; font-weight: 700; color: var(--primary); }
-    .btn-clear-ads { background: #ff4d4d; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; }
-    .ads-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
-    .no-ads-msg { font-size: 14px; color: var(--text-muted); text-align: center; grid-column: 1 / -1; padding: 20px 0; }
+    /* Recent Ads Section */
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .section-title { font-size: 20px; font-weight: 700; color: var(--text-main); }
+    .btn-clear-ads { background: transparent; color: #ef4444; border: 1px solid #fca5a5; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; }
+    .btn-clear-ads:hover { background: #fee2e2; }
+    
+    .ads-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; }
+    .no-ads-msg { font-size: 14px; color: var(--text-muted); text-align: center; grid-column: 1 / -1; padding: 40px 0; background: var(--bg-card); border-radius: var(--radius); border: 1px dashed var(--border-color); }
 
-    .ad-card { background: var(--bg-card); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.08); border: 1px solid var(--border-color); position: relative; }
-    .ad-img-wrapper { width: 100%; height: 160px; background-color: #1a1a1a; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-    .ad-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .fav-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.5); color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; z-index: 10; }
-    .fav-btn.active { color: #e74c3c; }
-    .featured-badge { position: absolute; top: 8px; left: 8px; background: #ffcc00; color: #000; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; z-index: 10; }
-    .ad-details { padding: 12px; }
-    .ad-details h4 { font-size: 14px; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
-    .ad-details .price { color: var(--primary); font-weight: 700; font-size: 14px; margin-bottom: 5px; }
-    .ad-details .loc { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
-    .action-btn-group { display: flex; gap: 5px; }
-    .btn-boost-ad { flex: 1; background: #e67e22; color: white; border: none; padding: 6px; border-radius: 4px; font-size: 11px; font-weight: 700; cursor: pointer; }
-    .btn-chat-ad { background: var(--primary); color: white; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
+    .ad-card { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); position: relative; display: flex; flex-direction: column; }
+    .ad-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .ad-img-wrapper { width: 100%; height: 170px; background-color: #000000; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; }
+    .ad-card img { width: 100%; height: 100%; object-fit: contain; }
+    .fav-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.85); color: #64748b; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .fav-btn.active { color: #ef4444; }
+    .featured-badge { position: absolute; top: 10px; left: 10px; background: var(--accent); color: #000000; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; z-index: 10; letter-spacing: 0.5px; }
+    
+    .ad-details { padding: 14px; flex: 1; display: flex; flex-direction: column; }
+    .ad-details h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+    .ad-details .price { color: var(--primary); font-weight: 700; font-size: 16px; margin-bottom: 6px; }
+    .ad-details .loc { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 4px; }
+    .action-btn-group { display: flex; gap: 6px; margin-top: auto; }
+    .btn-boost-ad { flex: 1; background: #f97316; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-chat-ad { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary); padding: 8px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 600; }
 
-    /* Admin Panel & Analytics Dashboard */
-    .admin-panel { display: none; background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
-    .admin-title { font-size: 18px; color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid var(--primary); padding-bottom: 5px; margin-top: 15px; }
-    .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
-    .stat-card { background: var(--bg-main); padding: 15px; border-radius: 8px; text-align: center; border: 1px solid var(--border-color); }
-    .stat-card h3 { font-size: 22px; color: var(--primary); }
-    .stat-card p { font-size: 12px; color: var(--text-muted); }
+    /* Admin Panel Styling */
+    .admin-panel { display: none; background: var(--bg-card); padding: 24px; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
+    .admin-title { font-size: 16px; font-weight: 700; color: var(--primary); margin: 20px 0 10px; border-bottom: 2px solid var(--primary-light); padding-bottom: 6px; }
+    .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 25px; }
+    .stat-card { background: var(--bg-main); padding: 18px; border-radius: var(--radius); border: 1px solid var(--border-color); text-align: center; }
+    .stat-card h3 { font-size: 24px; color: var(--primary); font-weight: 800; }
+    .stat-card p { font-size: 13px; color: var(--text-muted); font-weight: 500; }
 
-    table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
     table, th, td { border: 1px solid var(--border-color); }
-    th, td { padding: 8px 10px; text-align: left; font-size: 12px; }
-    th { background: var(--bg-main); color: var(--primary); }
-    .btn-approve { background: #27ae60; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    .btn-reject { background: #e74c3c; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    .badge-status { padding: 2px 6px; border-radius: 10px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
-    .status-pending { background: #f39c12; color: white; }
-    .status-approved { background: #27ae60; color: white; }
+    th, td { padding: 10px 12px; text-align: left; font-size: 13px; }
+    th { background: var(--bg-main); color: var(--text-main); font-weight: 600; }
+    .btn-approve { background: #10b981; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 11px; }
+    .btn-reject { background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 11px; }
+    .badge-status { padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .status-pending { background: #fef3c7; color: #d97706; }
+    .status-approved { background: #d1fae5; color: #059669; }
 
     /* Modals System */
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
-    .modal-box { background: var(--bg-card); width: 90%; max-width: 480px; border-radius: 10px; padding: 20px; max-height: 85vh; overflow-y: auto; color: var(--text-main); }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 15px; }
-    .modal-header h3 { font-size: 18px; color: var(--primary); }
-    .close-btn { cursor: pointer; font-size: 20px; color: var(--text-muted); }
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1000; justify-content: center; align-items: center; }
+    .modal-box { background: var(--bg-card); width: 92%; max-width: 480px; border-radius: 16px; padding: 24px; max-height: 85vh; overflow-y: auto; color: var(--text-main); box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 16px; }
+    .modal-header h3 { font-size: 18px; font-weight: 700; color: var(--text-main); }
+    .close-btn { cursor: pointer; font-size: 18px; color: var(--text-muted); padding: 4px; }
     
-    .subcat-item { padding: 12px; border-bottom: 1px solid var(--border-color); cursor: pointer; font-size: 14px; }
-    .subcat-item:hover { background: var(--bg-main); color: var(--primary); font-weight: 600; }
+    .subcat-item { padding: 12px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; }
+    .subcat-item:hover { background: var(--primary-light); color: var(--primary); }
 
-    .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; background: var(--bg-card); color: var(--text-main); outline: none; }
-    .submit-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 13px; background: var(--bg-main); color: var(--text-main); outline: none; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
+    .submit-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; font-size: 14px; }
+    .submit-btn:hover { background: var(--primary-hover); }
 
-    /* In-App Live Chat System */
-    .chat-box { display: flex; flex-direction: column; height: 320px; border: 1px solid var(--border-color); border-radius: 6px; }
-    .chat-messages { flex: 1; padding: 10px; overflow-y: auto; background: var(--bg-main); display: flex; flex-direction: column; gap: 8px; }
-    .msg { max-width: 75%; padding: 8px 12px; border-radius: 12px; font-size: 13px; }
-    .msg-sent { background: var(--primary); color: white; align-self: flex-end; }
-    .msg-received { background: var(--bg-card); border: 1px solid var(--border-color); align-self: flex-start; }
-    .chat-input-area { display: flex; padding: 5px; background: var(--bg-card); }
-    .chat-input-area input { flex: 1; border: none; padding: 8px; outline: none; }
+    /* Live Chat */
+    .chat-box { display: flex; flex-direction: column; height: 320px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+    .chat-messages { flex: 1; padding: 12px; overflow-y: auto; background: var(--bg-main); display: flex; flex-direction: column; gap: 10px; }
+    .msg { max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.4; }
+    .msg-sent { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+    .msg-received { background: var(--bg-card); border: 1px solid var(--border-color); align-self: flex-start; border-bottom-left-radius: 2px; }
+    .chat-input-area { display: flex; padding: 8px; background: var(--bg-card); border-top: 1px solid var(--border-color); gap: 6px; }
+    .chat-input-area input { flex: 1; border: 1px solid var(--border-color); padding: 8px 12px; border-radius: 6px; outline: none; background: var(--bg-main); color: var(--text-main); }
 
-    /* Ratings & Reviews System */
-    .star-rating { color: #f39c12; font-size: 14px; }
-    .reviews-list { margin-top: 15px; font-size: 12px; }
-    .review-item { border-bottom: 1px solid var(--border-color); padding: 8px 0; }
-
-    .seller-contact-box { background: rgba(22, 122, 98, 0.1); border: 1px solid var(--primary); border-radius: 6px; padding: 12px; margin-top: 15px; text-align: center; }
-    .seller-contact-box a { color: var(--primary); font-weight: 700; text-decoration: none; font-size: 16px; }
+    .seller-contact-box { background: var(--primary-light); border: 1px dashed var(--primary); border-radius: 8px; padding: 14px; margin-top: 16px; text-align: center; }
+    .seller-contact-box a { color: var(--primary); font-weight: 700; text-decoration: none; font-size: 18px; }
   </style>
 </head>
 <body>
@@ -166,20 +190,19 @@
     </div>
   </div>
 
-  <div class="container">
-    
-    <!-- USER INTERFACE VIEW -->
-    <div id="user-view">
-      <div class="hero-banner">
-        <h1 id="txt-hero-title">Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
-        <p id="txt-hero-sub">আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
-        <div class="search-group">
-          <input type="text" id="txt-search-ph" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" oninput="applyFilters()">
-          <button class="btn-search" id="txt-btn-search">খুঁজুন</button>
-        </div>
+  <!-- Hero Section -->
+  <div id="user-view">
+    <div class="hero-banner">
+      <h1 id="txt-hero-title">Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
+      <p id="txt-hero-sub">আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
+      <div class="search-group">
+        <input type="text" id="txt-search-ph" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" oninput="applyFilters()">
+        <button class="btn-search" id="txt-btn-search">খুঁজুন</button>
       </div>
+    </div>
 
-      <!-- Advanced Price & Sort Filter Bar -->
+    <div class="container">
+      <!-- Advanced Filters Bar -->
       <div class="advanced-filter-bar">
         <select id="all-locations" onchange="applyFilters()"></select>
         <input type="number" id="filter-min-price" placeholder="সর্বনিম্ন দাম" oninput="applyFilters()">
@@ -202,8 +225,10 @@
       
       <div class="ads-list" id="ads-container"></div>
     </div>
+  </div>
 
-    <!-- ADMIN CONTROL PANEL VIEW -->
+  <!-- ADMIN CONTROL PANEL VIEW -->
+  <div class="container">
     <div id="admin-view" class="admin-panel">
       <h2 style="margin-bottom: 15px;">📊 প্ল্যাটফর্ম অ্যানালিটিক্স</h2>
       <div class="analytics-grid">
@@ -224,13 +249,12 @@
         <tbody id="admin-ads-list"></tbody>
       </table>
 
-      <h3 class="admin-title" style="color:#e74c3c; border-color:#e74c3c;">⚠️ রিপোর্টেড বিজ্ঞাপনসমূহ</h3>
+      <h3 class="admin-title" style="color:#ef4444; border-color:#fee2e2;">⚠️ রিপোর্টেড বিজ্ঞাপনসমূহ</h3>
       <table>
         <thead><tr><th>Ad ID</th><th>কারণ</th><th>রিপোর্টার</th><th>অ্যাকশন</th></tr></thead>
         <tbody id="admin-reports-list"></tbody>
       </table>
     </div>
-
   </div>
 
   <!-- MODAL: Balance Top-Up -->
@@ -267,7 +291,7 @@
     </div>
   </div>
 
-  <!-- MODAL: Post Ad (With 5 Images & OTP Verification) -->
+  <!-- MODAL: Post Ad -->
   <div class="modal-overlay" id="postad-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -280,9 +304,9 @@
         <div class="form-group"><label id="lbl-ad-price">দাম (টাকা)</label><input type="number" id="ad-price" placeholder="যেমন: ২৫০০০" required></div>
         <div class="form-group">
           <label id="lbl-ad-phone">মোবাইল নম্বর (OTP ভেরিফিকেশন সহ)</label>
-          <div style="display:flex; gap:5px;">
+          <div style="display:flex; gap:8px;">
             <input type="tel" id="ad-phone" placeholder="017XXXXXXXX" required pattern="[0-9]{11}">
-            <button type="button" onclick="sendOTP()" style="padding:0 10px; font-size:11px; cursor:pointer;">OTP পাঠান</button>
+            <button type="button" onclick="sendOTP()" style="padding:0 12px; font-size:12px; cursor:pointer; background:var(--bg-main); border:1px solid var(--border-color); border-radius:8px; font-weight:600;">OTP পাঠান</button>
           </div>
         </div>
         <div class="form-group" id="otp-group" style="display:none;">
@@ -301,7 +325,7 @@
     </div>
   </div>
 
-  <!-- MODAL: Ad View Details, Reviews & Chat Trigger -->
+  <!-- MODAL: Ad View Details -->
   <div class="modal-overlay" id="adview-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -309,30 +333,22 @@
         <i class="fa-solid fa-xmark close-btn" onclick="closeModal('adview-modal')"></i>
       </div>
       <div>
-        <div style="width:100%; height:200px; background:#1a1a1a; display:flex; align-items:center; justify-content:center; border-radius:6px; margin-bottom:10px;">
+        <div style="width:100%; height:220px; background:#000000; display:flex; align-items:center; justify-content:center; border-radius:10px; margin-bottom:12px; overflow:hidden;">
           <img id="view-main-img" src="" style="max-width:100%; max-height:100%; object-fit:contain;">
         </div>
-        <div id="view-gallery" style="display:flex; gap:5px; margin-bottom:10px;"></div>
-        <h2 id="view-price" style="color:var(--primary); margin-bottom:5px;"></h2>
-        <p id="view-location" style="font-size:12px; color:var(--text-muted);"></p>
-        <p id="view-cat" style="font-size: 12px; background: var(--bg-main); display: inline-block; padding: 3px 8px; border-radius: 4px; margin-top: 5px;"></p>
+        <div id="view-gallery" style="display:flex; gap:6px; margin-bottom:12px;"></div>
+        <h2 id="view-price" style="color:var(--primary); margin-bottom:4px;"></h2>
+        <p id="view-location" style="font-size:13px; color:var(--text-muted);"></p>
+        <p id="view-cat" style="font-size: 12px; background: var(--primary-light); color:var(--primary); font-weight:600; display: inline-block; padding: 4px 10px; border-radius: 6px; margin-top: 6px;"></p>
 
         <div class="seller-contact-box">
           <div style="font-size: 12px; color: var(--text-muted);" id="txt-seller-contact">বিক্রেতার সাথে যোগাযোগ করুন:</div>
           <i class="fa-solid fa-phone"></i> <a id="view-phone" href="#"></a>
         </div>
 
-        <div style="display:flex; gap:10px; margin:15px 0;">
-          <button class="submit-btn" style="flex:1; background:#3498db;" onclick="openChatModal()"><i class="fa-solid fa-comments"></i> ইনস্ট্যান্ট চ্যাট করুন</button>
-          <button class="submit-btn" style="flex:1; background:#e74c3c;" onclick="reportAdModal()"><i class="fa-solid fa-flag"></i> রিপোর্ট এড</button>
-        </div>
-
-        <!-- Seller Ratings & Reviews -->
-        <h4 style="margin-top:15px; border-top:1px solid var(--border-color); padding-top:10px;">বিক্রেতার রিভিউ ও রেটিং</h4>
-        <div class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> (4.0/5)</div>
-        <div class="reviews-list">
-          <div class="review-item"><strong>রহিম:</strong> ভালো পণ্য ছিল, ধন্যবাদ!</div>
-          <div class="review-item"><strong>সাকিব:</strong> সেলার খুব দ্রুত রেসপন্স করেছেন।</div>
+        <div style="display:flex; gap:10px; margin:16px 0 0;">
+          <button class="submit-btn" style="flex:1; background:var(--primary);" onclick="openChatModal()"><i class="fa-solid fa-comments"></i> লাইভ চ্যাট</button>
+          <button class="submit-btn" style="flex:1; background:#ef4444;" onclick="reportAdModal()"><i class="fa-solid fa-flag"></i> রিপোর্ট</button>
         </div>
       </div>
     </div>
@@ -342,7 +358,7 @@
   <div class="modal-overlay" id="chat-modal">
     <div class="modal-box">
       <div class="modal-header">
-        <h3>লাইভ চ্যাটিং (সেলার)</h3>
+        <h3>লাইভ চ্যাটিং</h3>
         <i class="fa-solid fa-xmark close-btn" onclick="closeModal('chat-modal')"></i>
       </div>
       <div class="chat-box">
@@ -351,7 +367,7 @@
         </div>
         <div class="chat-input-area">
           <input type="text" id="chat-input-text" placeholder="মেসেজ লিখুন...">
-          <button onclick="sendChatMessage()" style="background:var(--primary); color:white; border:none; padding:0 12px; border-radius:4px; cursor:pointer;">পাঠান</button>
+          <button onclick="sendChatMessage()" style="background:var(--primary); color:white; border:none; padding:0 14px; border-radius:6px; cursor:pointer; font-weight:600;">পাঠান</button>
         </div>
       </div>
     </div>
@@ -368,31 +384,11 @@
         <div class="form-group"><label id="lbl-signin-id">মোবাইল নম্বর অথবা ইমেইল</label><input type="text" id="signin-id" required placeholder="017XXXXXXXX / example@mail.com"></div>
         <div class="form-group"><label id="lbl-signin-pass">পাসওয়ার্ড</label><input type="password" required placeholder="******"></div>
         <button type="submit" class="submit-btn" id="btn-signin-submit">লগইন করুন</button>
-        <p style="font-size:12px; text-align:center; margin-top:10px;">
-          <span id="txt-no-acc">অ্যাকাউন্ট নেই?</span> <a href="#" onclick="closeModal('signin-modal'); openModal('signup-modal');" id="txt-reg-link">নতুন তৈরি করুন</a>
-        </p>
       </form>
     </div>
   </div>
 
-  <!-- MODAL: Sign Up -->
-  <div class="modal-overlay" id="signup-modal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3 id="txt-signup-title">নতুন অ্যাকাউন্ট খুলুন</h3>
-        <i class="fa-solid fa-xmark close-btn" onclick="closeModal('signup-modal')"></i>
-      </div>
-      <form onsubmit="handleSignUp(event)">
-        <div class="form-group"><label id="lbl-signup-name">আপনার নাম</label><input type="text" required placeholder="পূর্ণ নাম"></div>
-        <div class="form-group"><label id="lbl-signup-phone">মোবাইল নম্বর</label><input type="tel" required placeholder="017XXXXXXXX" pattern="[0-9]{11}"></div>
-        <div class="form-group"><label id="lbl-signup-email">ইমেইল ঠিকানা</label><input type="email" required placeholder="example@mail.com"></div>
-        <div class="form-group"><label id="lbl-signup-pass">পাসওয়ার্ড</label><input type="password" required placeholder="******"></div>
-        <button type="submit" class="submit-btn" id="btn-signup-submit">রেজিস্ট্রেশন সম্পন্ন করুন</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL: Wishlist Favorites View -->
+  <!-- MODAL: Wishlist -->
   <div class="modal-overlay" id="wishlist-modal">
     <div class="modal-box">
       <div class="modal-header"><h3>পছন্দের তালিকা (Wishlist)</h3><i class="fa-solid fa-xmark close-btn" onclick="closeModal('wishlist-modal')"></i></div>
@@ -425,44 +421,15 @@
       }
     ];
 
-    let topUpRequests = [
-      { id: 1, phone: "017XXXXXXXX", method: "bKash", amount: 100, trx: "8N7A6D5C", status: "pending" }
-    ];
-
-    const translations = {
-      bn: {
-        langBtn: "English", signin: "সাইন ইন", postad: "+ বিজ্ঞাপন দিন",
-        heroTitle: "Baza-তে সবকিছু কেনা-বেচা করুন সহজে", heroSub: "আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম",
-        searchPh: "কী খুঁজছেন? (যেমন: মোবাইল, বাইক)", btnSearch: "খুঁজুন", recentAds: "সাম্প্রতিক বিজ্ঞাপনসমূহ", clearAds: "সব মুছুন",
-        emptyMsg: "বর্তমানে কোনো বিজ্ঞাপন নেই। '+ বিজ্ঞাপন দিন' বাটনে ক্লিক করে প্রথম বিজ্ঞাপন প্রকাশ করুন!",
-        postAdTitle: "নতুন বিজ্ঞাপন দিন", lblTitle: "পণ্যের শিরোনাম", lblCat: "ক্যাটাগরি", lblPrice: "দাম (টাকা)",
-        lblPhone: "মোবাইল নম্বর (OTP ভেরিফিকেশন সহ)", lblImages: "পণ্যের ছবি (কমপক্ষে ১টি, সর্বোচ্চ ৫টি)", lblImgHint: "১ থেকে ৫টি ছবি সিলেক্ট করুন",
-        lblLoc: "লোকেশন", lblArea: "বিস্তারিত ঠিকানা / এলাকা", btnSubmitAd: "বিজ্ঞাপন প্রকাশ করুন",
-        signinTitle: "সাইন ইন করুন", lblSigninId: "মোবাইল নম্বর অথবা ইমেইল", lblSigninPass: "পাসওয়ার্ড", btnSignin: "লগইন করুন",
-        txtNoAcc: "অ্যাকাউন্ট নেই?", txtRegLink: "নতুন তৈরি করুন", signupTitle: "নতুন অ্যাকাউন্ট খুলুন", lblSignupName: "আপনার নাম",
-        lblSignupPhone: "মোবাইল নম্বর", lblSignupEmail: "ইমেইল ঠিকানা", btnSignup: "রেজিস্ট্রেশন সম্পন্ন করুন", sellerContact: "বিক্রেতার সাথে যোগাযোগ করুন:"
-      },
-      en: {
-        langBtn: "বাংলা", signin: "Sign In", postad: "+ Post Ad",
-        heroTitle: "Buy & Sell Everything Easily on Baza", heroSub: "The safest platform to buy and sell your used or new products",
-        searchPh: "What are you looking for? (e.g. Mobile, Bike)", btnSearch: "Search", recentAds: "Recent Advertisements", clearAds: "Clear All",
-        emptyMsg: "No ads currently available. Click '+ Post Ad' to publish the first ad!",
-        postAdTitle: "Post New Ad", lblTitle: "Product Title", lblCat: "Category", lblPrice: "Price (BDT)",
-        lblPhone: "Mobile Number (With OTP Verification)", lblImages: "Product Images (Min 1, Max 5)", lblImgHint: "Select between 1 to 5 images",
-        lblLoc: "Location", lblArea: "Detailed Address / Area", btnSubmitAd: "Publish Ad",
-        signinTitle: "Sign In", lblSigninId: "Mobile Number or Email", lblSigninPass: "Password", btnSignin: "Login",
-        txtNoAcc: "Don't have an account?", txtRegLink: "Create New Account", signupTitle: "Create New Account", lblSignupName: "Full Name",
-        lblSignupPhone: "Mobile Number", lblSignupEmail: "Email Address", btnSignup: "Complete Registration", sellerContact: "Contact Seller:"
-      }
-    };
+    let topUpRequests = [];
 
     const categoryData = [
-      { id: "mobiles", name: "মোবাইল (Mobiles)", icon: "fa-mobile-screen-button", subs: ["মোবাইল ফোন (Mobile Phones)", "মোবাইল এক্সেসরিজ (Mobile Accessories)", "স্মার্টওয়াচ (Smartwatches)"] },
-      { id: "electronics", name: "ইলেকট্রনিক্স (Electronics)", icon: "fa-laptop", subs: ["ডেস্কটপ ও ল্যাপটপ (Computers)", "টিভি (TVs)", "ক্যামেরা (Cameras)"] },
-      { id: "vehicles", name: "যানবাহন (Vehicles)", icon: "fa-car", subs: ["কার (Cars)", "মোটর বাইক (Motorbikes)", "বাইসাইকেল (Bicycles)"] },
-      { id: "property", name: "প্রোপার্টি (Property)", icon: "fa-house-chimney", subs: ["ফ্ল্যাট বিক্রয় (Apartments for Sale)", "ফ্ল্যাট ভাড়া (Apartments for Rent)"] },
-      { id: "home", name: "হোম ও লিভিং (Home & Living)", icon: "fa-couch", subs: ["ফার্নিচার (Furniture)", "হোম ডেকোর (Home Decor)"] },
-      { id: "pets", name: "পোষা প্রাণী (Pets)", icon: "fa-cat", subs: ["বিড়াল (Cats)", "পাখি (Birds)", "কুকুর (Dogs)"] }
+      { id: "mobiles", name: "মোবাইল", icon: "fa-mobile-screen-button", subs: ["মোবাইল ফোন", "এক্সেসরিজ", "স্মার্টওয়াচ"] },
+      { id: "electronics", name: "ইলেকট্রনিক্স", icon: "fa-laptop", subs: ["ল্যাপটপ", "টিভি", "ক্যামেরা"] },
+      { id: "vehicles", name: "যানবাহন", icon: "fa-car", subs: ["কার", "মোটর বাইক", "বাইসাইকেল"] },
+      { id: "property", name: "প্রোপার্টি", icon: "fa-house-chimney", subs: ["ফ্ল্যাট বিক্রয়", "ফ্ল্যাট ভাড়া"] },
+      { id: "home", name: "হোম ও লিভিং", icon: "fa-couch", subs: ["ফার্নিচার", "হোম ডেকোর"] },
+      { id: "pets", name: "পোষা প্রাণী", icon: "fa-cat", subs: ["বিড়াল", "পাখি", "কুকুর"] }
     ];
 
     const locationData = {
@@ -493,44 +460,6 @@
       renderAll();
     }
 
-    function toggleLanguage() {
-      currentLang = currentLang === 'bn' ? 'en' : 'bn';
-      const t = translations[currentLang];
-      document.getElementById('lang-btn').innerText = t.langBtn;
-      document.getElementById('txt-signin').innerHTML = `<i class="fa-solid fa-user"></i> ${t.signin}`;
-      document.getElementById('txt-postad').innerText = t.postad;
-      document.getElementById('txt-hero-title').innerText = t.heroTitle;
-      document.getElementById('txt-hero-sub').innerText = t.heroSub;
-      document.getElementById('txt-search-ph').placeholder = t.searchPh;
-      document.getElementById('txt-btn-search').innerText = t.btnSearch;
-      document.getElementById('txt-recent-ads').innerText = t.recentAds;
-      document.getElementById('txt-clear-ads').innerText = t.clearAds;
-      document.getElementById('txt-postad-title').innerText = t.postAdTitle;
-      document.getElementById('lbl-ad-title').innerText = t.lblTitle;
-      document.getElementById('lbl-ad-cat').innerText = t.lblCat;
-      document.getElementById('lbl-ad-price').innerText = t.lblPrice;
-      document.getElementById('lbl-ad-phone').innerText = t.lblPhone;
-      document.getElementById('lbl-ad-images').innerText = t.lblImages;
-      document.getElementById('lbl-img-hint').innerText = t.lblImgHint;
-      document.getElementById('lbl-ad-loc').innerText = t.lblLoc;
-      document.getElementById('lbl-ad-area').innerText = t.lblArea;
-      document.getElementById('btn-submit-ad').innerText = t.btnSubmitAd;
-      document.getElementById('txt-signin-title').innerText = t.signinTitle;
-      document.getElementById('lbl-signin-id').innerText = t.lblSigninId;
-      document.getElementById('lbl-signin-pass').innerText = t.lblSigninPass;
-      document.getElementById('btn-signin-submit').innerText = t.btnSignin;
-      document.getElementById('txt-no-acc').innerText = t.txtNoAcc;
-      document.getElementById('txt-reg-link').innerText = t.txtRegLink;
-      document.getElementById('txt-signup-title').innerText = t.signupTitle;
-      document.getElementById('lbl-signup-name').innerText = t.lblSignupName;
-      document.getElementById('lbl-signup-phone').innerText = t.lblSignupPhone;
-      document.getElementById('lbl-signup-email').innerText = t.lblSignupEmail;
-      document.getElementById('lbl-signup-pass').innerText = t.lblSigninPass;
-      document.getElementById('btn-signup-submit').innerText = t.btnSignup;
-      document.getElementById('txt-seller-contact').innerText = t.sellerContact;
-      renderAll();
-    }
-
     function renderCategories() {
       const grid = document.getElementById('categories-grid');
       const adCatSelect = document.getElementById('ad-category-select');
@@ -548,14 +477,14 @@
     function renderLocations() {
       const selectTop = document.getElementById('all-locations');
       const selectForm = document.getElementById('ad-location-select');
-      let html = '<option value="">সমস্ত বাংলাদেশ (সকল বিভাগ ও জেলা)</option>';
+      let html = '<option value="">সকল এলাকা (বাংলাদেশ)</option>';
       let formHtml = '<option value="">লোকেশন নির্বাচন করুন</option>';
       for (let division in locationData) {
         html += `<optgroup label="${division}">`;
         formHtml += `<optgroup label="${division}">`;
         for (let subGroup in locationData[division]) {
           locationData[division][subGroup].forEach(loc => {
-            html += `<option value="${loc}">${subGroup} - ${loc}</option>`;
+            html += `<option value="${loc}">${loc}</option>`;
             formHtml += `<option value="${loc}">${loc}</option>`;
           });
         }
@@ -576,7 +505,7 @@
     function showWishlistModal() {
       const favAds = adsDataStore.filter(a => wishlist.includes(a.id));
       const container = document.getElementById('wishlist-content');
-      if(favAds.length === 0) container.innerHTML = "<p style='text-align:center; padding:20px;'>কোনো বুকমার্ক করা বিজ্ঞাপন নেই।</p>";
+      if(favAds.length === 0) container.innerHTML = "<p style='text-align:center; padding:20px; color:var(--text-muted);'>কোনো বুকমার্ক করা বিজ্ঞাপন নেই।</p>";
       else {
         let html = '';
         favAds.forEach(ad => {
@@ -589,7 +518,7 @@
 
     function validateImageCount(input) {
       if (input.files.length > 5) {
-        alert(currentLang === 'bn' ? 'সর্বোচ্চ ৫টি ছবি আপলোড করা যাবে!' : 'Maximum 5 images allowed!');
+        alert('সর্বোচ্চ ৫টি ছবি আপলোড করা যাবে!');
         input.value = '';
       }
     }
@@ -638,7 +567,7 @@
         images: imageUrls, status: "pending", isFeatured: false
       });
 
-      alert(currentLang === 'bn' ? 'বিজ্ঞাপনটি অনুমোদনের জন্য পাঠানো হয়েছে!' : 'Ad submitted for approval!');
+      alert('বিজ্ঞাপনটি অনুমোদনের জন্য পাঠানো হয়েছে!');
       closeModal('postad-modal');
       e.target.reset();
       renderAll();
@@ -688,7 +617,7 @@
     function renderAdsGrid(listData) {
       const adsContainer = document.getElementById('ads-container');
       if (listData.length === 0) {
-        adsContainer.innerHTML = `<div class="no-ads-msg">${translations[currentLang].emptyMsg}</div>`;
+        adsContainer.innerHTML = `<div class="no-ads-msg">বর্তমানে কোনো বিজ্ঞাপন পাওয়া যায়নি।</div>`;
         return;
       }
       let html = '';
@@ -727,7 +656,7 @@
       topUpRequests.forEach(t => {
         tHtml += `<tr><td>${t.phone}</td><td>${t.method}</td><td>৳${t.amount}</td><td><strong>${t.trx}</strong></td><td><span class="badge-status status-${t.status}">${t.status}</span></td><td>${t.status === 'pending' ? `<button class="btn-approve" onclick="approveTopUp(${t.id})">অনুমোদন</button>` : 'সম্পন্ন'}</td></tr>`;
       });
-      document.getElementById('admin-topups-list').innerHTML = tHtml;
+      document.getElementById('admin-topups-list').innerHTML = tHtml || '<tr><td colspan="6" style="text-align:center;">কোনো টপ-আপ রিকোয়েস্ট নেই।</td></tr>';
 
       let aHtml = '';
       adsDataStore.filter(a => a.status === 'pending').forEach(a => {
@@ -766,14 +695,13 @@
 
       document.getElementById('view-main-img').src = ad.images[0];
       let galleryHtml = '';
-      ad.images.forEach((imgUrl) => { galleryHtml += `<img src="${imgUrl}" style="width:50px; height:40px; border-radius:4px; cursor:pointer;" onclick="document.getElementById('view-main-img').src='${imgUrl}'">`; });
+      ad.images.forEach((imgUrl) => { galleryHtml += `<img src="${imgUrl}" style="width:50px; height:40px; border-radius:6px; cursor:pointer; border:1px solid var(--border-color);" onclick="document.getElementById('view-main-img').src='${imgUrl}'">`; });
       document.getElementById('view-gallery').innerHTML = galleryHtml;
 
       openModal('adview-modal');
     }
 
-    function handleSignIn(e) { e.preventDefault(); alert(currentLang === 'bn' ? 'সাইন ইন সফল হয়েছে!' : 'Signed in successfully!'); closeModal('signin-modal'); e.target.reset(); }
-    function handleSignUp(e) { e.preventDefault(); alert(currentLang === 'bn' ? 'অ্যাকাউন্ট তৈরি সফল হয়েছে!' : 'Account created successfully!'); closeModal('signup-modal'); e.target.reset(); }
+    function handleSignIn(e) { e.preventDefault(); alert('সাইন ইন সফল হয়েছে!'); closeModal('signin-modal'); e.target.reset(); }
 
     function openSubCategories(catId) {
       const category = categoryData.find(c => c.id === catId);
