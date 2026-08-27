@@ -30,7 +30,6 @@
             color: var(--text-dark);
         }
 
-        /* Header & Search Bar */
         header {
             background-color: var(--primary);
             color: white;
@@ -51,49 +50,36 @@
             flex-wrap: wrap;
         }
 
-        .logo {
-            font-size: 24px;
+        .logo { font-size: 24px; font-weight: bold; cursor: pointer; }
+
+        .search-box { flex-grow: 1; max-width: 500px; display: flex; }
+        .search-box input { width: 100%; padding: 10px; border: none; border-radius: 4px 0 0 4px; outline: none; }
+        .search-box button { padding: 10px 15px; background: var(--primary-dark); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+
+        .theme-toggle { background: transparent; border: 1px solid white; color: white; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+
+        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
+
+        /* Category Bar */
+        .category-bar {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .cat-btn {
+            background: #e0e0e0;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
             font-weight: bold;
         }
 
-        .search-box {
-            flex-grow: 1;
-            max-width: 500px;
-            display: flex;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 4px 0 0 4px;
-            outline: none;
-        }
-
-        .search-box button {
-            padding: 10px 15px;
-            background: var(--primary-dark);
-            color: white;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-        }
-
-        .theme-toggle {
-            background: transparent;
-            border: 1px solid white;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        /* Container & Cards Layout */
-        .container {
-            max-width: 1100px;
-            margin: 20px auto;
-            padding: 0 15px;
-        }
+        body.dark-mode .cat-btn { background: #333; color: #fff; }
 
         .grid {
             display: grid;
@@ -110,89 +96,55 @@
             transition: transform 0.2s;
         }
 
-        body.dark-mode .card {
-            background-color: var(--card-bg-dark);
-        }
+        body.dark-mode .card { background-color: var(--card-bg-dark); }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card-content { padding: 15px; }
+        .card-title { font-size: 16px; font-weight: bold; margin: 0 0 8px 0; }
+        .card-price { color: var(--primary); font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+        .card-location { font-size: 12px; color: #777; }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-        }
-
-        .card-content {
-            padding: 15px;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin: 0 0 8px 0;
-        }
-
-        .card-price {
-            color: var(--primary);
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .card-location {
-            font-size: 12px;
-            color: #777;
-        }
-
-        /* Modal for Details */
+        /* Modal Layout */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6);
             z-index: 2000;
             justify-content: center;
             align-items: center;
             padding: 15px;
+            box-sizing: border-box;
         }
 
         .modal-content {
             background: white;
-            max-width: 500px;
+            max-width: 450px;
             width: 100%;
             border-radius: 8px;
             padding: 20px;
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
-        body.dark-mode .modal-content {
-            background: var(--card-bg-dark);
-            color: white;
-        }
+        body.dark-mode .modal-content { background: var(--card-bg-dark); color: white; }
+        .close-btn { position: absolute; right: 15px; top: 15px; font-size: 24px; cursor: pointer; font-weight: bold; }
 
-        .close-btn {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            font-size: 20px;
-            cursor: pointer;
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
         }
 
         /* Mobile Bottom Navigation */
         .bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            bottom: 0; left: 0; width: 100%;
             background: var(--primary);
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 12px 0;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
             z-index: 1000;
         }
@@ -201,16 +153,16 @@
             color: white;
             text-align: center;
             text-decoration: none;
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
         }
 
         @media (min-width: 768px) {
-            .bottom-nav {
-                display: none;
-            }
-            body {
-                padding-bottom: 0;
-            }
+            .bottom-nav { display: none; }
+            body { padding-bottom: 0; }
         }
     </style>
 </head>
@@ -218,58 +170,119 @@
 
     <header>
         <div class="header-container">
-            <div class="logo">Baza.com.bd</div>
+            <div class="logo" onclick="filterCategory('all')">Baza.com.bd</div>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="যা খুঁজছেন লিখুন (যেমন: মোবাইল, বাইক)..." onkeyup="filterAds()">
-                <button>সার্চ</button>
+                <input type="text" id="searchInput" placeholder="যা খুঁজছেন লিখুন..." onkeyup="filterAds()">
+                <button onclick="filterAds()">সার্চ</button>
             </div>
             <button class="theme-toggle" onclick="toggleTheme()">ডার্ক/লাইট</button>
         </div>
     </header>
 
     <div class="container">
-        <h2>সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
-        <div class="grid" id="adsGrid">
-            <!-- Dynamic Content Load হবে -->
+        <!-- Category Filter Buttons -->
+        <div class="category-bar">
+            <button class="cat-btn" onclick="filterCategory('all')">সব বিজ্ঞাপন</button>
+            <button class="cat-btn" onclick="filterCategory('mobile')">মোবাইল</button>
+            <button class="cat-btn" onclick="filterCategory('electronics')">ইলেকট্রনিক্স</button>
+            <button class="cat-btn" onclick="filterCategory('vehicles')">যানবাহন</button>
         </div>
+
+        <h2 id="sectionTitle">সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
+        <div class="grid" id="adsGrid"></div>
     </div>
 
-    <!-- Product Details Modal -->
+    <!-- 1. Product Details Modal -->
     <div class="modal" id="productModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
             <img id="modalImg" src="" style="width:100%; height:200px; object-fit:cover; border-radius:5px;" alt="Product">
             <h3 id="modalTitle"></h3>
             <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:20px;"></p>
             <p id="modalLocation" style="color:#777;"></p>
             <p id="modalDesc"></p>
-            <button style="width:100%; padding:10px; background:green; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="alert('বিক্রেতার মোবাইল নম্বর: ০১৭XXXXXXXX')">কল করুন</button>
+            <button style="width:100%; padding:12px; background:green; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="alert('বিক্রেতার সাথে যোগাযোগ করা হচ্ছে...')">কল করুন</button>
         </div>
     </div>
 
-    <!-- Mobile Navigation -->
+    <!-- 2. Post New Ad Modal (+ পোস্ট বাটন) -->
+    <div class="modal" id="postAdModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
+            <h3>নতুন বিজ্ঞাপন দিন</h3>
+            <form onsubmit="handlePostAd(event)">
+                <div class="form-group">
+                    <label>শিরোনাম</label>
+                    <input type="text" id="postTitle" required placeholder="যেমন: Redmi Note 13 Pro">
+                </div>
+                <div class="form-group">
+                    <label>ক্যাটাগরি</label>
+                    <select id="postCategory">
+                        <option value="mobile">মোবাইল</option>
+                        <option value="electronics">ইলেকট্রনিক্স</option>
+                        <option value="vehicles">যানবাহন</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>মূল্য (টাকা)</label>
+                    <input type="text" id="postPrice" required placeholder="যেমন: ২৫,০০০ টাকা">
+                </div>
+                <div class="form-group">
+                    <label>লোকেশন</label>
+                    <input type="text" id="postLocation" required placeholder="যেমন: চট্টগ্রাম">
+                </div>
+                <div class="form-group">
+                    <label>ছবি (Image URL)</label>
+                    <input type="url" id="postImg" required placeholder="https://images.unsplash.com/...">
+                </div>
+                <div class="form-group">
+                    <label>বিবরণ</label>
+                    <textarea id="postDesc" rows="3" required></textarea>
+                </div>
+                <button type="submit" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Account Modal (অ্যাকাউন্ট বাটন) -->
+    <div class="modal" id="accountModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
+            <h3>আপনার অ্যাকাউন্ট</h3>
+            <hr><br>
+            <p><strong>ইউজার:</strong> নদীম টেলিকম</p>
+            <p><strong>স্ট্যাটাস:</strong> অ্যাক্টিভ মেম্বার</p>
+            <p><strong>পোস্ট করা বিজ্ঞাপন:</strong> <span id="myAdsCount">০</span> টি</p>
+            <button style="width:100%; padding:10px; background:#d32f2f; color:white; border:none; border-radius:5px; cursor:pointer; margin-top:15px;" onclick="alert('লগআউট সফল হয়েছে')">লগআউট</button>
+        </div>
+    </div>
+
+    <!-- Fixed Bottom Navigation -->
     <nav class="bottom-nav">
-        <a href="#" class="nav-item">হোম</a>
-        <a href="#" class="nav-item">ক্যাটাগরি</a>
-        <a href="#" class="nav-item" onclick="alert('পোস্ট করার ফিচার যোগ করা হচ্ছে')">+ পোস্ট</a>
-        <a href="#" class="nav-item">অ্যাকাউন্ট</a>
+        <button class="nav-item" onclick="filterCategory('all')">হোম</button>
+        <button class="nav-item" onclick="scrollToCategories()">ক্যাটাগরি</button>
+        <button class="nav-item" onclick="openModal('postAdModal')">+ পোস্ট</button>
+        <button class="nav-item" onclick="openModal('accountModal')">অ্যাকাউন্ট</button>
     </nav>
 
     <script>
-        // Sample Data
-        const sampleAds = [
-            { id: 1, title: 'Redmi Note 13 Pro 5G', price: '২৪,০০০ টাকা', location: 'চট্টগ্রাম', desc: 'একদম নতুন কন্ডিশন, সাথে বক্স ও চার্জার আছে।', img: 'https://via.placeholder.com/300x200' },
-            { id: 2, title: 'Duranta Bicycle 24 inch', price: '৬,৫০৮ টাকা', location: 'ঢাকা', desc: 'কম ব্যবহৃত সাইকেল, কোনো সমস্যা নেই।', img: 'https://via.placeholder.com/300x200' },
-            { id: 3, title: 'Walton Refrigerator 217L', price: '৩২,৫০০ টাকা', location: 'চট্টগ্রাম', desc: 'নো-ফ্রস্ট ফ্রিজ, ২ বছর সার্ভিস ওয়ারেন্টি আছে।', img: 'https://via.placeholder.com/300x200' }
+        // Working Image Links
+        let sampleAds = [
+            { id: 1, category: 'mobile', title: 'Redmi Note 13 Pro 5G', price: '২৪,০০০ টাকা', location: 'চট্টগ্রাম', desc: 'একদম নতুন কন্ডিশন, সাথে বক্স ও চার্জার আছে।', img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500' },
+            { id: 2, category: 'vehicles', title: 'Duranta Bicycle 24 inch', price: '৬,৫০৮ টাকা', location: 'ঢাকা', desc: 'কম ব্যবহৃত সাইকেল, কোনো সমস্যা নেই।', img: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=500' },
+            { id: 3, category: 'electronics', title: 'Walton Refrigerator 217L', price: '৩২,৫০০ টাকা', location: 'চট্টগ্রাম', desc: 'নো-ফ্রস্ট ফ্রিজ, ২ বছর সার্ভিস ওয়ারেন্টি আছে।', img: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=500' }
         ];
 
-        // Load Ads
         function renderAds(ads) {
             const grid = document.getElementById('adsGrid');
             grid.innerHTML = '';
+            if(ads.length === 0) {
+                grid.innerHTML = '<p>কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>';
+                return;
+            }
             ads.forEach(ad => {
                 grid.innerHTML += `
-                    <div class="card" onclick="openModal(${ad.id})">
+                    <div class="card" onclick="openProductDetail(${ad.id})">
                         <img src="${ad.img}" alt="${ad.title}">
                         <div class="card-content">
                             <div class="card-title">${ad.title}</div>
@@ -281,15 +294,37 @@
             });
         }
 
-        // Search Filter
         function filterAds() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = sampleAds.filter(ad => ad.title.toLowerCase().includes(query) || ad.location.toLowerCase().includes(query));
             renderAds(filtered);
         }
 
-        // Modal Controls
-        function openModal(id) {
+        function filterCategory(cat) {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            if(cat === 'all') {
+                document.getElementById('sectionTitle').innerText = 'সাম্প্রতিক বিজ্ঞাপনসমূহ';
+                renderAds(sampleAds);
+            } else {
+                document.getElementById('sectionTitle').innerText = cat.toUpperCase() + ' বিজ্ঞাপনসমূহ';
+                const filtered = sampleAds.filter(ad => ad.category === cat);
+                renderAds(filtered);
+            }
+        }
+
+        function scrollToCategories() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function openProductDetail(id) {
             const ad = sampleAds.find(a => a.id === id);
             if(ad) {
                 document.getElementById('modalTitle').innerText = ad.title;
@@ -297,20 +332,32 @@
                 document.getElementById('modalLocation').innerText = 'লোকেশন: ' + ad.location;
                 document.getElementById('modalDesc').innerText = ad.desc;
                 document.getElementById('modalImg').src = ad.img;
-                document.getElementById('productModal').style.display = 'flex';
+                openModal('productModal');
             }
         }
 
-        function closeModal() {
-            document.getElementById('productModal').style.display = 'none';
+        function handlePostAd(event) {
+            event.preventDefault();
+            const newAd = {
+                id: Date.now(),
+                title: document.getElementById('postTitle').value,
+                category: document.getElementById('postCategory').value,
+                price: document.getElementById('postPrice').value,
+                location: document.getElementById('postLocation').value,
+                img: document.getElementById('postImg').value,
+                desc: document.getElementById('postDesc').value
+            };
+            sampleAds.unshift(newAd);
+            renderAds(sampleAds);
+            closeModal('postAdModal');
+                event.target.reset();
+            alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
         }
 
-        // Dark/Light Theme Toggle
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
         }
 
-        // Initial Load
         renderAds(sampleAds);
     </script>
 </body>
