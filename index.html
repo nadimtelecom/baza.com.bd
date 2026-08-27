@@ -11,12 +11,32 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
+    :root {
+      --bg-main: #f4f6f8;
+      --bg-card: #ffffff;
+      --text-main: #2c3e50;
+      --text-muted: #666666;
+      --primary: #167a62;
+      --primary-hover: #00a664;
+      --border-color: #eee;
+    }
+
+    body.dark-theme {
+      --bg-main: #121212;
+      --bg-card: #1e1e1e;
+      --text-main: #e0e0e0;
+      --text-muted: #aaaaaa;
+      --primary: #2a9d80;
+      --primary-hover: #167a62;
+      --border-color: #333333;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; }
-    body { background-color: #f4f6f8; color: #2c3e50; padding-bottom: 40px; }
+    body { background-color: var(--bg-main); color: var(--text-main); padding-bottom: 40px; transition: background 0.3s, color 0.3s; }
 
     /* Top Navigation Header */
     .top-nav {
-      background-color: #167a62;
+      background-color: var(--primary);
       padding: 12px 15px;
       display: flex;
       justify-content: space-between;
@@ -28,228 +48,106 @@
     }
     .brand-logo { font-size: 24px; font-weight: 700; color: #ffffff; cursor: pointer; }
     .brand-logo span { color: #ffcc00; }
-    .header-right { display: flex; align-items: center; gap: 8px; }
+    .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     
-    .wallet-badge {
-      background: #ffcc00; color: #000; padding: 4px 10px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer;
-    }
-    .btn-toggle-view {
-      background: #ffffff; color: #167a62; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; cursor: pointer;
-    }
-    .lang-btn {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 4px;
-      padding: 4px 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-    }
+    .wallet-badge { background: #ffcc00; color: #000; padding: 4px 10px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-icon-nav { background: rgba(255,255,255,0.2); color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+    .btn-toggle-view { background: #ffffff; color: #167a62; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .lang-btn { background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 4px; padding: 4px 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
     .btn-auth { color: white; background: transparent; border: none; font-size: 14px; font-weight: 600; cursor: pointer; padding: 5px 8px; }
-    .btn-post-ad {
-      background-color: #ffcc00;
-      color: #000;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-weight: 700;
-      font-size: 14px;
-      border: none;
-      cursor: pointer;
-    }
+    .btn-post-ad { background-color: #ffcc00; color: #000; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; }
 
     /* Hero Banner Section */
-    .hero-banner {
-      background-color: #2a9d80;
-      padding: 25px 15px;
-      text-align: center;
-      color: white;
-    }
+    .hero-banner { background-color: var(--primary-hover); padding: 25px 15px; text-align: center; color: white; }
     .hero-banner h1 { font-size: 22px; margin-bottom: 8px; font-weight: 700; }
     .hero-banner p { font-size: 13px; opacity: 0.9; margin-bottom: 20px; }
     
-    .search-group {
-      max-width: 500px;
-      margin: 0 auto;
-      display: flex;
-      gap: 8px;
-    }
-    .search-group input {
-      flex: 1;
-      padding: 10px 15px;
-      border-radius: 6px;
-      border: none;
-      font-size: 14px;
-      outline: none;
-    }
-    .btn-search {
-      background-color: #ffcc00;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-weight: 700;
-      color: #000;
-      cursor: pointer;
-    }
+    .search-group { max-width: 500px; margin: 0 auto; display: flex; gap: 8px; }
+    .search-group input { flex: 1; padding: 10px 15px; border-radius: 6px; border: none; font-size: 14px; outline: none; }
+    .btn-search { background-color: #ffcc00; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 700; color: #000; cursor: pointer; }
 
-    /* Location & Search Filter Bar */
-    .filter-bar {
-      background-color: #00a664;
-      padding: 10px 15px;
-      display: flex;
-      gap: 8px;
-    }
-    .select-location {
-      background: #ffffff;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 13px;
-      outline: none;
-      width: 45%;
-    }
-    .input-search-bar {
-      background: #ffffff;
-      border-radius: 6px;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-    }
-    .input-search-bar input {
-      width: 100%;
-      border: none;
-      outline: none;
-      padding: 8px 5px;
-      font-size: 13px;
-    }
-    .input-search-bar i { color: #888; }
+    /* Advanced Filtering Controls */
+    .advanced-filter-bar { background: var(--bg-card); padding: 12px 15px; border-bottom: 1px solid var(--border-color); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 15px; }
+    .advanced-filter-bar select, .advanced-filter-bar input { padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-card); color: var(--text-main); font-size: 13px; }
 
     /* Category Icons Grid */
-    .container { padding: 20px 15px; max-width: 900px; margin: 0 auto; }
-    .grid-categories {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px 10px;
-    }
-    @media (min-width: 600px) {
-      .grid-categories { grid-template-columns: repeat(6, 1fr); }
-    }
+    .container { padding: 20px 15px; max-width: 950px; margin: 0 auto; }
+    .grid-categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px 10px; }
+    @media (min-width: 600px) { .grid-categories { grid-template-columns: repeat(6, 1fr); } }
     .cat-item { text-align: center; cursor: pointer; }
-    .icon-box {
-      background-color: #ebf5f0;
-      width: 65px;
-      height: 65px;
-      border-radius: 16px;
-      margin: 0 auto 6px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: background-color 0.2s;
-    }
-    .cat-item:hover .icon-box { background-color: #d8ece2; }
-    .icon-box i { font-size: 26px; color: #167a62; }
-    .cat-item span { font-size: 12px; font-weight: 600; color: #333; display: block; line-height: 1.2; }
+    .icon-box { background-color: rgba(22, 122, 98, 0.1); width: 65px; height: 65px; border-radius: 16px; margin: 0 auto 6px; display: flex; justify-content: center; align-items: center; }
+    .cat-item span { font-size: 12px; font-weight: 600; display: block; }
 
-    /* Ads Section & Dynamic Fitting */
-    .section-header { display: flex; justify-content: space-between; align-items: center; margin: 25px 0 15px; }
-    .section-title { font-size: 18px; font-weight: 700; color: #167a62; }
+    /* Ads Section & Cards */
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 15px; }
+    .section-title { font-size: 18px; font-weight: 700; color: var(--primary); }
     .btn-clear-ads { background: #ff4d4d; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; }
-    .ads-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; min-height: 50px; }
-    .no-ads-msg { font-size: 14px; color: #888; text-align: center; grid-column: 1 / -1; padding: 20px 0; }
-    
-    .ad-card { 
-      background: white; 
-      border-radius: 8px; 
-      overflow: hidden; 
-      box-shadow: 0 2px 5px rgba(0,0,0,0.08); 
-      border: 1px solid #eee; 
-      position: relative;
-    }
+    .ads-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+    .no-ads-msg { font-size: 14px; color: var(--text-muted); text-align: center; grid-column: 1 / -1; padding: 20px 0; }
+
+    .ad-card { background: var(--bg-card); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.08); border: 1px solid var(--border-color); position: relative; }
     .ad-img-wrapper { width: 100%; height: 160px; background-color: #1a1a1a; display: flex; align-items: center; justify-content: center; cursor: pointer; }
     .ad-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    
+    .fav-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.5); color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; z-index: 10; }
+    .fav-btn.active { color: #e74c3c; }
     .featured-badge { position: absolute; top: 8px; left: 8px; background: #ffcc00; color: #000; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; z-index: 10; }
-    .ad-details { padding: 10px; }
-    .ad-details h4 { font-size: 14px; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #333; cursor: pointer; }
-    .ad-details .price { color: #167a62; font-weight: 700; font-size: 14px; margin-bottom: 5px; }
-    .ad-details .loc { font-size: 11px; color: #777; margin-bottom: 8px; }
-    .btn-boost-ad { width: 100%; background: #e67e22; color: white; border: none; padding: 6px; border-radius: 4px; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .ad-details { padding: 12px; }
+    .ad-details h4 { font-size: 14px; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+    .ad-details .price { color: var(--primary); font-weight: 700; font-size: 14px; margin-bottom: 5px; }
+    .ad-details .loc { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+    .action-btn-group { display: flex; gap: 5px; }
+    .btn-boost-ad { flex: 1; background: #e67e22; color: white; border: none; padding: 6px; border-radius: 4px; font-size: 11px; font-weight: 700; cursor: pointer; }
+    .btn-chat-ad { background: var(--primary); color: white; border: none; padding: 6px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
 
-    /* Admin View Panel */
-    .admin-panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 15px; }
-    .admin-title { font-size: 18px; color: #167a62; margin-bottom: 15px; border-bottom: 2px solid #167a62; padding-bottom: 5px; margin-top: 15px; }
+    /* Admin Panel & Analytics Dashboard */
+    .admin-panel { display: none; background: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 15px; }
+    .admin-title { font-size: 18px; color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid var(--primary); padding-bottom: 5px; margin-top: 15px; }
+    .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .stat-card { background: var(--bg-main); padding: 15px; border-radius: 8px; text-align: center; border: 1px solid var(--border-color); }
+    .stat-card h3 { font-size: 22px; color: var(--primary); }
+    .stat-card p { font-size: 12px; color: var(--text-muted); }
+
     table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
-    table, th, td { border: 1px solid #ddd; }
+    table, th, td { border: 1px solid var(--border-color); }
     th, td { padding: 8px 10px; text-align: left; font-size: 12px; }
-    th { background: #eefdf5; color: #167a62; }
+    th { background: var(--bg-main); color: var(--primary); }
     .btn-approve { background: #27ae60; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; }
     .btn-reject { background: #e74c3c; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; }
     .badge-status { padding: 2px 6px; border-radius: 10px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
     .status-pending { background: #f39c12; color: white; }
     .status-approved { background: #27ae60; color: white; }
 
-    /* Modal Pop-ups */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-box {
-      background: white;
-      width: 90%;
-      max-width: 480px;
-      border-radius: 10px;
-      padding: 20px;
-      max-height: 85vh;
-      overflow-y: auto;
-    }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-    .modal-header h3 { font-size: 18px; color: #167a62; }
-    .close-btn { cursor: pointer; font-size: 20px; color: #888; }
+    /* Modals System */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
+    .modal-box { background: var(--bg-card); width: 90%; max-width: 480px; border-radius: 10px; padding: 20px; max-height: 85vh; overflow-y: auto; color: var(--text-main); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 15px; }
+    .modal-header h3 { font-size: 18px; color: var(--primary); }
+    .close-btn { cursor: pointer; font-size: 20px; color: var(--text-muted); }
     
-    .subcat-item {
-      padding: 12px;
-      border-bottom: 1px solid #f0f0f0;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.2s;
-    }
-    .subcat-item:hover { background: #eefdf5; color: #167a62; font-weight: 600; }
+    .subcat-item { padding: 12px; border-bottom: 1px solid var(--border-color); cursor: pointer; font-size: 14px; }
+    .subcat-item:hover { background: var(--bg-main); color: var(--primary); font-weight: 600; }
 
     .form-group { margin-bottom: 12px; }
     .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 13px;
-      outline: none;
-    }
-    .submit-btn {
-      width: 100%;
-      background: #167a62;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 13px; background: var(--bg-card); color: var(--text-main); outline: none; }
+    .submit-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 10px; }
 
-    /* Ad Details Viewer Modal */
-    .ad-view-gallery { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 15px; padding-bottom: 5px; }
-    .ad-view-gallery img { width: 90px; height: 70px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; cursor: pointer; }
-    .ad-view-main-wrapper { width: 100%; height: 220px; background: #1a1a1a; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-bottom: 10px; }
-    .ad-view-main-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
-    .seller-contact-box { background: #eefdf5; border: 1px solid #167a62; border-radius: 6px; padding: 12px; margin-top: 15px; text-align: center; }
-    .seller-contact-box a { color: #167a62; font-weight: 700; text-decoration: none; font-size: 16px; }
+    /* In-App Live Chat System */
+    .chat-box { display: flex; flex-direction: column; height: 320px; border: 1px solid var(--border-color); border-radius: 6px; }
+    .chat-messages { flex: 1; padding: 10px; overflow-y: auto; background: var(--bg-main); display: flex; flex-direction: column; gap: 8px; }
+    .msg { max-width: 75%; padding: 8px 12px; border-radius: 12px; font-size: 13px; }
+    .msg-sent { background: var(--primary); color: white; align-self: flex-end; }
+    .msg-received { background: var(--bg-card); border: 1px solid var(--border-color); align-self: flex-start; }
+    .chat-input-area { display: flex; padding: 5px; background: var(--bg-card); }
+    .chat-input-area input { flex: 1; border: none; padding: 8px; outline: none; }
+
+    /* Ratings & Reviews System */
+    .star-rating { color: #f39c12; font-size: 14px; }
+    .reviews-list { margin-top: 15px; font-size: 12px; }
+    .review-item { border-bottom: 1px solid var(--border-color); padding: 8px 0; }
+
+    .seller-contact-box { background: rgba(22, 122, 98, 0.1); border: 1px solid var(--primary); border-radius: 6px; padding: 12px; margin-top: 15px; text-align: center; }
+    .seller-contact-box a { color: var(--primary); font-weight: 700; text-decoration: none; font-size: 16px; }
   </style>
 </head>
 <body>
@@ -258,6 +156,8 @@
   <div class="top-nav">
     <div class="brand-logo" onclick="toggleAdminUserView('user')">Baza<span>.com.bd</span></div>
     <div class="header-right">
+      <button class="btn-icon-nav" onclick="toggleTheme()" title="Theme Toggle"><i class="fa-solid fa-moon"></i></button>
+      <button class="btn-icon-nav" onclick="showWishlistModal()" title="Favorites"><i class="fa-solid fa-heart"></i></button>
       <div class="wallet-badge" onclick="openModal('topup-modal')">৳ <span id="user-balance">০</span> +</div>
       <button class="btn-toggle-view" onclick="toggleAdminUserView()" id="view-toggle-btn">👨‍💼 এডমিন প্যানেল</button>
       <button class="lang-btn" onclick="toggleLanguage()" id="lang-btn">English</button>
@@ -270,79 +170,70 @@
     
     <!-- USER INTERFACE VIEW -->
     <div id="user-view">
-      <!-- Main Hero Section -->
       <div class="hero-banner">
         <h1 id="txt-hero-title">Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
         <p id="txt-hero-sub">আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
         <div class="search-group">
-          <input type="text" id="txt-search-ph" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)">
+          <input type="text" id="txt-search-ph" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" oninput="applyFilters()">
           <button class="btn-search" id="txt-btn-search">খুঁজুন</button>
         </div>
       </div>
 
-      <!-- Location Dropdown & Input Search Bar -->
-      <div class="filter-bar">
-        <select class="select-location" id="all-locations">
-          <!-- Dynamic Load -->
+      <!-- Advanced Price & Sort Filter Bar -->
+      <div class="advanced-filter-bar">
+        <select id="all-locations" onchange="applyFilters()"></select>
+        <input type="number" id="filter-min-price" placeholder="সর্বনিম্ন দাম" oninput="applyFilters()">
+        <input type="number" id="filter-max-price" placeholder="সর্বোচ্চ দাম" oninput="applyFilters()">
+        <select id="filter-sort" onchange="applyFilters()">
+          <option value="newest">সর্বশেষ লিস্টিং</option>
+          <option value="low-high">দাম: কম থেকে বেশি</option>
+          <option value="high-low">দাম: বেশি থেকে কম</option>
         </select>
-        <div class="input-search-bar">
-          <input type="text" placeholder="I am looking for..." id="txt-filter-ph">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
       </div>
 
-      <!-- Category Icons Grid -->
-      <div class="grid-categories" id="categories-grid" style="margin-top: 20px;">
-        <!-- Dynamic Categories Load -->
-      </div>
+      <!-- Category Grid -->
+      <div class="grid-categories" id="categories-grid"></div>
 
-      <!-- Live Ads List Section -->
+      <!-- Ads Section -->
       <div class="section-header">
         <div class="section-title" id="txt-recent-ads">সাম্প্রতিক বিজ্ঞাপনসমূহ</div>
         <button class="btn-clear-ads" onclick="clearAllAds()" id="txt-clear-ads">সব মুছুন</button>
       </div>
       
-      <!-- Ads Container -->
-      <div class="ads-list" id="ads-container">
-        <!-- Dynamic Approved Ads Render -->
-      </div>
+      <div class="ads-list" id="ads-container"></div>
     </div>
 
     <!-- ADMIN CONTROL PANEL VIEW -->
     <div id="admin-view" class="admin-panel">
+      <h2 style="margin-bottom: 15px;">📊 প্ল্যাটফর্ম অ্যানালিটিক্স</h2>
+      <div class="analytics-grid">
+        <div class="stat-card"><h3 id="stat-total-ads">0</h3><p>মোট বিজ্ঞাপন</p></div>
+        <div class="stat-card"><h3 id="stat-pending-ads">0</h3><p>পেন্ডিং অনুমোদন</p></div>
+        <div class="stat-card"><h3 id="stat-revenue">৳ 0</h3><p>মোট অর্জিত আয়</p></div>
+      </div>
+
       <h3 class="admin-title">💰 টপ-আপ রিকোয়েস্ট ম্যানেজমেন্ট</h3>
       <table>
-        <thead>
-          <tr>
-            <th>ইউজার ফোন</th>
-            <th>মেথড</th>
-            <th>পরিমাণ</th>
-            <th>TrxID</th>
-            <th>স্ট্যাটাস</th>
-            <th>অ্যাকশন</th>
-          </tr>
-        </thead>
+        <thead><tr><th>ইউজার ফোন</th><th>মেথড</th><th>পরিমাণ</th><th>TrxID</th><th>স্ট্যাটাস</th><th>অ্যাকশন</th></tr></thead>
         <tbody id="admin-topups-list"></tbody>
       </table>
 
       <h3 class="admin-title">📢 পেন্ডিং পোস্ট অনুমোদন (Ad Approval)</h3>
       <table>
-        <thead>
-          <tr>
-            <th>বিজ্ঞাপন</th>
-            <th>মূল্য</th>
-            <th>বিক্রেতার ফোন</th>
-            <th>লোকেশন</th>
-            <th>অ্যাকশন</th>
-          </tr>
-        </thead>
+        <thead><tr><th>শিরোনাম</th><th>মূল্য</th><th>বিক্রেতার ফোন</th><th>লোকেশন</th><th>অ্যাকশন</th></tr></thead>
         <tbody id="admin-ads-list"></tbody>
+      </table>
+
+      <h3 class="admin-title" style="color:#e74c3c; border-color:#e74c3c;">⚠️ রিপোর্টেড বিজ্ঞাপনসমূহ</h3>
+      <table>
+        <thead><tr><th>Ad ID</th><th>কারণ</th><th>রিপোর্টার</th><th>অ্যাকশন</th></tr></thead>
+        <tbody id="admin-reports-list"></tbody>
       </table>
     </div>
 
   </div>
 
-  <!-- POPUP: Balance Top-Up -->
+  <!-- MODAL: Balance Top-Up -->
   <div class="modal-overlay" id="topup-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -358,20 +249,14 @@
             <option value="Rocket">Rocket (রকেট)</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>পরিমাণ (টাকা)</label>
-          <input type="number" id="topup-amount" min="50" placeholder="যেমন: ১০০" required>
-        </div>
-        <div class="form-group">
-          <label>ট্রানজেকশন আইডি (TrxID)</label>
-          <input type="text" id="topup-trx" placeholder="যেমন: 8N7A6D5C" required>
-        </div>
+        <div class="form-group"><label>পরিমাণ (টাকা)</label><input type="number" id="topup-amount" min="50" placeholder="যেমন: ১০০" required></div>
+        <div class="form-group"><label>ট্রানজেকশন আইডি (TrxID)</label><input type="text" id="topup-trx" placeholder="যেমন: 8N7A6D5C" required></div>
         <button type="submit" class="submit-btn">রিকোয়েস্ট পাঠান</button>
       </form>
     </div>
   </div>
 
-  <!-- POPUP: Sub-Categories Modal -->
+  <!-- MODAL: Sub-Categories -->
   <div class="modal-overlay" id="subcat-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -382,7 +267,7 @@
     </div>
   </div>
 
-  <!-- POPUP 1: Post Ad Modal (With Mobile & 5 Images) -->
+  <!-- MODAL: Post Ad (With 5 Images & OTP Verification) -->
   <div class="modal-overlay" id="postad-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -390,41 +275,89 @@
         <i class="fa-solid fa-xmark close-btn" onclick="closeModal('postad-modal')"></i>
       </div>
       <form onsubmit="handlePostAd(event)">
+        <div class="form-group"><label id="lbl-ad-title">পণ্যের শিরোনাম</label><input type="text" id="ad-title" placeholder="যেমন: iPhone 13 Pro Max" required></div>
+        <div class="form-group"><label id="lbl-ad-cat">ক্যাটাগরি</label><select id="ad-category-select" required></select></div>
+        <div class="form-group"><label id="lbl-ad-price">দাম (টাকা)</label><input type="number" id="ad-price" placeholder="যেমন: ২৫০০০" required></div>
         <div class="form-group">
-          <label id="lbl-ad-title">পণ্যের শিরোনাম</label>
-          <input type="text" id="ad-title" placeholder="যেমন: iPhone 13 Pro Max" required>
+          <label id="lbl-ad-phone">মোবাইল নম্বর (OTP ভেরিফিকেশন সহ)</label>
+          <div style="display:flex; gap:5px;">
+            <input type="tel" id="ad-phone" placeholder="017XXXXXXXX" required pattern="[0-9]{11}">
+            <button type="button" onclick="sendOTP()" style="padding:0 10px; font-size:11px; cursor:pointer;">OTP পাঠান</button>
+          </div>
         </div>
-        <div class="form-group">
-          <label id="lbl-ad-cat">ক্যাটাগরি</label>
-          <select id="ad-category-select" required></select>
-        </div>
-        <div class="form-group">
-          <label id="lbl-ad-price">দাম (টাকা)</label>
-          <input type="number" id="ad-price" placeholder="যেমন: ২৫০০০" required>
-        </div>
-        <div class="form-group">
-          <label id="lbl-ad-phone">মোবাইল নম্বর (বিক্রেতা)</label>
-          <input type="tel" id="ad-phone" placeholder="017XXXXXXXX" required pattern="[0-9]{11}">
+        <div class="form-group" id="otp-group" style="display:none;">
+          <label>OTP কোড দিন (ডিমো: 1234)</label>
+          <input type="text" id="otp-code" placeholder="1234">
         </div>
         <div class="form-group">
           <label id="lbl-ad-images">পণ্যের ছবি (কমপক্ষে ১টি, সর্বোচ্চ ৫টি)</label>
           <input type="file" id="ad-images" accept="image/*" multiple required onchange="validateImageCount(this)">
-          <small style="color: #666; font-size: 11px;" id="lbl-img-hint">১ থেকে ৫টি ছবি সিলেক্ট করুন</small>
+          <small style="color: var(--text-muted); font-size: 11px;" id="lbl-img-hint">১ থেকে ৫টি ছবি সিলেক্ট করুন</small>
         </div>
-        <div class="form-group">
-          <label id="lbl-ad-loc">লোকেশন</label>
-          <select id="ad-location-select" required></select>
-        </div>
-        <div class="form-group">
-          <label id="lbl-ad-area">বিস্তারিত ঠিকানা / এলাকা</label>
-          <input type="text" id="ad-area" placeholder="যেমন: আগ্রাবাদ / জিইসি মোড়" required>
-        </div>
+        <div class="form-group"><label id="lbl-ad-loc">লোকেশন</label><select id="ad-location-select" required></select></div>
+        <div class="form-group"><label id="lbl-ad-area">বিস্তারিত ঠিকানা / এলাকা</label><input type="text" id="ad-area" placeholder="যেমন: আগ্রাবাদ / জিইসি মোড়" required></div>
         <button type="submit" class="submit-btn" id="btn-submit-ad">বিজ্ঞাপন প্রকাশ করুন</button>
       </form>
     </div>
   </div>
 
-  <!-- POPUP 2: Sign In Modal -->
+  <!-- MODAL: Ad View Details, Reviews & Chat Trigger -->
+  <div class="modal-overlay" id="adview-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="view-ad-title">বিজ্ঞাপন বিবরণ</h3>
+        <i class="fa-solid fa-xmark close-btn" onclick="closeModal('adview-modal')"></i>
+      </div>
+      <div>
+        <div style="width:100%; height:200px; background:#1a1a1a; display:flex; align-items:center; justify-content:center; border-radius:6px; margin-bottom:10px;">
+          <img id="view-main-img" src="" style="max-width:100%; max-height:100%; object-fit:contain;">
+        </div>
+        <div id="view-gallery" style="display:flex; gap:5px; margin-bottom:10px;"></div>
+        <h2 id="view-price" style="color:var(--primary); margin-bottom:5px;"></h2>
+        <p id="view-location" style="font-size:12px; color:var(--text-muted);"></p>
+        <p id="view-cat" style="font-size: 12px; background: var(--bg-main); display: inline-block; padding: 3px 8px; border-radius: 4px; margin-top: 5px;"></p>
+
+        <div class="seller-contact-box">
+          <div style="font-size: 12px; color: var(--text-muted);" id="txt-seller-contact">বিক্রেতার সাথে যোগাযোগ করুন:</div>
+          <i class="fa-solid fa-phone"></i> <a id="view-phone" href="#"></a>
+        </div>
+
+        <div style="display:flex; gap:10px; margin:15px 0;">
+          <button class="submit-btn" style="flex:1; background:#3498db;" onclick="openChatModal()"><i class="fa-solid fa-comments"></i> ইনস্ট্যান্ট চ্যাট করুন</button>
+          <button class="submit-btn" style="flex:1; background:#e74c3c;" onclick="reportAdModal()"><i class="fa-solid fa-flag"></i> রিপোর্ট এড</button>
+        </div>
+
+        <!-- Seller Ratings & Reviews -->
+        <h4 style="margin-top:15px; border-top:1px solid var(--border-color); padding-top:10px;">বিক্রেতার রিভিউ ও রেটিং</h4>
+        <div class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> (4.0/5)</div>
+        <div class="reviews-list">
+          <div class="review-item"><strong>রহিম:</strong> ভালো পণ্য ছিল, ধন্যবাদ!</div>
+          <div class="review-item"><strong>সাকিব:</strong> সেলার খুব দ্রুত রেসপন্স করেছেন।</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Live Chat -->
+  <div class="modal-overlay" id="chat-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>লাইভ চ্যাটিং (সেলার)</h3>
+        <i class="fa-solid fa-xmark close-btn" onclick="closeModal('chat-modal')"></i>
+      </div>
+      <div class="chat-box">
+        <div class="chat-messages" id="chat-messages">
+          <div class="msg msg-received">হ্যালো! পণ্যটি কি এখনো বিক্রির জন্য আছে?</div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="chat-input-text" placeholder="মেসেজ লিখুন...">
+          <button onclick="sendChatMessage()" style="background:var(--primary); color:white; border:none; padding:0 12px; border-radius:4px; cursor:pointer;">পাঠান</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Sign In -->
   <div class="modal-overlay" id="signin-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -432,14 +365,8 @@
         <i class="fa-solid fa-xmark close-btn" onclick="closeModal('signin-modal')"></i>
       </div>
       <form onsubmit="handleSignIn(event)">
-        <div class="form-group">
-          <label id="lbl-signin-id">মোবাইল নম্বর অথবা ইমেইল</label>
-          <input type="text" id="signin-id" required placeholder="017XXXXXXXX / example@mail.com">
-        </div>
-        <div class="form-group">
-          <label id="lbl-signin-pass">পাসওয়ার্ড</label>
-          <input type="password" required placeholder="******">
-        </div>
+        <div class="form-group"><label id="lbl-signin-id">মোবাইল নম্বর অথবা ইমেইল</label><input type="text" id="signin-id" required placeholder="017XXXXXXXX / example@mail.com"></div>
+        <div class="form-group"><label id="lbl-signin-pass">পাসওয়ার্ড</label><input type="password" required placeholder="******"></div>
         <button type="submit" class="submit-btn" id="btn-signin-submit">লগইন করুন</button>
         <p style="font-size:12px; text-align:center; margin-top:10px;">
           <span id="txt-no-acc">অ্যাকাউন্ট নেই?</span> <a href="#" onclick="closeModal('signin-modal'); openModal('signup-modal');" id="txt-reg-link">নতুন তৈরি করুন</a>
@@ -448,7 +375,7 @@
     </div>
   </div>
 
-  <!-- POPUP 3: Sign Up Modal (With Mobile & Email) -->
+  <!-- MODAL: Sign Up -->
   <div class="modal-overlay" id="signup-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -456,49 +383,20 @@
         <i class="fa-solid fa-xmark close-btn" onclick="closeModal('signup-modal')"></i>
       </div>
       <form onsubmit="handleSignUp(event)">
-        <div class="form-group">
-          <label id="lbl-signup-name">আপনার নাম</label>
-          <input type="text" required placeholder="পূর্ণ নাম">
-        </div>
-        <div class="form-group">
-          <label id="lbl-signup-phone">মোবাইল নম্বর</label>
-          <input type="tel" required placeholder="017XXXXXXXX" pattern="[0-9]{11}">
-        </div>
-        <div class="form-group">
-          <label id="lbl-signup-email">ইমেইল ঠিকানা</label>
-          <input type="email" required placeholder="example@mail.com">
-        </div>
-        <div class="form-group">
-          <label id="lbl-signup-pass">পাসওয়ার্ড</label>
-          <input type="password" required placeholder="******">
-        </div>
+        <div class="form-group"><label id="lbl-signup-name">আপনার নাম</label><input type="text" required placeholder="পূর্ণ নাম"></div>
+        <div class="form-group"><label id="lbl-signup-phone">মোবাইল নম্বর</label><input type="tel" required placeholder="017XXXXXXXX" pattern="[0-9]{11}"></div>
+        <div class="form-group"><label id="lbl-signup-email">ইমেইল ঠিকানা</label><input type="email" required placeholder="example@mail.com"></div>
+        <div class="form-group"><label id="lbl-signup-pass">পাসওয়ার্ড</label><input type="password" required placeholder="******"></div>
         <button type="submit" class="submit-btn" id="btn-signup-submit">রেজিস্ট্রেশন সম্পন্ন করুন</button>
       </form>
     </div>
   </div>
 
-  <!-- POPUP 4: Ad Viewer Modal (For Buyers) -->
-  <div class="modal-overlay" id="adview-modal">
+  <!-- MODAL: Wishlist Favorites View -->
+  <div class="modal-overlay" id="wishlist-modal">
     <div class="modal-box">
-      <div class="modal-header">
-        <h3 id="view-ad-title">বিজ্ঞাপন বিবরণ</h3>
-        <i class="fa-solid fa-xmark close-btn" onclick="closeModal('adview-modal')"></i>
-      </div>
-      <div>
-        <div class="ad-view-main-wrapper">
-          <img id="view-main-img" src="" alt="Product">
-        </div>
-        <div class="ad-view-gallery" id="view-gallery"></div>
-        
-        <h2 id="view-price" style="color: #167a62; margin-bottom: 5px;"></h2>
-        <p id="view-location" style="font-size: 13px; color: #666; margin-bottom: 10px;"></p>
-        <p id="view-cat" style="font-size: 12px; background: #eee; display: inline-block; padding: 3px 8px; border-radius: 4px;"></p>
-        
-        <div class="seller-contact-box">
-          <div style="font-size: 12px; color: #555;" id="txt-seller-contact">বিক্রেতার সাথে যোগাযোগ করুন:</div>
-          <i class="fa-solid fa-phone"></i> <a id="view-phone" href="#"></a>
-        </div>
-      </div>
+      <div class="modal-header"><h3>পছন্দের তালিকা (Wishlist)</h3><i class="fa-solid fa-xmark close-btn" onclick="closeModal('wishlist-modal')"></i></div>
+      <div id="wishlist-content" class="ads-list"></div>
     </div>
   </div>
 
@@ -507,8 +405,11 @@
     let currentLang = 'bn';
     let currentView = 'user';
     let userBalance = 0;
+    let totalRevenue = 0;
+    let wishlist = [];
+    let reportsData = [];
+    let currentActiveAdId = null;
 
-    // Default Ads Store with Approval system
     let adsDataStore = [
       {
         id: 101,
@@ -524,86 +425,37 @@
       }
     ];
 
-    // Initial Top-up Requests
     let topUpRequests = [
       { id: 1, phone: "017XXXXXXXX", method: "bKash", amount: 100, trx: "8N7A6D5C", status: "pending" }
     ];
 
-    // Language Dictionary
     const translations = {
       bn: {
-        langBtn: "English",
-        signin: "সাইন ইন",
-        postad: "+ বিজ্ঞাপন দিন",
-        heroTitle: "Baza-তে সবকিছু কেনা-বেচা করুন সহজে",
-        heroSub: "আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম",
-        searchPh: "কী খুঁজছেন? (যেমন: মোবাইল, বাইক)",
-        btnSearch: "খুঁজুন",
-        filterPh: "আমি খুঁজছি...",
-        recentAds: "সাম্প্রতিক বিজ্ঞাপনসমূহ",
-        clearAds: "সব মুছুন",
+        langBtn: "English", signin: "সাইন ইন", postad: "+ বিজ্ঞাপন দিন",
+        heroTitle: "Baza-তে সবকিছু কেনা-বেচা করুন সহজে", heroSub: "আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম",
+        searchPh: "কী খুঁজছেন? (যেমন: মোবাইল, বাইক)", btnSearch: "খুঁজুন", recentAds: "সাম্প্রতিক বিজ্ঞাপনসমূহ", clearAds: "সব মুছুন",
         emptyMsg: "বর্তমানে কোনো বিজ্ঞাপন নেই। '+ বিজ্ঞাপন দিন' বাটনে ক্লিক করে প্রথম বিজ্ঞাপন প্রকাশ করুন!",
-        postAdTitle: "নতুন বিজ্ঞাপন দিন",
-        lblTitle: "পণ্যের শিরোনাম",
-        lblCat: "ক্যাটাগরি",
-        lblPrice: "দাম (টাকা)",
-        lblPhone: "মোবাইল নম্বর (বিক্রেতা)",
-        lblImages: "পণ্যের ছবি (কমপক্ষে ১টি, সর্বোচ্চ ৫টি)",
-        lblImgHint: "১ থেকে ৫টি ছবি সিলেক্ট করুন",
-        lblLoc: "লোকেশন",
-        lblArea: "বিস্তারিত ঠিকানা / এলাকা",
-        btnSubmitAd: "বিজ্ঞাপন প্রকাশ করুন",
-        signinTitle: "সাইন ইন করুন",
-        lblSigninId: "মোবাইল নম্বর অথবা ইমেইল",
-        lblSigninPass: "পাসওয়ার্ড",
-        btnSignin: "লগইন করুন",
-        txtNoAcc: "অ্যাকাউন্ট নেই?",
-        txtRegLink: "নতুন তৈরি করুন",
-        signupTitle: "নতুন অ্যাকাউন্ট খুলুন",
-        lblSignupName: "আপনার নাম",
-        lblSignupPhone: "মোবাইল নম্বর",
-        lblSignupEmail: "ইমেইল ঠিকানা",
-        btnSignup: "রেজিস্ট্রেশন সম্পন্ন করুন",
-        sellerContact: "বিক্রেতার সাথে যোগাযোগ করুন:"
+        postAdTitle: "নতুন বিজ্ঞাপন দিন", lblTitle: "পণ্যের শিরোনাম", lblCat: "ক্যাটাগরি", lblPrice: "দাম (টাকা)",
+        lblPhone: "মোবাইল নম্বর (OTP ভেরিফিকেশন সহ)", lblImages: "পণ্যের ছবি (কমপক্ষে ১টি, সর্বোচ্চ ৫টি)", lblImgHint: "১ থেকে ৫টি ছবি সিলেক্ট করুন",
+        lblLoc: "লোকেশন", lblArea: "বিস্তারিত ঠিকানা / এলাকা", btnSubmitAd: "বিজ্ঞাপন প্রকাশ করুন",
+        signinTitle: "সাইন ইন করুন", lblSigninId: "মোবাইল নম্বর অথবা ইমেইল", lblSigninPass: "পাসওয়ার্ড", btnSignin: "লগইন করুন",
+        txtNoAcc: "অ্যাকাউন্ট নেই?", txtRegLink: "নতুন তৈরি করুন", signupTitle: "নতুন অ্যাকাউন্ট খুলুন", lblSignupName: "আপনার নাম",
+        lblSignupPhone: "মোবাইল নম্বর", lblSignupEmail: "ইমেইল ঠিকানা", btnSignup: "রেজিস্ট্রেশন সম্পন্ন করুন", sellerContact: "বিক্রেতার সাথে যোগাযোগ করুন:"
       },
       en: {
-        langBtn: "বাংলা",
-        signin: "Sign In",
-        postad: "+ Post Ad",
-        heroTitle: "Buy & Sell Everything Easily on Baza",
-        heroSub: "The safest platform to buy and sell your used or new products",
-        searchPh: "What are you looking for? (e.g. Mobile, Bike)",
-        btnSearch: "Search",
-        filterPh: "I am looking for...",
-        recentAds: "Recent Advertisements",
-        clearAds: "Clear All",
+        langBtn: "বাংলা", signin: "Sign In", postad: "+ Post Ad",
+        heroTitle: "Buy & Sell Everything Easily on Baza", heroSub: "The safest platform to buy and sell your used or new products",
+        searchPh: "What are you looking for? (e.g. Mobile, Bike)", btnSearch: "Search", recentAds: "Recent Advertisements", clearAds: "Clear All",
         emptyMsg: "No ads currently available. Click '+ Post Ad' to publish the first ad!",
-        postAdTitle: "Post New Ad",
-        lblTitle: "Product Title",
-        lblCat: "Category",
-        lblPrice: "Price (BDT)",
-        lblPhone: "Mobile Number (Seller)",
-        lblImages: "Product Images (Min 1, Max 5)",
-        lblImgHint: "Select between 1 to 5 images",
-        lblLoc: "Location",
-        lblArea: "Detailed Address / Area",
-        btnSubmitAd: "Publish Ad",
-        signinTitle: "Sign In",
-        lblSigninId: "Mobile Number or Email",
-        lblSigninPass: "Password",
-        btnSignin: "Login",
-        txtNoAcc: "Don't have an account?",
-        txtRegLink: "Create New Account",
-        signupTitle: "Create New Account",
-        lblSignupName: "Full Name",
-        lblSignupPhone: "Mobile Number",
-        lblSignupEmail: "Email Address",
-        btnSignup: "Complete Registration",
-        sellerContact: "Contact Seller:"
+        postAdTitle: "Post New Ad", lblTitle: "Product Title", lblCat: "Category", lblPrice: "Price (BDT)",
+        lblPhone: "Mobile Number (With OTP Verification)", lblImages: "Product Images (Min 1, Max 5)", lblImgHint: "Select between 1 to 5 images",
+        lblLoc: "Location", lblArea: "Detailed Address / Area", btnSubmitAd: "Publish Ad",
+        signinTitle: "Sign In", lblSigninId: "Mobile Number or Email", lblSigninPass: "Password", btnSignin: "Login",
+        txtNoAcc: "Don't have an account?", txtRegLink: "Create New Account", signupTitle: "Create New Account", lblSignupName: "Full Name",
+        lblSignupPhone: "Mobile Number", lblSignupEmail: "Email Address", btnSignup: "Complete Registration", sellerContact: "Contact Seller:"
       }
     };
 
-    // Categories Data
     const categoryData = [
       { id: "mobiles", name: "মোবাইল (Mobiles)", icon: "fa-mobile-screen-button", subs: ["মোবাইল ফোন (Mobile Phones)", "মোবাইল এক্সেসরিজ (Mobile Accessories)", "স্মার্টওয়াচ (Smartwatches)"] },
       { id: "electronics", name: "ইলেকট্রনিক্স (Electronics)", icon: "fa-laptop", subs: ["ডেস্কটপ ও ল্যাপটপ (Computers)", "টিভি (TVs)", "ক্যামেরা (Cameras)"] },
@@ -613,7 +465,6 @@
       { id: "pets", name: "পোষা প্রাণী (Pets)", icon: "fa-cat", subs: ["বিড়াল (Cats)", "পাখি (Birds)", "কুকুর (Dogs)"] }
     ];
 
-    // Location Data
     const locationData = {
       "১. চট্টগ্রাম বিভাগ": {
         "চট্টগ্রাম শহর": ["আগ্রাবাদ", "জিইসি মোড়", "হালিশহর", "চট্টগ্রাম ইপিজেড", "পতেঙ্গা", "চান্দগাঁও"],
@@ -624,7 +475,9 @@
       }
     };
 
-    // View Switching (User vs Admin)
+    function toggleTheme() { document.body.classList.toggle('dark-theme'); }
+    function sendOTP() { alert("আপনার ফোনে OTP পাঠানো হয়েছে: 1234"); document.getElementById('otp-group').style.display = 'block'; }
+
     function toggleAdminUserView(forcedView) {
       if(forcedView === 'user' || currentView === 'admin') {
         currentView = 'user';
@@ -640,11 +493,9 @@
       renderAll();
     }
 
-    // Toggle Language Function
     function toggleLanguage() {
       currentLang = currentLang === 'bn' ? 'en' : 'bn';
       const t = translations[currentLang];
-
       document.getElementById('lang-btn').innerText = t.langBtn;
       document.getElementById('txt-signin').innerHTML = `<i class="fa-solid fa-user"></i> ${t.signin}`;
       document.getElementById('txt-postad').innerText = t.postad;
@@ -652,10 +503,8 @@
       document.getElementById('txt-hero-sub').innerText = t.heroSub;
       document.getElementById('txt-search-ph').placeholder = t.searchPh;
       document.getElementById('txt-btn-search').innerText = t.btnSearch;
-      document.getElementById('txt-filter-ph').placeholder = t.filterPh;
       document.getElementById('txt-recent-ads').innerText = t.recentAds;
       document.getElementById('txt-clear-ads').innerText = t.clearAds;
-
       document.getElementById('txt-postad-title').innerText = t.postAdTitle;
       document.getElementById('lbl-ad-title').innerText = t.lblTitle;
       document.getElementById('lbl-ad-cat').innerText = t.lblCat;
@@ -666,14 +515,12 @@
       document.getElementById('lbl-ad-loc').innerText = t.lblLoc;
       document.getElementById('lbl-ad-area').innerText = t.lblArea;
       document.getElementById('btn-submit-ad').innerText = t.btnSubmitAd;
-
       document.getElementById('txt-signin-title').innerText = t.signinTitle;
       document.getElementById('lbl-signin-id').innerText = t.lblSigninId;
       document.getElementById('lbl-signin-pass').innerText = t.lblSigninPass;
       document.getElementById('btn-signin-submit').innerText = t.btnSignin;
       document.getElementById('txt-no-acc').innerText = t.txtNoAcc;
       document.getElementById('txt-reg-link').innerText = t.txtRegLink;
-
       document.getElementById('txt-signup-title').innerText = t.signupTitle;
       document.getElementById('lbl-signup-name').innerText = t.lblSignupName;
       document.getElementById('lbl-signup-phone').innerText = t.lblSignupPhone;
@@ -681,27 +528,19 @@
       document.getElementById('lbl-signup-pass').innerText = t.lblSigninPass;
       document.getElementById('btn-signup-submit').innerText = t.btnSignup;
       document.getElementById('txt-seller-contact').innerText = t.sellerContact;
-
       renderAll();
     }
 
-    // Render Categories & Locations
     function renderCategories() {
       const grid = document.getElementById('categories-grid');
       const adCatSelect = document.getElementById('ad-category-select');
       let gridHtml = '', selectHtml = '<option value="">ক্যাটাগরি নির্বাচন করুন</option>';
-
       categoryData.forEach(c => {
-        gridHtml += `
-          <div class="cat-item" onclick="openSubCategories('${c.id}')">
-            <div class="icon-box"><i class="fa-solid ${c.icon}"></i></div>
-            <span>${c.name}</span>
-          </div>`;
+        gridHtml += `<div class="cat-item" onclick="openSubCategories('${c.id}')"><div class="icon-box"><i class="fa-solid ${c.icon}"></i></div><span>${c.name}</span></div>`;
         selectHtml += `<optgroup label="${c.name}">`;
         c.subs.forEach(sub => { selectHtml += `<option value="${sub}">${sub}</option>`; });
         selectHtml += `</optgroup>`;
       });
-
       grid.innerHTML = gridHtml;
       adCatSelect.innerHTML = selectHtml;
     }
@@ -711,7 +550,6 @@
       const selectForm = document.getElementById('ad-location-select');
       let html = '<option value="">সমস্ত বাংলাদেশ (সকল বিভাগ ও জেলা)</option>';
       let formHtml = '<option value="">লোকেশন নির্বাচন করুন</option>';
-
       for (let division in locationData) {
         html += `<optgroup label="${division}">`;
         formHtml += `<optgroup label="${division}">`;
@@ -724,22 +562,64 @@
         html += `</optgroup>`;
         formHtml += `</optgroup>`;
       }
-
       selectTop.innerHTML = html;
       selectForm.innerHTML = formHtml;
     }
 
-    // Image Limit Validation (Max 5)
+    function toggleWishlist(id, event) {
+      event.stopPropagation();
+      if(wishlist.includes(id)) wishlist = wishlist.filter(item => item !== id);
+      else wishlist.push(id);
+      renderAll();
+    }
+
+    function showWishlistModal() {
+      const favAds = adsDataStore.filter(a => wishlist.includes(a.id));
+      const container = document.getElementById('wishlist-content');
+      if(favAds.length === 0) container.innerHTML = "<p style='text-align:center; padding:20px;'>কোনো বুকমার্ক করা বিজ্ঞাপন নেই।</p>";
+      else {
+        let html = '';
+        favAds.forEach(ad => {
+          html += `<div class="ad-card"><div class="ad-details"><h4>${ad.title}</h4><div class="price">৳${ad.price}</div></div></div>`;
+        });
+        container.innerHTML = html;
+      }
+      openModal('wishlist-modal');
+    }
+
     function validateImageCount(input) {
       if (input.files.length > 5) {
-        alert(currentLang === 'bn' ? 'আপনি সর্বোচ্চ ৫টি ছবি আপলোড করতে পারবেন!' : 'You can upload a maximum of 5 images!');
+        alert(currentLang === 'bn' ? 'সর্বোচ্চ ৫টি ছবি আপলোড করা যাবে!' : 'Maximum 5 images allowed!');
         input.value = '';
       }
     }
 
-    // Handle Post Ad Action
+    function applyFilters() {
+      const searchText = document.getElementById('txt-search-ph').value.toLowerCase();
+      const locText = document.getElementById('all-locations').value;
+      const minPrice = parseFloat(document.getElementById('filter-min-price').value) || 0;
+      const maxPrice = parseFloat(document.getElementById('filter-max-price').value) || Infinity;
+      const sortVal = document.getElementById('filter-sort').value;
+
+      let filtered = adsDataStore.filter(ad => ad.status === 'approved');
+
+      if(searchText) filtered = filtered.filter(a => a.title.toLowerCase().includes(searchText));
+      if(locText) filtered = filtered.filter(a => a.location === locText);
+      filtered = filtered.filter(a => a.price >= minPrice && a.price <= maxPrice);
+
+      if(sortVal === 'low-high') filtered.sort((a,b) => a.price - b.price);
+      if(sortVal === 'high-low') filtered.sort((a,b) => b.price - a.price);
+
+      renderAdsGrid(filtered);
+    }
+
     function handlePostAd(e) {
       e.preventDefault();
+      const otpGroup = document.getElementById('otp-group');
+      if(otpGroup.style.display !== 'none') {
+        const otp = document.getElementById('otp-code').value;
+        if(otp !== "1234") { alert("ভুল OTP কোড দেওয়া হয়েছে!"); return; }
+      }
       const title = document.getElementById('ad-title').value;
       const category = document.getElementById('ad-category-select').value;
       const price = document.getElementById('ad-price').value;
@@ -748,170 +628,132 @@
       const area = document.getElementById('ad-area').value;
       const imageFiles = document.getElementById('ad-images').files;
 
-      if (imageFiles.length === 0) {
-        alert('অনুগ্রহ করে অন্তত ১টি ছবি নির্বাচন করুন।');
-        return;
-      }
+      if (imageFiles.length === 0) { alert('কমপক্ষে ১টি ছবি নির্বাচন করুন।'); return; }
 
       const imageUrls = [];
-      for (let i = 0; i < imageFiles.length; i++) {
-        imageUrls.push(URL.createObjectURL(imageFiles[i]));
-      }
+      for (let i = 0; i < imageFiles.length; i++) { imageUrls.push(URL.createObjectURL(imageFiles[i])); }
 
-      const adObject = {
-        id: Date.now(),
-        title, category, price, phone, location, area,
-        images: imageUrls,
-        status: "pending", // Set as pending for Admin approval
-        isFeatured: false
-      };
+      adsDataStore.push({
+        id: Date.now(), title, category, price, phone, location, area,
+        images: imageUrls, status: "pending", isFeatured: false
+      });
 
-      adsDataStore.push(adObject);
-      alert(currentLang === 'bn' ? 'আপনার বিজ্ঞাপনটি অনুমোদনের জন্য এডমিন প্যানেলে পাঠানো হয়েছে!' : 'Your ad has been submitted for admin approval!');
+      alert(currentLang === 'bn' ? 'বিজ্ঞাপনটি অনুমোদনের জন্য পাঠানো হয়েছে!' : 'Ad submitted for approval!');
       closeModal('postad-modal');
       e.target.reset();
       renderAll();
     }
 
-    // Balance Top-up Handler
     function submitTopUpRequest(e) {
       e.preventDefault();
       const amount = parseFloat(document.getElementById('topup-amount').value);
       const method = document.getElementById('topup-method').value;
       const trx = document.getElementById('topup-trx').value;
-
-      topUpRequests.push({
-        id: Date.now(),
-        phone: "017XXXXXXXX",
-        method, amount, trx, status: "pending"
-      });
-
-      alert("টপ-আপ রিকোয়েস্ট জমা হয়েছে! এডমিন ভেরিফাই করলে ব্যালেন্স যোগ হবে।");
+      topUpRequests.push({ id: Date.now(), phone: "017XXXXXXXX", method, amount, trx, status: "pending" });
+      alert("টপ-আপ রিকোয়েস্ট জমা হয়েছে!");
       closeModal('topup-modal');
       e.target.reset();
       renderAll();
     }
 
-    // Admin Action: Approve Top-Up
     function approveTopUp(id) {
       const req = topUpRequests.find(t => t.id === id);
-      if(req) {
-        req.status = 'approved';
-        userBalance += req.amount;
-        document.getElementById('user-balance').innerText = userBalance.toLocaleString('bn-BD');
-        alert(`৳${req.amount} ব্যালেন্স সফলভাবে অনুমোদিত হয়েছে!`);
-        renderAll();
-      }
+      if(req) { req.status = 'approved'; userBalance += req.amount; document.getElementById('user-balance').innerText = userBalance.toLocaleString('bn-BD'); renderAll(); }
     }
 
-    // Admin Action: Approve Ad
-    function approveAd(id) {
+    function approveAd(id) { const ad = adsDataStore.find(a => a.id === id); if(ad) { ad.status = 'approved'; renderAll(); } }
+    function rejectAd(id) { adsDataStore = adsDataStore.filter(a => a.id !== id); renderAll(); }
+
+    function boostAd(id, event) {
+      event.stopPropagation();
+      if(userBalance < 50) { alert("বুস্ট করতে ওয়ালেটে ৫০ টাকা প্রয়োজন!"); openModal('topup-modal'); return; }
+      userBalance -= 50; totalRevenue += 50;
+      document.getElementById('user-balance').innerText = userBalance.toLocaleString('bn-BD');
       const ad = adsDataStore.find(a => a.id === id);
-      if(ad) {
-        ad.status = 'approved';
-        alert("বিজ্ঞাপনটি সফলভাবে প্রকাশ করা হয়েছে!");
-        renderAll();
-      }
-    }
-
-    // Admin Action: Reject Ad
-    function rejectAd(id) {
-      adsDataStore = adsDataStore.filter(a => a.id !== id);
+      if(ad) { ad.isFeatured = true; adsDataStore = adsDataStore.filter(a => a.id !== id); adsDataStore.unshift(ad); }
+      alert("বিজ্ঞাপন বুস্ট করা হয়েছে!");
       renderAll();
     }
 
-    // User Action: Boost Ad (Monetization System)
-    function boostAd(id, event) {
-      event.stopPropagation(); // Prevent opening viewer modal
-      if(userBalance < 50) {
-        alert("বিজ্ঞাপন বুস্ট করতে ওয়ালেটে ৫০ টাকা প্রয়োজন! আগে ব্যালেন্স টপ-আপ করুন।");
-        openModal('topup-modal');
+    function reportAdModal() {
+      const reason = prompt("রিপোর্ট করার কারণ লিখুন:");
+      if(reason) {
+        reportsData.push({ id: Date.now(), adId: currentActiveAdId, reason, reporter: "017XXXXXXXX" });
+        alert("রিপোর্ট জমা নেওয়া হয়েছে।");
+        closeModal('adview-modal');
+        renderAll();
+      }
+    }
+
+    function renderAdsGrid(listData) {
+      const adsContainer = document.getElementById('ads-container');
+      if (listData.length === 0) {
+        adsContainer.innerHTML = `<div class="no-ads-msg">${translations[currentLang].emptyMsg}</div>`;
         return;
       }
-      userBalance -= 50;
-      document.getElementById('user-balance').innerText = userBalance.toLocaleString('bn-BD');
-
-      const ad = adsDataStore.find(a => a.id === id);
-      if(ad) {
-        ad.isFeatured = true;
-        adsDataStore = adsDataStore.filter(a => a.id !== id);
-        adsDataStore.unshift(ad); // Bring to top
-      }
-      alert("বিজ্ঞাপনটি সফলভাবে ফিচারড হিসেবে বুস্ট করা হয়েছে!");
-      renderAll();
-    }
-
-    // Render Master UI
-    function renderAll() {
-      // 1. Render Public Approved Ads
-      const adsContainer = document.getElementById('ads-container');
-      const approvedAds = adsDataStore.filter(a => a.status === 'approved');
-      
-      if (approvedAds.length === 0) {
-        adsContainer.innerHTML = `<div class="no-ads-msg" id="empty-msg">${translations[currentLang].emptyMsg}</div>`;
-      } else {
-        let html = '';
-        approvedAds.forEach(ad => {
-          html += `
-            <div class="ad-card">
-              ${ad.isFeatured ? '<div class="featured-badge">FEATURED</div>' : ''}
-              <div class="ad-img-wrapper" onclick="openAdViewer(${ad.id})">
-                <img src="${ad.images[0]}" alt="${ad.title}">
-              </div>
-              <div class="ad-details">
-                <h4 onclick="openAdViewer(${ad.id})">${ad.title}</h4>
-                <div class="price">৳ ${Number(ad.price).toLocaleString('bn-BD')}</div>
-                <div class="loc"><i class="fa-solid fa-location-dot"></i> ${ad.area}, ${ad.location}</div>
-                <button class="btn-boost-ad" onclick="boostAd(${ad.id}, event)">🚀 বুস্ট করুন (৳৫০)</button>
+      let html = '';
+      listData.forEach(ad => {
+        const isFav = wishlist.includes(ad.id);
+        html += `
+          <div class="ad-card">
+            <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleWishlist(${ad.id}, event)"><i class="fa-solid fa-heart"></i></button>
+            ${ad.isFeatured ? '<div class="featured-badge">FEATURED</div>' : ''}
+            <div class="ad-img-wrapper" onclick="openAdViewer(${ad.id})">
+              <img src="${ad.images[0]}" alt="${ad.title}">
+            </div>
+            <div class="ad-details">
+              <h4 onclick="openAdViewer(${ad.id})">${ad.title}</h4>
+              <div class="price">৳ ${Number(ad.price).toLocaleString('bn-BD')}</div>
+              <div class="loc"><i class="fa-solid fa-location-dot"></i> ${ad.area}, ${ad.location}</div>
+              <div class="action-btn-group">
+                <button class="btn-boost-ad" onclick="boostAd(${ad.id}, event)">🚀 বুস্ট (৳৫০)</button>
+                <button class="btn-chat-ad" onclick="openChatModalDirect(${ad.id}, event)"><i class="fa-solid fa-comments"></i></button>
               </div>
             </div>
-          `;
-        });
-        adsContainer.innerHTML = html;
-      }
-
-      // 2. Render Admin Topup Requests
-      const topupTbody = document.getElementById('admin-topups-list');
-      let tHtml = '';
-      topUpRequests.forEach(t => {
-        tHtml += `
-          <tr>
-            <td>${t.phone}</td>
-            <td>${t.method}</td>
-            <td>৳${t.amount}</td>
-            <td><strong>${t.trx}</strong></td>
-            <td><span class="badge-status status-${t.status}">${t.status}</span></td>
-            <td>
-              ${t.status === 'pending' ? `<button class="btn-approve" onclick="approveTopUp(${t.id})">অনুমোদন</button>` : 'সম্পন্ন'}
-            </td>
-          </tr>
-        `;
+          </div>`;
       });
-      topupTbody.innerHTML = tHtml;
-
-      // 3. Render Admin Pending Ads
-      const adsTbody = document.getElementById('admin-ads-list');
-      const pendingAds = adsDataStore.filter(a => a.status === 'pending');
-      let aHtml = '';
-      pendingAds.forEach(a => {
-        aHtml += `
-          <tr>
-            <td>${a.title}</td>
-            <td>৳${a.price}</td>
-            <td>${a.phone}</td>
-            <td>${a.area}, ${a.location}</td>
-            <td>
-              <button class="btn-approve" onclick="approveAd(${a.id})">Approve</button>
-              <button class="btn-reject" onclick="rejectAd(${a.id})">Reject</button>
-            </td>
-          </tr>
-        `;
-      });
-      adsTbody.innerHTML = aHtml || '<tr><td colspan="5" style="text-align:center;">কোনো পেন্ডিং বিজ্ঞাপন নেই।</td></tr>';
+      adsContainer.innerHTML = html;
     }
 
-    // Open Ad Viewer Modal (For Buyers)
+    function renderAll() {
+      const approved = adsDataStore.filter(a => a.status === 'approved');
+      renderAdsGrid(approved);
+
+      document.getElementById('stat-total-ads').innerText = adsDataStore.length;
+      document.getElementById('stat-pending-ads').innerText = adsDataStore.filter(a => a.status === 'pending').length;
+      document.getElementById('stat-revenue').innerText = `৳ ${totalRevenue}`;
+
+      let tHtml = '';
+      topUpRequests.forEach(t => {
+        tHtml += `<tr><td>${t.phone}</td><td>${t.method}</td><td>৳${t.amount}</td><td><strong>${t.trx}</strong></td><td><span class="badge-status status-${t.status}">${t.status}</span></td><td>${t.status === 'pending' ? `<button class="btn-approve" onclick="approveTopUp(${t.id})">অনুমোদন</button>` : 'সম্পন্ন'}</td></tr>`;
+      });
+      document.getElementById('admin-topups-list').innerHTML = tHtml;
+
+      let aHtml = '';
+      adsDataStore.filter(a => a.status === 'pending').forEach(a => {
+        aHtml += `<tr><td>${a.title}</td><td>৳${a.price}</td><td>${a.phone}</td><td>${a.area}, ${a.location}</td><td><button class="btn-approve" onclick="approveAd(${a.id})">Approve</button> <button class="btn-reject" onclick="rejectAd(${a.id})">Reject</button></td></tr>`;
+      });
+      document.getElementById('admin-ads-list').innerHTML = aHtml || '<tr><td colspan="5" style="text-align:center;">কোনো পেন্ডিং বিজ্ঞাপন নেই।</td></tr>';
+
+      let rHtml = '';
+      reportsData.forEach(r => {
+        rHtml += `<tr><td>#${r.adId}</td><td>${r.reason}</td><td>${r.reporter}</td><td><button class="btn-reject" onclick="rejectAd(${r.adId})">পোস্ট মুছুন</button></td></tr>`;
+      });
+      document.getElementById('admin-reports-list').innerHTML = rHtml || '<tr><td colspan="4" style="text-align:center;">কোনো রিপোর্ট নেই।</td></tr>';
+    }
+
+    function openChatModalDirect(id, e) { e.stopPropagation(); openModal('chat-modal'); }
+    function openChatModal() { closeModal('adview-modal'); openModal('chat-modal'); }
+    function sendChatMessage() {
+      const input = document.getElementById('chat-input-text');
+      if(!input.value) return;
+      const box = document.getElementById('chat-messages');
+      box.innerHTML += `<div class="msg msg-sent">${input.value}</div>`;
+      input.value = ''; box.scrollTop = box.scrollHeight;
+    }
+
     function openAdViewer(adId) {
+      currentActiveAdId = adId;
       const ad = adsDataStore.find(a => a.id === adId);
       if (!ad) return;
 
@@ -922,35 +764,17 @@
       document.getElementById('view-phone').innerText = ad.phone;
       document.getElementById('view-phone').href = `tel:${ad.phone}`;
 
-      const mainImg = document.getElementById('view-main-img');
-      mainImg.src = ad.images[0];
-
-      const gallery = document.getElementById('view-gallery');
+      document.getElementById('view-main-img').src = ad.images[0];
       let galleryHtml = '';
-      ad.images.forEach((imgUrl) => {
-        galleryHtml += `<img src="${imgUrl}" onclick="document.getElementById('view-main-img').src='${imgUrl}'" alt="Thumb">`;
-      });
-      gallery.innerHTML = galleryHtml;
+      ad.images.forEach((imgUrl) => { galleryHtml += `<img src="${imgUrl}" style="width:50px; height:40px; border-radius:4px; cursor:pointer;" onclick="document.getElementById('view-main-img').src='${imgUrl}'">`; });
+      document.getElementById('view-gallery').innerHTML = galleryHtml;
 
       openModal('adview-modal');
     }
 
-    // Sign In / Sign Up Handlers
-    function handleSignIn(e) {
-      e.preventDefault();
-      alert(currentLang === 'bn' ? 'সাইন ইন সফল হয়েছে!' : 'Signed in successfully!');
-      closeModal('signin-modal');
-      e.target.reset();
-    }
+    function handleSignIn(e) { e.preventDefault(); alert(currentLang === 'bn' ? 'সাইন ইন সফল হয়েছে!' : 'Signed in successfully!'); closeModal('signin-modal'); e.target.reset(); }
+    function handleSignUp(e) { e.preventDefault(); alert(currentLang === 'bn' ? 'অ্যাকাউন্ট তৈরি সফল হয়েছে!' : 'Account created successfully!'); closeModal('signup-modal'); e.target.reset(); }
 
-    function handleSignUp(e) {
-      e.preventDefault();
-      alert(currentLang === 'bn' ? 'অ্যাকাউন্ট তৈরি সফল হয়েছে!' : 'Account created successfully!');
-      closeModal('signup-modal');
-      e.target.reset();
-    }
-
-    // Modal Helpers
     function openSubCategories(catId) {
       const category = categoryData.find(c => c.id === catId);
       document.getElementById('cat-modal-title').innerText = category.name;
@@ -964,7 +788,6 @@
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
     function clearAllAds() { adsDataStore = []; renderAll(); }
 
-    // Initialize
     renderCategories();
     renderLocations();
     renderAll();
