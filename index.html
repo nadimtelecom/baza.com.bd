@@ -307,17 +307,17 @@
           <label id="lbl-ad-phone">মোবাইল নম্বর (OTP ভেরিফিকেশন সহ)</label>
           <div style="display:flex; gap:8px;">
             <input type="tel" id="ad-phone" placeholder="017XXXXXXXX" required pattern="[0-9]{11}">
-            <button type="button" onclick="sendOTP()" style="padding:0 12px; font-size:12px; cursor:pointer; background:var(--bg-main); border:1px solid var(--border-color); border-radius:8px; font-weight:600;">OTP পাঠান</button>
+            <button type="button" onclick="sendOTP('postad')" style="padding:0 12px; font-size:12px; cursor:pointer; background:var(--bg-main); border:1px solid var(--border-color); border-radius:8px; font-weight:600;">OTP পাঠান</button>
           </div>
         </div>
-        <div class="form-group" id="otp-group" style="display:none;">
-          <label>OTP কোড দিন (ডিমো: 1234)</label>
-          <input type="text" id="otp-code" placeholder="1234">
+        <div class="form-group" id="otp-group-postad" style="display:none;">
+          <label>OTP কোড দিন (ডেমো: 1234)</label>
+          <input type="text" id="otp-code-postad" placeholder="1234">
         </div>
         <div class="form-group">
-          <label id="lbl-ad-images">পণ্যের ছবি (কমপক্ষে ১টি, সর্বোচ্চ ৫টি)</label>
-          <input type="file" id="ad-images" accept="image/*" multiple required onchange="validateImageCount(this)">
-          <small style="color: var(--text-muted); font-size: 11px;" id="lbl-img-hint">১ থেকে ৫টি ছবি সিলেক্ট করুন</small>
+          <label id="lbl-ad-images">পণ্যের ছবি (যে কোনো সংখ্যক ছবি আপলোড করতে পারবেন)</label>
+          <input type="file" id="ad-images" accept="image/*" multiple required>
+          <small style="color: var(--text-muted); font-size: 11px;" id="lbl-img-hint">ছবি সিলেক্ট করুন</small>
         </div>
         <div class="form-group"><label id="lbl-ad-loc">লোকেশন</label><select id="ad-location-select" required></select></div>
         <div class="form-group"><label id="lbl-ad-area">বিস্তারিত ঠিকানা / এলাকা</label><input type="text" id="ad-area" placeholder="যেমন: আগ্রাবাদ / জিইসি মোড়" required></div>
@@ -374,17 +374,26 @@
     </div>
   </div>
 
-  <!-- MODAL 6: Sign In -->
+  <!-- MODAL 6: Sign In (ক্রেতা/ব্যবহারকারীর OTP ভেরিফিকেশন সহ) -->
   <div class="modal-overlay" id="signin-modal">
     <div class="modal-box">
       <div class="modal-header">
-        <h3 id="txt-signin-title">সাইন ইন করুন</h3>
+        <h3 id="txt-signin-title">সাইন ইন / রেজিস্টার</h3>
         <i class="fa-solid fa-xmark close-btn" onclick="closeModal('signin-modal')"></i>
       </div>
       <form onsubmit="handleSignIn(event)">
-        <div class="form-group"><label id="lbl-signin-id">মোবাইল নম্বর অথবা ইমেইল</label><input type="text" id="signin-id" required placeholder="017XXXXXXXX / example@mail.com"></div>
-        <div class="form-group"><label id="lbl-signin-pass">পাসওয়ার্ড</label><input type="password" required placeholder="******"></div>
-        <button type="submit" class="submit-btn" id="btn-signin-submit">লগইন করুন</button>
+        <div class="form-group">
+          <label id="lbl-signin-id">মোবাইল নম্বর</label>
+          <div style="display:flex; gap:8px;">
+            <input type="tel" id="signin-id" required placeholder="017XXXXXXXX" pattern="[0-9]{11}">
+            <button type="button" onclick="sendOTP('signin')" style="padding:0 12px; font-size:12px; cursor:pointer; background:var(--bg-main); border:1px solid var(--border-color); border-radius:8px; font-weight:600;">OTP পান</button>
+          </div>
+        </div>
+        <div class="form-group" id="otp-group-signin" style="display:none;">
+          <label>OTP কোড দিন (ডেমো: 1234)</label>
+          <input type="text" id="otp-code-signin" placeholder="1234" required>
+        </div>
+        <button type="submit" class="submit-btn" id="btn-signin-submit">লগইন / ভেরিফাই করুন</button>
       </form>
     </div>
   </div>
@@ -399,7 +408,6 @@
 
   <!-- Javascript Logic -->
   <script>
-    // ডামি ডেটা সেটিং - যা ব্রাউজার স্টোরেজে সেভ হবে
     const initialAds = [
       {
         id: 101,
@@ -451,7 +459,6 @@
       }
     ];
 
-    // LocalStorage থেকে ডেটা লোড বা সেটআপ করা
     let adsDataStore = JSON.parse(localStorage.getItem('baza_ads')) || initialAds;
     let topUpRequests = JSON.parse(localStorage.getItem('baza_topups')) || [];
     let userBalance = parseFloat(localStorage.getItem('baza_balance')) || 0;
@@ -493,7 +500,21 @@
     }
 
     function toggleTheme() { document.body.classList.toggle('dark-theme'); }
-    function sendOTP() { alert("আপনার ফোনে OTP পাঠানো হয়েছে: 1234"); document.getElementById('otp-group').style.display = 'block'; }
+
+    // ডায়নামিক OTP জেনারেটর ফাংশন
+    function sendOTP(type) {
+      if(type === 'postad') {
+        const phone = document.getElementById('ad-phone').value;
+        if(!phone || phone.length !== 11) { alert("অনুগ্রহ করে একটি সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন!"); return; }
+        alert("বিজ্ঞাপন পোস্ট করার জন্য আপনার ফোনে OTP পাঠানো হয়েছে: 1234");
+        document.getElementById('otp-group-postad').style.display = 'block';
+      } else if(type === 'signin') {
+        const phone = document.getElementById('signin-id').value;
+        if(!phone || phone.length !== 11) { alert("অনুগ্রহ করে একটি সঠিক ১১ ডিজিটের মোবাইল নম্বর দিন!"); return; }
+        alert("সাইন ইন করার জন্য আপনার ফোনে OTP পাঠানো হয়েছে: 1234");
+        document.getElementById('otp-group-signin').style.display = 'block';
+      }
+    }
 
     function toggleAdminUserView(forcedView) {
       if(forcedView === 'user' || currentView === 'admin') {
@@ -567,13 +588,6 @@
       openModal('wishlist-modal');
     }
 
-    function validateImageCount(input) {
-      if (input.files.length > 5) {
-        alert('সর্বোচ্চ ৫টি ছবি আপলোড করা যাবে!');
-        input.value = '';
-      }
-    }
-
     function filterBySubcat(subcatName) {
       activeCategoryFilter = subcatName;
       closeModal('subcat-modal');
@@ -614,9 +628,9 @@
 
     async function handlePostAd(e) {
       e.preventDefault();
-      const otpGroup = document.getElementById('otp-group');
+      const otpGroup = document.getElementById('otp-group-postad');
       if(otpGroup.style.display !== 'none') {
-        const otp = document.getElementById('otp-code').value;
+        const otp = document.getElementById('otp-code-postad').value;
         if(otp !== "1234") { alert("ভুল OTP কোড দেওয়া হয়েছে!"); return; }
       }
       const title = document.getElementById('ad-title').value;
@@ -629,14 +643,12 @@
 
       if (imageFiles.length === 0) { alert('কমপক্ষে ১টি ছবি নির্বাচন করুন।'); return; }
 
-      // ছবির ডেটা লোড করার কাজ (Base64 Convert)
       const imageUrls = [];
       for (let file of imageFiles) {
         const base64 = await convertFileToBase64(file);
         imageUrls.push(base64);
       }
 
-      // নতুন পোস্ট দেওয়া মাত্র এডমিন পেন্ডিং এ থাকবে
       adsDataStore.unshift({
         id: Date.now(), title, category, price, phone, location, area,
         images: imageUrls, status: "pending", isFeatured: false
@@ -801,7 +813,22 @@
       openModal('adview-modal');
     }
 
-    function handleSignIn(e) { e.preventDefault(); alert('সাইন ইন সফল হয়েছে!'); closeModal('signin-modal'); e.target.reset(); }
+    function handleSignIn(e) { 
+      e.preventDefault(); 
+      const otpGroup = document.getElementById('otp-group-signin');
+      if(otpGroup.style.display !== 'none') {
+        const otp = document.getElementById('otp-code-signin').value;
+        if(otp !== "1234") { alert("ভুল OTP কোড দেওয়া হয়েছে!"); return; }
+      } else {
+        alert("অনুগ্রহ করে OTP পান বাটনে ক্লিক করে ভেরিফিকেশন কোড নিন।");
+        return;
+      }
+      const userPhone = document.getElementById('signin-id').value;
+      alert(`মোবাইল নম্বর (${userPhone}) দিয়ে সাইন ইন সফল হয়েছে!`); 
+      document.getElementById('txt-signin').innerHTML = `<i class="fa-solid fa-user-check"></i> ${userPhone.substring(0, 5)}...`;
+      closeModal('signin-modal'); 
+      e.target.reset(); 
+    }
 
     function openSubCategories(catId) {
       const category = categoryData.find(c => c.id === catId);
