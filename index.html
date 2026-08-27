@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Baza.com.bd - Buy & Sell Everything</title>
+  
   <!-- Google Fonts & FontAwesome CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,7 +71,7 @@
     .btn-post-ad { background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; padding: 8px 18px; border-radius: 20px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3); }
     .btn-post-ad:hover { transform: translateY(-1px); }
 
-    /* Hero Banner Section */
+    /* Hero Banner */
     .hero-banner { 
       background: linear-gradient(135deg, var(--primary), var(--primary-hover)); 
       padding: 40px 20px; 
@@ -90,8 +91,10 @@
     /* Filters Bar */
     .advanced-filter-bar { background: var(--bg-card); padding: 14px 18px; border-radius: var(--radius); border: 1px solid var(--border-color); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 25px; box-shadow: var(--shadow-sm); }
     .advanced-filter-bar select, .advanced-filter-bar input { padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-main); font-size: 13px; outline: none; }
+    .btn-reset-filters { background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 9px 14px; border-radius: 8px; font-size: 13px; cursor: pointer; }
+    .btn-reset-filters:hover { background: var(--border-color); }
 
-    /* Container & Layout */
+    /* Container & Category Grid */
     .container { padding: 0 20px; max-width: 1050px; margin: 0 auto; }
     .grid-categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
     @media (min-width: 640px) { .grid-categories { grid-template-columns: repeat(6, 1fr); } }
@@ -104,8 +107,6 @@
     /* Recent Ads Section */
     .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
     .section-title { font-size: 20px; font-weight: 700; color: var(--text-main); }
-    .btn-clear-ads { background: transparent; color: #ef4444; border: 1px solid #fca5a5; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; }
-    .btn-clear-ads:hover { background: #fee2e2; }
     
     .ads-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; }
     .no-ads-msg { font-size: 14px; color: var(--text-muted); text-align: center; grid-column: 1 / -1; padding: 40px 0; background: var(--bg-card); border-radius: var(--radius); border: 1px dashed var(--border-color); }
@@ -126,7 +127,7 @@
     .btn-boost-ad { flex: 1; background: #f97316; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
     .btn-chat-ad { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary); padding: 8px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 600; }
 
-    /* Admin Panel Styling */
+    /* Admin View Panel */
     .admin-panel { display: none; background: var(--bg-card); padding: 24px; border-radius: var(--radius); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); }
     .admin-title { font-size: 16px; font-weight: 700; color: var(--primary); margin: 20px 0 10px; border-bottom: 2px solid var(--primary-light); padding-bottom: 6px; }
     .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 25px; }
@@ -161,7 +162,7 @@
     .submit-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; font-size: 14px; }
     .submit-btn:hover { background: var(--primary-hover); }
 
-    /* Live Chat */
+    /* Live Chat UI */
     .chat-box { display: flex; flex-direction: column; height: 320px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
     .chat-messages { flex: 1; padding: 12px; overflow-y: auto; background: var(--bg-main); display: flex; flex-direction: column; gap: 10px; }
     .msg { max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.4; }
@@ -182,7 +183,7 @@
     <div class="header-right">
       <button class="btn-icon-nav" onclick="toggleTheme()" title="Theme Toggle"><i class="fa-solid fa-moon"></i></button>
       <button class="btn-icon-nav" onclick="showWishlistModal()" title="Favorites"><i class="fa-solid fa-heart"></i></button>
-      <div class="wallet-badge" onclick="openModal('topup-modal')">৳ <span id="user-balance">০</span> +</div>
+      <div class="wallet-badge" onclick="openModal('topup-modal')">৳ <span id="user-balance">0</span> +</div>
       <button class="btn-toggle-view" onclick="toggleAdminUserView()" id="view-toggle-btn">👨‍💼 এডমিন প্যানেল</button>
       <button class="lang-btn" onclick="toggleLanguage()" id="lang-btn">English</button>
       <button class="btn-auth" onclick="openModal('signin-modal')" id="txt-signin"><i class="fa-solid fa-user"></i> সাইন ইন</button>
@@ -190,14 +191,14 @@
     </div>
   </div>
 
-  <!-- Hero Section -->
+  <!-- Main User Area -->
   <div id="user-view">
     <div class="hero-banner">
       <h1 id="txt-hero-title">Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
       <p id="txt-hero-sub">আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
       <div class="search-group">
         <input type="text" id="txt-search-ph" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" oninput="applyFilters()">
-        <button class="btn-search" id="txt-btn-search">খুঁজুন</button>
+        <button class="btn-search" onclick="applyFilters()" id="txt-btn-search">খুঁজুন</button>
       </div>
     </div>
 
@@ -212,22 +213,22 @@
           <option value="low-high">দাম: কম থেকে বেশি</option>
           <option value="high-low">দাম: বেশি থেকে কম</option>
         </select>
+        <button class="btn-reset-filters" onclick="resetFilters()" id="btn-reset">রিসেট করুন</button>
       </div>
 
-      <!-- Category Grid -->
+      <!-- Dynamic Category Grid -->
       <div class="grid-categories" id="categories-grid"></div>
 
-      <!-- Ads Section -->
+      <!-- Recent Ads List -->
       <div class="section-header">
         <div class="section-title" id="txt-recent-ads">সাম্প্রতিক বিজ্ঞাপনসমূহ</div>
-        <button class="btn-clear-ads" onclick="clearAllAds()" id="txt-clear-ads">সব মুছুন</button>
       </div>
       
       <div class="ads-list" id="ads-container"></div>
     </div>
   </div>
 
-  <!-- ADMIN CONTROL PANEL VIEW -->
+  <!-- Admin Panel Dashboard Area -->
   <div class="container">
     <div id="admin-view" class="admin-panel">
       <h2 style="margin-bottom: 15px;">📊 প্ল্যাটফর্ম অ্যানালিটিক্স</h2>
@@ -257,7 +258,7 @@
     </div>
   </div>
 
-  <!-- MODAL: Balance Top-Up -->
+  <!-- MODAL 1: Balance Top-Up -->
   <div class="modal-overlay" id="topup-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -280,7 +281,7 @@
     </div>
   </div>
 
-  <!-- MODAL: Sub-Categories -->
+  <!-- MODAL 2: Sub-Categories -->
   <div class="modal-overlay" id="subcat-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -291,7 +292,7 @@
     </div>
   </div>
 
-  <!-- MODAL: Post Ad -->
+  <!-- MODAL 3: Post New Ad -->
   <div class="modal-overlay" id="postad-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -325,7 +326,7 @@
     </div>
   </div>
 
-  <!-- MODAL: Ad View Details -->
+  <!-- MODAL 4: Full Ad Details -->
   <div class="modal-overlay" id="adview-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -354,7 +355,7 @@
     </div>
   </div>
 
-  <!-- MODAL: Live Chat -->
+  <!-- MODAL 5: Live Chat -->
   <div class="modal-overlay" id="chat-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -373,7 +374,7 @@
     </div>
   </div>
 
-  <!-- MODAL: Sign In -->
+  <!-- MODAL 6: Sign In -->
   <div class="modal-overlay" id="signin-modal">
     <div class="modal-box">
       <div class="modal-header">
@@ -388,7 +389,7 @@
     </div>
   </div>
 
-  <!-- MODAL: Wishlist -->
+  <!-- MODAL 7: Wishlist -->
   <div class="modal-overlay" id="wishlist-modal">
     <div class="modal-box">
       <div class="modal-header"><h3>পছন্দের তালিকা (Wishlist)</h3><i class="fa-solid fa-xmark close-btn" onclick="closeModal('wishlist-modal')"></i></div>
@@ -396,32 +397,72 @@
     </div>
   </div>
 
-  <!-- JavaScript Logic -->
+  <!-- Javascript Logic -->
   <script>
-    let currentLang = 'bn';
-    let currentView = 'user';
-    let userBalance = 0;
-    let totalRevenue = 0;
-    let wishlist = [];
-    let reportsData = [];
-    let currentActiveAdId = null;
-
-    let adsDataStore = [
+    // ডামি ডেটা সেটিং - যা ব্রাউজার স্টোরেজে সেভ হবে
+    const initialAds = [
       {
         id: 101,
-        title: "Xiaomi Buds 6 ANC",
-        category: "মোবাইল এক্সেসরিজ (Mobile Accessories)",
+        title: "Xiaomi Redmi Buds 6 ANC (Original)",
+        category: "এক্সেসরিজ",
         price: 3000,
-        phone: "017XXXXXXXX",
+        phone: "01700000000",
         location: "চট্টগ্রাম শহর",
-        area: "CEPZ, চট্টগ্রাম ইপিজেড",
+        area: "চট্টগ্রাম ইপিজেড (CEPZ)",
         images: ["https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80"],
+        status: "approved",
+        isFeatured: true
+      },
+      {
+        id: 102,
+        title: "OPPO Reno 14 5G (Brand New Condition)",
+        category: "মোবাইল ফোন",
+        price: 35000,
+        phone: "01800000000",
+        location: "চট্টগ্রাম শহর",
+        area: "জিইসি মোড়",
+        images: ["https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80"],
+        status: "approved",
+        isFeatured: false
+      },
+      {
+        id: 103,
+        title: "Duranta CB Avenger 24 Bicycle",
+        category: "বাইসাইকেল",
+        price: 8500,
+        phone: "01900000000",
+        location: "চট্টগ্রাম শহর",
+        area: "আগ্রাবাদ",
+        images: ["https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=500&q=80"],
+        status: "approved",
+        isFeatured: false
+      },
+      {
+        id: 104,
+        title: "Walton 217L No-Frost Refrigerator",
+        category: "হোম ডেকোর",
+        price: 28000,
+        phone: "01600000000",
+        location: "চট্টগ্রাম শহর",
+        area: "হালিশহর",
+        images: ["https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&q=80"],
         status: "approved",
         isFeatured: false
       }
     ];
 
-    let topUpRequests = [];
+    // LocalStorage থেকে ডেটা লোড বা সেটআপ করা
+    let adsDataStore = JSON.parse(localStorage.getItem('baza_ads')) || initialAds;
+    let topUpRequests = JSON.parse(localStorage.getItem('baza_topups')) || [];
+    let userBalance = parseFloat(localStorage.getItem('baza_balance')) || 0;
+    let totalRevenue = parseFloat(localStorage.getItem('baza_revenue')) || 0;
+    let wishlist = JSON.parse(localStorage.getItem('baza_wishlist')) || [];
+    let reportsData = JSON.parse(localStorage.getItem('baza_reports')) || [];
+
+    let currentLang = 'bn';
+    let currentView = 'user';
+    let currentActiveAdId = null;
+    let activeCategoryFilter = null;
 
     const categoryData = [
       { id: "mobiles", name: "মোবাইল", icon: "fa-mobile-screen-button", subs: ["মোবাইল ফোন", "এক্সেসরিজ", "স্মার্টওয়াচ"] },
@@ -441,6 +482,15 @@
         "ঢাকা শহর": ["মিরপুর", "উত্তরা", "ধানমন্ডি", "গুলশান", "বনানী", "সাভার"]
       }
     };
+
+    function syncStorage() {
+      localStorage.setItem('baza_ads', JSON.stringify(adsDataStore));
+      localStorage.setItem('baza_topups', JSON.stringify(topUpRequests));
+      localStorage.setItem('baza_balance', userBalance);
+      localStorage.setItem('baza_revenue', totalRevenue);
+      localStorage.setItem('baza_wishlist', JSON.stringify(wishlist));
+      localStorage.setItem('baza_reports', JSON.stringify(reportsData));
+    }
 
     function toggleTheme() { document.body.classList.toggle('dark-theme'); }
     function sendOTP() { alert("আপনার ফোনে OTP পাঠানো হয়েছে: 1234"); document.getElementById('otp-group').style.display = 'block'; }
@@ -499,17 +549,18 @@
       event.stopPropagation();
       if(wishlist.includes(id)) wishlist = wishlist.filter(item => item !== id);
       else wishlist.push(id);
+      syncStorage();
       renderAll();
     }
 
     function showWishlistModal() {
       const favAds = adsDataStore.filter(a => wishlist.includes(a.id));
       const container = document.getElementById('wishlist-content');
-      if(favAds.length === 0) container.innerHTML = "<p style='text-align:center; padding:20px; color:var(--text-muted);'>কোনো বুকমার্ক করা বিজ্ঞাপন নেই।</p>";
+      if(favAds.length === 0) container.innerHTML = "<p style='text-align:center; padding:20px; color:var(--text-muted); width:100%;'>কোনো বুকমার্ক করা বিজ্ঞাপন নেই।</p>";
       else {
         let html = '';
         favAds.forEach(ad => {
-          html += `<div class="ad-card"><div class="ad-details"><h4>${ad.title}</h4><div class="price">৳${ad.price}</div></div></div>`;
+          html += `<div class="ad-card" style="margin-bottom:10px;"><div class="ad-details"><h4>${ad.title}</h4><div class="price">৳${ad.price}</div></div></div>`;
         });
         container.innerHTML = html;
       }
@@ -523,6 +574,22 @@
       }
     }
 
+    function filterBySubcat(subcatName) {
+      activeCategoryFilter = subcatName;
+      closeModal('subcat-modal');
+      applyFilters();
+    }
+
+    function resetFilters() {
+      document.getElementById('txt-search-ph').value = '';
+      document.getElementById('all-locations').value = '';
+      document.getElementById('filter-min-price').value = '';
+      document.getElementById('filter-max-price').value = '';
+      document.getElementById('filter-sort').value = 'newest';
+      activeCategoryFilter = null;
+      applyFilters();
+    }
+
     function applyFilters() {
       const searchText = document.getElementById('txt-search-ph').value.toLowerCase();
       const locText = document.getElementById('all-locations').value;
@@ -532,6 +599,9 @@
 
       let filtered = adsDataStore.filter(ad => ad.status === 'approved');
 
+      if(activeCategoryFilter) {
+        filtered = filtered.filter(a => a.category === activeCategoryFilter);
+      }
       if(searchText) filtered = filtered.filter(a => a.title.toLowerCase().includes(searchText));
       if(locText) filtered = filtered.filter(a => a.location === locText);
       filtered = filtered.filter(a => a.price >= minPrice && a.price <= maxPrice);
@@ -542,7 +612,7 @@
       renderAdsGrid(filtered);
     }
 
-    function handlePostAd(e) {
+    async function handlePostAd(e) {
       e.preventDefault();
       const otpGroup = document.getElementById('otp-group');
       if(otpGroup.style.display !== 'none') {
@@ -551,7 +621,7 @@
       }
       const title = document.getElementById('ad-title').value;
       const category = document.getElementById('ad-category-select').value;
-      const price = document.getElementById('ad-price').value;
+      const price = parseFloat(document.getElementById('ad-price').value);
       const phone = document.getElementById('ad-phone').value;
       const location = document.getElementById('ad-location-select').value;
       const area = document.getElementById('ad-area').value;
@@ -559,18 +629,33 @@
 
       if (imageFiles.length === 0) { alert('কমপক্ষে ১টি ছবি নির্বাচন করুন।'); return; }
 
+      // ছবির ডেটা লোড করার কাজ (Base64 Convert)
       const imageUrls = [];
-      for (let i = 0; i < imageFiles.length; i++) { imageUrls.push(URL.createObjectURL(imageFiles[i])); }
+      for (let file of imageFiles) {
+        const base64 = await convertFileToBase64(file);
+        imageUrls.push(base64);
+      }
 
-      adsDataStore.push({
+      // নতুন পোস্ট দেওয়া মাত্র এডমিন পেন্ডিং এ থাকবে
+      adsDataStore.unshift({
         id: Date.now(), title, category, price, phone, location, area,
         images: imageUrls, status: "pending", isFeatured: false
       });
 
-      alert('বিজ্ঞাপনটি অনুমোদনের জন্য পাঠানো হয়েছে!');
+      syncStorage();
+      alert('আপনার বিজ্ঞাপনটি জমা হয়েছে! এডমিন অনুমোদনের পর প্রকাশ পাবে।');
       closeModal('postad-modal');
       e.target.reset();
       renderAll();
+    }
+
+    function convertFileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+      });
     }
 
     function submitTopUpRequest(e) {
@@ -579,6 +664,7 @@
       const method = document.getElementById('topup-method').value;
       const trx = document.getElementById('topup-trx').value;
       topUpRequests.push({ id: Date.now(), phone: "017XXXXXXXX", method, amount, trx, status: "pending" });
+      syncStorage();
       alert("টপ-আপ রিকোয়েস্ট জমা হয়েছে!");
       closeModal('topup-modal');
       e.target.reset();
@@ -587,20 +673,33 @@
 
     function approveTopUp(id) {
       const req = topUpRequests.find(t => t.id === id);
-      if(req) { req.status = 'approved'; userBalance += req.amount; document.getElementById('user-balance').innerText = userBalance.toLocaleString('bn-BD'); renderAll(); }
+      if(req && req.status !== 'approved') { 
+        req.status = 'approved'; 
+        userBalance += req.amount; 
+        syncStorage();
+        renderAll(); 
+      }
     }
 
-    function approveAd(id) { const ad = adsDataStore.find(a => a.id === id); if(ad) { ad.status = 'approved'; renderAll(); } }
-    function rejectAd(id) { adsDataStore = adsDataStore.filter(a => a.id !== id); renderAll(); }
+    function approveAd(id) { 
+      const ad = adsDataStore.find(a => a.id === id); 
+      if(ad) { ad.status = 'approved'; syncStorage(); renderAll(); } 
+    }
+    
+    function rejectAd(id) { 
+      adsDataStore = adsDataStore.filter(a => a.id !== id); 
+      syncStorage(); 
+      renderAll(); 
+    }
 
     function boostAd(id, event) {
       event.stopPropagation();
       if(userBalance < 50) { alert("বুস্ট করতে ওয়ালেটে ৫০ টাকা প্রয়োজন!"); openModal('topup-modal'); return; }
       userBalance -= 50; totalRevenue += 50;
-      document.getElementById('user-balance').innerText = userBalance.toLocaleString('bn-BD');
       const ad = adsDataStore.find(a => a.id === id);
       if(ad) { ad.isFeatured = true; adsDataStore = adsDataStore.filter(a => a.id !== id); adsDataStore.unshift(ad); }
-      alert("বিজ্ঞাপন বুস্ট করা হয়েছে!");
+      syncStorage();
+      alert("বিজ্ঞাপন সফলভাবে বুস্ট করা হয়েছে!");
       renderAll();
     }
 
@@ -608,6 +707,7 @@
       const reason = prompt("রিপোর্ট করার কারণ লিখুন:");
       if(reason) {
         reportsData.push({ id: Date.now(), adId: currentActiveAdId, reason, reporter: "017XXXXXXXX" });
+        syncStorage();
         alert("রিপোর্ট জমা নেওয়া হয়েছে।");
         closeModal('adview-modal');
         renderAll();
@@ -616,7 +716,7 @@
 
     function renderAdsGrid(listData) {
       const adsContainer = document.getElementById('ads-container');
-      if (listData.length === 0) {
+      if (!listData || listData.length === 0) {
         adsContainer.innerHTML = `<div class="no-ads-msg">বর্তমানে কোনো বিজ্ঞাপন পাওয়া যায়নি।</div>`;
         return;
       }
@@ -645,8 +745,8 @@
     }
 
     function renderAll() {
-      const approved = adsDataStore.filter(a => a.status === 'approved');
-      renderAdsGrid(approved);
+      document.getElementById('user-balance').innerText = userBalance.toLocaleString('bn-BD');
+      applyFilters();
 
       document.getElementById('stat-total-ads').innerText = adsDataStore.length;
       document.getElementById('stat-pending-ads').innerText = adsDataStore.filter(a => a.status === 'pending').length;
@@ -706,16 +806,25 @@
     function openSubCategories(catId) {
       const category = categoryData.find(c => c.id === catId);
       document.getElementById('cat-modal-title').innerText = category.name;
-      let html = '';
-      category.subs.forEach(sub => { html += `<div class="subcat-item" onclick="closeModal('subcat-modal')">${sub}</div>`; });
+      let html = `<div class="subcat-item" style="font-weight:bold; color:var(--primary);" onclick="filterBySubcat(null)">সব দেখুন (${category.name})</div>`;
+      category.subs.forEach(sub => { html += `<div class="subcat-item" onclick="filterBySubcat('${sub}')">${sub}</div>`; });
       document.getElementById('subcat-modal-body').innerHTML = html;
       openModal('subcat-modal');
     }
 
+    function toggleLanguage() {
+      currentLang = currentLang === 'bn' ? 'en' : 'bn';
+      document.getElementById('lang-btn').innerText = currentLang === 'bn' ? 'English' : 'বাংলা';
+      document.getElementById('txt-hero-title').innerText = currentLang === 'bn' ? 'Baza-তে সবকিছু কেনা-বেচা করুন সহজে' : 'Buy & Sell Everything Easily on Baza';
+      document.getElementById('txt-hero-sub').innerText = currentLang === 'bn' ? 'আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম' : 'The safest platform to buy and sell new or used products';
+      document.getElementById('txt-recent-ads').innerText = currentLang === 'bn' ? 'সাম্প্রতিক বিজ্ঞাপনসমূহ' : 'Recent Advertisements';
+      document.getElementById('btn-reset').innerText = currentLang === 'bn' ? 'রিসেট করুন' : 'Reset Filters';
+    }
+
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function clearAllAds() { adsDataStore = []; renderAll(); }
 
+    // Init Logic
     renderCategories();
     renderLocations();
     renderAll();
