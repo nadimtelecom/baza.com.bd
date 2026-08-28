@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baza.com.bd - Buy, Sell & Earn</title>
     
-    <!-- Firebase Compat SDK Links -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
@@ -69,7 +68,6 @@
 
         .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
 
-        /* Banner Ads Slot for Income */
         .ad-banner-slot {
             background: #e9ecef;
             border: 2px dashed #bbb;
@@ -180,6 +178,10 @@
         .form-group input, .form-group textarea, .form-group select {
             width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
         }
+        
+        body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select {
+            background: #2a2a2a; color: white; border-color: #444;
+        }
 
         .action-btns {
             display: flex;
@@ -266,13 +268,19 @@
             <button class="cat-btn" onclick="filterCategory('mobile')" data-i18n="cat_mobile">মোবাইল</button>
             <button class="cat-btn" onclick="filterCategory('electronics')" data-i18n="cat_electronics">ইলেকট্রনিক্স</button>
             <button class="cat-btn" onclick="filterCategory('vehicles')" data-i18n="cat_vehicles">যানবাহন</button>
+            <button class="cat-btn" onclick="filterCategory('fashion')" data-i18n="cat_fashion">ফ্যাশন</button>
+            <button class="cat-btn" onclick="filterCategory('beauty')" data-i18n="cat_beauty">বিউটি ও কেয়ার</button>
+            <button class="cat-btn" onclick="filterCategory('services')" data-i18n="cat_services">সার্ভিসেস</button>
+            <button class="cat-btn" onclick="filterCategory('tools')" data-i18n="cat_tools">টুলস ও হার্ডওয়্যার</button>
+            <button class="cat-btn" onclick="filterCategory('kids')" data-i18n="cat_kids">বেবি ও চিলড্রেন</button>
+            <button class="cat-btn" onclick="filterCategory('pets')" data-i18n="cat_pets">পশু ও পাখি</button>
+            <button class="cat-btn" onclick="filterCategory('farm')" data-i18n="cat_farm">কৃষি ও ফার্ম</button>
         </div>
 
         <h2 id="sectionTitle" data-i18n="recent_ads">সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
         <div class="grid" id="adsGrid"></div>
     </div>
 
-    <!-- 1. Product Details Modal -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
@@ -292,7 +300,6 @@
         </div>
     </div>
 
-    <!-- 2. Post New Ad Modal -->
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
@@ -308,6 +315,13 @@
                         <option value="mobile" data-i18n="cat_mobile">মোবাইল</option>
                         <option value="electronics" data-i18n="cat_electronics">ইলেকট্রনিক্স</option>
                         <option value="vehicles" data-i18n="cat_vehicles">যানবাহন</option>
+                        <option value="fashion" data-i18n="cat_fashion">ফ্যাশন</option>
+                        <option value="beauty" data-i18n="cat_beauty">বিউটি ও কেয়ার</option>
+                        <option value="services" data-i18n="cat_services">সার্ভিসেস</option>
+                        <option value="tools" data-i18n="cat_tools">টুলস ও হার্ডওয়্যার</option>
+                        <option value="kids" data-i18n="cat_kids">বেবি ও চিলড্রেন</option>
+                        <option value="pets" data-i18n="cat_pets">পশু ও পাখি</option>
+                        <option value="farm" data-i18n="cat_farm">কৃষি ও ফার্ম</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -318,10 +332,20 @@
                     <label data-i18n="lbl_phone">ফোন নম্বর (যোগাযোগের জন্য)</label>
                     <input type="tel" id="postPhone" required placeholder="e.g. 018XXXXXXXX">
                 </div>
+                
                 <div class="form-group">
-                    <label data-i18n="lbl_location">লোকেশন</label>
-                    <input type="text" id="postLocation" required placeholder="e.g. Chattogram">
+                    <label>জেলা (District)</label>
+                    <select id="postDistrict" onchange="loadThanas()" required>
+                        <option value="">জেলা নির্বাচন করুন</option>
+                    </select>
                 </div>
+                <div class="form-group">
+                    <label>থানা / উপজেলা (Thana/Upazila)</label>
+                    <select id="postThana" required>
+                        <option value="">প্রথমে জেলা নির্বাচন করুন</option>
+                    </select>
+                </div>
+
                 <div class="form-group">
                     <label data-i18n="lbl_photo">পণ্যের ছবি</label>
                     <input type="file" id="postFile" accept="image/*" required>
@@ -335,7 +359,6 @@
         </div>
     </div>
 
-    <!-- 3. Account Modal -->
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
@@ -345,7 +368,6 @@
         </div>
     </div>
 
-    <!-- 4. Admin Control Panel Modal -->
     <div class="modal" id="adminModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
@@ -356,7 +378,6 @@
         </div>
     </div>
 
-    <!-- 5. Promotion Payment Info Modal -->
     <div class="modal" id="promoteInfoModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('promoteInfoModal')">&times;</span>
@@ -368,12 +389,10 @@
                 ২. চার্জ: <strong>১০০ টাকা (৭ দিনের জন্য)</strong><br>
                 ৩. টাকা পাঠিয়ে হোয়াটসঅ্যাপ বা ফোন করে আপনার Ads-এর নাম বলুন।
             </div>
-            <!-- WhatsApp URL syntax bug fixed -->
             <a href="https://wa.me/8801800000000?text=I%20want%20to%20promote%20my%20ad" target="_blank" class="btn-wa" style="display:block; text-align:center;">💬 WhatsApp-এ পেমেন্ট কনফার্ম করুন</a>
         </div>
     </div>
 
-    <!-- Fixed Bottom Navigation -->
     <nav class="bottom-nav">
         <button type="button" class="nav-item" onclick="filterCategory('all')" data-i18n="nav_home">হোম</button>
         <button type="button" class="nav-item" onclick="scrollToCategories()" data-i18n="nav_categories">ক্যাটাগরি</button>
@@ -397,7 +416,6 @@
         const storage = firebase.storage();
         const auth = firebase.auth();
 
-        // এডমিন ইমেইল তালিকা
         const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd"];
 
         let currentUser = null;
@@ -405,6 +423,68 @@
         let allAds = [];
         let currentLang = 'bn';
         let currentCategory = 'all';
+
+        const bdLocations = [
+            { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Pahartali", "Kotwali", "Khulshi", "Bayazid", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Boalkhali", "Patiya", "Raozan", "Rangunia", "Sandwip", "Sitakunda", "Mirsharai", "Anwara", "Banshkhali", "Satkania", "Lohagara", "Fatikchhari"] },
+            { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel", "Ramna", "Pallabi", "Cantonment", "Badda", "Khilkhet", "Lalbagh", "Hazaribagh", "Demra", "Kadamtali", "Shyampur", "Sutrapur", "Wari", "Sabujbagh", "Khilgaon", "Malibagh", "Bashundhara", "Savar", "Keraniganj", "Dohar", "Nawabganj", "Nabinagar"] },
+            { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Kutubdia", "Ukhiya", "Teknaf", "Pekua", "Ramu", "Maheshkhali"] },
+            { district: "Sylhet", thanas: ["Sylhet Sadar", "Beanibazar", "Bishwanath", "Companiganj", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Zakiganj"] },
+            { district: "Rajshahi", thanas: ["Boalia", "Rajpara", "Motihar", "Shah Makhdum", "Paba", "Durgapur", "Mohanpur", "Charghat", "Bagha", "Tanore", "Godagari"] },
+            { district: "Khulna", thanas: ["Sonadanga", "Khalishpur", "Daulatpur", "Khan Jahan Ali", "Kotwali", "Harintana", "Aranghata", "Batiaghata", "Dacope", "Dumuria", "Dighalia", "Koyra", "Paikgachha", "Rupsa", "Terokhada"] },
+            { district: "Barishal", thanas: ["Barishal Sadar", "Bakerganj", "Babuganj", "Wazirpur", "Banaripara", "Agailjhara", "Gournadi", "Muladi", "Mehendiganj", "Hizla"] },
+            { district: "Rangpur", thanas: ["Rangpur Sadar", "Badarganj", "Gangachara", "Kaunia", "Mithapukur", "Pirgachha", "Pirganj", "Taraganj"] },
+            { district: "Comilla", thanas: ["Comilla Sadar", "Brahmanpara", "Burichong", "Chandina", "Chauddagram", "Daudkandi", "Debidwar", "Homna", "Laksam", "Muradnagar", "Nangalkot", "Monohorganj", "Titas"] },
+            { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Kaliganj", "Kapasia", "Sreepur", "Tongi"] },
+            { district: "Narayanganj", thanas: ["Narayanganj Sadar", "Bandar", "Araihazar", "Sonargaon", "Rupganj"] },
+            { district: "Tangail", thanas: ["Tangail Sadar", "Basail", "Bhuapur", "Delduar", "Ghatail", "Gopalpur", "Kalihati", "Madhupur", "Mirzapur", "Nagarpur", "Sakhipur", "Dhanbari"] },
+            { district: "Mymensingh", thanas: ["Mymensingh Sadar", "Bhaluka", "Dhobaura", "Fulbaria", "Gaffargaon", "Gauripur", "Haluaghat", "Ishwarganj", "Muktagachha", "Nandail", "Phulpur", "Trishal"] },
+            { district: "Bogra", thanas: ["Bogra Sadar", "Adamdighi", "Dhunat", "Dhupchanchia", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Sherpur", "Shibganj", "Sonatala"] },
+            { district: "Jessore", thanas: ["Jessore Sadar", "Abhaynagar", "Bagherpara", "Chaugachha", "Jhikargachha", "Keshabpur", "Manirampur", "Sharsha"] },
+            { district: "Faridpur", thanas: ["Faridpur Sadar", "Alfadanga", "Bhanga", "Boalmari", "Charbhadrasan", "Madhukhali", "Nagarkanda", "Sadarpur", "Saltha"] },
+            { district: "Noakhali", thanas: ["Noakhali Sadar", "Begumganj", "Chatkhil", "Companiganj", "Hatia", "Kabirhat", "Senbagh", "Subarnachar", "Sonaimuri"] },
+            { district: "Feni", thanas: ["Feni Sadar", "Daganbhuiyan", "Chhagalnaiya", "Sonagazi", "Parshuram", "Fulgazi"] },
+            { district: "Brahmanbaria", thanas: ["Brahmanbaria Sadar", "Ashuganj", "Bancharampur", "Kasba", "Nabinagar", "Nasirnagar", "Sarail", "Bijoynagar", "Akhaura"] },
+            { district: "Chandpur", thanas: ["Chandpur Sadar", "Faridganj", "Haimchar", "Haziganj", "Kachua", "Matlab Dakshin", "Matlab Uttar", "Shahrasti"] },
+            { district: "Lakshmipur", thanas: ["Lakshmipur Sadar", "Raipur", "Ramganj", "Ramgati", "Kamalnagar"] },
+            { district: "Sunamganj", thanas: ["Sunamganj Sadar", "Bishwamvarpur", "Chhatak", "Derai", "Dharamapasha", "Dowarabazar", "Jagannathpur", "Jamalganj", "Sullah", "Tahirpur", "South Sunamganj"] },
+            { district: "Habiganj", thanas: ["Habiganj Sadar", "Ajmiriganj", "Bahubal", "Baniachang", "Chunarughat", "Lakhai", "Madhabpur", "Nabiganj", "Shayestaganj"] },
+            { district: "Maulvibazar", thanas: ["Maulvibazar Sadar", "Barlekha", "Juri", "Kulaura", "Rajnagar", "Sreemangal", "Kamalganj"] },
+            { district: "Pabna", thanas: ["Pabna Sadar", "Atgharia", "Bera", "Bhangura", "Chatmohar", "Faridpur", "Ishwardi", "Santhia", "Sujanagar"] },
+            { district: "Sirajganj", thanas: ["Sirajganj Sadar", "Belkuchi", "Chauhali", "Kamarkhanda", "Kazipur", "Rayganj", "Shahzadpur", "Tarash", "Ullahpara"] },
+            { district: "Natore", thanas: ["Natore Sadar", "Bagatipara", "Baraigram", "Gurudaspur", "Lalpur", "Singra", "Naldanga"] },
+            { district: "Naogaon", thanas: ["Naogaon Sadar", "Atrai", "Badalgachhi", "Manda", "Mahadebpur", "Niamatpur", "Patnitala", "Porsha", "Raninagar", "Sapahar", "Dhamoirhat"] },
+            { district: "Chapainawabganj", thanas: ["Chapainawabganj Sadar", "Gomostapur", "Nachole", "Bholahat", "Shibganj"] },
+            { district: "Joypurhat", thanas: ["Joypurhat Sadar", "Akkelpur", "Kalai", "Khetlal", "Panchbibi"] },
+            { district: "Dinajpur", thanas: ["Dinajpur Sadar", "Birampur", "Birganj", "Biral", "Bochaganj", "Chirirbandar", "Fulbari", "Ghoraghat", "Hakimpur", "Kaharole", "Khansama", "Nawabganj", "Parbatipur"] },
+            { district: "Thakurgaon", thanas: ["Thakurgaon Sadar", "Baliadangi", "Haripur", "Ranisankail", "Pirganj"] },
+            { district: "Panchagarh", thanas: ["Panchagarh Sadar", "Boda", "Debiganj", "Atwari", "Tetulia"] },
+            { district: "Gaibandha", thanas: ["Gaibandha Sadar", "Fulchhari", "Gobindaganj", "Palashbari", "Sadullapur", "Saghata", "Sundarganj"] },
+            { district: "Kurigram", thanas: ["Kurigram Sadar", "Bhurungamari", "Char Rajibpur", "Chilmari", "Phulbari", "Rajarhat", "Roumari", "Ulipur", "Nageshwari"] },
+            { district: "Lalmonirhat", thanas: ["Lalmonirhat Sadar", "Aditmari", "Kaliganj", "Hatibandha", "Patgram"] },
+            { district: "Nilphamari", thanas: ["Nilphamari Sadar", "Jaldhaka", "Kishoreganj", "Dimla", "Domar", "Saidpur"] },
+            { district: "Satkhira", thanas: ["Satkhira Sadar", "Assasuni", "Debhata", "Kalaroa", "Kaliganj", "Shyamnagar", "Tala"] },
+            { district: "Bagerhat", thanas: ["Bagerhat Sadar", "Chitalmari", "Fakirhat", "Kachua", "Mollahat", "Mongla", "Morrelganj", "Rampal", "Sarankhola"] },
+            { district: "Narail", thanas: ["Narail Sadar", "Kalia", "Lohagara"] },
+            { district: "Magura", thanas: ["Magura Sadar", "Mohammadpur", "Shalikha", "Sreepur"] },
+            { district: "Jhenaidah", thanas: ["Jhenaidah Sadar", "Harinakundu", "Kaliganj", "Kotchandpur", "Maheshpur", "Shailkupa"] },
+            { district: "Kushtia", thanas: ["Kushtia Sadar", "Bheramara", "Daulatpur", "Khoksa", "Kumarkhali", "Mirpur"] },
+            { district: "Chuadanga", thanas: ["Chuadanga Sadar", "Alamdanga", "Damurhuda", "Jibannagar"] },
+            { district: "Meherpur", thanas: ["Meherpur Sadar", "Gangni", "Mujibnagar"] },
+            { district: "Patuakhali", thanas: ["Patuakhali Sadar", "Bauphal", "Dashmina", "Dumki", "Galachipa", "Kalapara", "Mirzaganj", "Rangabali"] },
+            { district: "Bhola", thanas: ["Bhola Sadar", "Burhanuddin", "Char Fasson", "Daulatkhan", "Lalmohan", "Tazumuddin", "Monpura"] },
+            { district: "Pirojpur", thanas: ["Pirojpur Sadar", "Bhandaria", "Kawkhali", "Mathbaria", "Nazirpur", "Nesarabad", "Zianagar"] },
+            { district: "Jhalokati", thanas: ["Jhalokati Sadar", "Kathalia", "Nalchity", "Rajapur"] },
+            { district: "Barguna", thanas: ["Barguna Sadar", "Amtali", "Bamna", "Betagi", "Patharghata", "Taltali"] },
+            { district: "Kishoreganj", thanas: ["Kishoreganj Sadar", "Austagram", "Bajitpur", "Bhairab", "Hossainpur", "Itna", "Karimganj", "Katiadi", "Kuliarchar", "Mithamain", "Nikli", "Pakundia", "Tarail"] },
+            { district: "Manikganj", thanas: ["Manikganj Sadar", "Daulatpur", "Ghior", "Harirampur", "Saturia", "Shivalaya", "Singair"] },
+            { district: "Munshiganj", thanas: ["Munshiganj Sadar", "Gazaria", "Lohajang", "Sirajdikhan", "Sreenagar", "Tongibari"] },
+            { district: "Rajbari", thanas: ["Rajbari Sadar", "Baliakandi", "Goalandaghat", "Pangsha", "Kalukhali"] },
+            { district: "Shariatpur", thanas: ["Shariatpur Sadar", "Bhedarganj", "Damudya", "Gosairhat", "Naria", "Zajira"] },
+            { district: "Madaripur", thanas: ["Madaripur Sadar", "Kalkini", "Rajoir", "Shibchar", "Dasar"] },
+            { district: "Gopalganj", thanas: ["Gopalganj Sadar", "Kashiani", "Kotalipara", "Muksudpur", "Tungipara"] },
+            { district: "Sherpur", thanas: ["Sherpur Sadar", "Jhenaigati", "Nakla", "Nalitabari", "Sreebordi"] },
+            { district: "Netrokona", thanas: ["Netrokona Sadar", "Atpara", "Barhatta", "Durgapur", "Kalmakanda", "Kendua", "Khaliajuri", "Madan", "Mohanganj", "Purbadhala"] }
+        ];
 
         const translations = {
             bn: {
@@ -415,6 +495,13 @@
                 cat_mobile: "মোবাইল",
                 cat_electronics: "ইলেকট্রনিক্স",
                 cat_vehicles: "যানবাহন",
+                cat_fashion: "ফ্যাশন",
+                cat_beauty: "বিউটি ও কেয়ার",
+                cat_services: "সার্ভিসেস",
+                cat_tools: "টুলস ও হার্ডওয়্যার",
+                cat_kids: "বেবি ও চিলড্রেন",
+                cat_pets: "পশু ও পাখি",
+                cat_farm: "কৃষি ও ফার্ম",
                 recent_ads: "সাম্প্রতিক বিজ্ঞাপনসমূহ",
                 no_ads: "কোনো বিজ্ঞাপন পাওয়া যায়নি।",
                 btn_call: "📞 কল করুন",
@@ -424,7 +511,6 @@
                 lbl_category: "ক্যাটাগরি",
                 lbl_price: "মূল্য (টাকা)",
                 lbl_phone: "ফোন নম্বর",
-                lbl_location: "লোকেশন",
                 lbl_photo: "পণ্যের ছবি",
                 lbl_desc: "বিবরণ",
                 btn_publish: "পাবলিশ করুন",
@@ -450,6 +536,13 @@
                 cat_mobile: "Mobile",
                 cat_electronics: "Electronics",
                 cat_vehicles: "Vehicles",
+                cat_fashion: "Fashion",
+                cat_beauty: "Beauty & Care",
+                cat_services: "Services",
+                cat_tools: "Tools & Hardware",
+                cat_kids: "Baby & Kids",
+                cat_pets: "Pets & Animals",
+                cat_farm: "Farm & Agriculture",
                 recent_ads: "Recent Ads",
                 no_ads: "No ads found.",
                 btn_call: "📞 Call Now",
@@ -459,7 +552,6 @@
                 lbl_category: "Category",
                 lbl_price: "Price (Tk)",
                 lbl_phone: "Phone Number",
-                lbl_location: "Location",
                 lbl_photo: "Product Photo",
                 lbl_desc: "Description",
                 btn_publish: "Publish Ad",
@@ -476,6 +568,33 @@
                 seller: "Seller",
                 unknown: "Unknown",
                 location_lbl: "Location: "
+            }
+        };
+
+        function initDistricts() {
+            const districtSelect = document.getElementById('postDistrict');
+            districtSelect.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
+            bdLocations.forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item.district;
+                opt.textContent = item.district;
+                districtSelect.appendChild(opt);
+            });
+        }
+
+        window.loadThanas = function() {
+            const selectedDistrict = document.getElementById('postDistrict').value;
+            const thanaSelect = document.getElementById('postThana');
+            thanaSelect.innerHTML = '<option value="">থানা / উপজেলা নির্বাচন করুন</option>';
+            
+            const found = bdLocations.find(item => item.district === selectedDistrict);
+            if (found) {
+                found.thanas.forEach(thana => {
+                    const opt = document.createElement('option');
+                    opt.value = thana;
+                    opt.textContent = thana;
+                    thanaSelect.appendChild(opt);
+                });
             }
         };
 
@@ -546,7 +665,6 @@
                     allAds.push({ id: doc.id, ...doc.data() });
                 });
                 
-                // Featured পোস্টগুলো সবার উপরে থাকবে
                 allAds.sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
                 
                 renderAds(allAds);
@@ -596,9 +714,12 @@
 
             const submitBtn = document.getElementById('submitBtn');
             const file = document.getElementById('postFile').files[0];
+            const district = document.getElementById('postDistrict').value;
+            const thana = document.getElementById('postThana').value;
             const t = translations[currentLang];
 
             if(!file) return alert("Select an image!");
+            if(!district || !thana) return alert("অনুগ্রহ করে জেলা এবং থানা সিলেক্ট করুন!");
 
             submitBtn.innerText = currentLang === 'bn' ? "ছবি আপলোড হচ্ছে..." : "Uploading Photo...";
             submitBtn.disabled = true;
@@ -613,7 +734,7 @@
                     category: document.getElementById('postCategory').value.toLowerCase(),
                     price: document.getElementById('postPrice').value,
                     phone: document.getElementById('postPhone').value,
-                    location: document.getElementById('postLocation').value,
+                    location: `${thana}, ${district}`,
                     img: downloadURL,
                     desc: document.getElementById('postDesc').value,
                     isFeatured: false,
@@ -736,7 +857,14 @@
                 const categoryNames = {
                     'mobile': t.cat_mobile,
                     'electronics': t.cat_electronics,
-                    'vehicles': t.cat_vehicles
+                    'vehicles': t.cat_vehicles,
+                    'fashion': t.cat_fashion,
+                    'beauty': t.cat_beauty,
+                    'services': t.cat_services,
+                    'tools': t.cat_tools,
+                    'kids': t.cat_kids,
+                    'pets': t.cat_pets,
+                    'farm': t.cat_farm
                 };
                 const suffix = currentLang === 'bn' ? ' বিজ্ঞাপনসমূহ' : ' Ads';
                 document.getElementById('sectionTitle').innerText = (categoryNames[cat] || cat) + suffix;
@@ -756,6 +884,7 @@
         window.onload = function() {
             fetchAdsFromFirebase();
             applyTranslations();
+            initDistricts();
         };
     </script>
 </body>
