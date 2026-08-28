@@ -8,6 +8,8 @@
     <!-- Firebase Compat SDK Links -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <style>
         :root {
@@ -65,7 +67,6 @@
 
         .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
 
-        /* Category Bar */
         .category-bar {
             display: flex;
             gap: 10px;
@@ -99,6 +100,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             cursor: pointer;
             transition: transform 0.2s;
+            position: relative;
         }
 
         body.dark-mode .card { background-color: var(--card-bg-dark); }
@@ -109,7 +111,6 @@
         .card-price { color: var(--primary); font-size: 18px; font-weight: bold; margin-bottom: 8px; }
         .card-location { font-size: 12px; color: #777; }
 
-        /* Modal Layout */
         .modal {
             display: none;
             position: fixed;
@@ -142,7 +143,16 @@
             width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
         }
 
-        /* Mobile Bottom Navigation */
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-call { flex: 1; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+        .btn-wa { flex: 1; padding: 12px; background: #25D366; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+        .btn-delete { width: 100%; padding: 10px; background: #dc3545; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
         .bottom-nav {
             position: fixed;
             bottom: 0; left: 0; width: 100%;
@@ -185,7 +195,6 @@
     </header>
 
     <div class="container">
-        <!-- Category Filter Buttons -->
         <div class="category-bar">
             <button class="cat-btn" onclick="filterCategory('all')">সব বিজ্ঞাপন</button>
             <button class="cat-btn" onclick="filterCategory('mobile')">মোবাইল</button>
@@ -205,12 +214,18 @@
             <h3 id="modalTitle"></h3>
             <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:20px;"></p>
             <p id="modalLocation" style="color:#777;"></p>
+            <p id="modalSeller" style="font-size:13px; color:#555;"></p>
             <p id="modalDesc"></p>
-            <button style="width:100%; padding:12px; background:green; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="alert('বিক্রেতার সাথে যোগাযোগ করা হচ্ছে...')">কল করুন</button>
+
+            <div class="action-btns">
+                <a id="callLink" href="#" class="btn-call">📞 কল করুন</a>
+                <a id="waLink" href="#" target="_blank" class="btn-wa">💬 WhatsApp</a>
+            </div>
+            <div id="deleteContainer"></div>
         </div>
     </div>
 
-    <!-- 2. Post New Ad Modal (+ পোস্ট বাটন) -->
+    <!-- 2. Post New Ad Modal -->
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
@@ -233,12 +248,16 @@
                     <input type="text" id="postPrice" required placeholder="যেমন: ২৫,০০০ টাকা">
                 </div>
                 <div class="form-group">
+                    <label>ফোন নম্বর (যোগাযোগের জন্য)</label>
+                    <input type="tel" id="postPhone" required placeholder="যেমন: 018XXXXXXXX">
+                </div>
+                <div class="form-group">
                     <label>লোকেশন</label>
                     <input type="text" id="postLocation" required placeholder="যেমন: চট্টগ্রাম">
                 </div>
                 <div class="form-group">
-                    <label>ছবি (Image URL)</label>
-                    <input type="url" id="postImg" required placeholder="https://images.unsplash.com/...">
+                    <label>পণ্যের ছবি (গ্যালারি থেকে সিলেক্ট করুন)</label>
+                    <input type="file" id="postFile" accept="image/*" required>
                 </div>
                 <div class="form-group">
                     <label>বিবরণ</label>
@@ -249,16 +268,13 @@
         </div>
     </div>
 
-    <!-- 3. Account Modal (অ্যাকাউন্ট বাটন) -->
+    <!-- 3. Account Modal -->
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
             <h3>আপনার অ্যাকাউন্ট</h3>
             <hr><br>
-            <p><strong>ইউজার:</strong> নদীম টেলিকম</p>
-            <p><strong>স্ট্যাটাস:</strong> অ্যাক্টিভ মেম্বার</p>
-            <p><strong>পোস্ট করা বিজ্ঞাপন:</strong> <span id="myAdsCount">০</span> টি</p>
-            <button style="width:100%; padding:10px; background:#d32f2f; color:white; border:none; border-radius:5px; cursor:pointer; margin-top:15px;" onclick="alert('লগআউট সফল হয়েছে')">লগআউট</button>
+            <div id="authContent"></div>
         </div>
     </div>
 
@@ -266,16 +282,16 @@
     <nav class="bottom-nav">
         <button class="nav-item" onclick="filterCategory('all')">হোম</button>
         <button class="nav-item" onclick="scrollToCategories()">ক্যাটাগরি</button>
-        <button class="nav-item" onclick="openModal('postAdModal')">+ পোস্ট</button>
+        <button class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
         <button class="nav-item" onclick="openModal('accountModal')">অ্যাকাউন্ট</button>
     </nav>
 
     <script>
         // ----------------------------------------------------
-        // Firebase Config (আপনাদের স্ক্রিনশট থেকে নেওয়া)
+        // Firebase Config
         // ----------------------------------------------------
         const firebaseConfig = {
-            apiKey: "AIzaSyCFAZIX-TS2_gyWFP0IEur...", // আপনার আসল ক্যারেক্টারগুলো থাকবে
+            apiKey: "AIzaSyCFAZIX-TS2_gyWFP0IEur...", // আপনার আগের API Key
             authDomain: "baza-30f91.firebaseapp.com",
             projectId: "baza-30f91",
             storageBucket: "baza-30f91.firebasestorage.app",
@@ -284,15 +300,51 @@
             measurementId: "G-ETYZ29DWQH"
         };
 
-        // Firebase Initializing
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const storage = firebase.storage();
+        const auth = firebase.auth();
 
+        let currentUser = null;
         let allAds = [];
 
-        // ----------------------------------------------------
-        // Firebase থেকে ডাটা রিয়েলটাইমে লোড করা
-        // ----------------------------------------------------
+        // Auth state observer
+        auth.onAuthStateChanged(user => {
+            currentUser = user;
+            renderAuthUI();
+        });
+
+        function loginWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).catch(error => {
+                alert("লগইন ব্যর্থ হয়েছে: " + error.message);
+            });
+        }
+
+        function logout() {
+            auth.signOut().then(() => {
+                alert("লগআউট সফল হয়েছে!");
+            });
+        }
+
+        function renderAuthUI() {
+            const container = document.getElementById('authContent');
+            if(currentUser) {
+                const myAds = allAds.filter(a => a.userId === currentUser.uid);
+                container.innerHTML = `
+                    <p><strong>নাম:</strong> ${currentUser.displayName}</p>
+                    <p><strong>ইমেইল:</strong> ${currentUser.email}</p>
+                    <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length} টি</p>
+                    <button style="width:100%; padding:10px; background:#dc3545; color:white; border:none; border-radius:5px; cursor:pointer; margin-top:15px;" onclick="logout()">লগআউট</button>
+                `;
+            } else {
+                container.innerHTML = `
+                    <p style="text-align:center;">বিজ্ঞাপন পোস্ট করতে বা নিয়ন্ত্রণ করতে লগইন করুন</p>
+                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="loginWithGoogle()">Google দিয়ে লগইন করুন</button>
+                `;
+            }
+        }
+
         function fetchAdsFromFirebase() {
             db.collection("ads").orderBy("createdAt", "desc").onSnapshot(snapshot => {
                 allAds = [];
@@ -300,9 +352,7 @@
                     allAds.push({ id: doc.id, ...doc.data() });
                 });
                 renderAds(allAds);
-                document.getElementById('myAdsCount').innerText = allAds.length;
-            }, error => {
-                console.error("Firebase fetch error: ", error);
+                if(currentUser) renderAuthUI();
             });
         }
 
@@ -327,37 +377,89 @@
             });
         }
 
-        // ----------------------------------------------------
-        // Firebase-এ নতুন বিজ্ঞাপন জমা করা
-        // ----------------------------------------------------
+        function openPostModal() {
+            if(!currentUser) {
+                alert("বিজ্ঞাপন পোস্ট করতে আপনাকে অবশ্যই Google দিয়ে লগইন করতে হবে।");
+                openModal('accountModal');
+            } else {
+                openModal('postAdModal');
+            }
+        }
+
         function handlePostAd(event) {
             event.preventDefault();
+            if(!currentUser) return alert("লগইন করুন!");
+
             const submitBtn = document.getElementById('submitBtn');
-            submitBtn.innerText = "পোস্ট হচ্ছে...";
+            const file = document.getElementById('postFile').files[0];
+
+            if(!file) return alert("ছবি নির্বাচন করুন!");
+
+            submitBtn.innerText = "ছবি আপলোড হচ্ছে...";
             submitBtn.disabled = true;
 
-            const newAd = {
-                title: document.getElementById('postTitle').value,
-                category: document.getElementById('postCategory').value,
-                price: document.getElementById('postPrice').value,
-                location: document.getElementById('postLocation').value,
-                img: document.getElementById('postImg').value,
-                desc: document.getElementById('postDesc').value,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            };
-
-            db.collection("ads").add(newAd).then(() => {
+            const storageRef = storage.ref('baza_photos/' + Date.now() + '_' + file.name);
+            storageRef.put(file).then(snapshot => {
+                return snapshot.ref.getDownloadURL();
+            }).then(downloadURL => {
+                submitBtn.innerText = "ডাটা সেভ হচ্ছে...";
+                const newAd = {
+                    title: document.getElementById('postTitle').value,
+                    category: document.getElementById('postCategory').value,
+                    price: document.getElementById('postPrice').value,
+                    phone: document.getElementById('postPhone').value,
+                    location: document.getElementById('postLocation').value,
+                    img: downloadURL,
+                    desc: document.getElementById('postDesc').value,
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                return db.collection("ads").add(newAd);
+            }).then(() => {
                 submitBtn.innerText = "পাবলিশ করুন";
                 submitBtn.disabled = false;
                 closeModal('postAdModal');
                 event.target.reset();
-                alert('আপনার বিজ্ঞাপনটি সফলভাবে ফায়ারবেসে পোস্ট হয়েছে!');
+                alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
             }).catch(error => {
-                console.error("Post error: ", error);
-                alert("পোস্ট করতে সমস্যা হয়েছে। Firebase Rules চেক করুন।");
+                console.error(error);
+                alert("পোস্ট করতে ব্যর্থ হয়েছে!");
                 submitBtn.innerText = "পাবলিশ করুন";
                 submitBtn.disabled = false;
             });
+        }
+
+        function openProductDetail(id) {
+            const ad = allAds.find(a => a.id === id);
+            if(ad) {
+                document.getElementById('modalTitle').innerText = ad.title;
+                document.getElementById('modalPrice').innerText = ad.price;
+                document.getElementById('modalLocation').innerText = 'লোকেশন: ' + ad.location;
+                document.getElementById('modalSeller').innerText = 'বিক্রেতা: ' + (ad.userName || 'অজানা');
+                document.getElementById('modalDesc').innerText = ad.desc;
+                document.getElementById('modalImg').src = ad.img;
+                
+                document.getElementById('callLink').href = "tel:" + ad.phone;
+                document.getElementById('waLink').href = "https://wa.me/88" + ad.phone;
+
+                const delContainer = document.getElementById('deleteContainer');
+                delContainer.innerHTML = '';
+                if(currentUser && ad.userId === currentUser.uid) {
+                    delContainer.innerHTML = `<button class="btn-delete" onclick="deleteAd('${ad.id}')">বিজ্ঞাপন ডিলিট করুন</button>`;
+                }
+
+                openModal('productModal');
+            }
+        }
+
+        function deleteAd(id) {
+            if(confirm("আপনি কি নিশ্চিত যে বিজ্ঞাপনটি মুছে ফেলতে চান?")) {
+                db.collection("ads").doc(id).delete().then(() => {
+                    closeModal('productModal');
+                    alert("বিজ্ঞাপন ডিলিট সম্পন্ন হয়েছে!");
+                });
+            }
         }
 
         function filterAds() {
@@ -378,35 +480,11 @@
             }
         }
 
-        function scrollToCategories() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
+        function scrollToCategories() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function toggleTheme() { document.body.classList.toggle('dark-mode'); }
 
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        function openProductDetail(id) {
-            const ad = allAds.find(a => a.id === id);
-            if(ad) {
-                document.getElementById('modalTitle').innerText = ad.title;
-                document.getElementById('modalPrice').innerText = ad.price;
-                document.getElementById('modalLocation').innerText = 'লোকেশন: ' + ad.location;
-                document.getElementById('modalDesc').innerText = ad.desc;
-                document.getElementById('modalImg').src = ad.img;
-                openModal('productModal');
-            }
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-        }
-
-        // পেজ লোড হলেই ডাটাবেজ থেকে বিজ্ঞাপন নিয়ে আসবে
         window.onload = fetchAdsFromFirebase;
     </script>
 </body>
