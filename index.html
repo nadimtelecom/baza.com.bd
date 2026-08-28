@@ -216,7 +216,6 @@
             padding: 14px 0;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
             z-index: 3000;
-            pointer-events: auto;
         }
 
         .nav-item {
@@ -231,10 +230,7 @@
             flex: 1;
             padding: 5px 0;
             outline: none;
-            -webkit-tap-highlight-color: transparent;
         }
-
-        .nav-item:active { opacity: 0.7; }
 
         @media (min-width: 768px) {
             .bottom-nav { display: none; }
@@ -281,6 +277,7 @@
         <div class="grid" id="adsGrid"></div>
     </div>
 
+    <!-- Modals -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
@@ -372,7 +369,6 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
             <h3>⚙️ Admin Income & Control Panel</h3>
-            <p style="font-size:13px; color:#666;">বিজ্ঞাপন প্রমোট (Featured) করুন এবং ম্যানেজ করুন</p>
             <hr><br>
             <div id="adminAdsList"></div>
         </div>
@@ -382,12 +378,11 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('promoteInfoModal')">&times;</span>
             <h3 style="color:var(--accent);">🚀 আপনার বিজ্ঞাপন Featured করুন</h3>
-            <p>আপনার বিজ্ঞাপনটি সবার উপরে টপ পজিশনে দেখাতে এবং দ্রুত বিক্রি করতে প্রমোট করুন!</p>
+            <p>আপনার বিজ্ঞাপনটি টপ পজিশনে দেখাতে প্রমোট করুন!</p>
             <div style="background:#fff3cd; color:#333; padding:12px; border-radius:5px; margin:10px 0; font-size:14px;">
                 <strong>পেমেন্ট নিয়মাবলি:</strong><br>
                 ১. bKash / Nagad Send Money করুন: <strong>01800000000</strong> (Personal)<br>
-                ২. চার্জ: <strong>১০০ টাকা (৭ দিনের জন্য)</strong><br>
-                ৩. টাকা পাঠিয়ে হোয়াটসঅ্যাপ বা ফোন করে আপনার Ads-এর নাম বলুন।
+                ২. চার্জ: <strong>১০০ টাকা (৭ দিনের জন্য)</strong>
             </div>
             <a href="https://wa.me/8801800000000?text=I%20want%20to%20promote%20my%20ad" target="_blank" class="btn-wa" style="display:block; text-align:center;">💬 WhatsApp-এ পেমেন্ট কনফার্ম করুন</a>
         </div>
@@ -429,61 +424,7 @@
             { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel", "Ramna", "Pallabi", "Cantonment", "Badda", "Khilkhet", "Lalbagh", "Hazaribagh", "Demra", "Kadamtali", "Shyampur", "Sutrapur", "Wari", "Sabujbagh", "Khilgaon", "Malibagh", "Bashundhara", "Savar", "Keraniganj", "Dohar", "Nawabganj", "Nabinagar"] },
             { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Kutubdia", "Ukhiya", "Teknaf", "Pekua", "Ramu", "Maheshkhali"] },
             { district: "Sylhet", thanas: ["Sylhet Sadar", "Beanibazar", "Bishwanath", "Companiganj", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Zakiganj"] },
-            { district: "Rajshahi", thanas: ["Boalia", "Rajpara", "Motihar", "Shah Makhdum", "Paba", "Durgapur", "Mohanpur", "Charghat", "Bagha", "Tanore", "Godagari"] },
-            { district: "Khulna", thanas: ["Sonadanga", "Khalishpur", "Daulatpur", "Khan Jahan Ali", "Kotwali", "Harintana", "Aranghata", "Batiaghata", "Dacope", "Dumuria", "Dighalia", "Koyra", "Paikgachha", "Rupsa", "Terokhada"] },
-            { district: "Barishal", thanas: ["Barishal Sadar", "Bakerganj", "Babuganj", "Wazirpur", "Banaripara", "Agailjhara", "Gournadi", "Muladi", "Mehendiganj", "Hizla"] },
-            { district: "Rangpur", thanas: ["Rangpur Sadar", "Badarganj", "Gangachara", "Kaunia", "Mithapukur", "Pirgachha", "Pirganj", "Taraganj"] },
-            { district: "Comilla", thanas: ["Comilla Sadar", "Brahmanpara", "Burichong", "Chandina", "Chauddagram", "Daudkandi", "Debidwar", "Homna", "Laksam", "Muradnagar", "Nangalkot", "Monohorganj", "Titas"] },
-            { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Kaliganj", "Kapasia", "Sreepur", "Tongi"] },
-            { district: "Narayanganj", thanas: ["Narayanganj Sadar", "Bandar", "Araihazar", "Sonargaon", "Rupganj"] },
-            { district: "Tangail", thanas: ["Tangail Sadar", "Basail", "Bhuapur", "Delduar", "Ghatail", "Gopalpur", "Kalihati", "Madhupur", "Mirzapur", "Nagarpur", "Sakhipur", "Dhanbari"] },
-            { district: "Mymensingh", thanas: ["Mymensingh Sadar", "Bhaluka", "Dhobaura", "Fulbaria", "Gaffargaon", "Gauripur", "Haluaghat", "Ishwarganj", "Muktagachha", "Nandail", "Phulpur", "Trishal"] },
-            { district: "Bogra", thanas: ["Bogra Sadar", "Adamdighi", "Dhunat", "Dhupchanchia", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Sherpur", "Shibganj", "Sonatala"] },
-            { district: "Jessore", thanas: ["Jessore Sadar", "Abhaynagar", "Bagherpara", "Chaugachha", "Jhikargachha", "Keshabpur", "Manirampur", "Sharsha"] },
-            { district: "Faridpur", thanas: ["Faridpur Sadar", "Alfadanga", "Bhanga", "Boalmari", "Charbhadrasan", "Madhukhali", "Nagarkanda", "Sadarpur", "Saltha"] },
-            { district: "Noakhali", thanas: ["Noakhali Sadar", "Begumganj", "Chatkhil", "Companiganj", "Hatia", "Kabirhat", "Senbagh", "Subarnachar", "Sonaimuri"] },
-            { district: "Feni", thanas: ["Feni Sadar", "Daganbhuiyan", "Chhagalnaiya", "Sonagazi", "Parshuram", "Fulgazi"] },
-            { district: "Brahmanbaria", thanas: ["Brahmanbaria Sadar", "Ashuganj", "Bancharampur", "Kasba", "Nabinagar", "Nasirnagar", "Sarail", "Bijoynagar", "Akhaura"] },
-            { district: "Chandpur", thanas: ["Chandpur Sadar", "Faridganj", "Haimchar", "Haziganj", "Kachua", "Matlab Dakshin", "Matlab Uttar", "Shahrasti"] },
-            { district: "Lakshmipur", thanas: ["Lakshmipur Sadar", "Raipur", "Ramganj", "Ramgati", "Kamalnagar"] },
-            { district: "Sunamganj", thanas: ["Sunamganj Sadar", "Bishwamvarpur", "Chhatak", "Derai", "Dharamapasha", "Dowarabazar", "Jagannathpur", "Jamalganj", "Sullah", "Tahirpur", "South Sunamganj"] },
-            { district: "Habiganj", thanas: ["Habiganj Sadar", "Ajmiriganj", "Bahubal", "Baniachang", "Chunarughat", "Lakhai", "Madhabpur", "Nabiganj", "Shayestaganj"] },
-            { district: "Maulvibazar", thanas: ["Maulvibazar Sadar", "Barlekha", "Juri", "Kulaura", "Rajnagar", "Sreemangal", "Kamalganj"] },
-            { district: "Pabna", thanas: ["Pabna Sadar", "Atgharia", "Bera", "Bhangura", "Chatmohar", "Faridpur", "Ishwardi", "Santhia", "Sujanagar"] },
-            { district: "Sirajganj", thanas: ["Sirajganj Sadar", "Belkuchi", "Chauhali", "Kamarkhanda", "Kazipur", "Rayganj", "Shahzadpur", "Tarash", "Ullahpara"] },
-            { district: "Natore", thanas: ["Natore Sadar", "Bagatipara", "Baraigram", "Gurudaspur", "Lalpur", "Singra", "Naldanga"] },
-            { district: "Naogaon", thanas: ["Naogaon Sadar", "Atrai", "Badalgachhi", "Manda", "Mahadebpur", "Niamatpur", "Patnitala", "Porsha", "Raninagar", "Sapahar", "Dhamoirhat"] },
-            { district: "Chapainawabganj", thanas: ["Chapainawabganj Sadar", "Gomostapur", "Nachole", "Bholahat", "Shibganj"] },
-            { district: "Joypurhat", thanas: ["Joypurhat Sadar", "Akkelpur", "Kalai", "Khetlal", "Panchbibi"] },
-            { district: "Dinajpur", thanas: ["Dinajpur Sadar", "Birampur", "Birganj", "Biral", "Bochaganj", "Chirirbandar", "Fulbari", "Ghoraghat", "Hakimpur", "Kaharole", "Khansama", "Nawabganj", "Parbatipur"] },
-            { district: "Thakurgaon", thanas: ["Thakurgaon Sadar", "Baliadangi", "Haripur", "Ranisankail", "Pirganj"] },
-            { district: "Panchagarh", thanas: ["Panchagarh Sadar", "Boda", "Debiganj", "Atwari", "Tetulia"] },
-            { district: "Gaibandha", thanas: ["Gaibandha Sadar", "Fulchhari", "Gobindaganj", "Palashbari", "Sadullapur", "Saghata", "Sundarganj"] },
-            { district: "Kurigram", thanas: ["Kurigram Sadar", "Bhurungamari", "Char Rajibpur", "Chilmari", "Phulbari", "Rajarhat", "Roumari", "Ulipur", "Nageshwari"] },
-            { district: "Lalmonirhat", thanas: ["Lalmonirhat Sadar", "Aditmari", "Kaliganj", "Hatibandha", "Patgram"] },
-            { district: "Nilphamari", thanas: ["Nilphamari Sadar", "Jaldhaka", "Kishoreganj", "Dimla", "Domar", "Saidpur"] },
-            { district: "Satkhira", thanas: ["Satkhira Sadar", "Assasuni", "Debhata", "Kalaroa", "Kaliganj", "Shyamnagar", "Tala"] },
-            { district: "Bagerhat", thanas: ["Bagerhat Sadar", "Chitalmari", "Fakirhat", "Kachua", "Mollahat", "Mongla", "Morrelganj", "Rampal", "Sarankhola"] },
-            { district: "Narail", thanas: ["Narail Sadar", "Kalia", "Lohagara"] },
-            { district: "Magura", thanas: ["Magura Sadar", "Mohammadpur", "Shalikha", "Sreepur"] },
-            { district: "Jhenaidah", thanas: ["Jhenaidah Sadar", "Harinakundu", "Kaliganj", "Kotchandpur", "Maheshpur", "Shailkupa"] },
-            { district: "Kushtia", thanas: ["Kushtia Sadar", "Bheramara", "Daulatpur", "Khoksa", "Kumarkhali", "Mirpur"] },
-            { district: "Chuadanga", thanas: ["Chuadanga Sadar", "Alamdanga", "Damurhuda", "Jibannagar"] },
-            { district: "Meherpur", thanas: ["Meherpur Sadar", "Gangni", "Mujibnagar"] },
-            { district: "Patuakhali", thanas: ["Patuakhali Sadar", "Bauphal", "Dashmina", "Dumki", "Galachipa", "Kalapara", "Mirzaganj", "Rangabali"] },
-            { district: "Bhola", thanas: ["Bhola Sadar", "Burhanuddin", "Char Fasson", "Daulatkhan", "Lalmohan", "Tazumuddin", "Monpura"] },
-            { district: "Pirojpur", thanas: ["Pirojpur Sadar", "Bhandaria", "Kawkhali", "Mathbaria", "Nazirpur", "Nesarabad", "Zianagar"] },
-            { district: "Jhalokati", thanas: ["Jhalokati Sadar", "Kathalia", "Nalchity", "Rajapur"] },
-            { district: "Barguna", thanas: ["Barguna Sadar", "Amtali", "Bamna", "Betagi", "Patharghata", "Taltali"] },
-            { district: "Kishoreganj", thanas: ["Kishoreganj Sadar", "Austagram", "Bajitpur", "Bhairab", "Hossainpur", "Itna", "Karimganj", "Katiadi", "Kuliarchar", "Mithamain", "Nikli", "Pakundia", "Tarail"] },
-            { district: "Manikganj", thanas: ["Manikganj Sadar", "Daulatpur", "Ghior", "Harirampur", "Saturia", "Shivalaya", "Singair"] },
-            { district: "Munshiganj", thanas: ["Munshiganj Sadar", "Gazaria", "Lohajang", "Sirajdikhan", "Sreenagar", "Tongibari"] },
-            { district: "Rajbari", thanas: ["Rajbari Sadar", "Baliakandi", "Goalandaghat", "Pangsha", "Kalukhali"] },
-            { district: "Shariatpur", thanas: ["Shariatpur Sadar", "Bhedarganj", "Damudya", "Gosairhat", "Naria", "Zajira"] },
-            { district: "Madaripur", thanas: ["Madaripur Sadar", "Kalkini", "Rajoir", "Shibchar", "Dasar"] },
-            { district: "Gopalganj", thanas: ["Gopalganj Sadar", "Kashiani", "Kotalipara", "Muksudpur", "Tungipara"] },
-            { district: "Sherpur", thanas: ["Sherpur Sadar", "Jhenaigati", "Nakla", "Nalitabari", "Sreebordi"] },
-            { district: "Netrokona", thanas: ["Netrokona Sadar", "Atpara", "Barhatta", "Durgapur", "Kalmakanda", "Kendua", "Khaliajuri", "Madan", "Mohanganj", "Purbadhala"] }
+            { district: "Rajshahi", thanas: ["Boalia", "Rajpara", "Motihar", "Shah Makhdum", "Paba", "Durgapur", "Mohanpur", "Charghat", "Bagha", "Tanore", "Godagari"] }
         ];
 
         const translations = {
@@ -573,6 +514,7 @@
 
         function initDistricts() {
             const districtSelect = document.getElementById('postDistrict');
+            if(!districtSelect) return;
             districtSelect.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
             bdLocations.forEach(item => {
                 const opt = document.createElement('option');
@@ -664,9 +606,7 @@
                 snapshot.forEach(doc => {
                     allAds.push({ id: doc.id, ...doc.data() });
                 });
-                
                 allAds.sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
-                
                 renderAds(allAds);
                 if(currentUser) renderAuthUI();
             }, error => {
