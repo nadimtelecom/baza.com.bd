@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baza.com.bd - ক্রয় ও বিক্রয় করুন সহজে</title>
+    
+    <!-- Firebase Compat SDK Links -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
     <style>
         :root {
             --primary: #00838f;
@@ -239,7 +244,7 @@
                     <label>বিবরণ</label>
                     <textarea id="postDesc" rows="3" required></textarea>
                 </div>
-                <button type="submit" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
+                <button type="submit" id="submitBtn" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
             </form>
         </div>
     </div>
@@ -266,12 +271,40 @@
     </nav>
 
     <script>
-        // Working Image Links
-        let sampleAds = [
-            { id: 1, category: 'mobile', title: 'Redmi Note 13 Pro 5G', price: '২৪,০০০ টাকা', location: 'চট্টগ্রাম', desc: 'একদম নতুন কন্ডিশন, সাথে বক্স ও চার্জার আছে।', img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500' },
-            { id: 2, category: 'vehicles', title: 'Duranta Bicycle 24 inch', price: '৬,৫০৮ টাকা', location: 'ঢাকা', desc: 'কম ব্যবহৃত সাইকেল, কোনো সমস্যা নেই।', img: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=500' },
-            { id: 3, category: 'electronics', title: 'Walton Refrigerator 217L', price: '৩২,৫০০ টাকা', location: 'চট্টগ্রাম', desc: 'নো-ফ্রস্ট ফ্রিজ, ২ বছর সার্ভিস ওয়ারেন্টি আছে।', img: 'https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=500' }
-        ];
+        // ----------------------------------------------------
+        // Firebase Config (আপনাদের স্ক্রিনশট থেকে নেওয়া)
+        // ----------------------------------------------------
+        const firebaseConfig = {
+            apiKey: "AIzaSyCFAZIX-TS2_gyWFP0IEur...", // আপনার আসল ক্যারেক্টারগুলো থাকবে
+            authDomain: "baza-30f91.firebaseapp.com",
+            projectId: "baza-30f91",
+            storageBucket: "baza-30f91.firebasestorage.app",
+            messagingSenderId: "637633219909",
+            appId: "1:637633219909:web:6f2c6f49c...",
+            measurementId: "G-ETYZ29DWQH"
+        };
+
+        // Firebase Initializing
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let allAds = [];
+
+        // ----------------------------------------------------
+        // Firebase থেকে ডাটা রিয়েলটাইমে লোড করা
+        // ----------------------------------------------------
+        function fetchAdsFromFirebase() {
+            db.collection("ads").orderBy("createdAt", "desc").onSnapshot(snapshot => {
+                allAds = [];
+                snapshot.forEach(doc => {
+                    allAds.push({ id: doc.id, ...doc.data() });
+                });
+                renderAds(allAds);
+                document.getElementById('myAdsCount').innerText = allAds.length;
+            }, error => {
+                console.error("Firebase fetch error: ", error);
+            });
+        }
 
         function renderAds(ads) {
             const grid = document.getElementById('adsGrid');
@@ -282,7 +315,7 @@
             }
             ads.forEach(ad => {
                 grid.innerHTML += `
-                    <div class="card" onclick="openProductDetail(${ad.id})">
+                    <div class="card" onclick="openProductDetail('${ad.id}')">
                         <img src="${ad.img}" alt="${ad.title}">
                         <div class="card-content">
                             <div class="card-title">${ad.title}</div>
@@ -294,9 +327,42 @@
             });
         }
 
+        // ----------------------------------------------------
+        // Firebase-এ নতুন বিজ্ঞাপন জমা করা
+        // ----------------------------------------------------
+        function handlePostAd(event) {
+            event.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.innerText = "পোস্ট হচ্ছে...";
+            submitBtn.disabled = true;
+
+            const newAd = {
+                title: document.getElementById('postTitle').value,
+                category: document.getElementById('postCategory').value,
+                price: document.getElementById('postPrice').value,
+                location: document.getElementById('postLocation').value,
+                img: document.getElementById('postImg').value,
+                desc: document.getElementById('postDesc').value,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            db.collection("ads").add(newAd).then(() => {
+                submitBtn.innerText = "পাবলিশ করুন";
+                submitBtn.disabled = false;
+                closeModal('postAdModal');
+                event.target.reset();
+                alert('আপনার বিজ্ঞাপনটি সফলভাবে ফায়ারবেসে পোস্ট হয়েছে!');
+            }).catch(error => {
+                console.error("Post error: ", error);
+                alert("পোস্ট করতে সমস্যা হয়েছে। Firebase Rules চেক করুন।");
+                submitBtn.innerText = "পাবলিশ করুন";
+                submitBtn.disabled = false;
+            });
+        }
+
         function filterAds() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = sampleAds.filter(ad => ad.title.toLowerCase().includes(query) || ad.location.toLowerCase().includes(query));
+            const filtered = allAds.filter(ad => ad.title.toLowerCase().includes(query) || ad.location.toLowerCase().includes(query));
             renderAds(filtered);
         }
 
@@ -304,10 +370,10 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
             if(cat === 'all') {
                 document.getElementById('sectionTitle').innerText = 'সাম্প্রতিক বিজ্ঞাপনসমূহ';
-                renderAds(sampleAds);
+                renderAds(allAds);
             } else {
                 document.getElementById('sectionTitle').innerText = cat.toUpperCase() + ' বিজ্ঞাপনসমূহ';
-                const filtered = sampleAds.filter(ad => ad.category === cat);
+                const filtered = allAds.filter(ad => ad.category === cat);
                 renderAds(filtered);
             }
         }
@@ -325,7 +391,7 @@
         }
 
         function openProductDetail(id) {
-            const ad = sampleAds.find(a => a.id === id);
+            const ad = allAds.find(a => a.id === id);
             if(ad) {
                 document.getElementById('modalTitle').innerText = ad.title;
                 document.getElementById('modalPrice').innerText = ad.price;
@@ -336,29 +402,12 @@
             }
         }
 
-        function handlePostAd(event) {
-            event.preventDefault();
-            const newAd = {
-                id: Date.now(),
-                title: document.getElementById('postTitle').value,
-                category: document.getElementById('postCategory').value,
-                price: document.getElementById('postPrice').value,
-                location: document.getElementById('postLocation').value,
-                img: document.getElementById('postImg').value,
-                desc: document.getElementById('postDesc').value
-            };
-            sampleAds.unshift(newAd);
-            renderAds(sampleAds);
-            closeModal('postAdModal');
-                event.target.reset();
-            alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
-        }
-
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
         }
 
-        renderAds(sampleAds);
+        // পেজ লোড হলেই ডাটাবেজ থেকে বিজ্ঞাপন নিয়ে আসবে
+        window.onload = fetchAdsFromFirebase;
     </script>
 </body>
 </html>
