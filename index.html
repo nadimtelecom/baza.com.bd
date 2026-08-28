@@ -159,9 +159,9 @@
 
         .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #ddd; gap: 8px; font-size: 13px; }
 
-        /* Category Modal Grid */
+        /* Category Modal Grid with Icons */
         .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
-        .cat-card-item { background: #f8f9fa; border: 1px solid #ddd; padding: 12px; text-align: center; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; }
+        .cat-card-item { background: #f8f9fa; border: 1px solid #ddd; padding: 12px; text-align: center; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         body.dark-mode .cat-card-item { background: #2a2a2a; border-color: #444; color: #fff; }
         .cat-card-item:hover { background: var(--primary); color: white; border-color: var(--primary); }
 
@@ -241,17 +241,17 @@
             <span class="close-btn" onclick="closeModal('categoryModal')">&times;</span>
             <h3 style="margin-top:0; font-size:16px;">ক্যাটাগরি নির্বাচন করুন</h3>
             <div class="cat-grid">
-                <div class="cat-card-item" onclick="selectCategory('all')">সব বিজ্ঞাপন</div>
-                <div class="cat-card-item" onclick="selectCategory('mobile')">মোবাইল</div>
-                <div class="cat-card-item" onclick="selectCategory('electronics')">ইলেকট্রনিক্স</div>
-                <div class="cat-card-item" onclick="selectCategory('vehicles')">যানবাহন</div>
-                <div class="cat-card-item" onclick="selectCategory('fashion')">ফ্যাশন</div>
-                <div class="cat-card-item" onclick="selectCategory('beauty')">বিউটি ও কেয়ার</div>
-                <div class="cat-card-item" onclick="selectCategory('services')">সার্ভিসেস</div>
-                <div class="cat-card-item" onclick="selectCategory('tools')">টুলস ও হার্ডওয়্যার</div>
-                <div class="cat-card-item" onclick="selectCategory('kids')">বেবি ও চিলড্রেন</div>
-                <div class="cat-card-item" onclick="selectCategory('pets')">পশু ও পাখি</div>
-                <div class="cat-card-item" onclick="selectCategory('farm')">কৃষি ও ফার্ম</div>
+                <div class="cat-card-item" onclick="selectCategory('all')">🌐 সব বিজ্ঞাপন</div>
+                <div class="cat-card-item" onclick="selectCategory('mobile')">📱 মোবাইল</div>
+                <div class="cat-card-item" onclick="selectCategory('electronics')">💻 ইলেকট্রনিক্স</div>
+                <div class="cat-card-item" onclick="selectCategory('vehicles')">🚗 যানবাহন</div>
+                <div class="cat-card-item" onclick="selectCategory('fashion')">👕 ফ্যাশন</div>
+                <div class="cat-card-item" onclick="selectCategory('beauty')">💄 বিউটি ও কেয়ার</div>
+                <div class="cat-card-item" onclick="selectCategory('services')">🛠️ সার্ভিসেস</div>
+                <div class="cat-card-item" onclick="selectCategory('tools')">🔧 টুলস ও হার্ডওয়্যার</div>
+                <div class="cat-card-item" onclick="selectCategory('kids')">🍼 বেবি ও চিলড্রেন</div>
+                <div class="cat-card-item" onclick="selectCategory('pets')">🐱 পশু ও পাখি</div>
+                <div class="cat-card-item" onclick="selectCategory('farm')">🌾 কৃষি ও ফার্ম</div>
             </div>
         </div>
     </div>
@@ -268,16 +268,16 @@
                 <div class="form-group">
                     <label>ক্যাটাগরি</label>
                     <select id="postCategory">
-                        <option value="mobile">মোবাইল</option>
-                        <option value="electronics">ইলেকট্রনিক্স</option>
-                        <option value="vehicles">যানবাহন</option>
-                        <option value="fashion">ফ্যাশন</option>
-                        <option value="beauty">বিউটি ও কেয়ার</option>
-                        <option value="services">সার্ভিসেস</option>
-                        <option value="tools">টুলস ও হার্ডওয়্যার</option>
-                        <option value="kids">বেবি ও চিলড্রেন</option>
-                        <option value="pets">পশু ও পাখি</option>
-                        <option value="farm">কৃষি ও ফার্ম</option>
+                        <option value="mobile">📱 মোবাইল</option>
+                        <option value="electronics">💻 ইলেকট্রনিক্স</option>
+                        <option value="vehicles">🚗 যানবাহন</option>
+                        <option value="fashion">👕 ফ্যাশন</option>
+                        <option value="beauty">💄 বিউটি ও কেয়ার</option>
+                        <option value="services">🛠️ সার্ভিসেস</option>
+                        <option value="tools">🔧 টুলস ও হার্ডওয়্যার</option>
+                        <option value="kids">🍼 বেবি ও চিলড্রেন</option>
+                        <option value="pets">🐱 পশু ও পাখি</option>
+                        <option value="farm">🌾 কৃষি ও ফার্ম</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -353,7 +353,7 @@
     </div>
 
     <nav class="bottom-nav">
-        <button type="button" class="nav-item" onclick="filterCategory('all')">হোম</button>
+        <button type="button" class="nav-item" onclick="selectCategory('all')">হোম</button>
         <button type="button" class="nav-item" onclick="openModal('categoryModal')">ক্যাটাগরি</button>
         <button type="button" class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
         <button type="button" class="nav-item" onclick="openModal('accountModal')">অ্যাকাউন্ট</button>
@@ -383,7 +383,6 @@
         let currentLang = 'bn';
         let currentCategory = 'all';
 
-        // বাংলাদেশের সম্পূর্ণ বিভাগ, জেলা ও থানা ডাটা স্ট্রাকচার
         const bdLocations = [
             {
                 division: "Chattogram",
@@ -799,17 +798,17 @@
             currentCategory = cat;
             closeModal('categoryModal');
             const categoryNames = {
-                'all': 'সাম্প্রতিক বিজ্ঞাপনসমূহ',
-                'mobile': 'মোবাইল বিজ্ঞাপনসমূহ',
-                'electronics': 'ইলেকট্রনিক্স বিজ্ঞাপনসমূহ',
-                'vehicles': 'যানবাহন বিজ্ঞাপনসমূহ',
-                'fashion': 'ফ্যাশন বিজ্ঞাপনসমূহ',
-                'beauty': 'বিউটি ও কেয়ার বিজ্ঞাপনসমূহ',
-                'services': 'সার্ভিসেস বিজ্ঞাপনসমূহ',
-                'tools': 'টুলস ও হার্ডওয়্যার বিজ্ঞাপনসমূহ',
-                'kids': 'বেবি ও চিলড্রেন বিজ্ঞাপনসমূহ',
-                'pets': 'পশু ও পাখি বিজ্ঞাপনসমূহ',
-                'farm': 'কৃষি ও ফার্ম বিজ্ঞাপনসমূহ'
+                'all': '🌐 সব বিজ্ঞাপন',
+                'mobile': '📱 মোবাইল বিজ্ঞাপনসমূহ',
+                'electronics': '💻 ইলেকট্রনিক্স বিজ্ঞাপনসমূহ',
+                'vehicles': '🚗 যানবাহন বিজ্ঞাপনসমূহ',
+                'fashion': '👕 ফ্যাশন বিজ্ঞাপনসমূহ',
+                'beauty': '💄 বিউটি ও কেয়ার বিজ্ঞাপনসমূহ',
+                'services': '🛠️ সার্ভিসেস বিজ্ঞাপনসমূহ',
+                'tools': '🔧 টুলস ও হার্ডওয়্যার বিজ্ঞাপনসমূহ',
+                'kids': '🍼 বেবি ও চিলড্রেন বিজ্ঞাপনসমূহ',
+                'pets': '🐱 পশু ও পাখি বিজ্ঞাপনসমূহ',
+                'farm': '🌾 কৃষি ও ফার্ম বিজ্ঞাপনসমূহ'
             };
             document.getElementById('sectionTitle').innerText = categoryNames[cat] || 'বিজ্ঞাপনসমূহ';
             filterAds();
