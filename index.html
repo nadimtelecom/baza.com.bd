@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baza.com.bd - ক্রয় ও বিক্রয় করুন সহজে</title>
+    <title>Baza.com.bd - Buy, Sell & Earn</title>
     
     <!-- Firebase Compat SDK Links -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -15,6 +15,7 @@
         :root {
             --primary: #00838f;
             --primary-dark: #005662;
+            --accent: #ff9800;
             --bg-light: #f4f6f8;
             --text-light: #333;
             --card-bg-light: #fff;
@@ -63,9 +64,28 @@
         .search-box input { width: 100%; padding: 10px; border: none; border-radius: 4px 0 0 4px; outline: none; }
         .search-box button { padding: 10px 15px; background: var(--primary-dark); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
 
-        .theme-toggle { background: transparent; border: 1px solid white; color: white; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+        .controls { display: flex; gap: 8px; }
+        .btn-toggle { background: transparent; border: 1px solid white; color: white; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold; }
 
         .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
+
+        /* Banner Ads Slot for Income */
+        .ad-banner-slot {
+            background: #e9ecef;
+            border: 2px dashed #bbb;
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        body.dark-mode .ad-banner-slot {
+            background: #2a2a2a;
+            border-color: #555;
+            color: #aaa;
+        }
 
         .category-bar {
             display: flex;
@@ -103,6 +123,24 @@
             position: relative;
         }
 
+        .card.featured {
+            border: 2px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 4px;
+            z-index: 10;
+        }
+
         body.dark-mode .card { background-color: var(--card-bg-dark); }
         .card:hover { transform: translateY(-5px); }
         .card img { width: 100%; height: 180px; object-fit: cover; }
@@ -125,7 +163,7 @@
 
         .modal-content {
             background: white;
-            max-width: 450px;
+            max-width: 500px;
             width: 100%;
             border-radius: 8px;
             padding: 20px;
@@ -151,7 +189,18 @@
 
         .btn-call { flex: 1; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
         .btn-wa { flex: 1; padding: 12px; background: #25D366; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+        .btn-promote { width: 100%; padding: 10px; background: var(--accent); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         .btn-delete { width: 100%; padding: 10px; background: #dc3545; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .admin-badge { background: #d9534f; color: white; font-size: 11px; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+
+        .admin-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            gap: 10px;
+        }
 
         .bottom-nav {
             position: fixed;
@@ -198,21 +247,28 @@
             <div class="logo" onclick="filterCategory('all')">Baza.com.bd</div>
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="যা খুঁজছেন লিখুন..." onkeyup="filterAds()">
-                <button onclick="filterAds()">সার্চ</button>
+                <button onclick="filterAds()" data-i18n="search_btn">সার্চ</button>
             </div>
-            <button class="theme-toggle" onclick="toggleTheme()">ডার্ক/লাইট</button>
+            <div class="controls">
+                <button class="btn-toggle" onclick="toggleLanguage()" id="langBtn">EN</button>
+                <button class="btn-toggle" onclick="toggleTheme()" data-i18n="theme_btn">ডার্ক/লাইট</button>
+            </div>
         </div>
     </header>
 
     <div class="container">
-        <div class="category-bar">
-            <button class="cat-btn" onclick="filterCategory('all')">সব বিজ্ঞাপন</button>
-            <button class="cat-btn" onclick="filterCategory('mobile')">মোবাইল</button>
-            <button class="cat-btn" onclick="filterCategory('electronics')">ইলেকট্রনিক্স</button>
-            <button class="cat-btn" onclick="filterCategory('vehicles')">যানবাহন</button>
+        <div class="ad-banner-slot">
+            📢 <strong>স্পন্সরড ব্যানার স্পেস:</strong> এখানে আপনার Google AdSense অথবা স্থানীয় ব্যবসার ব্যানার বসিয়ে ইনকাম করুন।
         </div>
 
-        <h2 id="sectionTitle">সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
+        <div class="category-bar">
+            <button class="cat-btn" onclick="filterCategory('all')" data-i18n="cat_all">সব বিজ্ঞাপন</button>
+            <button class="cat-btn" onclick="filterCategory('mobile')" data-i18n="cat_mobile">মোবাইল</button>
+            <button class="cat-btn" onclick="filterCategory('electronics')" data-i18n="cat_electronics">ইলেকট্রনিক্স</button>
+            <button class="cat-btn" onclick="filterCategory('vehicles')" data-i18n="cat_vehicles">যানবাহন</button>
+        </div>
+
+        <h2 id="sectionTitle" data-i18n="recent_ads">সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
         <div class="grid" id="adsGrid"></div>
     </div>
 
@@ -228,10 +284,11 @@
             <p id="modalDesc"></p>
 
             <div class="action-btns">
-                <a id="callLink" href="#" class="btn-call">📞 কল করুন</a>
+                <a id="callLink" href="#" class="btn-call" data-i18n="btn_call">📞 কল করুন</a>
                 <a id="waLink" href="#" target="_blank" class="btn-wa">💬 WhatsApp</a>
             </div>
-            <div id="deleteContainer"></div>
+
+            <div id="ownerActionsContainer"></div>
         </div>
     </div>
 
@@ -239,41 +296,41 @@
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
-            <h3>নতুন বিজ্ঞাপন দিন</h3>
+            <h3 data-i18n="post_ad_title">নতুন বিজ্ঞাপন দিন</h3>
             <form onsubmit="handlePostAd(event)">
                 <div class="form-group">
-                    <label>শিরোনাম</label>
-                    <input type="text" id="postTitle" required placeholder="যেমন: Redmi Note 13 Pro">
+                    <label data-i18n="lbl_title">শিরোনাম</label>
+                    <input type="text" id="postTitle" required placeholder="e.g. Redmi Note 13 Pro">
                 </div>
                 <div class="form-group">
-                    <label>ক্যাটাগরি</label>
+                    <label data-i18n="lbl_category">ক্যাটাগরি</label>
                     <select id="postCategory">
-                        <option value="mobile">মোবাইল</option>
-                        <option value="electronics">ইলেকট্রনিক্স</option>
-                        <option value="vehicles">যানবাহন</option>
+                        <option value="mobile" data-i18n="cat_mobile">মোবাইল</option>
+                        <option value="electronics" data-i18n="cat_electronics">ইলেকট্রনিক্স</option>
+                        <option value="vehicles" data-i18n="cat_vehicles">যানবাহন</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>মূল্য (টাকা)</label>
-                    <input type="text" id="postPrice" required placeholder="যেমন: ২৫,০০০ টাকা">
+                    <label data-i18n="lbl_price">মূল্য (টাকা)</label>
+                    <input type="text" id="postPrice" required placeholder="e.g. 25,000 Tk">
                 </div>
                 <div class="form-group">
-                    <label>ফোন নম্বর (যোগাযোগের জন্য)</label>
-                    <input type="tel" id="postPhone" required placeholder="যেমন: 018XXXXXXXX">
+                    <label data-i18n="lbl_phone">ফোন নম্বর (যোগাযোগের জন্য)</label>
+                    <input type="tel" id="postPhone" required placeholder="e.g. 018XXXXXXXX">
                 </div>
                 <div class="form-group">
-                    <label>লোকেশন</label>
-                    <input type="text" id="postLocation" required placeholder="যেমন: চট্টগ্রাম">
+                    <label data-i18n="lbl_location">লোকেশন</label>
+                    <input type="text" id="postLocation" required placeholder="e.g. Chattogram">
                 </div>
                 <div class="form-group">
-                    <label>পণ্যের ছবি (গ্যালারি থেকে সিলেক্ট করুন)</label>
+                    <label data-i18n="lbl_photo">পণ্যের ছবি</label>
                     <input type="file" id="postFile" accept="image/*" required>
                 </div>
                 <div class="form-group">
-                    <label>বিবরণ</label>
+                    <label data-i18n="lbl_desc">বিবরণ</label>
                     <textarea id="postDesc" rows="3" required></textarea>
                 </div>
-                <button type="submit" id="submitBtn" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
+                <button type="submit" id="submitBtn" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" data-i18n="btn_publish">পাবলিশ করুন</button>
             </form>
         </div>
     </div>
@@ -282,18 +339,46 @@
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
-            <h3>আপনার অ্যাকাউন্ট</h3>
+            <h3 data-i18n="nav_account">আপনার অ্যাকাউন্ট</h3>
             <hr><br>
             <div id="authContent"></div>
         </div>
     </div>
 
+    <!-- 4. Admin Control Panel Modal -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
+            <h3>⚙️ Admin Income & Control Panel</h3>
+            <p style="font-size:13px; color:#666;">বিজ্ঞাপন প্রমোট (Featured) করুন এবং ম্যানেজ করুন</p>
+            <hr><br>
+            <div id="adminAdsList"></div>
+        </div>
+    </div>
+
+    <!-- 5. Promotion Payment Info Modal -->
+    <div class="modal" id="promoteInfoModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('promoteInfoModal')">&times;</span>
+            <h3 style="color:var(--accent);">🚀 আপনার বিজ্ঞাপন Featured করুন</h3>
+            <p>আপনার বিজ্ঞাপনটি সবার উপরে টপ পজিশনে দেখাতে এবং দ্রুত বিক্রি করতে প্রমোট করুন!</p>
+            <div style="background:#fff3cd; color:#333; padding:12px; border-radius:5px; margin:10px 0; font-size:14px;">
+                <strong>পেমেন্ট নিয়মাবলি:</strong><br>
+                ১. bKash / Nagad Send Money করুন: <strong>01800000000</strong> (Personal)<br>
+                ২. চার্জ: <strong>১০০ টাকা (৭ দিনের জন্য)</strong><br>
+                ৩. টাকা পাঠিয়ে হোয়াটসঅ্যাপ বা ফোন করে আপনার Ads-এর নাম বলুন।
+            </div>
+            <!-- WhatsApp URL syntax bug fixed -->
+            <a href="https://wa.me/8801800000000?text=I%20want%20to%20promote%20my%20ad" target="_blank" class="btn-wa" style="display:block; text-align:center;">💬 WhatsApp-এ পেমেন্ট কনফার্ম করুন</a>
+        </div>
+    </div>
+
     <!-- Fixed Bottom Navigation -->
     <nav class="bottom-nav">
-        <button type="button" class="nav-item" onclick="filterCategory('all')">হোম</button>
-        <button type="button" class="nav-item" onclick="scrollToCategories()">ক্যাটাগরি</button>
-        <button type="button" class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
-        <button type="button" class="nav-item" onclick="openModal('accountModal')">অ্যাকাউন্ট</button>
+        <button type="button" class="nav-item" onclick="filterCategory('all')" data-i18n="nav_home">হোম</button>
+        <button type="button" class="nav-item" onclick="scrollToCategories()" data-i18n="nav_categories">ক্যাটাগরি</button>
+        <button type="button" class="nav-item" onclick="openPostModal()" data-i18n="nav_post">+ পোস্ট</button>
+        <button type="button" class="nav-item" onclick="openModal('accountModal')" data-i18n="nav_account">অ্যাকাউন্ট</button>
     </nav>
 
     <script>
@@ -312,21 +397,109 @@
         const storage = firebase.storage();
         const auth = firebase.auth();
 
+        // এডমিন ইমেইল তালিকা
+        const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd"];
+
         let currentUser = null;
+        let isAdmin = false;
         let allAds = [];
+        let currentLang = 'bn';
+        let currentCategory = 'all';
+
+        const translations = {
+            bn: {
+                search_placeholder: "যা খুঁজছেন লিখুন...",
+                search_btn: "সার্চ",
+                theme_btn: "ডার্ক/লাইট",
+                cat_all: "সব বিজ্ঞাপন",
+                cat_mobile: "মোবাইল",
+                cat_electronics: "ইলেকট্রনিক্স",
+                cat_vehicles: "যানবাহন",
+                recent_ads: "সাম্প্রতিক বিজ্ঞাপনসমূহ",
+                no_ads: "কোনো বিজ্ঞাপন পাওয়া যায়নি।",
+                btn_call: "📞 কল করুন",
+                btn_delete: "বিজ্ঞাপন ডিলিট করুন",
+                post_ad_title: "নতুন বিজ্ঞাপন দিন",
+                lbl_title: "শিরোনাম",
+                lbl_category: "ক্যাটাগরি",
+                lbl_price: "মূল্য (টাকা)",
+                lbl_phone: "ফোন নম্বর",
+                lbl_location: "লোকেশন",
+                lbl_photo: "পণ্যের ছবি",
+                lbl_desc: "বিবরণ",
+                btn_publish: "পাবলিশ করুন",
+                nav_home: "হোম",
+                nav_categories: "ক্যাটাগরি",
+                nav_post: "+ পোস্ট",
+                nav_account: "অ্যাকাউন্ট",
+                login_msg: "বিজ্ঞাপন পোস্ট করতে লগইন করুন",
+                login_google: "Google দিয়ে লগইন করুন",
+                logout: "লগআউট",
+                name: "নাম",
+                email: "ইমেইল",
+                my_ads: "আমার বিজ্ঞাপন",
+                seller: "বিক্রেতা",
+                unknown: "অজানা",
+                location_lbl: "লোকেশন: "
+            },
+            en: {
+                search_placeholder: "Search anything...",
+                search_btn: "Search",
+                theme_btn: "Dark/Light",
+                cat_all: "All Ads",
+                cat_mobile: "Mobile",
+                cat_electronics: "Electronics",
+                cat_vehicles: "Vehicles",
+                recent_ads: "Recent Ads",
+                no_ads: "No ads found.",
+                btn_call: "📞 Call Now",
+                btn_delete: "Delete Ad",
+                post_ad_title: "Post New Ad",
+                lbl_title: "Title",
+                lbl_category: "Category",
+                lbl_price: "Price (Tk)",
+                lbl_phone: "Phone Number",
+                lbl_location: "Location",
+                lbl_photo: "Product Photo",
+                lbl_desc: "Description",
+                btn_publish: "Publish Ad",
+                nav_home: "Home",
+                nav_categories: "Categories",
+                nav_post: "+ Post",
+                nav_account: "Account",
+                login_msg: "Login to post or manage ads",
+                login_google: "Login with Google",
+                logout: "Logout",
+                name: "Name",
+                email: "Email",
+                my_ads: "My Ads",
+                seller: "Seller",
+                unknown: "Unknown",
+                location_lbl: "Location: "
+            }
+        };
+
+        window.toggleLanguage = function() {
+            currentLang = currentLang === 'bn' ? 'en' : 'bn';
+            document.getElementById('langBtn').innerText = currentLang === 'bn' ? 'EN' : 'BN';
+            applyTranslations();
+            filterCategory(currentCategory);
+        };
+
+        function applyTranslations() {
+            const t = translations[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(elem => {
+                const key = elem.getAttribute('data-i18n');
+                if(t[key]) elem.innerText = t[key];
+            });
+            document.getElementById('searchInput').placeholder = t.search_placeholder;
+            if(currentUser) renderAuthUI();
+        }
 
         auth.onAuthStateChanged(user => {
             currentUser = user;
+            isAdmin = user && user.email && ADMIN_EMAILS.includes(user.email.toLowerCase());
             renderAuthUI();
-        });
-
-        auth.getRedirectResult().then(result => {
-            if (result.user) {
-                currentUser = result.user;
-                renderAuthUI();
-            }
-        }).catch(error => {
-            if(error.code) alert("লগইন ত্রুটি: " + error.message);
         });
 
         window.loginWithGoogle = function() {
@@ -335,31 +508,33 @@
                 if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
                     auth.signInWithRedirect(provider);
                 } else {
-                    alert("লগইন ব্যর্থ হয়েছে: " + error.message);
+                    alert(error.message);
                 }
             });
         };
 
         window.logout = function() {
             auth.signOut().then(() => {
-                alert("লগআউট সফল হয়েছে!");
+                alert(currentLang === 'bn' ? "লগআউট সফল হয়েছে!" : "Logged out successfully!");
             });
         };
 
         function renderAuthUI() {
             const container = document.getElementById('authContent');
+            const t = translations[currentLang];
             if(currentUser) {
                 const myAds = allAds.filter(a => a.userId === currentUser.uid);
                 container.innerHTML = `
-                    <p><strong>নাম:</strong> ${currentUser.displayName}</p>
-                    <p><strong>ইমেইল:</strong> ${currentUser.email}</p>
-                    <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length} টি</p>
-                    <button style="width:100%; padding:10px; background:#dc3545; color:white; border:none; border-radius:5px; cursor:pointer; margin-top:15px;" onclick="logout()">লগআউট</button>
+                    <p><strong>${t.name}:</strong> ${currentUser.displayName} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
+                    <p><strong>${t.email}:</strong> ${currentUser.email}</p>
+                    <p><strong>${t.my_ads}:</strong> ${myAds.length}</p>
+                    ${isAdmin ? '<button style="width:100%; padding:10px; background:#17a2b8; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer; margin-top:10px;" onclick="openAdminModal()">⚙️ Admin Dashboard</button>' : ''}
+                    <button style="width:100%; padding:10px; background:#dc3545; color:white; border:none; border-radius:5px; cursor:pointer; margin-top:10px;" onclick="logout()">${t.logout}</button>
                 `;
             } else {
                 container.innerHTML = `
-                    <p style="text-align:center;">বিজ্ঞাপন পোস্ট করতে বা নিয়ন্ত্রণ করতে লগইন করুন</p>
-                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="loginWithGoogle()">Google দিয়ে লগইন করুন</button>
+                    <p style="text-align:center;">${t.login_msg}</p>
+                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="loginWithGoogle()">${t.login_google}</button>
                 `;
             }
         }
@@ -370,6 +545,10 @@
                 snapshot.forEach(doc => {
                     allAds.push({ id: doc.id, ...doc.data() });
                 });
+                
+                // Featured পোস্টগুলো সবার উপরে থাকবে
+                allAds.sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
+                
                 renderAds(allAds);
                 if(currentUser) renderAuthUI();
             }, error => {
@@ -379,14 +558,18 @@
 
         function renderAds(ads) {
             const grid = document.getElementById('adsGrid');
+            const t = translations[currentLang];
             grid.innerHTML = '';
             if(ads.length === 0) {
-                grid.innerHTML = '<p>কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>';
+                grid.innerHTML = `<p>${t.no_ads}</p>`;
                 return;
             }
             ads.forEach(ad => {
+                const isFeatured = ad.isFeatured ? 'featured' : '';
+                const featuredBadge = ad.isFeatured ? '<span class="featured-badge">FEATURED</span>' : '';
                 grid.innerHTML += `
-                    <div class="card" onclick="openProductDetail('${ad.id}')">
+                    <div class="card ${isFeatured}" onclick="openProductDetail('${ad.id}')">
+                        ${featuredBadge}
                         <img src="${ad.img}" alt="${ad.title}">
                         <div class="card-content">
                             <div class="card-title">${ad.title}</div>
@@ -400,7 +583,7 @@
 
         window.openPostModal = function() {
             if(!currentUser) {
-                alert("বিজ্ঞাপন পোস্ট করতে আপনাকে অবশ্যই Google দিয়ে লগইন করতে হবে।");
+                alert(currentLang === 'bn' ? "বিজ্ঞাপন পোস্ট করতে আপনাকে অবশ্যই Google দিয়ে লগইন করতে হবে।" : "Please login with Google to post ads.");
                 openModal('accountModal');
             } else {
                 openModal('postAdModal');
@@ -409,94 +592,158 @@
 
         window.handlePostAd = function(event) {
             event.preventDefault();
-            if(!currentUser) return alert("লগইন করুন!");
+            if(!currentUser) return;
 
             const submitBtn = document.getElementById('submitBtn');
             const file = document.getElementById('postFile').files[0];
+            const t = translations[currentLang];
 
-            if(!file) return alert("ছবি নির্বাচন করুন!");
+            if(!file) return alert("Select an image!");
 
-            submitBtn.innerText = "ছবি আপলোড হচ্ছে...";
+            submitBtn.innerText = currentLang === 'bn' ? "ছবি আপলোড হচ্ছে..." : "Uploading Photo...";
             submitBtn.disabled = true;
 
             const storageRef = storage.ref('baza_photos/' + Date.now() + '_' + file.name);
             storageRef.put(file).then(snapshot => {
                 return snapshot.ref.getDownloadURL();
             }).then(downloadURL => {
-                submitBtn.innerText = "ডাটা সেভ হচ্ছে...";
+                submitBtn.innerText = currentLang === 'bn' ? "ডাটা সেভ হচ্ছে..." : "Saving Data...";
                 const newAd = {
                     title: document.getElementById('postTitle').value,
-                    category: document.getElementById('postCategory').value,
+                    category: document.getElementById('postCategory').value.toLowerCase(),
                     price: document.getElementById('postPrice').value,
                     phone: document.getElementById('postPhone').value,
                     location: document.getElementById('postLocation').value,
                     img: downloadURL,
                     desc: document.getElementById('postDesc').value,
+                    isFeatured: false,
                     userId: currentUser.uid,
                     userName: currentUser.displayName,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 return db.collection("ads").add(newAd);
             }).then(() => {
-                submitBtn.innerText = "পাবলিশ করুন";
+                submitBtn.innerText = t.btn_publish;
                 submitBtn.disabled = false;
                 closeModal('postAdModal');
                 event.target.reset();
-                alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
+                alert(currentLang === 'bn' ? 'আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!' : 'Your ad was posted successfully!');
             }).catch(error => {
                 console.error(error);
-                alert("পোস্ট করতে ব্যর্থ হয়েছে: " + error.message);
-                submitBtn.innerText = "পাবলিশ করুন";
+                alert(error.message);
+                submitBtn.innerText = t.btn_publish;
                 submitBtn.disabled = false;
             });
         };
 
         window.openProductDetail = function(id) {
             const ad = allAds.find(a => a.id === id);
+            const t = translations[currentLang];
             if(ad) {
                 document.getElementById('modalTitle').innerText = ad.title;
                 document.getElementById('modalPrice').innerText = ad.price;
-                document.getElementById('modalLocation').innerText = 'লোকেশন: ' + ad.location;
-                document.getElementById('modalSeller').innerText = 'বিক্রেতা: ' + (ad.userName || 'অজানা');
+                document.getElementById('modalLocation').innerText = t.location_lbl + ad.location;
+                document.getElementById('modalSeller').innerText = t.seller + ': ' + (ad.userName || t.unknown);
                 document.getElementById('modalDesc').innerText = ad.desc;
                 document.getElementById('modalImg').src = ad.img;
                 
                 document.getElementById('callLink').href = "tel:" + ad.phone;
                 document.getElementById('waLink').href = "https://wa.me/88" + ad.phone;
 
-                const delContainer = document.getElementById('deleteContainer');
-                delContainer.innerHTML = '';
-                if(currentUser && ad.userId === currentUser.uid) {
-                    delContainer.innerHTML = `<button class="btn-delete" onclick="deleteAd('${ad.id}')">বিজ্ঞাপন ডিলিট করুন</button>`;
+                const ownerContainer = document.getElementById('ownerActionsContainer');
+                ownerContainer.innerHTML = '';
+
+                if(currentUser && ad.userId === currentUser.uid && !ad.isFeatured) {
+                    ownerContainer.innerHTML += `<button class="btn-promote" onclick="openModal('promoteInfoModal')">🚀 বিজ্ঞাপনটি প্রমোট (Featured) করুন</button>`;
+                }
+                
+                if(currentUser && (ad.userId === currentUser.uid || isAdmin)) {
+                    ownerContainer.innerHTML += `<button class="btn-delete" onclick="deleteAd('${ad.id}')">${t.btn_delete} ${isAdmin ? '(Admin)' : ''}</button>`;
                 }
 
                 openModal('productModal');
             }
         };
 
+        window.openAdminModal = function() {
+            if(!isAdmin) return alert("Unauthorized access!");
+            const container = document.getElementById('adminAdsList');
+            container.innerHTML = '';
+            
+            if(allAds.length === 0) {
+                container.innerHTML = '<p>কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>';
+            } else {
+                allAds.forEach(ad => {
+                    const toggleStatusText = ad.isFeatured ? 'Unfeature' : 'Make Featured';
+                    const btnColor = ad.isFeatured ? '#ff9800' : '#28a745';
+                    container.innerHTML += `
+                        <div class="admin-list-item">
+                            <div>
+                                <strong>${ad.title}</strong> ${ad.isFeatured ? '⭐' : ''}<br>
+                                <small>${ad.price} | ${ad.userName || 'Unknown'}</small>
+                            </div>
+                            <div style="display:flex; gap:5px;">
+                                <button style="background:${btnColor}; color:white; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;" onclick="toggleFeatureAd('${ad.id}', ${!ad.isFeatured})">${toggleStatusText}</button>
+                                <button style="background:#dc3545; color:white; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;" onclick="deleteAd('${ad.id}')">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            openModal('adminModal');
+        };
+
+        window.toggleFeatureAd = function(id, status) {
+            db.collection("ads").doc(id).update({
+                isFeatured: status
+            }).then(() => {
+                alert(status ? "বিজ্ঞাপনটি Featured হিসেবে সেট করা হয়েছে!" : "Featured স্ট্যাটাস সরানো হয়েছে!");
+                openAdminModal();
+            });
+        };
+
         window.deleteAd = function(id) {
-            if(confirm("আপনি কি নিশ্চিত যে বিজ্ঞাপনটি মুছে ফেলতে চান?")) {
+            const msg = currentLang === 'bn' ? "আপনি কি নিশ্চিত যে বিজ্ঞাপনটি মুছে ফেলতে চান?" : "Are you sure you want to delete this ad?";
+            if(confirm(msg)) {
                 db.collection("ads").doc(id).delete().then(() => {
                     closeModal('productModal');
-                    alert("বিজ্ঞাপন ডিলিট সম্পন্ন হয়েছে!");
+                    if(document.getElementById('adminModal').style.display === 'flex') {
+                        openAdminModal();
+                    }
+                    alert(currentLang === 'bn' ? "বিজ্ঞাপন ডিলিট সম্পন্ন হয়েছে!" : "Ad deleted successfully!");
                 });
             }
         };
 
         window.filterAds = function() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allAds.filter(ad => ad.title.toLowerCase().includes(query) || ad.location.toLowerCase().includes(query));
+            const filtered = allAds.filter(ad => 
+                (ad.title && ad.title.toLowerCase().includes(query)) || 
+                (ad.location && ad.location.toLowerCase().includes(query))
+            );
             renderAds(filtered);
         };
 
         window.filterCategory = function(cat) {
+            currentCategory = cat;
             window.scrollTo({top: 0, behavior: 'smooth'});
+            const t = translations[currentLang];
+
             if(cat === 'all') {
-                document.getElementById('sectionTitle').innerText = 'সাম্প্রতিক বিজ্ঞাপনসমূহ';
+                document.getElementById('sectionTitle').innerText = t.recent_ads;
                 renderAds(allAds);
             } else {
-                document.getElementById('sectionTitle').innerText = cat.toUpperCase() + ' বিজ্ঞাপনসমূহ';
-                const filtered = allAds.filter(ad => ad.category === cat);
+                const categoryNames = {
+                    'mobile': t.cat_mobile,
+                    'electronics': t.cat_electronics,
+                    'vehicles': t.cat_vehicles
+                };
+                const suffix = currentLang === 'bn' ? ' বিজ্ঞাপনসমূহ' : ' Ads';
+                document.getElementById('sectionTitle').innerText = (categoryNames[cat] || cat) + suffix;
+                
+                const filtered = allAds.filter(ad => 
+                    ad.category && ad.category.toLowerCase() === cat.toLowerCase()
+                );
                 renderAds(filtered);
             }
         };
@@ -506,7 +753,10 @@
         window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
         window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
 
-        window.onload = fetchAdsFromFirebase;
+        window.onload = function() {
+            fetchAdsFromFirebase();
+            applyTranslations();
+        };
     </script>
 </body>
 </html>
