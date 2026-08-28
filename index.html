@@ -29,7 +29,7 @@
             background-color: var(--bg-light);
             color: var(--text-light);
             transition: background 0.3s, color 0.3s;
-            padding-bottom: 70px;
+            padding-bottom: 80px;
         }
 
         body.dark-mode {
@@ -116,7 +116,7 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6);
-            z-index: 2000;
+            z-index: 5000;
             justify-content: center;
             align-items: center;
             padding: 15px;
@@ -153,26 +153,39 @@
         .btn-wa { flex: 1; padding: 12px; background: #25D366; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
         .btn-delete { width: 100%; padding: 10px; background: #dc3545; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; }
 
+        /* বটম নেভিগেশন বার - ফিক্সড ক্লিক ইস্যু */
         .bottom-nav {
             position: fixed;
-            bottom: 0; left: 0; width: 100%;
+            bottom: 0; 
+            left: 0; 
+            width: 100%;
             background: var(--primary);
             display: flex;
             justify-content: space-around;
-            padding: 12px 0;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-            z-index: 1000;
+            align-items: center;
+            padding: 14px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+            z-index: 3000;
+            pointer-events: auto;
         }
 
         .nav-item {
             color: white;
             text-align: center;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             background: none;
             border: none;
+            flex: 1;
+            padding: 5px 0;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .nav-item:active {
+            opacity: 0.7;
         }
 
         @media (min-width: 768px) {
@@ -280,23 +293,20 @@
 
     <!-- Fixed Bottom Navigation -->
     <nav class="bottom-nav">
-        <button class="nav-item" onclick="filterCategory('all')">হোম</button>
-        <button class="nav-item" onclick="scrollToCategories()">ক্যাটাগরি</button>
-        <button class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
-        <button class="nav-item" onclick="openModal('accountModal')">অ্যাকাউন্ট</button>
+        <button type="button" class="nav-item" onclick="filterCategory('all')">হোম</button>
+        <button type="button" class="nav-item" onclick="scrollToCategories()">ক্যাটাগরি</button>
+        <button type="button" class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
+        <button type="button" class="nav-item" onclick="openModal('accountModal')">অ্যাকাউন্ট</button>
     </nav>
 
     <script>
-        // ----------------------------------------------------
-        // Firebase Config
-        // ----------------------------------------------------
         const firebaseConfig = {
-            apiKey: "AIzaSyCFAZIX-TS2_gyWFP0IEur...", // আপনার আগের API Key
+            apiKey: "AIzaSyCFAZIX-TS2_gyWFP0IEurW1N2408HygjE",
             authDomain: "baza-30f91.firebaseapp.com",
             projectId: "baza-30f91",
-            storageBucket: "baza-30f91.firebasestorage.app",
+            storageBucket: "baza-30f91.appspot.com",
             messagingSenderId: "637633219909",
-            appId: "1:637633219909:web:6f2c6f49c...",
+            appId: "1:637633219909:web:6f2c6f49dafef5f62f022c",
             measurementId: "G-ETYZ29DWQH"
         };
 
@@ -308,24 +318,36 @@
         let currentUser = null;
         let allAds = [];
 
-        // Auth state observer
         auth.onAuthStateChanged(user => {
             currentUser = user;
             renderAuthUI();
         });
 
-        function loginWithGoogle() {
+        auth.getRedirectResult().then(result => {
+            if (result.user) {
+                currentUser = result.user;
+                renderAuthUI();
+            }
+        }).catch(error => {
+            if(error.code) alert("লগইন ত্রুটি: " + error.message);
+        });
+
+        window.loginWithGoogle = function() {
             const provider = new firebase.auth.GoogleAuthProvider();
             auth.signInWithPopup(provider).catch(error => {
-                alert("লগইন ব্যর্থ হয়েছে: " + error.message);
+                if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+                    auth.signInWithRedirect(provider);
+                } else {
+                    alert("লগইন ব্যর্থ হয়েছে: " + error.message);
+                }
             });
-        }
+        };
 
-        function logout() {
+        window.logout = function() {
             auth.signOut().then(() => {
                 alert("লগআউট সফল হয়েছে!");
             });
-        }
+        };
 
         function renderAuthUI() {
             const container = document.getElementById('authContent');
@@ -377,16 +399,16 @@
             });
         }
 
-        function openPostModal() {
+        window.openPostModal = function() {
             if(!currentUser) {
                 alert("বিজ্ঞাপন পোস্ট করতে আপনাকে অবশ্যই Google দিয়ে লগইন করতে হবে।");
                 openModal('accountModal');
             } else {
                 openModal('postAdModal');
             }
-        }
+        };
 
-        function handlePostAd(event) {
+        window.handlePostAd = function(event) {
             event.preventDefault();
             if(!currentUser) return alert("লগইন করুন!");
 
@@ -424,13 +446,13 @@
                 alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
             }).catch(error => {
                 console.error(error);
-                alert("পোস্ট করতে ব্যর্থ হয়েছে!");
+                alert("পোস্ট করতে ব্যর্থ হয়েছে: " + error.message);
                 submitBtn.innerText = "পাবলিশ করুন";
                 submitBtn.disabled = false;
             });
-        }
+        };
 
-        function openProductDetail(id) {
+        window.openProductDetail = function(id) {
             const ad = allAds.find(a => a.id === id);
             if(ad) {
                 document.getElementById('modalTitle').innerText = ad.title;
@@ -451,24 +473,24 @@
 
                 openModal('productModal');
             }
-        }
+        };
 
-        function deleteAd(id) {
+        window.deleteAd = function(id) {
             if(confirm("আপনি কি নিশ্চিত যে বিজ্ঞাপনটি মুছে ফেলতে চান?")) {
                 db.collection("ads").doc(id).delete().then(() => {
                     closeModal('productModal');
                     alert("বিজ্ঞাপন ডিলিট সম্পন্ন হয়েছে!");
                 });
             }
-        }
+        };
 
-        function filterAds() {
+        window.filterAds = function() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = allAds.filter(ad => ad.title.toLowerCase().includes(query) || ad.location.toLowerCase().includes(query));
             renderAds(filtered);
-        }
+        };
 
-        function filterCategory(cat) {
+        window.filterCategory = function(cat) {
             window.scrollTo({top: 0, behavior: 'smooth'});
             if(cat === 'all') {
                 document.getElementById('sectionTitle').innerText = 'সাম্প্রতিক বিজ্ঞাপনসমূহ';
@@ -478,12 +500,12 @@
                 const filtered = allAds.filter(ad => ad.category === cat);
                 renderAds(filtered);
             }
-        }
+        };
 
-        function scrollToCategories() { window.scrollTo({top: 0, behavior: 'smooth'}); }
-        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function toggleTheme() { document.body.classList.toggle('dark-mode'); }
+        window.scrollToCategories = function() { window.scrollTo({top: 0, behavior: 'smooth'}); };
+        window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
+        window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
+        window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
 
         window.onload = fetchAdsFromFirebase;
     </script>
