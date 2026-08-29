@@ -159,7 +159,6 @@
 
         .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #ddd; gap: 8px; font-size: 13px; }
 
-        /* Category Modal Grid with Icons */
         .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
         .cat-card-item { background: #f8f9fa; border: 1px solid #ddd; padding: 12px; text-align: center; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         body.dark-mode .cat-card-item { background: #2a2a2a; border-color: #444; color: #fff; }
@@ -601,6 +600,22 @@
             });
         };
 
+        window.loginWithEmail = function() {
+            const email = document.getElementById('authEmail').value;
+            const pass = document.getElementById('authPassword').value;
+            if(!email || !pass) return alert("ইমেইল এবং পাসওয়ার্ড দিন!");
+            auth.signInWithEmailAndPassword(email, pass).catch(error => alert(error.message));
+        };
+
+        window.signupWithEmail = function() {
+            const email = document.getElementById('authEmail').value;
+            const pass = document.getElementById('authPassword').value;
+            if(!email || !pass) return alert("ইমেইল এবং পাসওয়ার্ড দিন!");
+            auth.createUserWithEmailAndPassword(email, pass).then(() => {
+                alert("সাইন আপ সফল হয়েছে!");
+            }).catch(error => alert(error.message));
+        };
+
         window.logout = function() {
             auth.signOut().then(() => alert("লগআউট সফল হয়েছে!"));
         };
@@ -610,7 +625,7 @@
             if(currentUser) {
                 const myAds = allAds.filter(a => a.userId === currentUser.uid);
                 container.innerHTML = `
-                    <p><strong>নাম:</strong> ${currentUser.displayName} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
+                    <p><strong>নাম:</strong> ${currentUser.displayName || currentUser.email.split('@')[0]} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
                     <p><strong>ইমেইল:</strong> ${currentUser.email}</p>
                     <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length}</p>
                     ${isAdmin ? '<button style="width:100%; padding:9px; background:#17a2b8; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; margin-top:8px;" onclick="openAdminModal()">⚙️ Admin Dashboard</button>' : ''}
@@ -618,7 +633,15 @@
                 `;
             } else {
                 container.innerHTML = `
-                    <p style="text-align:center; font-size:13px;">বিজ্ঞাপন পোস্ট করতে লগইন করুন</p>
+                    <div style="margin-bottom: 12px;">
+                        <input type="email" id="authEmail" placeholder="ইমেইল দিন" style="width:100%; padding:8px; margin-bottom:8px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box; font-size:13px;">
+                        <input type="password" id="authPassword" placeholder="পাসওয়ার্ড দিন" style="width:100%; padding:8px; margin-bottom:8px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box; font-size:13px;">
+                        <div style="display: flex; gap: 8px;">
+                            <button style="flex:1; padding:9px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:13px;" onclick="loginWithEmail()">লগইন</button>
+                            <button style="flex:1; padding:9px; background:#28a745; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:13px;" onclick="signupWithEmail()">সাইন আপ</button>
+                        </div>
+                    </div>
+                    <hr style="border:0; border-top:1px solid #ddd; margin:10px 0;">
                     <button style="width:100%; padding:10px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;" onclick="loginWithGoogle()">Google দিয়ে লগইন</button>
                 `;
             }
@@ -703,7 +726,7 @@
                     desc: document.getElementById('postDesc').value,
                     isFeatured: false,
                     userId: currentUser.uid,
-                    userName: currentUser.displayName,
+                    userName: currentUser.displayName || currentUser.email.split('@')[0],
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 return db.collection("ads").add(newAd);
