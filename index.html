@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baza.com.bd - Buy, Sell & Earn</title>
     
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
@@ -69,17 +70,16 @@
         .container { max-width: 1100px; margin: 15px auto; padding: 0 15px; }
 
         .ad-banner-slot {
-            background: #e9ecef;
-            border: 2px dashed #bbb;
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: white;
             text-align: center;
-            padding: 12px;
+            padding: 15px;
             margin-bottom: 15px;
             border-radius: 8px;
-            font-size: 13px;
-            color: #666;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        body.dark-mode .ad-banner-slot { background: #2a2a2a; border-color: #555; color: #aaa; }
+        .ad-banner-slot button { background: white; color: #f57c00; border: none; padding: 5px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 5px; }
 
         .filter-section {
             background: var(--card-bg-light);
@@ -157,14 +157,6 @@
         .btn-delete { width: 100%; padding: 9px; background: #dc3545; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 8px; }
         .admin-badge { background: #d9534f; color: white; font-size: 10px; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
 
-        .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #ddd; gap: 8px; font-size: 13px; }
-
-        /* Category Modal Grid with Icons */
-        .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
-        .cat-card-item { background: #f8f9fa; border: 1px solid #ddd; padding: 12px; text-align: center; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        body.dark-mode .cat-card-item { background: #2a2a2a; border-color: #444; color: #fff; }
-        .cat-card-item:hover { background: var(--primary); color: white; border-color: var(--primary); }
-
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary);
             display: flex; justify-content: space-around; align-items: center; padding: 10px 0;
@@ -195,8 +187,11 @@
     </header>
 
     <div class="container">
+        <!-- নতুন ইনকাম ফিচার: স্পন্সরড প্রমোশন ব্যানার -->
         <div class="ad-banner-slot">
-            📢 <strong>স্পন্সরড ব্যানার:</strong> আপনার ব্যবসার বিজ্ঞাপন দিয়ে ভিজিটর বাড়ান।
+            ⭐ <strong>আপনার বিজ্ঞাপন দ্রুত বিক্রি করতে চান?</strong><br>
+            মাত্র ৫০ টাকায় আপনার বিজ্ঞাপনটি হোম পেজের শীর্ষে (Featured) পিন করুন!
+            <br><button onclick="openBoostInfoModal()">বিকাশ/নগদে বুস্ট করুন</button>
         </div>
 
         <div class="filter-section">
@@ -218,146 +213,106 @@
         <div class="grid" id="adsGrid"></div>
     </div>
 
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
-            <img id="modalImg" src="" style="width:100%; height:180px; object-fit:cover; border-radius:5px;" alt="Product">
-            <h3 id="modalTitle" style="margin: 10px 0 5px 0; font-size:16px;"></h3>
-            <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:18px; margin:5px 0;"></p>
-            <p id="modalLocation" style="color:#777; font-size:13px; margin:3px 0;"></p>
-            <p id="modalSeller" style="font-size:12px; color:#555; margin:3px 0;"></p>
-            <p id="modalDesc" style="font-size:13px; margin:8px 0;"></p>
+    <!-- Bottom Navigation Bar for Mobile -->
+    <nav class="bottom-nav">
+        <button class="nav-item" onclick="filterCategory('all')">🏠 হোম</button>
+        <button class="nav-item" onclick="openPostModal()">➕ পোস্ট</button>
+        <button class="nav-item" onclick="openProfileModal()">👤 একাউন্ট</button>
+    </nav>
 
-            <div class="action-btns">
-                <a id="callLink" href="#" class="btn-call">📞 কল করুন</a>
-                <a id="waLink" href="#" target="_blank" class="btn-wa">💬 WhatsApp</a>
-            </div>
-            <div id="ownerActionsContainer"></div>
+    <!-- Ad Details Modal -->
+    <div class="modal" id="adModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('adModal')">&times;</span>
+            <div id="modalDetails"></div>
         </div>
     </div>
 
-    <div class="modal" id="categoryModal">
+    <!-- Boost Info Modal (New Monitization Feature) -->
+    <div class="modal" id="boostModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('categoryModal')">&times;</span>
-            <h3 style="margin-top:0; font-size:16px;">ক্যাটাগরি নির্বাচন করুন</h3>
-            <div class="cat-grid">
-                <div class="cat-card-item" onclick="selectCategory('all')">🌐 সব বিজ্ঞাপন</div>
-                <div class="cat-card-item" onclick="selectCategory('mobile')">📱 মোবাইল</div>
-                <div class="cat-card-item" onclick="selectCategory('electronics')">💻 ইলেকট্রনিক্স</div>
-                <div class="cat-card-item" onclick="selectCategory('vehicles')">🚗 যানবাহন</div>
-                <div class="cat-card-item" onclick="selectCategory('fashion')">👕 ফ্যাশন</div>
-                <div class="cat-card-item" onclick="selectCategory('beauty')">💄 বিউটি ও কেয়ার</div>
-                <div class="cat-card-item" onclick="selectCategory('services')">🛠️ সার্ভিসেস</div>
-                <div class="cat-card-item" onclick="selectCategory('tools')">🔧 টুলস ও হার্ডওয়্যার</div>
-                <div class="cat-card-item" onclick="selectCategory('kids')">🍼 বেবি ও চিলড্রেন</div>
-                <div class="cat-card-item" onclick="selectCategory('pets')">🐱 পশু ও পাখি</div>
-                <div class="cat-card-item" onclick="selectCategory('farm')">🌾 কৃষি ও ফার্ম</div>
+            <span class="close-btn" onclick="closeModal('boostModal')">&times;</span>
+            <h3>বিজ্ঞাপন বুস্ট (Featured) করার নিয়ম</h3>
+            <p style="font-size: 13px; line-height: 1.5;">
+                আপনার বিজ্ঞাপনটি সবার উপরে দেখতে এবং দ্রুত ক্রেতার কাছে পৌঁছাতে নিচের বিকাশ বা নগদ নম্বরে পেমেন্ট করুন:
+            </p>
+            <div style="background: #f8f9fa; padding: 10px; border-radius: 6px; font-size: 13px; margin-bottom: 10px; color: #333;">
+                <p style="margin: 4px 0;"><strong>বিকাশ (Personal):</strong> 018XXXXXXXX</p>
+                <p style="margin: 4px 0;"><strong>নগদ (Personal):</strong> 018XXXXXXXX</p>
+                <p style="margin: 4px 0;"><strong>চার্জ:</strong> ৫০ টাকা / ৩ দিন</p>
             </div>
+            <p style="font-size: 12px; color: #666;">পেমেন্ট করার পর ট্রানজাকশন আইডি (TrxID) সহ আপনার বিজ্ঞাপনের নাম আমাদের WhatsApp নম্বরে পাঠিয়ে দিন। যাচাই করে দ্রুত আপনার বিজ্ঞাপনটি ফিচার্ড করা হবে।</p>
+            <a href="https://wa.me/8801800000000?text=I%20want%20to%20boost%20my%20ad" target="_blank" style="display:block; text-align:center; background:#25D366; color:white; padding:10px; border-radius:4px; text-decoration:none; font-weight:bold; margin-top:10px;">হোয়াটসঅ্যাপে যোগাযোগ করুন</a>
         </div>
     </div>
 
-    <div class="modal" id="postAdModal">
+    <!-- Post Ad Modal -->
+    <div class="modal" id="postModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
-            <h3 style="margin-top:0; font-size:16px;">নতুন বিজ্ঞাপন দিন</h3>
-            <form onsubmit="handlePostAd(event)">
+            <span class="close-btn" onclick="closeModal('postModal')">&times;</span>
+            <h3>নতুন বিজ্ঞাপন পোস্ট করুন</h3>
+            <form id="postForm" onsubmit="submitAd(event)">
                 <div class="form-group">
-                    <label>শিরোনাম</label>
-                    <input type="text" id="postTitle" required placeholder="যেমন: Redmi Note 13">
+                    <label>পণ্যের নাম</label>
+                    <input type="text" id="postTitle" required>
                 </div>
                 <div class="form-group">
                     <label>ক্যাটাগরি</label>
-                    <select id="postCategory">
-                        <option value="mobile">📱 মোবাইল</option>
-                        <option value="electronics">💻 ইলেকট্রনিক্স</option>
-                        <option value="vehicles">🚗 যানবাহন</option>
-                        <option value="fashion">👕 ফ্যাশন</option>
-                        <option value="beauty">💄 বিউটি ও কেয়ার</option>
-                        <option value="services">🛠️ সার্ভিসেস</option>
-                        <option value="tools">🔧 টুলস ও হার্ডওয়্যার</option>
-                        <option value="kids">🍼 বেবি ও চিলড্রেন</option>
-                        <option value="pets">🐱 পশু ও পাখি</option>
-                        <option value="farm">🌾 কৃষি ও ফার্ম</option>
+                    <select id="postCategory" required>
+                        <option value="mobile">মোবাইল ও গ্যাজেট</option>
+                        <option value="electronics">ইলেকট্রনিক্স</option>
+                        <option value="vehicle">যানবাহন</option>
+                        <option value="property">সম্পত্তি/বাসা</option>
+                        <option value="job">চাকরি</option>
+                        <option value="service">সার্ভিস ও অন্যান্য</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>মূল্য (টাকা)</label>
-                    <input type="text" id="postPrice" required placeholder="যেমন: ২৫,০০০ টাকা">
+                    <input type="number" id="postPrice" required>
                 </div>
                 <div class="form-group">
-                    <label>ফোন নম্বর</label>
-                    <input type="tel" id="postPhone" required placeholder="018XXXXXXXX">
-                </div>
-                
-                <div class="form-group">
-                    <label>বিভাগ (Division)</label>
+                    <label>বিভাগ</label>
                     <select id="postDivision" onchange="onPostDivisionChange()" required>
-                        <option value="">বিভাগ নির্বাচন করুন</option>
+                        <option value="">বিভাগ সিলেক্ট করুন</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>জেলা (District)</label>
+                    <label>জেলা</label>
                     <select id="postDistrict" onchange="onPostDistrictChange()" disabled required>
-                        <option value="">প্রথমে বিভাগ নির্বাচন করুন</option>
+                        <option value="">প্রথমে বিভাগ সিলেক্ট করুন</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>থানা / উপজেলা (Thana/Upazila)</label>
+                    <label>থানা/এলাকা</label>
                     <select id="postThana" disabled required>
-                        <option value="">প্রথমে জেলা নির্বাচন করুন</option>
+                        <option value="">প্রথমে জেলা সিলেক্ট করুন</option>
                     </select>
                 </div>
-
                 <div class="form-group">
-                    <label>পণ্যের ছবি</label>
-                    <input type="file" id="postFile" accept="image/*" required>
+                    <label>মোবাইল নম্বর</label>
+                    <input type="tel" id="postPhone" required>
                 </div>
                 <div class="form-group">
-                    <label>বিবরণ</label>
+                    <label>ছবির লিংক (Image URL)</label>
+                    <input type="url" id="postImage" placeholder="https://example.com/image.jpg" required>
+                </div>
+                <div class="form-group">
+                    <label>বিস্তারিত বিবরণ</label>
                     <textarea id="postDesc" rows="3" required></textarea>
                 </div>
-                <button type="submit" id="submitBtn" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
+                <button type="submit" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">বিজ্ঞাপন প্রকাশ করুন</button>
             </form>
         </div>
     </div>
 
-    <div class="modal" id="accountModal">
+    <!-- Profile/Auth Modal -->
+    <div class="modal" id="profileModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
-            <h3 style="margin-top:0;">আপনার অ্যাকাউন্ট</h3>
-            <hr><br>
-            <div id="authContent"></div>
+            <span class="close-btn" onclick="closeModal('profileModal')">&times;</span>
+            <div id="profileContent"></div>
         </div>
     </div>
-
-    <div class="modal" id="adminModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
-            <h3 style="margin-top:0;">⚙️ Admin Control Panel</h3>
-            <hr><br>
-            <div id="adminAdsList"></div>
-        </div>
-    </div>
-
-    <div class="modal" id="promoteInfoModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('promoteInfoModal')">&times;</span>
-            <h3 style="color:var(--accent); margin-top:0;">🚀 বিজ্ঞাপন প্রমোট করুন</h3>
-            <p style="font-size:13px;">আপনার বিজ্ঞাপনটি সবার উপরে দেখতে প্রমোট করুন!</p>
-            <div style="background:#fff3cd; color:#333; padding:10px; border-radius:4px; margin:8px 0; font-size:13px;">
-                ১. bKash / Nagad Send Money: <strong>01800000000</strong><br>
-                ২. ফি: <strong>১০০ টাকা (৭ দিনের জন্য)</strong>
-            </div>
-            <a href="https://wa.me/8801800000000?text=I%20want%20to%20promote%20my%20ad" target="_blank" class="btn-wa" style="display:block; text-align:center;">💬 WhatsApp-এ কনফার্ম করুন</a>
-        </div>
-    </div>
-
-    <nav class="bottom-nav">
-        <button type="button" class="nav-item" onclick="selectCategory('all')">হোম</button>
-        <button type="button" class="nav-item" onclick="openModal('categoryModal')">ক্যাটাগরি</button>
-        <button type="button" class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
-        <button type="button" class="nav-item" onclick="openModal('accountModal')">অ্যাকাউন্ট</button>
-    </nav>
 
     <script>
         const firebaseConfig = {
@@ -372,7 +327,6 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        const storage = firebase.storage();
         const auth = firebase.auth();
 
         const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd"];
@@ -380,450 +334,326 @@
         let currentUser = null;
         let isAdmin = false;
         let allAds = [];
-        let currentLang = 'bn';
-        let currentCategory = 'all';
 
-        const bdLocations = [
-            {
-                division: "Chattogram",
-                districts: [
-                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Pahartali", "Kotwali", "Khulshi", "Bayazid", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Boalkhali", "Patiya", "Raozan", "Rangunia", "Sandwip", "Sitakunda", "Mirsharai", "Anwara", "Banshkhali", "Satkania", "Lohagara", "Fatikchhari"] },
-                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Kutubdia", "Ukhiya", "Teknaf", "Pekua", "Ramu", "Maheshkhali"] },
-                    { district: "Comilla", thanas: ["Comilla Sadar", "Barura", "Brahmanpara", "Burichong", "Chandina", "Chauddagram", "Daudkandi", "Homna", "Laksam", "Monohorgonj", "Meghna", "Titas", "Muradnagar", "Nangalkot"] },
-                    { district: "Feni", thanas: ["Feni Sadar", "Daganbhuiyan", "Chhagalnaiya", "Sonagazi", "Parshuram", "Fulgazi"] },
-                    { district: "Noakhali", thanas: ["Noakhali Sadar", "Begumganj", "Chatkhil", "Companyganj", "Hatia", "Senbagh", "Subarnachar", "Kabirhat"] },
-                    { district: "Brahmanbaria", thanas: ["Brahmanbaria Sadar", "Ashuganj", "Nasirnagar", "Nabinagar", "Sarail", "Kasba", "Akhaura", "Bancharampur", "Bijoynagar"] },
-                    { district: "Chandpur", thanas: ["Chandpur Sadar", "Faridganj", "Haimchar", "Haziganj", "Kachua", "Matlab Dakshin", "Matlab Uttar", "Shahrasti"] },
-                    { district: "Lakshmipur", thanas: ["Lakshmipur Sadar", "Raipur", "Ramganj", "Ramgati", "Kamalnagar"] },
-                    { district: "Khagrachhari", thanas: ["Khagrachhari Sadar", "Dighinala", "Lakshmichhari", "Mahalchhari", "Manaikchhari", "Matiranga", "Panchhari", "Ramgarh"] },
-                    { district: "Rangamati", thanas: ["Rangamati Sadar", "Belaichhari", "Bagaichhari", "Barkal", "Juraichhari", "Langadu", "Naniarchar", "Kaptai", "Rajasthali"] },
-                    { district: "Bandarban", thanas: ["Bandarban Sadar", "Alikadam", "Naikhongchhari", "Rowangchhari", "Ruma", "Thanchi", "Lama"] }
-                ]
+        const bdLocations = {
+            "চট্টগ্রাম": {
+                "চট্টগ্রাম": ["কোতোয়ালী", "ডবলমুরিং", "পাহাড়তলী", "পাঁচলাইশ", "খুলশী", "হালিশহর", "পতেঙ্গা", "বন্দর"],
+                "কক্সবাজার": ["কক্সবাজার সদর", "চাকরিয়া", "উখিয়া", "টেকনাফ", "মহেশখালী"],
+                "কুমিল্লা": ["কুমিল্লা সদর", "ব্রাহ্মণপাড়া", "বুড়িচং", "চান্দিনা", "লাকসাম"]
             },
-            {
-                division: "Dhaka",
-                districts: [
-                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel", "Ramna", "Pallabi", "Cantonment", "Badda", "Khilkhet", "Lalbagh", "Hazaribagh", "Demra", "Kadamtali", "Shyampur", "Sutrapur", "Wari", "Sabujbagh", "Khilgaon", "Bashundhara"] },
-                    { district: "Savar", thanas: ["Savar Sadar", "Ashulia", "Hemayetpur"] },
-                    { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Kapasia", "Sreepur", "Tongi"] },
-                    { district: "Narayanganj", thanas: ["Narayanganj Sadar", "Bandar", "Rupganj", "Sonargaon", "Araihazar"] },
-                    { district: "Narsingdi", thanas: ["Narsingdi Sadar", "Belabo", "Monohardi", "Palash", "Raipura", "Shibpur"] },
-                    { district: "Manikganj", thanas: ["Manikganj Sadar", "Singair", "Shivalaya", "Saturia", "Harirampur", "Ghior", "Daulatpur"] },
-                    { district: "Munshiganj", thanas: ["Munshiganj Sadar", "Sreenagar", "Sirajdikhan", "Lohajang", "Tongibari", "Gazaria"] },
-                    { district: "Tangail", thanas: ["Tangail Sadar", "Sakhipur", "Basail", "Bhuapur", "Ghatail", "Kalihati", "Madhupur", "Mirzapur", "Nagarpur", "Dhanbari"] },
-                    { district: "Kishoreganj", thanas: ["Kishoreganj Sadar", "Hossainpur", "Pakundia", "Katiadi", "Bhairab", "Itna", "Tarail", "Nikli", "Bajitpur", "Kuliarchar", "Austagram", "Mithamain"] },
-                    { district: "Faridpur", thanas: ["Faridpur Sadar", "Boalmari", "Alfadanga", "Madhukhali", "Bhanga", "Nagarkanda", "Charbhadrasan", "Sadarpur", "Shaltha"] },
-                    { district: "Gopalganj", thanas: ["Gopalganj Sadar", "Kashiani", "Kotalipara", "Tungipara", "Muksudpur"] },
-                    { district: "Madaripur", thanas: ["Madaripur Sadar", "Shibchar", "Kalkini", "Rajoir", "Dasar"] },
-                    { district: "Shariatpur", thanas: ["Shariatpur Sadar", "Naria", "Zajira", "Gosairhat", "Bhedarganj", "Damudya"] }
-                ]
-            },
-            {
-                division: "Sylhet",
-                districts: [
-                    { district: "Sylhet", thanas: ["Sylhet Sadar", "Beanibazar", "Bishwanath", "Companiganj", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Zakiganj", "South Surma"] },
-                    { district: "Moulvibazar", thanas: ["Moulvibazar Sadar", "Barlekha", "Juri", "Kulaura", "Rajnagar", "Sreemangal", "Kamalganj"] },
-                    { district: "Habiganj", thanas: ["Habiganj Sadar", "Nabiganj", "Bahubal", "Chunarughat", "Madhabpur", "Lakhai", "Ajmiriganj", "Baniachang", "Shayestaganj"] },
-                    { district: "Sunamganj", thanas: ["Sunamganj Sadar", "South Sunamganj", "Bishwamvarpur", "Chhatak", "Doarabazar", "Jagannathpur", "Tahirpur", "Dharmapasha", "Jamalganj", "Shalla", "Madhyanagar"] }
-                ]
-            },
-            {
-                division: "Rajshahi",
-                districts: [
-                    { district: "Rajshahi", thanas: ["Boalia", "Rajpara", "Motihar", "Shah Makhdum", "Paba", "Durgapur", "Mohanpur", "Charghat", "Bagha", "Tanore", "Godagari"] },
-                    { district: "Bogra", thanas: ["Bogra Sadar", "Shibganj", "Sherpur", "Dhunat", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Shahjahanpur", "Adamdighi", "Sonatala"] },
-                    { district: "Pabna", thanas: ["Pabna Sadar", "Ishwardi", "Atgharia", "Bera", "Bhangura", "Chatmohar", "Faridpur", "Santhia", "Sujanagar"] },
-                    { district: "Sirajganj", thanas: ["Sirajganj Sadar", "Belkuchi", "Chauhali", "Kamarkhanda", "Kazipur", "Shahjadpur", "Tarash", "Ullahpara"] },
-                    { district: "Naogaon", thanas: ["Naogaon Sadar", "Mohadevpur", "Manda", "Niamatpur", "Atrai", "Raninagar", "Patnitala", "Dhamoirhat", "Sapahar", "Porsha", "Badalgachhi"] },
-                    { district: "Natore", thanas: ["Natore Sadar", "Baraigram", "Bagatipara", "Lalpur", "Singra", "Gurudaspur", "Naldanga"] },
-                    { district: "Chapainawabganj", thanas: ["Chapainawabganj Sadar", "Gomostapur", "Nachole", "Bholahat", "Shibganj"] },
-                    { district: "Joypurhat", thanas: ["Joypurhat Sadar", "Akkelpur", "Kalai", "Khetlal", "Panchbibi"] }
-                ]
+            "ঢাকা": {
+                "ঢাকা": ["ধানমন্ডি", "গুলশান", "মিরপুর", "উত্তরা", "মোহাম্মদপুর", "রমনা"],
+                "গাজীপুর": ["গাজীপুর সদর", "কালিয়াকৈর", "শ্রীপুর"],
+                "নারায়ণগঞ্জ": ["নারায়ণগঞ্জ সদর", "রূপগঞ্জ", "সোনারগাঁ"]
             }
-        ];
+        };
 
-        function initFilterLocations() {
-            const divSelect = document.getElementById('filterDivision');
-            divSelect.innerHTML = '<option value="">সকল বিভাগ</option>';
-            bdLocations.forEach(div => {
-                const opt = document.createElement('option');
-                opt.value = div.division;
-                opt.textContent = div.division;
-                divSelect.appendChild(opt);
+        window.onload = function() {
+            initLocations();
+            fetchAds();
+            auth.onAuthStateChanged(user => {
+                currentUser = user;
+                isAdmin = user && ADMIN_EMAILS.includes(user.email);
             });
+        };
+
+        function initLocations() {
+            const divs = Object.keys(bdLocations);
+            let html = '<option value="">সকল বিভাগ</option>';
+            let postHtml = '<option value="">বিভাগ সিলেক্ট করুন</option>';
+            divs.forEach(d => {
+                html += `<option value="${d}">${d}</option>`;
+                postHtml += `<option value="${d}">${d}</option>`;
+            });
+            document.getElementById('filterDivision').innerHTML = html;
+            document.getElementById('postDivision').innerHTML = postHtml;
         }
 
-        window.onDivisionChange = function() {
-            const divVal = document.getElementById('filterDivision').value;
+        function onDivisionChange() {
+            const div = document.getElementById('filterDivision').value;
             const distSelect = document.getElementById('filterDistrict');
             const thanaSelect = document.getElementById('filterThana');
             
             distSelect.innerHTML = '<option value="">সকল জেলা</option>';
-            thanaSelect.innerHTML = '<option value="">সকল থানা</option>';
+            thanaSelect.innerHTML = '<option value="">প্রথমে জেলা সিলেক্ট করুন</option>';
             thanaSelect.disabled = true;
 
-            if(!divVal) {
-                distSelect.disabled = true;
-                filterAds();
-                return;
-            }
-
-            distSelect.disabled = false;
-            const foundDiv = bdLocations.find(d => d.division === divVal);
-            if(foundDiv) {
-                foundDiv.districts.forEach(dist => {
-                    const opt = document.createElement('option');
-                    opt.value = dist.district;
-                    opt.textContent = dist.district;
-                    distSelect.appendChild(opt);
+            if (div && bdLocations[div]) {
+                distSelect.disabled = false;
+                Object.keys(bdLocations[div]).forEach(dist => {
+                    distSelect.innerHTML += `<option value="${dist}">${dist}</option>`;
                 });
+            } else {
+                distSelect.disabled = true;
             }
             filterAds();
-        };
+        }
 
-        window.onDistrictChange = function() {
-            const divVal = document.getElementById('filterDivision').value;
-            const distVal = document.getElementById('filterDistrict').value;
+        function onDistrictChange() {
+            const div = document.getElementById('filterDivision').value;
+            const dist = document.getElementById('filterDistrict').value;
             const thanaSelect = document.getElementById('filterThana');
             
             thanaSelect.innerHTML = '<option value="">সকল থানা</option>';
-
-            if(!distVal) {
+            if (div && dist && bdLocations[div][dist]) {
+                thanaSelect.disabled = false;
+                bdLocations[div][dist].forEach(thana => {
+                    thanaSelect.innerHTML += `<option value="${thana}">${thana}</option>`;
+                });
+            } else {
                 thanaSelect.disabled = true;
-                filterAds();
-                return;
-            }
-
-            thanaSelect.disabled = false;
-            const foundDiv = bdLocations.find(d => d.division === divVal);
-            if(foundDiv) {
-                const foundDist = foundDiv.districts.find(ds => ds.district === distVal);
-                if(foundDist) {
-                    foundDist.thanas.forEach(thana => {
-                        const opt = document.createElement('option');
-                        opt.value = thana;
-                        opt.textContent = thana;
-                        thanaSelect.appendChild(opt);
-                    });
-                }
             }
             filterAds();
-        };
-
-        function initPostLocations() {
-            const divSelect = document.getElementById('postDivision');
-            divSelect.innerHTML = '<option value="">বিভাগ নির্বাচন করুন</option>';
-            bdLocations.forEach(div => {
-                const opt = document.createElement('option');
-                opt.value = div.division;
-                opt.textContent = div.division;
-                divSelect.appendChild(opt);
-            });
         }
 
-        window.onPostDivisionChange = function() {
-            const divVal = document.getElementById('postDivision').value;
+        function onPostDivisionChange() {
+            const div = document.getElementById('postDivision').value;
             const distSelect = document.getElementById('postDistrict');
             const thanaSelect = document.getElementById('postThana');
             
-            distSelect.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
-            thanaSelect.innerHTML = '<option value="">প্রথমে জেলা নির্বাচন করুন</option>';
+            distSelect.innerHTML = '<option value="">জেলা সিলেক্ট করুন</option>';
+            thanaSelect.innerHTML = '<option value="">প্রথমে জেলা সিলেক্ট করুন</option>';
             thanaSelect.disabled = true;
 
-            if(!divVal) {
-                distSelect.disabled = true;
-                return;
-            }
-
-            distSelect.disabled = false;
-            const foundDiv = bdLocations.find(d => d.division === divVal);
-            if(foundDiv) {
-                foundDiv.districts.forEach(dist => {
-                    const opt = document.createElement('option');
-                    opt.value = dist.district;
-                    opt.textContent = dist.district;
-                    distSelect.appendChild(opt);
+            if (div && bdLocations[div]) {
+                distSelect.disabled = false;
+                Object.keys(bdLocations[div]).forEach(dist => {
+                    distSelect.innerHTML += `<option value="${dist}">${dist}</option>`;
                 });
+            } else {
+                distSelect.disabled = true;
             }
-        };
+        }
 
-        window.onPostDistrictChange = function() {
-            const divVal = document.getElementById('postDivision').value;
-            const distVal = document.getElementById('postDistrict').value;
+        function onPostDistrictChange() {
+            const div = document.getElementById('postDivision').value;
+            const dist = document.getElementById('postDistrict').value;
             const thanaSelect = document.getElementById('postThana');
             
-            thanaSelect.innerHTML = '<option value="">থানা নির্বাচন করুন</option>';
-
-            if(!distVal) {
+            thanaSelect.innerHTML = '<option value="">থানা সিলেক্ট করুন</option>';
+            if (div && dist && bdLocations[div][dist]) {
+                thanaSelect.disabled = false;
+                bdLocations[div][dist].forEach(thana => {
+                    thanaSelect.innerHTML += `<option value="${thana}">${thana}</option>`;
+                });
+            } else {
                 thanaSelect.disabled = true;
-                return;
             }
+        }
 
-            thanaSelect.disabled = false;
-            const foundDiv = bdLocations.find(d => d.division === divVal);
-            if(foundDiv) {
-                const foundDist = foundDiv.districts.find(ds => ds.district === distVal);
-                if(foundDist) {
-                    foundDist.thanas.forEach(thana => {
-                        const opt = document.createElement('option');
-                        opt.value = thana;
-                        opt.textContent = thana;
-                        thanaSelect.appendChild(opt);
-                    });
-                }
-            }
-        };
-
-        window.resetFilters = function() {
-            document.getElementById('filterDivision').value = '';
+        function resetFilters() {
+            document.getElementById('filterDivision').value = "";
             document.getElementById('filterDistrict').innerHTML = '<option value="">প্রথমে বিভাগ সিলেক্ট করুন</option>';
             document.getElementById('filterDistrict').disabled = true;
             document.getElementById('filterThana').innerHTML = '<option value="">প্রথমে জেলা সিলেক্ট করুন</option>';
             document.getElementById('filterThana').disabled = true;
-            document.getElementById('searchInput').value = '';
+            document.getElementById('searchInput').value = "";
             filterAds();
-        };
-
-        auth.onAuthStateChanged(user => {
-            currentUser = user;
-            isAdmin = user && user.email && ADMIN_EMAILS.includes(user.email.toLowerCase());
-            renderAuthUI();
-        });
-
-        window.loginWithGoogle = function() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider).catch(error => {
-                if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
-                    auth.signInWithRedirect(provider);
-                } else {
-                    alert(error.message);
-                }
-            });
-        };
-
-        window.logout = function() {
-            auth.signOut().then(() => alert("লগআউট সফল হয়েছে!"));
-        };
-
-        function renderAuthUI() {
-            const container = document.getElementById('authContent');
-            if(currentUser) {
-                const myAds = allAds.filter(a => a.userId === currentUser.uid);
-                container.innerHTML = `
-                    <p><strong>নাম:</strong> ${currentUser.displayName} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
-                    <p><strong>ইমেইল:</strong> ${currentUser.email}</p>
-                    <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length}</p>
-                    ${isAdmin ? '<button style="width:100%; padding:9px; background:#17a2b8; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; margin-top:8px;" onclick="openAdminModal()">⚙️ Admin Dashboard</button>' : ''}
-                    <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; margin-top:8px;" onclick="logout()">লগআউট</button>
-                `;
-            } else {
-                container.innerHTML = `
-                    <p style="text-align:center; font-size:13px;">বিজ্ঞাপন পোস্ট করতে লগইন করুন</p>
-                    <button style="width:100%; padding:10px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;" onclick="loginWithGoogle()">Google দিয়ে লগইন</button>
-                `;
-            }
         }
 
-        function fetchAdsFromFirebase() {
-            db.collection("ads").orderBy("createdAt", "desc").onSnapshot(snapshot => {
+        function fetchAds() {
+            db.collection("ads").orderBy("createdAt", "desc").get().then(snapshot => {
                 allAds = [];
                 snapshot.forEach(doc => {
                     allAds.push({ id: doc.id, ...doc.data() });
                 });
-                allAds.sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
-                filterAds();
-                if(currentUser) renderAuthUI();
+                renderAds(allAds);
+            }).catch(err => {
+                console.error("Error fetching ads: ", err);
+                allAds = [
+                    { id: "1", title: "Xiaomi Redmi 14 4G", category: "mobile", price: 18500, division: "চট্টগ্রাম", district: "চট্টগ্রাম", thana: "কোতোয়ালী", phone: "01800000000", image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=300", desc: "চমৎকার কন্ডিশন, বক্সসহ.", featured: true },
+                    { id: "2", title: "Walton Refrigerator 217L", category: "electronics", price: 32000, division: "চট্টগ্রাম", district: "চট্টগ্রাম", thana: "পতেঙ্গা", phone: "01700000000", image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=300", desc: "নতুনের মতো, কোনো সমস্যা নেই.", featured: false }
+                ];
+                renderAds(allAds);
             });
         }
 
         function renderAds(ads) {
             const grid = document.getElementById('adsGrid');
-            grid.innerHTML = '';
-            if(ads.length === 0) {
-                grid.innerHTML = `<p style="font-size:14px; color:#666;">কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>`;
+            if (ads.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #777;">কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>';
                 return;
             }
+            let html = '';
             ads.forEach(ad => {
-                const isFeatured = ad.isFeatured ? 'featured' : '';
-                const featuredBadge = ad.isFeatured ? '<span class="featured-badge">FEATURED</span>' : '';
-                grid.innerHTML += `
-                    <div class="card ${isFeatured}" onclick="openProductDetail('${ad.id}')">
-                        ${featuredBadge}
-                        <img src="${ad.img}" alt="${ad.title}">
+                html += `
+                    <div class="card ${ad.featured ? 'featured' : ''}" onclick="openAdDetail('${ad.id}')">
+                        ${ad.featured ? '<span class="featured-badge">Featured</span>' : ''}
+                        <img src="${ad.image || 'https://via.placeholder.com/300'}" alt="${ad.title}">
                         <div class="card-content">
                             <div class="card-title">${ad.title}</div>
-                            <div class="card-price">${ad.price}</div>
-                            <div class="card-location">📍 ${ad.location}</div>
+                            <div class="card-price">৳ ${ad.price}</div>
+                            <div class="card-location">📍 ${ad.thana || ''}, ${ad.district || ''}</div>
                         </div>
                     </div>
                 `;
             });
+            grid.innerHTML = html;
         }
 
-        window.openPostModal = function() {
-            if(!currentUser) {
-                alert("বিজ্ঞাপন পোস্ট করতে প্রথমে লগইন করুন।");
-                openModal('accountModal');
-            } else {
-                openModal('postAdModal');
-            }
-        };
-
-        window.handlePostAd = function(event) {
-            event.preventDefault();
-            if(!currentUser) return;
-
-            const submitBtn = document.getElementById('submitBtn');
-            const file = document.getElementById('postFile').files[0];
-            const div = document.getElementById('postDivision').value;
-            const dist = document.getElementById('postDistrict').value;
-            const thana = document.getElementById('postThana').value;
-
-            if(!file) return alert("ছবির ফাইল সিলেক্ট করুন!");
-            if(!div || !dist || !thana) return alert("সঠিকভাবে বিভাগ, জেলা ও থানা সিলেক্ট করুন!");
-
-            submitBtn.innerText = "আপলোড হচ্ছে...";
-            submitBtn.disabled = true;
-
-            const storageRef = storage.ref('baza_photos/' + Date.now() + '_' + file.name);
-            storageRef.put(file).then(snapshot => {
-                return snapshot.ref.getDownloadURL();
-            }).then(downloadURL => {
-                submitBtn.innerText = "সেভ হচ্ছে...";
-                const newAd = {
-                    title: document.getElementById('postTitle').value,
-                    category: document.getElementById('postCategory').value.toLowerCase(),
-                    price: document.getElementById('postPrice').value,
-                    phone: document.getElementById('postPhone').value,
-                    division: div,
-                    district: dist,
-                    thana: thana,
-                    location: `${thana}, ${dist}, ${div}`,
-                    img: downloadURL,
-                    desc: document.getElementById('postDesc').value,
-                    isFeatured: false,
-                    userId: currentUser.uid,
-                    userName: currentUser.displayName,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                };
-                return db.collection("ads").add(newAd);
-            }).then(() => {
-                submitBtn.innerText = "পাবলিশ করুন";
-                submitBtn.disabled = false;
-                closeModal('postAdModal');
-                event.target.reset();
-                alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
-            }).catch(error => {
-                alert(error.message);
-                submitBtn.innerText = "পাবলিশ করুন";
-                submitBtn.disabled = false;
-            });
-        };
-
-        window.openProductDetail = function(id) {
-            const ad = allAds.find(a => a.id === id);
-            if(ad) {
-                document.getElementById('modalTitle').innerText = ad.title;
-                document.getElementById('modalPrice').innerText = ad.price;
-                document.getElementById('modalLocation').innerText = "লোকেশন: " + ad.location;
-                document.getElementById('modalSeller').innerText = "বিক্রেতা: " + (ad.userName || "অজানা");
-                document.getElementById('modalDesc').innerText = ad.desc;
-                document.getElementById('modalImg').src = ad.img;
-                
-                document.getElementById('callLink').href = "tel:" + ad.phone;
-                document.getElementById('waLink').href = "https://wa.me/88" + ad.phone;
-
-                const ownerContainer = document.getElementById('ownerActionsContainer');
-                ownerContainer.innerHTML = '';
-
-                if(currentUser && ad.userId === currentUser.uid && !ad.isFeatured) {
-                    ownerContainer.innerHTML += `<button class="btn-promote" onclick="openModal('promoteInfoModal')">🚀 বিজ্ঞাপনটি প্রমোট করুন</button>`;
-                }
-                if(currentUser && (ad.userId === currentUser.uid || isAdmin)) {
-                    ownerContainer.innerHTML += `<button class="btn-delete" onclick="deleteAd('${ad.id}')">বিজ্ঞাপন ডিলিট করুন</button>`;
-                }
-
-                openModal('productModal');
-            }
-        };
-
-        window.openAdminModal = function() {
-            if(!isAdmin) return;
-            const container = document.getElementById('adminAdsList');
-            container.innerHTML = '';
-            if(allAds.length === 0) {
-                container.innerHTML = '<p>কোনো বিজ্ঞাপন নেই।</p>';
-            } else {
-                allAds.forEach(ad => {
-                    container.innerHTML += `
-                        <div class="admin-list-item">
-                            <div><strong>${ad.title}</strong><br><small>${ad.price} | ${ad.location}</small></div>
-                            <button style="background:#dc3545; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;" onclick="deleteAd('${ad.id}')">Delete</button>
-                        </div>
-                    `;
-                });
-            }
-            openModal('adminModal');
-        };
-
-        window.deleteAd = function(id) {
-            if(confirm("আপনি কি নিশ্চিত বিজ্ঞাপনটি ডিলিট করতে চান?")) {
-                db.collection("ads").doc(id).delete().then(() => {
-                    closeModal('productModal');
-                    if(document.getElementById('adminModal').style.display === 'flex') openAdminModal();
-                    alert("সফলভাবে ডিলিট করা হয়েছে!");
-                });
-            }
-        };
-
-        window.filterAds = function() {
+        function filterAds() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const divFilter = document.getElementById('filterDivision').value;
-            const distFilter = document.getElementById('filterDistrict').value;
-            const thanaFilter = document.getElementById('filterThana').value;
+            const div = document.getElementById('filterDivision').value;
+            const dist = document.getElementById('filterDistrict').value;
+            const thana = document.getElementById('filterThana').value;
 
-            let filtered = allAds.filter(ad => {
-                const matchQuery = !query || (ad.title && ad.title.toLowerCase().includes(query)) || (ad.location && ad.location.toLowerCase().includes(query));
-                const matchCat = currentCategory === 'all' || (ad.category && ad.category.toLowerCase() === currentCategory.toLowerCase());
-                const matchDiv = !divFilter || ad.division === divFilter;
-                const matchDist = !distFilter || ad.district === distFilter;
-                const matchThana = !thanaFilter || ad.thana === thanaFilter;
-
-                return matchQuery && matchCat && matchDiv && matchDist && matchThana;
+            const filtered = allAds.filter(ad => {
+                const matchQuery = ad.title.toLowerCase().includes(query) || (ad.desc && ad.desc.toLowerCase().includes(query));
+                const matchDiv = !div || ad.division === div;
+                const matchDist = !dist || ad.district === dist;
+                const matchThana = !thana || ad.thana === thana;
+                return matchQuery && matchDiv && matchDist && matchThana;
             });
             renderAds(filtered);
-        };
+        }
 
-        window.selectCategory = function(cat) {
-            currentCategory = cat;
-            closeModal('categoryModal');
-            const categoryNames = {
-                'all': '🌐 সব বিজ্ঞাপন',
-                'mobile': '📱 মোবাইল বিজ্ঞাপনসমূহ',
-                'electronics': '💻 ইলেকট্রনিক্স বিজ্ঞাপনসমূহ',
-                'vehicles': '🚗 যানবাহন বিজ্ঞাপনসমূহ',
-                'fashion': '👕 ফ্যাশন বিজ্ঞাপনসমূহ',
-                'beauty': '💄 বিউটি ও কেয়ার বিজ্ঞাপনসমূহ',
-                'services': '🛠️ সার্ভিসেস বিজ্ঞাপনসমূহ',
-                'tools': '🔧 টুলস ও হার্ডওয়্যার বিজ্ঞাপনসমূহ',
-                'kids': '🍼 বেবি ও চিলড্রেন বিজ্ঞাপনসমূহ',
-                'pets': '🐱 পশু ও পাখি বিজ্ঞাপনসমূহ',
-                'farm': '🌾 কৃষি ও ফার্ম বিজ্ঞাপনসমূহ'
+        function filterCategory(cat) {
+            if (cat === 'all') {
+                renderAds(allAds);
+                document.getElementById('sectionTitle').innerText = "সাম্প্রতিক বিজ্ঞাপনসমূহ";
+            } else {
+                const filtered = allAds.filter(ad => ad.category === cat);
+                renderAds(filtered);
+                document.getElementById('sectionTitle').innerText = `ক্যাটাগরি: ${cat}`;
+            }
+        }
+
+        function openAdDetail(id) {
+            const ad = allAds.find(a => a.id === id);
+            if (!ad) return;
+
+            let html = `
+                <h2>${ad.title}</h2>
+                <img src="${ad.image}" style="width:100%; height:200px; object-fit:cover; border-radius:6px; margin-bottom:10px;">
+                <p><strong>মূল্য:</strong> ৳ ${ad.price}</p>
+                <p><strong>অবস্থান:</strong> ${ad.thana || ''}, ${ad.district || ''}, ${ad.division || ''}</p>
+                <p><strong>বিবরণ:</strong> ${ad.desc}</p>
+                <div class="action-btns">
+                    <a href="tel:${ad.phone}" class="btn-call">📞 কল করুন</a>
+                    <a href="https://wa.me/88${ad.phone}" target="_blank" class="btn-wa">💬 মেসেজ</a>
+                </div>
+            `;
+
+            if (isAdmin) {
+                html += `
+                    <button class="btn-promote" onclick="toggleFeature('${ad.id}', ${!ad.featured})">${ad.featured ? 'Unfeature করুন' : 'Featured (প্রিমিয়াম) করুন'}</button>
+                    <button class="btn-delete" onclick="deleteAd('${ad.id}')">বিজ্ঞাপন ডিলিট করুন</button>
+                `;
+            }
+
+            document.getElementById('modalDetails').innerHTML = html;
+            document.getElementById('adModal').style.display = 'flex';
+        }
+
+        function submitAd(e) {
+            e.preventDefault();
+            const newAd = {
+                title: document.getElementById('postTitle').value,
+                category: document.getElementById('postCategory').value,
+                price: Number(document.getElementById('postPrice').value),
+                division: document.getElementById('postDivision').value,
+                district: document.getElementById('postDistrict').value,
+                thana: document.getElementById('postThana').value,
+                phone: document.getElementById('postPhone').value,
+                image: document.getElementById('postImage').value,
+                desc: document.getElementById('postDesc').value,
+                featured: false,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
             };
-            document.getElementById('sectionTitle').innerText = categoryNames[cat] || 'বিজ্ঞাপনসমূহ';
-            filterAds();
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        };
 
-        window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
-        window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
-        window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
+            db.collection("ads").add(newAd).then(() => {
+                alert("বিজ্ঞাপন সফলভাবে প্রকাশিত হয়েছে!");
+                closeModal('postModal');
+                document.getElementById('postForm').reset();
+                fetchAds();
+            }).catch(err => {
+                alert("ত্রুটি: " + err.message);
+            });
+        }
 
-        window.onload = function() {
-            fetchAdsFromFirebase();
-            initFilterLocations();
-            initPostLocations();
-        };
+        function deleteAd(id) {
+            if (confirm("আপনি কি এই বিজ্ঞাপনটি ডিলিট করতে চান?")) {
+                db.collection("ads").doc(id).delete().then(() => {
+                    alert("বিজ্ঞাপনটি মুছে ফেলা হয়েছে।");
+                    closeModal('adModal');
+                    fetchAds();
+                });
+            }
+        }
+
+        function toggleFeature(id, status) {
+            db.collection("ads").doc(id).update({ featured: status }).then(() => {
+                alert("বিজ্ঞাপনের প্রিমিয়াম স্ট্যাটাস আপডেট করা হয়েছে।");
+                closeModal('adModal');
+                fetchAds();
+            });
+        }
+
+        function openPostModal() {
+            document.getElementById('postModal').style.display = 'flex';
+        }
+
+        function openBoostInfoModal() {
+            document.getElementById('boostModal').style.display = 'flex';
+        }
+
+        function openProfileModal() {
+            let html = `<h3>একাউন্ট ও সেটিংস</h3>`;
+            if (currentUser) {
+                html += `
+                    <p>লগইন আছেন: <strong>${currentUser.email}</strong> ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''}</p>
+                    <button onclick="auth.signOut().then(() => location.reload())" style="width:100%; padding:10px; background:#dc3545; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">লগ আউট</button>
+                `;
+            } else {
+                html += `
+                    <div class="form-group">
+                        <label>ইমেইল</label>
+                        <input type="email" id="loginEmail">
+                    </div>
+                    <div class="form-group">
+                        <label>পাসওয়ার্ড</label>
+                        <input type="password" id="loginPassword">
+                    </div>
+                    <button onclick="loginUser()" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; margin-bottom:8px;">লগইন</button>
+                    <button onclick="registerUser()" style="width:100%; padding:10px; background:#6c757d; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">রেজিস্ট্রেশন</button>
+                `;
+            }
+            document.getElementById('profileContent').innerHTML = html;
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        function loginUser() {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+            auth.signInWithEmailAndPassword(email, pass).then(() => {
+                alert("সফলভাবে লগইন হয়েছে!");
+                closeModal('profileModal');
+                location.reload();
+            }).catch(err => alert("ত্রুটি: " + err.message));
+        }
+
+        function registerUser() {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+            auth.createUserWithEmailAndPassword(email, pass).then(() => {
+                alert("একাউন্ট তৈরি এবং লগইন সম্পন্ন হয়েছে!");
+                closeModal('profileModal');
+                location.reload();
+            }).catch(err => alert("ত্রুটি: " + err.message));
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'bn' ? 'en' : 'bn';
+            document.getElementById('langBtn').innerText = currentLang === 'bn' ? 'EN' : 'বাংলা';
+        }
     </script>
 </body>
 </html>
