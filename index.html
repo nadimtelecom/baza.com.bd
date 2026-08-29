@@ -597,10 +597,12 @@
                     <label>পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <input type="file" id="postFiles" accept="image/*" multiple required onchange="handleImageSelection(event)" style="flex: 1;">
-                        <button type="button" id="cancelImageBtn" onclick="clearSelectedImages()" style="display: none; padding: 6px 10px; background: #dc3545; color: white; border: none; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold;">ক্যান্সেল</button>
                     </div>
-                    <!-- আপলোড স্ট্যাটাস ও ডাইনামিক কাউন্টার -->
-                    <div id="uploadStatus" style="margin-top: 8px; font-weight: bold; font-size: 13px; color: var(--primary);"></div>
+                    <!-- একক ও সুন্দর ক্যানসেল বাটন এবং প্রোগ্রেস কাউন্টার স্ট্যাটাস -->
+                    <div id="uploadStatusContainer" style="display: none; margin-top: 8px; align-items: center; justify-content: space-between; background: #f8f9fa; padding: 6px 10px; border-radius: 4px; border: 1px solid #ddd;">
+                        <span id="uploadStatusText" style="font-size: 12px; font-weight: bold; color: var(--primary);">লোড হচ্ছে: 0%</span>
+                        <button type="button" id="dynamicCancelBtn" onclick="clearSelectedImages()" style="padding: 4px 8px; background: #dc3545; color: white; border: none; border-radius: 3px; font-size: 11px; cursor: pointer; font-weight: bold;">ক্যান্সেল</button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>বিবরণ</label>
@@ -686,10 +688,10 @@
         let allAds = [];
         let currentCategory = 'all';
         let currentSubCategory = 'all';
-        let uploadCancelled = false; // আপলোড প্রসেস ক্যানসেল করার জন্য ফ্ল্যাগ
+        let uploadCancelled = false;
 
-        // ইমেজ কম্প্রেশন ফাংশন (ভালো রেজুলেশন ও 0.9 কোয়ালিটি)
-        function compressImage(file, quality = 0.9, maxWidth = 1600, maxHeight = 1600) {
+        // ইমেজ সাইজ অপ্টিমাইজ ও কম্প্রেস করার ফাংশন (টাইমআউট রোধ করতে)
+        function compressImage(file, quality = 0.8, maxWidth = 1200, maxHeight = 1200) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -732,45 +734,32 @@
             });
         }
 
-        // ইউজার যখন ফাইল সিলেক্ট করবে তখন ডাইনামিক মোট সংখ্যা দেখাবে এবং ক্যান্সেল বাটন এনে দেবে
+        // ফাইল সিলেক্ট করার পর স্ট্যাটাস ও একক ক্যানসেল বাটন দেখানো
         window.handleImageSelection = function(event) {
             const files = event.target.files;
-            const cancelBtn = document.getElementById('cancelImageBtn');
-            const statusDiv = document.getElementById('uploadStatus');
+            const container = document.getElementById('uploadStatusContainer');
+            const statusText = document.getElementById('uploadStatusText');
 
             if (files.length > 0) {
                 if (files.length > 5) {
                     alert("সর্বোচ্চ ৫টি ছবি সিলেক্ট করা যাবে!");
                     event.target.value = '';
-                    cancelBtn.style.display = 'none';
-                    statusDiv.innerText = '';
+                    container.style.display = 'none';
                     return;
                 }
-                cancelBtn.style.display = 'inline-block';
-                statusDiv.innerText = `${files.length}টির ভিতর, 0টি কমপ্লিট, ${files.length}টি পেন্ডিং`;
+                container.style.display = 'flex';
+                statusText.innerText = `${files.length}টি ছবি সিলেক্ট করা হয়েছে (পেন্ডিং)`;
             } else {
-                cancelBtn.style.display = 'none';
-                statusDiv.innerText = '';
+                container.style.display = 'none';
             }
         };
 
-        // ছবি সিলেকশন বা আপলোড রিসেট / ক্যানসেল করার ফাংশন
+        // সিলেকশন ক্যানসেল করার ফাংশন
         window.clearSelectedImages = function() {
             document.getElementById('postFiles').value = '';
-            document.getElementById('cancelImageBtn').style.display = 'none';
-            document.getElementById('uploadStatus').innerText = '';
+            document.getElementById('uploadStatusContainer').style.display = 'none';
             uploadCancelled = true;
         };
-
-        // ডাইনামিক স্ট্যাটাস কাউন্টার আপডেট করার ফাংশন (যতটি ফাইল ততটির হিস্ট্রি দেখাবে)
-        function updateImageUploadStatus(completedCount, totalCount) {
-            let pendingCount = totalCount - completedCount;
-            if (completedCount > totalCount) {
-                completedCount = totalCount;
-                pendingCount = 0;
-            }
-            document.getElementById('uploadStatus').innerHTML = `${totalCount}টির ভিতর, ${completedCount}টি কমপ্লিট, ${pendingCount}টি পেন্ডিং <button type="button" onclick="clearSelectedImages()" style="margin-left: 10px; padding: 2px 6px; background: #dc3545; color: white; border: none; border-radius: 3px; font-size: 11px; cursor: pointer;">ক্যান্সেল</button>`;
-        }
 
         const categoryFeatures = {
             'vehicles': ['সকল', 'মোটরসাইকেল', 'কার', 'বাইক', 'সাইকেল', 'বাস ও ট্রাক', 'পার্টস ও এক্সেসরিজ'],
@@ -1001,8 +990,7 @@
                 openModal('accountModal');
             } else {
                 onPostCategoryChange();
-                document.getElementById('uploadStatus').innerText = '';
-                document.getElementById('cancelImageBtn').style.display = 'none';
+                document.getElementById('uploadStatusContainer').style.display = 'none';
                 document.getElementById('postAdForm').reset();
                 onPostCategoryChange();
                 openModal('postAdModal');
@@ -1018,6 +1006,8 @@
             const div = document.getElementById('postDivision').value;
             const dist = document.getElementById('postDistrict').value;
             const thana = document.getElementById('postThana').value;
+            const statusText = document.getElementById('uploadStatusText');
+            const cancelBtn = document.getElementById('dynamicCancelBtn');
 
             if(filesInput.length === 0) return alert("কমপক্ষে একটি ছবি সিলেক্ট করুন!");
             if(filesInput.length > 5) return alert("সর্বোচ্চ ৫টি ছবি আপলোড করা যাবে!");
@@ -1030,8 +1020,6 @@
                 let uploadURLs = [];
                 let totalFiles = filesInput.length;
 
-                updateImageUploadStatus(0, totalFiles);
-
                 for(let i=0; i<totalFiles; i++) {
                     if (uploadCancelled) {
                         submitBtn.innerText = "পাবলিশ করুন";
@@ -1039,8 +1027,11 @@
                         return;
                     }
 
+                    let percent = Math.round(((i) / totalFiles) * 100);
+                    statusText.innerText = `লোড হচ্ছে: ${percent}% (${i}/${totalFiles})`;
+
                     const originalFile = filesInput[i];
-                    const compressedFile = await compressImage(originalFile, 0.9, 1600, 1600);
+                    const compressedFile = await compressImage(originalFile, 0.8, 1200, 1200);
                     
                     if (uploadCancelled) {
                         submitBtn.innerText = "পাবলিশ করুন";
@@ -1059,10 +1050,17 @@
                     }
 
                     uploadURLs.push(downloadURL);
-                    updateImageUploadStatus(i + 1, totalFiles);
                 }
 
-                submitBtn.innerText = "সেভ হচ্ছে...";
+                // ১০০% কমপ্লিট হওয়ার পর ক্যানসেল বাটনটি "এসেপ্ট" বা "যুক্ত হয়েছে" বাটনে রূপান্তরিত হবে
+                statusText.innerText = "১০০% লোড সম্পন্ন!";
+                cancelBtn.innerText = "এসেপ্ট / যুক্ত";
+                cancelBtn.style.background = "#28a745";
+                cancelBtn.onclick = function() {
+                    document.getElementById('uploadStatusContainer').style.display = 'none';
+                };
+
+                submitBtn.innerText = "বিজ্ঞাপন সেভ হচ্ছে...";
                 const newAd = {
                     title: document.getElementById('postTitle').value,
                     category: document.getElementById('postCategory').value.toLowerCase(),
@@ -1088,8 +1086,7 @@
                 submitBtn.disabled = false;
                 closeModal('postAdModal');
                 event.target.reset();
-                document.getElementById('uploadStatus').innerText = '';
-                document.getElementById('cancelImageBtn').style.display = 'none';
+                document.getElementById('uploadStatusContainer').style.display = 'none';
                 alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
             } catch (error) {
                 if (!uploadCancelled) {
