@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="enFUE9G2pbJwvJOqPqd8q-nIOkAh3nsFH4zTGwR_95Y" />
     
-    <!-- Google AdSense Auto Ads Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_CLIENT_ID" crossorigin="anonymous"></script>
-
     <title>Baza.com.bd | কেনা-বেচা করুন সহজে</title>
     
     <!-- FontAwesome Icons -->
@@ -62,7 +59,6 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            flex-wrap: nowrap;
             gap: 10px;
         }
 
@@ -181,17 +177,6 @@
             margin: 20px auto;
             padding: 0 15px;
         }
-
-        .adsense-container {
-            margin: 20px 0;
-            text-align: center;
-            overflow: hidden;
-            background: var(--card-bg-light);
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px dashed #ccc;
-        }
-        body.dark-mode .adsense-container { background: var(--card-bg-dark); border-color: #444; }
 
         /* Filter Section */
         .filter-section {
@@ -465,23 +450,8 @@
             <select id="heroDivision" class="location-select" onchange="onHeroDivisionChange()">
                 <option value="">সকল বিভাগ</option>
             </select>
-            <input type="text" id="searchInput" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" onkeyup="filterAds()">
+            <input type="text" id="searchInput" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" onkeyup="if(event.key === 'Enter') filterAds()">
             <button onclick="filterAds()"><i class="fa-solid fa-magnifying-glass"></i> খুঁজুন</button>
-        </div>
-    </div>
-
-    <!-- AdSense Top Banner Unit -->
-    <div class="container">
-        <div class="adsense-container">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-YOUR_CLIENT_ID"
-                 data-ad-slot="YOUR_AD_SLOT_ID"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
         </div>
     </div>
 
@@ -636,7 +606,7 @@
         </div>
     </div>
 
-    <!-- অ্যাকাউন্ট মোডাল -->
+    <!-- অ্যাকাউন্ট মোডাল (সাইন-ইন / সাইন-আপ) -->
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
@@ -712,7 +682,6 @@
         let currentCategory = 'all';
         let currentSubCategory = 'all';
 
-        // Sub-categories / Features mapping for each main category
         const categoryFeatures = {
             'vehicles': ['সকল', 'মোটরসাইকেল', 'কার', 'বাইক', 'সাইকেল', 'বাস ও ট্রাক', 'পার্টস ও এক্সেসরিজ'],
             'property': ['সকল', 'অ্যাপার্টমেন্ট ও ফ্ল্যাট', 'জমি ও প্লট', 'বাণিজ্যিক জায়গা', 'রুম ভাড়া'],
@@ -887,8 +856,8 @@
                 `;
             } else {
                 container.innerHTML = `
-                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">বিজ্ঞাপন পোস্ট ও ম্যানেজ করতে সাইন-ইন করুন</p>
-                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন / লগইন</button>
+                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">বিজ্ঞাপন পোস্ট, সাইন-ইন বা সাইন-আপ করতে নিচের বাটনে ক্লিক করুন</p>
+                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন / সাইন আপ করুন</button>
                 `;
             }
         }
@@ -938,7 +907,7 @@
 
         window.openPostModal = function() {
             if(!currentUser) {
-                alert("বিজ্ঞাপন পোস্ট করতে প্রথমে সাইন-ইন/লগইন করুন।");
+                alert("বিজ্ঞাপন পোস্ট করতে প্রথমে সাইন-ইন/সাইন-আপ করুন।");
                 openModal('accountModal');
             } else {
                 onPostCategoryChange();
@@ -1093,13 +1062,18 @@
         };
 
         window.filterAds = function() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
             const divFilter = document.getElementById('heroDivision').value;
             const distFilter = document.getElementById('filterDistrict').value;
             const thanaFilter = document.getElementById('filterThana').value;
 
             let filtered = allAds.filter(ad => {
-                const matchQuery = !query || (ad.title && ad.title.toLowerCase().includes(query)) || (ad.location && ad.location.toLowerCase().includes(query));
+                const matchQuery = !query || 
+                    (ad.title && ad.title.toLowerCase().includes(query)) || 
+                    (ad.location && ad.location.toLowerCase().includes(query)) ||
+                    (ad.desc && ad.desc.toLowerCase().includes(query)) ||
+                    (ad.subCategory && ad.subCategory.toLowerCase().includes(query));
+
                 const matchCat = currentCategory === 'all' || (ad.category && ad.category.toLowerCase() === currentCategory.toLowerCase());
                 const matchSubCat = currentSubCategory === 'all' || (ad.subCategory && ad.subCategory === currentSubCategory);
                 const matchDiv = !divFilter || ad.division === divFilter;
@@ -1142,7 +1116,7 @@
             if(cat !== 'all' && categoryFeatures[cat]) {
                 barContainer.style.display = 'block';
                 categoryFeatures[cat].forEach(sub => {
-                    const activeClass = sub === 'all' ? 'active' : '';
+                    const activeClass = sub === 'সকল' ? 'active' : '';
                     bar.innerHTML += `<button class="sub-chip ${activeClass}" onclick="selectSubCategory('${sub}', this)">${sub}</button>`;
                 });
             } else {
