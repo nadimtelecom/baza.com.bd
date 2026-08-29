@@ -596,6 +596,8 @@
                 <div class="form-group">
                     <label>পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
                     <input type="file" id="postFiles" accept="image/*" multiple required>
+                    <!-- আপলোড স্ট্যাটাস দেখানোর জন্য কাউন্টার ডিভ -->
+                    <div id="uploadStatus" style="margin-top: 8px; font-weight: bold; font-size: 13px; color: var(--primary);"></div>
                 </div>
                 <div class="form-group">
                     <label>বিবরণ</label>
@@ -712,7 +714,6 @@
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
 
-                        // ছবির কোয়ালিটি ও শার্পনেস বজায় রেখে WebP ফরম্যাটে কনভার্ট করা (সমর্থন না করলে অরিজিনাল টাইপ থাকবে)
                         canvas.toBlob((blob) => {
                             const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
                                 type: "image/webp",
@@ -727,6 +728,17 @@
             });
         }
 
+        // আপলোড স্ট্যাটাস আপডেট করার ফাংশন
+        function updateImageUploadStatus(completedCount, totalCount = 5) {
+            let pendingCount = totalCount - completedCount;
+            if (completedCount > totalCount) {
+                completedCount = totalCount;
+                pendingCount = 0;
+            }
+            let dynamicText = `পাচটির ভিতর, ${completedCount}টা কমপ্লিট, ${pendingCount}টি পেন্ডিং`;
+            document.getElementById('uploadStatus').innerText = dynamicText;
+        }
+
         const categoryFeatures = {
             'vehicles': ['সকল', 'মোটরসাইকেল', 'কার', 'বাইক', 'সাইকেল', 'বাস ও ট্রাক', 'পার্টস ও এক্সেসরিজ'],
             'property': ['সকল', 'অ্যাপার্টমেন্ট ও ফ্ল্যাট', 'জমি ও প্লট', 'বাণিজ্যিক জায়গা', 'রুম ভাড়া'],
@@ -738,7 +750,7 @@
             'services': ['সকল', 'রিপেয়ারিং সার্ভিস', 'টিউশনি ও কোচিং', 'ইভেন্ট ম্যানেজমেন্ট', 'ডিজিটাল মার্কেটিং'],
             'construction': ['সকল', 'রড ও সিমেন্ট', 'ইট ও বালু', 'টুলস ও হার্ডওয়্যার', 'ইলেকট্রিক্যাল ও প্লাম্বিং'],
             'tools': ['সকল', 'ইন্ডাস্ট্রিয়াল মেশিন', 'জেনারেটর ও সোলার', 'দোকানের যন্ত্রপাতি'],
-            'leisure': ['সকল', 'স্পোর্টস আইটেম', 'বই ও ম্যাগাজিন', 'মিউজিক্যাল ইন্সট্রুমেন্ট', 'গেম ও হবি'],
+            'leisure': ['সকল', 'স্পোর্টস আইটেম', 'বই ও ম্যাগাজিন', 'মিউজিক্যাল ইন্সট্রুলেন্ট', 'গেম ও হবি'],
             'kids': ['সকল', 'বাচ্চাদের জামাকাপড়', 'খেলনা', 'বেবি কেয়ার ও স্ট্রোলার'],
             'farm': ['সকল', 'তাজা ফল ও সবজি', 'বীজ ও সার', 'কৃষি যন্ত্রপাতি', 'খাদ্যপণ্য'],
             'pets': ['সকল', 'বিড়াল ও কুকুর', 'পাখি ও কবুতর', 'মাছ ও অ্যাকোয়ারিয়াম', 'পেট ফুড'],
@@ -956,6 +968,7 @@
                 openModal('accountModal');
             } else {
                 onPostCategoryChange();
+                document.getElementById('uploadStatus').innerText = '';
                 openModal('postAdModal');
             }
         };
@@ -973,23 +986,29 @@
             if(filesInput.length === 0) return alert("কমপক্ষে একটি ছবি সিলেক্ট করুন!");
             if(filesInput.length > 5) return alert("সর্বোচ্চ ৫টি ছবি আপলোড করা যাবে!");
 
-            submitBtn.innerText = "ছবি প্রসেস ও কম্প্রెస్ হচ্ছে...";
+            submitBtn.innerText = "ছবি প্রসেস হচ্ছে...";
             submitBtn.disabled = true;
 
             try {
-                let uploadPromises = [];
-                for(let i=0; i<filesInput.length; i++) {
+                let uploadURLs = [];
+                let totalFiles = filesInput.length;
+
+                // শুরুতেই স্ট্যাটাস সেট করা (সবগুলো পেন্ডিং)
+                updateImageUploadStatus(0, totalFiles);
+
+                for(let i=0; i<totalFiles; i++) {
                     const originalFile = filesInput[i];
-                    // কম্প্রেশন ফাংশন কল করা (WebP ফরম্যাট ও ৯% কোয়ালিটি)
                     const compressedFile = await compressImage(originalFile, 0.9, 1600, 1600);
                     
                     const storageRef = storage.ref('baza_photos/' + Date.now() + '_' + i + '_' + compressedFile.name);
-                    const uploadTask = storageRef.put(compressedFile).then(snap => snap.ref.getDownloadURL());
-                    uploadPromises.push(uploadTask);
+                    const snap = await storageRef.put(compressedFile);
+                    const downloadURL = await snap.ref.getDownloadURL();
+                    
+                    uploadURLs.push(downloadURL);
+                    
+                    // একটি করে ছবি আপলোড কমপ্লিট হলে কাউন্টার আপডেট হবে
+                    updateImageUploadStatus(i + 1, totalFiles);
                 }
-
-                submitBtn.innerText = "আপলোড হচ্ছে...";
-                const downloadURLs = await Promise.all(uploadPromises);
 
                 submitBtn.innerText = "সেভ হচ্ছে...";
                 const newAd = {
@@ -1002,8 +1021,8 @@
                     district: dist,
                     thana: thana,
                     location: `${thana}, ${dist}, ${div}`,
-                    images: downloadURLs,
-                    img: downloadURLs[0],
+                    images: uploadURLs,
+                    img: uploadURLs[0],
                     desc: document.getElementById('postDesc').value,
                     isFeatured: false,
                     userId: currentUser.uid,
@@ -1017,6 +1036,7 @@
                 submitBtn.disabled = false;
                 closeModal('postAdModal');
                 event.target.reset();
+                document.getElementById('uploadStatus').innerText = '';
                 alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
             } catch (error) {
                 alert("ত্রুটি: " + error.message);
