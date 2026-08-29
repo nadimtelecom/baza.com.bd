@@ -187,7 +187,7 @@
     </header>
 
     <div class="container">
-        <!-- নতুন ইনকাম ফিচার: স্পন্সরড প্রমোশন ব্যানার -->
+        <!-- স্পন্সরড প্রমোশন ব্যানার -->
         <div class="ad-banner-slot">
             ⭐ <strong>আপনার বিজ্ঞাপন দ্রুত বিক্রি করতে চান?</strong><br>
             মাত্র ৫০ টাকায় আপনার বিজ্ঞাপনটি হোম পেজের শীর্ষে (Featured) পিন করুন!
@@ -228,7 +228,7 @@
         </div>
     </div>
 
-    <!-- Boost Info Modal (New Monitization Feature) -->
+    <!-- Boost Info Modal -->
     <div class="modal" id="boostModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('boostModal')">&times;</span>
@@ -334,11 +334,12 @@
         let currentUser = null;
         let isAdmin = false;
         let allAds = [];
+        let currentLang = 'bn';
 
         const bdLocations = {
             "চট্টগ্রাম": {
                 "চট্টগ্রাম": ["কোতোয়ালী", "ডবলমুরিং", "পাহাড়তলী", "পাঁচলাইশ", "খুলশী", "হালিশহর", "পতেঙ্গা", "বন্দর"],
-                "কক্সবাজার": ["কক্সবাজার সদর", "চাকরিয়া", "উখিয়া", "টেকনাফ", "মহেশখালী"],
+                "কক্সবাজার": ["কক্সবাজার সদর", "চকরিয়া", "উখিয়া", "টেকনাফ", "মহেশখালী"],
                 "কুমিল্লা": ["কুমিল্লা সদর", "ব্রাহ্মণপাড়া", "বুড়িচং", "চান্দিনা", "লাকসাম"]
             },
             "ঢাকা": {
