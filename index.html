@@ -329,7 +329,7 @@
         const db = firebase.firestore();
         const auth = firebase.auth();
 
-        const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd"];
+        const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd", "nadimkhan5050@gmail.com"];
 
         let currentUser = null;
         let isAdmin = false;
@@ -608,11 +608,11 @@
                 html += `
                     <div class="form-group">
                         <label>ইমেইল</label>
-                        <input type="email" id="loginEmail">
+                        <input type="email" id="loginEmail" placeholder="example@gmail.com">
                     </div>
                     <div class="form-group">
                         <label>পাসওয়ার্ড</label>
-                        <input type="password" id="loginPassword">
+                        <input type="password" id="loginPassword" placeholder="******">
                     </div>
                     <button onclick="loginUser()" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; margin-bottom:8px;">লগইন</button>
                     <button onclick="registerUser()" style="width:100%; padding:10px; background:#6c757d; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">রেজিস্ট্রেশন</button>
@@ -623,8 +623,12 @@
         }
 
         function loginUser() {
-            const email = document.getElementById('loginEmail').value;
-            const pass = document.getElementById('loginPassword').value;
+            const email = document.getElementById('loginEmail').value.trim();
+            const pass = document.getElementById('loginPassword').value.trim();
+            if(!email || !pass) {
+                alert("দয়া করে ইমেইল এবং পাসওয়ার্ড উভয়ই লিখুন!");
+                return;
+            }
             auth.signInWithEmailAndPassword(email, pass).then(() => {
                 alert("সফলভাবে লগইন হয়েছে!");
                 closeModal('profileModal');
@@ -633,8 +637,12 @@
         }
 
         function registerUser() {
-            const email = document.getElementById('loginEmail').value;
-            const pass = document.getElementById('loginPassword').value;
+            const email = document.getElementById('loginEmail').value.trim();
+            const pass = document.getElementById('loginPassword').value.trim();
+            if(!email || !pass) {
+                alert("দয়া করে ইমেইল এবং পাসওয়ার্ড উভয়ই লিখুন!");
+                return;
+            }
             auth.createUserWithEmailAndPassword(email, pass).then(() => {
                 alert("একাউন্ট তৈরি এবং লগইন সম্পন্ন হয়েছে!");
                 closeModal('profileModal');
