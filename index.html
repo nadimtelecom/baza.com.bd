@@ -620,19 +620,21 @@
 
         function renderAuthUI() {
             const container = document.getElementById('authContent');
+            if(!container) return;
+
             if(currentUser) {
                 const myAds = allAds.filter(a => a.userId === currentUser.uid);
                 container.innerHTML = `
-                    <p><strong>নাম:</strong> ${currentUser.displayName} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
-                    <p><strong>ইমেইল:</strong> ${currentUser.email}</p>
+                    <p><strong>নাম:</strong> ${currentUser.displayName || 'ব্যবহারকারী'} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
+                    <p><strong>ইমেইল:</strong> ${currentUser.email || 'N/A'}</p>
                     <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length}</p>
                     ${isAdmin ? '<button style="width:100%; padding:9px; background:#17a2b8; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; margin-top:8px;" onclick="openAdminModal()">⚙️ Admin Dashboard & Income</button>' : ''}
                     <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; margin-top:8px;" onclick="logout()">লগআউট</button>
                 `;
             } else {
                 container.innerHTML = `
-                    <p style="text-align:center; font-size:13px;">বিজ্ঞাপন পোস্ট ও ম্যানেজ করতে সাইন-ইন করুন</p>
-                    <button style="width:100%; padding:10px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন / লগইন</button>
+                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">বিজ্ঞাপন পোস্ট ও ম্যানেজ করতে সাইন-ইন করুন</p>
+                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন / লগইন</button>
                 `;
             }
         }
@@ -877,7 +879,13 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         };
 
-        window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
+        window.openModal = function(id) { 
+            document.getElementById(id).style.display = 'flex'; 
+            if(id === 'accountModal') {
+                renderAuthUI();
+            }
+        };
+
         window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
         window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
 
