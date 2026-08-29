@@ -607,14 +607,11 @@
             renderAuthUI();
         });
 
+        // এখানে পপ-আপের পরিবর্তে সরাসরি রিডাইরেক্ট মেথড ব্যবহার করা হয়েছে যা মোবাইলের জন্য শতভাগ কার্যকর
         window.loginWithGoogle = function() {
             const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider).catch(error => {
-                if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
-                    auth.signInWithRedirect(provider);
-                } else {
-                    alert(error.message);
-                }
+            auth.signInWithRedirect(provider).catch(error => {
+                alert(error.message);
             });
         };
 
@@ -889,6 +886,10 @@
             fetchAdsFromFirebase();
             initFilterLocations();
             initPostLocations();
+            // রিডাইরেক্ট সাইন-ইন সম্পন্ন হওয়ার পর রেজাল্ট হ্যান্ডেল করার জন্য
+            auth.getRedirectResult().catch(error => {
+                alert(error.message);
+            });
         };
     </script>
 </body>
