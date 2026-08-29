@@ -1,1 +1,513 @@
-13e3f97793ccfadd6ee6dfecb989b0d722707d0b
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baza.com.bd - ক্রয় ও বিক্রয় করুন সহজে</title>
+    
+    <!-- Firebase Compat SDK Links -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <style>
+        :root {
+            --primary: #00838f;
+            --primary-dark: #005662;
+            --bg-light: #f4f6f8;
+            --text-light: #333;
+            --card-bg-light: #fff;
+            --bg-dark: #121212;
+            --text-dark: #f1f1f1;
+            --card-bg-dark: #1e1e1e;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            transition: background 0.3s, color 0.3s;
+            padding-bottom: 80px;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo { font-size: 24px; font-weight: bold; cursor: pointer; }
+
+        .search-box { flex-grow: 1; max-width: 500px; display: flex; }
+        .search-box input { width: 100%; padding: 10px; border: none; border-radius: 4px 0 0 4px; outline: none; }
+        .search-box button { padding: 10px 15px; background: var(--primary-dark); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+
+        .theme-toggle { background: transparent; border: 1px solid white; color: white; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+
+        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
+
+        .category-bar {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .cat-btn {
+            background: #e0e0e0;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+        body.dark-mode .cat-btn { background: #333; color: #fff; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg-light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        body.dark-mode .card { background-color: var(--card-bg-dark); }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card-content { padding: 15px; }
+        .card-title { font-size: 16px; font-weight: bold; margin: 0 0 8px 0; }
+        .card-price { color: var(--primary); font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+        .card-location { font-size: 12px; color: #777; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 5000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 450px;
+            width: 100%;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .modal-content { background: var(--card-bg-dark); color: white; }
+        .close-btn { position: absolute; right: 15px; top: 15px; font-size: 24px; cursor: pointer; font-weight: bold; }
+
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-call { flex: 1; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+        .btn-wa { flex: 1; padding: 12px; background: #25D366; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
+        .btn-delete { width: 100%; padding: 10px; background: #dc3545; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
+        /* বটম নেভিগেশন বার - ফিক্সড ক্লিক ইস্যু */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0; 
+            left: 0; 
+            width: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 14px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
+            z-index: 3000;
+            pointer-events: auto;
+        }
+
+        .nav-item {
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            flex: 1;
+            padding: 5px 0;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .nav-item:active {
+            opacity: 0.7;
+        }
+
+        @media (min-width: 768px) {
+            .bottom-nav { display: none; }
+            body { padding-bottom: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo" onclick="filterCategory('all')">Baza.com.bd</div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="যা খুঁজছেন লিখুন..." onkeyup="filterAds()">
+                <button onclick="filterAds()">সার্চ</button>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">ডার্ক/লাইট</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="category-bar">
+            <button class="cat-btn" onclick="filterCategory('all')">সব বিজ্ঞাপন</button>
+            <button class="cat-btn" onclick="filterCategory('mobile')">মোবাইল</button>
+            <button class="cat-btn" onclick="filterCategory('electronics')">ইলেকট্রনিক্স</button>
+            <button class="cat-btn" onclick="filterCategory('vehicles')">যানবাহন</button>
+        </div>
+
+        <h2 id="sectionTitle">সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
+        <div class="grid" id="adsGrid"></div>
+    </div>
+
+    <!-- 1. Product Details Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
+            <img id="modalImg" src="" style="width:100%; height:200px; object-fit:cover; border-radius:5px;" alt="Product">
+            <h3 id="modalTitle"></h3>
+            <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:20px;"></p>
+            <p id="modalLocation" style="color:#777;"></p>
+            <p id="modalSeller" style="font-size:13px; color:#555;"></p>
+            <p id="modalDesc"></p>
+
+            <div class="action-btns">
+                <a id="callLink" href="#" class="btn-call">📞 কল করুন</a>
+                <a id="waLink" href="#" target="_blank" class="btn-wa">💬 WhatsApp</a>
+            </div>
+            <div id="deleteContainer"></div>
+        </div>
+    </div>
+
+    <!-- 2. Post New Ad Modal -->
+    <div class="modal" id="postAdModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
+            <h3>নতুন বিজ্ঞাপন দিন</h3>
+            <form onsubmit="handlePostAd(event)">
+                <div class="form-group">
+                    <label>শিরোনাম</label>
+                    <input type="text" id="postTitle" required placeholder="যেমন: Redmi Note 13 Pro">
+                </div>
+                <div class="form-group">
+                    <label>ক্যাটাগরি</label>
+                    <select id="postCategory">
+                        <option value="mobile">মোবাইল</option>
+                        <option value="electronics">ইলেকট্রনিক্স</option>
+                        <option value="vehicles">যানবাহন</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>মূল্য (টাকা)</label>
+                    <input type="text" id="postPrice" required placeholder="যেমন: ২৫,০০০ টাকা">
+                </div>
+                <div class="form-group">
+                    <label>ফোন নম্বর (যোগাযোগের জন্য)</label>
+                    <input type="tel" id="postPhone" required placeholder="যেমন: 018XXXXXXXX">
+                </div>
+                <div class="form-group">
+                    <label>লোকেশন</label>
+                    <input type="text" id="postLocation" required placeholder="যেমন: চট্টগ্রাম">
+                </div>
+                <div class="form-group">
+                    <label>পণ্যের ছবি (গ্যালারি থেকে সিলেক্ট করুন)</label>
+                    <input type="file" id="postFile" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label>বিবরণ</label>
+                    <textarea id="postDesc" rows="3" required></textarea>
+                </div>
+                <button type="submit" id="submitBtn" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. Account Modal -->
+    <div class="modal" id="accountModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
+            <h3>আপনার অ্যাকাউন্ট</h3>
+            <hr><br>
+            <div id="authContent"></div>
+        </div>
+    </div>
+
+    <!-- Fixed Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button type="button" class="nav-item" onclick="filterCategory('all')">হোম</button>
+        <button type="button" class="nav-item" onclick="scrollToCategories()">ক্যাটাগরি</button>
+        <button type="button" class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
+        <button type="button" class="nav-item" onclick="openModal('accountModal')">অ্যাকাউন্ট</button>
+    </nav>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCFAZIX-TS2_gyWFP0IEurW1N2408HygjE",
+            authDomain: "baza-30f91.firebaseapp.com",
+            projectId: "baza-30f91",
+            storageBucket: "baza-30f91.appspot.com",
+            messagingSenderId: "637633219909",
+            appId: "1:637633219909:web:6f2c6f49dafef5f62f022c",
+            measurementId: "G-ETYZ29DWQH"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+        const auth = firebase.auth();
+
+        let currentUser = null;
+        let allAds = [];
+
+        auth.onAuthStateChanged(user => {
+            currentUser = user;
+            renderAuthUI();
+        });
+
+        auth.getRedirectResult().then(result => {
+            if (result.user) {
+                currentUser = result.user;
+                renderAuthUI();
+            }
+        }).catch(error => {
+            if(error.code) alert("লগইন ত্রুটি: " + error.message);
+        });
+
+        window.loginWithGoogle = function() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).catch(error => {
+                if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+                    auth.signInWithRedirect(provider);
+                } else {
+                    alert("লগইন ব্যর্থ হয়েছে: " + error.message);
+                }
+            });
+        };
+
+        window.logout = function() {
+            auth.signOut().then(() => {
+                alert("লগআউট সফল হয়েছে!");
+            });
+        };
+
+        function renderAuthUI() {
+            const container = document.getElementById('authContent');
+            if(currentUser) {
+                const myAds = allAds.filter(a => a.userId === currentUser.uid);
+                container.innerHTML = `
+                    <p><strong>নাম:</strong> ${currentUser.displayName}</p>
+                    <p><strong>ইমেইল:</strong> ${currentUser.email}</p>
+                    <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length} টি</p>
+                    <button style="width:100%; padding:10px; background:#dc3545; color:white; border:none; border-radius:5px; cursor:pointer; margin-top:15px;" onclick="logout()">লগআউট</button>
+                `;
+            } else {
+                container.innerHTML = `
+                    <p style="text-align:center;">বিজ্ঞাপন পোস্ট করতে বা নিয়ন্ত্রণ করতে লগইন করুন</p>
+                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="loginWithGoogle()">Google দিয়ে লগইন করুন</button>
+                `;
+            }
+        }
+
+        function fetchAdsFromFirebase() {
+            db.collection("ads").orderBy("createdAt", "desc").onSnapshot(snapshot => {
+                allAds = [];
+                snapshot.forEach(doc => {
+                    allAds.push({ id: doc.id, ...doc.data() });
+                });
+                renderAds(allAds);
+                if(currentUser) renderAuthUI();
+            });
+        }
+
+        function renderAds(ads) {
+            const grid = document.getElementById('adsGrid');
+            grid.innerHTML = '';
+            if(ads.length === 0) {
+                grid.innerHTML = '<p>কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>';
+                return;
+            }
+            ads.forEach(ad => {
+                grid.innerHTML += `
+                    <div class="card" onclick="openProductDetail('${ad.id}')">
+                        <img src="${ad.img}" alt="${ad.title}">
+                        <div class="card-content">
+                            <div class="card-title">${ad.title}</div>
+                            <div class="card-price">${ad.price}</div>
+                            <div class="card-location">${ad.location}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.openPostModal = function() {
+            if(!currentUser) {
+                alert("বিজ্ঞাপন পোস্ট করতে আপনাকে অবশ্যই Google দিয়ে লগইন করতে হবে।");
+                openModal('accountModal');
+            } else {
+                openModal('postAdModal');
+            }
+        };
+
+        window.handlePostAd = function(event) {
+            event.preventDefault();
+            if(!currentUser) return alert("লগইন করুন!");
+
+            const submitBtn = document.getElementById('submitBtn');
+            const file = document.getElementById('postFile').files[0];
+
+            if(!file) return alert("ছবি নির্বাচন করুন!");
+
+            submitBtn.innerText = "ছবি আপলোড হচ্ছে...";
+            submitBtn.disabled = true;
+
+            const storageRef = storage.ref('baza_photos/' + Date.now() + '_' + file.name);
+            storageRef.put(file).then(snapshot => {
+                return snapshot.ref.getDownloadURL();
+            }).then(downloadURL => {
+                submitBtn.innerText = "ডাটা সেভ হচ্ছে...";
+                const newAd = {
+                    title: document.getElementById('postTitle').value,
+                    category: document.getElementById('postCategory').value,
+                    price: document.getElementById('postPrice').value,
+                    phone: document.getElementById('postPhone').value,
+                    location: document.getElementById('postLocation').value,
+                    img: downloadURL,
+                    desc: document.getElementById('postDesc').value,
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                return db.collection("ads").add(newAd);
+            }).then(() => {
+                submitBtn.innerText = "পাবলিশ করুন";
+                submitBtn.disabled = false;
+                closeModal('postAdModal');
+                event.target.reset();
+                alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
+            }).catch(error => {
+                console.error(error);
+                alert("পোস্ট করতে ব্যর্থ হয়েছে: " + error.message);
+                submitBtn.innerText = "পাবলিশ করুন";
+                submitBtn.disabled = false;
+            });
+        };
+
+        window.openProductDetail = function(id) {
+            const ad = allAds.find(a => a.id === id);
+            if(ad) {
+                document.getElementById('modalTitle').innerText = ad.title;
+                document.getElementById('modalPrice').innerText = ad.price;
+                document.getElementById('modalLocation').innerText = 'লোকেশন: ' + ad.location;
+                document.getElementById('modalSeller').innerText = 'বিক্রেতা: ' + (ad.userName || 'অজানা');
+                document.getElementById('modalDesc').innerText = ad.desc;
+                document.getElementById('modalImg').src = ad.img;
+                
+                document.getElementById('callLink').href = "tel:" + ad.phone;
+                document.getElementById('waLink').href = "https://wa.me/88" + ad.phone;
+
+                const delContainer = document.getElementById('deleteContainer');
+                delContainer.innerHTML = '';
+                if(currentUser && ad.userId === currentUser.uid) {
+                    delContainer.innerHTML = `<button class="btn-delete" onclick="deleteAd('${ad.id}')">বিজ্ঞাপন ডিলিট করুন</button>`;
+                }
+
+                openModal('productModal');
+            }
+        };
+
+        window.deleteAd = function(id) {
+            if(confirm("আপনি কি নিশ্চিত যে বিজ্ঞাপনটি মুছে ফেলতে চান?")) {
+                db.collection("ads").doc(id).delete().then(() => {
+                    closeModal('productModal');
+                    alert("বিজ্ঞাপন ডিলিট সম্পন্ন হয়েছে!");
+                });
+            }
+        };
+
+        window.filterAds = function() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allAds.filter(ad => ad.title.toLowerCase().includes(query) || ad.location.toLowerCase().includes(query));
+            renderAds(filtered);
+        };
+
+        window.filterCategory = function(cat) {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            if(cat === 'all') {
+                document.getElementById('sectionTitle').innerText = 'সাম্প্রতিক বিজ্ঞাপনসমূহ';
+                renderAds(allAds);
+            } else {
+                document.getElementById('sectionTitle').innerText = cat.toUpperCase() + ' বিজ্ঞাপনসমূহ';
+                const filtered = allAds.filter(ad => ad.category === cat);
+                renderAds(filtered);
+            }
+        };
+
+        window.scrollToCategories = function() { window.scrollTo({top: 0, behavior: 'smooth'}); };
+        window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
+        window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
+        window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
+
+        window.onload = fetchAdsFromFirebase;
+    </script>
+</body>
+</html>
