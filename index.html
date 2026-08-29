@@ -51,10 +51,10 @@
             color: var(--text-dark);
         }
 
-        /* Top Header - Fixed overlap issue */
+        /* Top Header */
         header {
             background-color: var(--primary);
-            padding: 10px 15px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -182,7 +182,6 @@
             padding: 0 15px;
         }
 
-        /* AdSense Banner Placeholder Styling */
         .adsense-container {
             margin: 20px 0;
             text-align: center;
@@ -213,7 +212,7 @@
         .filter-group select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; outline: none; flex-grow: 1; }
         body.dark-mode .filter-group select { background: #2a2a2a; color: white; border-color: #444; }
 
-        /* Category Icons Grid */
+        /* Colorful Category Icons Grid */
         .category-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -237,8 +236,9 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             transition: 0.2s;
             cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.04);
         }
-        body.dark-mode .category-card { background: var(--card-bg-dark); color: var(--text-dark); }
+        body.dark-mode .category-card { background: var(--card-bg-dark); color: var(--text-dark); border-color: #333; }
 
         .category-card:hover {
             transform: translateY(-3px);
@@ -247,7 +247,6 @@
 
         .category-card i {
             font-size: 26px;
-            color: var(--primary);
             margin-bottom: 8px;
             display: block;
         }
@@ -257,6 +256,33 @@
             font-weight: 600;
             display: block;
             line-height: 1.2;
+        }
+
+        /* Sub-category Filter Bar */
+        .sub-category-bar {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            white-space: nowrap;
+        }
+        .sub-chip {
+            background: var(--card-bg-light);
+            border: 1px solid #ddd;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 600;
+            color: inherit;
+            transition: 0.2s;
+        }
+        body.dark-mode .sub-chip { background: var(--card-bg-dark); border-color: #444; }
+        .sub-chip.active, .sub-chip:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
 
         /* Listings Section */
@@ -350,7 +376,6 @@
         .btn-boost { background-color: var(--accent); color: #000; }
         .btn-topup { background-color: var(--primary); color: white; }
 
-        /* Footer info */
         footer {
             text-align: center;
             padding: 20px;
@@ -365,44 +390,28 @@
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 10px;
+            justify-content: center; align-items: center;
+            z-index: 1000; padding: 10px;
         }
 
         .modal-content {
             background: var(--card-bg-light);
-            padding: 25px;
-            border-radius: 12px;
-            max-width: 480px;
-            width: 100%;
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
+            padding: 25px; border-radius: 12px;
+            max-width: 480px; width: 100%;
+            position: relative; max-height: 90vh; overflow-y: auto;
         }
         body.dark-mode .modal-content { background: var(--card-bg-dark); color: var(--text-dark); }
 
         .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 22px;
-            cursor: pointer;
-            color: #666;
+            position: absolute; top: 10px; right: 15px;
+            font-size: 22px; cursor: pointer; color: #666;
         }
 
         .payment-box {
-            background: #f8f9fa;
-            border: 1px dashed var(--primary);
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
+            background: #f8f9fa; border: 1px dashed var(--primary);
+            padding: 12px; border-radius: 8px; margin-top: 10px;
         }
         body.dark-mode .payment-box { background: #2a2a2a; border-color: #555; }
         .payment-box p { font-size: 13px; margin-bottom: 5px; }
@@ -490,24 +499,29 @@
             <button onclick="resetFilters()" style="padding: 8px 12px; background:#6c757d; color:white; border:none; border-radius:4px; cursor:pointer; font-size:12px;">রিসেট</button>
         </div>
 
-        <!-- Categories Grid -->
+        <!-- Colorful Categories Grid -->
         <div class="category-grid">
-            <div class="category-card" onclick="selectCategory('all')"><i class="fa-solid fa-fire"></i><span>Trending</span></div>
-            <div class="category-card" onclick="selectCategory('vehicles')"><i class="fa-solid fa-car"></i><span>Vehicles</span></div>
-            <div class="category-card" onclick="selectCategory('property')"><i class="fa-solid fa-house"></i><span>Property</span></div>
-            <div class="category-card" onclick="selectCategory('mobile')"><i class="fa-solid fa-mobile-screen-button"></i><span>Phones</span></div>
-            <div class="category-card" onclick="selectCategory('electronics')"><i class="fa-solid fa-laptop"></i><span>Electronics</span></div>
-            <div class="category-card" onclick="selectCategory('furniture')"><i class="fa-solid fa-couch"></i><span>Furniture</span></div>
-            <div class="category-card" onclick="selectCategory('fashion')"><i class="fa-solid fa-shirt"></i><span>Fashion</span></div>
-            <div class="category-card" onclick="selectCategory('beauty')"><i class="fa-solid fa-pump-soap"></i><span>Beauty Care</span></div>
-            <div class="category-card" onclick="selectCategory('services')"><i class="fa-solid fa-wrench"></i><span>Services</span></div>
-            <div class="category-card" onclick="selectCategory('construction')"><i class="fa-solid fa-helmet-safety"></i><span>Construction</span></div>
-            <div class="category-card" onclick="selectCategory('tools')"><i class="fa-solid fa-gears"></i><span>Tools</span></div>
-            <div class="category-card" onclick="selectCategory('leisure')"><i class="fa-solid fa-person-biking"></i><span>Leisure</span></div>
-            <div class="category-card" onclick="selectCategory('kids')"><i class="fa-solid fa-teddy-bear"></i><span>Babies & Kids</span></div>
-            <div class="category-card" onclick="selectCategory('farm')"><i class="fa-solid fa-basket-shopping"></i><span>Agriculture</span></div>
-            <div class="category-card" onclick="selectCategory('pets')"><i class="fa-solid fa-dog"></i><span>Pets</span></div>
-            <div class="category-card" onclick="selectCategory('jobs')"><i class="fa-solid fa-briefcase"></i><span>Jobs</span></div>
+            <div class="category-card" onclick="selectCategory('all')"><i class="fa-solid fa-fire" style="color: #ff4757;"></i><span>Trending</span></div>
+            <div class="category-card" onclick="selectCategory('vehicles')"><i class="fa-solid fa-car" style="color: #2ed573;"></i><span>Vehicles</span></div>
+            <div class="category-card" onclick="selectCategory('property')"><i class="fa-solid fa-house" style="color: #ffa502;"></i><span>Property</span></div>
+            <div class="category-card" onclick="selectCategory('mobile')"><i class="fa-solid fa-mobile-screen-button" style="color: #3742fa;"></i><span>Phones</span></div>
+            <div class="category-card" onclick="selectCategory('electronics')"><i class="fa-solid fa-laptop" style="color: #70a1ff;"></i><span>Electronics</span></div>
+            <div class="category-card" onclick="selectCategory('furniture')"><i class="fa-solid fa-couch" style="color: #ff6b81;"></i><span>Furniture</span></div>
+            <div class="category-card" onclick="selectCategory('fashion')"><i class="fa-solid fa-shirt" style="color: #9b59b6;"></i><span>Fashion</span></div>
+            <div class="category-card" onclick="selectCategory('beauty')"><i class="fa-solid fa-pump-soap" style="color: #e84393;"></i><span>Beauty Care</span></div>
+            <div class="category-card" onclick="selectCategory('services')"><i class="fa-solid fa-wrench" style="color: #fd9644;"></i><span>Services</span></div>
+            <div class="category-card" onclick="selectCategory('construction')"><i class="fa-solid fa-helmet-safety" style="color: #f1c40f;"></i><span>Construction</span></div>
+            <div class="category-card" onclick="selectCategory('tools')"><i class="fa-solid fa-gears" style="color: #576574;"></i><span>Tools</span></div>
+            <div class="category-card" onclick="selectCategory('leisure')"><i class="fa-solid fa-person-biking" style="color: #10ac84;"></i><span>Leisure</span></div>
+            <div class="category-card" onclick="selectCategory('kids')"><i class="fa-solid fa-teddy-bear" style="color: #ff9ff3;"></i><span>Babies & Kids</span></div>
+            <div class="category-card" onclick="selectCategory('farm')"><i class="fa-solid fa-basket-shopping" style="color: #01a3a4;"></i><span>Agriculture</span></div>
+            <div class="category-card" onclick="selectCategory('pets')"><i class="fa-solid fa-dog" style="color: #ff7f50;"></i><span>Pets</span></div>
+            <div class="category-card" onclick="selectCategory('jobs')"><i class="fa-solid fa-briefcase" style="color: #2f3640;"></i><span>Jobs</span></div>
+        </div>
+
+        <!-- Sub-Category / Feature Filter Bar -->
+        <div id="subCategoryBarContainer" style="display:none;">
+            <div class="sub-category-bar" id="subCategoryBar"></div>
         </div>
 
         <!-- Section Header -->
@@ -559,7 +573,7 @@
                 </div>
                 <div class="form-group">
                     <label>ক্যাটাগরি</label>
-                    <select id="postCategory">
+                    <select id="postCategory" onchange="onPostCategoryChange()">
                         <option value="vehicles">🚗 Vehicles</option>
                         <option value="property">🏠 Property</option>
                         <option value="mobile">📱 Phones & Tablets</option>
@@ -575,6 +589,12 @@
                         <option value="farm">🛒 Food & Agriculture</option>
                         <option value="pets">🐶 Animals & Pets</option>
                         <option value="jobs">💼 Jobs</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>সাব-ক্যাটাগরি / ফিচার</label>
+                    <select id="postSubCategory" required>
+                        <option value="">প্রথমে ক্যাটাগরি সিলেক্ট করুন</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -690,6 +710,26 @@
         let isAdmin = false;
         let allAds = [];
         let currentCategory = 'all';
+        let currentSubCategory = 'all';
+
+        // Sub-categories / Features mapping for each main category
+        const categoryFeatures = {
+            'vehicles': ['সকল', 'মোটরসাইকেল', 'কার', 'বাইক', 'সাইকেল', 'বাস ও ট্রাক', 'পার্টস ও এক্সেসরিজ'],
+            'property': ['সকল', 'অ্যাপার্টমেন্ট ও ফ্ল্যাট', 'জমি ও প্লট', 'বাণিজ্যিক জায়গা', 'রুম ভাড়া'],
+            'mobile': ['সকল', 'স্মার্টফোন', 'ফিচার ফোন', 'ট্যাবলেট', 'মোবাইল এক্সেসরিজ'],
+            'electronics': ['সকল', 'ল্যাপটপ ও কম্পিউটার', 'টিভি ও অডিও', 'এসি ও ফ্রিজ', 'ক্যামেরা ও লেন্স', 'হোম অ্যাপ্লায়েন্স'],
+            'furniture': ['সকল', 'বেড ও খাট', 'সোফা ও চেয়ার', 'ডাইনিং টেবিল', 'ওয়ারড্রোব ও আলমারি'],
+            'fashion': ['সকল', 'পুরুষের পোশাক', 'মহিলাদের পোশাক', 'জুতো ও স্যান্ডেল', 'ওয়াচ ও ঘড়ি', 'সাজসজ্জা'],
+            'beauty': ['সকল', 'স্কিন কেয়ার', 'হেয়ার কেয়ার', 'মেকআপ আইটেম', 'পারফিউম'],
+            'services': ['সকল', 'রিপেয়ারিং সার্ভিস', 'টিউশনি ও কোচিং', 'ইভেন্ট ম্যানেজমেন্ট', 'ডিজিটাল মার্কেটিং'],
+            'construction': ['সকল', 'রড ও সিমেন্ট', 'ইট ও বালু', 'টুলস ও হার্ডওয়্যার', 'ইলেকট্রিক্যাল ও প্লাম্বিং'],
+            'tools': ['সকল', 'ইন্ডাস্ট্রিয়াল মেশিন', 'জেনারেটর ও সোলার', 'দোকানের যন্ত্রপাতি'],
+            'leisure': ['সকল', 'স্পোর্টস আইটেম', 'বই ও ম্যাগাজিন', 'মিউজিক্যাল ইন্সট্রুমেন্ট', 'গেম ও হবি'],
+            'kids': ['সকল', 'বাচ্চাদের জামাকাপড়', 'খেলনা', 'বেবি কেয়ার ও স্ট্রোলার'],
+            'farm': ['সকল', 'তাজা ফল ও সবজি', 'বীজ ও সার', 'কৃষি যন্ত্রপাতি', 'খাদ্যপণ্য'],
+            'pets': ['সকল', 'বিড়াল ও কুকুর', 'পাখি ও কবুতর', 'মাছ ও অ্যাকোয়ারিয়াম', 'পেট ফুড'],
+            'jobs': ['সকল', 'সেলস ও মার্কেটিং', 'অফিস স্টাফ', 'ড্রাইভার ও ডেলিভারি', 'টেকনিশিয়ান ও মেকানিক']
+        };
 
         const bdLocations = [
             {
@@ -793,6 +833,20 @@
             }
         };
 
+        window.onPostCategoryChange = function() {
+            const catVal = document.getElementById('postCategory').value;
+            const subSelect = document.getElementById('postSubCategory');
+            subSelect.innerHTML = '';
+            
+            if(categoryFeatures[catVal]) {
+                categoryFeatures[catVal].forEach(feature => {
+                    if(feature !== 'সকল') {
+                        subSelect.innerHTML += `<option value="${feature}">${feature}</option>`;
+                    }
+                });
+            }
+        };
+
         window.resetFilters = function() {
             document.getElementById('heroDivision').value = '';
             document.getElementById('filterDistrict').innerHTML = '<option value="">প্রথমে বিভাগ সিলেক্ট করুন</option>';
@@ -859,6 +913,7 @@
                 const isFeaturedClass = ad.isFeatured ? 'featured' : '';
                 const featuredBadge = ad.isFeatured ? '<span class="featured-badge">FEATURED</span>' : '';
                 const mainImg = (ad.images && ad.images.length > 0) ? ad.images[0] : (ad.img || '');
+                const subTag = ad.subCategory ? `<small style="background:#eef2f5; padding:2px 6px; border-radius:3px; color:#555; display:inline-block; margin-bottom:4px;">🏷️ ${ad.subCategory}</small>` : '';
                 
                 grid.innerHTML += `
                     <div class="product-card ${isFeaturedClass}" onclick="openProductDetail('${ad.id}')">
@@ -868,6 +923,7 @@
                             <div>
                                 <div class="product-price">${ad.price}</div>
                                 <div class="product-title">${ad.title}</div>
+                                ${subTag}
                                 <div class="product-location">📍 ${ad.location}</div>
                             </div>
                             <div class="action-btns">
@@ -885,6 +941,7 @@
                 alert("বিজ্ঞাপন পোস্ট করতে প্রথমে সাইন-ইন/লগইন করুন।");
                 openModal('accountModal');
             } else {
+                onPostCategoryChange();
                 openModal('postAdModal');
             }
         };
@@ -917,6 +974,7 @@
                 const newAd = {
                     title: document.getElementById('postTitle').value,
                     category: document.getElementById('postCategory').value.toLowerCase(),
+                    subCategory: document.getElementById('postSubCategory').value,
                     price: document.getElementById('postPrice').value,
                     phone: document.getElementById('postPhone').value,
                     division: div,
@@ -1043,38 +1101,63 @@
             let filtered = allAds.filter(ad => {
                 const matchQuery = !query || (ad.title && ad.title.toLowerCase().includes(query)) || (ad.location && ad.location.toLowerCase().includes(query));
                 const matchCat = currentCategory === 'all' || (ad.category && ad.category.toLowerCase() === currentCategory.toLowerCase());
+                const matchSubCat = currentSubCategory === 'all' || (ad.subCategory && ad.subCategory === currentSubCategory);
                 const matchDiv = !divFilter || ad.division === divFilter;
                 const matchDist = !distFilter || ad.district === distFilter;
                 const matchThana = !thanaFilter || ad.thana === thanaFilter;
 
-                return matchQuery && matchCat && matchDiv && matchDist && matchThana;
+                return matchQuery && matchCat && matchSubCat && matchDiv && matchDist && matchThana;
             });
             renderAds(filtered);
         };
 
         window.selectCategory = function(cat) {
             currentCategory = cat;
+            currentSubCategory = 'all';
+            
             const categoryNames = {
                 'all': '🌐 সব বিজ্ঞাপন',
-                'vehicles': '🚗 যানবাহন',
-                'property': '🏠 প্রপার্টি',
-                'mobile': '📱 মোবাইল ও ট্যাবলেট',
-                'electronics': '💻 ইলেকট্রনিক্স',
-                'furniture': '🛋️ হোম ও ফার্নিচার',
-                'fashion': '👕 ফ্যাশন',
-                'beauty': '💄 বিউটি ও কেয়ার',
-                'services': '🛠️ সার্ভিসেস',
+                'vehicles': '🚗 যানবাহন (Vehicles)',
+                'property': '🏠 প্রপার্টি (Property)',
+                'mobile': '📱 মোবাইল ও ট্যাবলেট (Phones)',
+                'electronics': '💻 ইলেকট্রনিক্স (Electronics)',
+                'furniture': '🛋️ হোম ও ফার্নিচার (Furniture)',
+                'fashion': '👕 ফ্যাশন (Fashion)',
+                'beauty': '💄 বিউটি ও কেয়ার (Beauty Care)',
+                'services': '🛠️ সার্ভিসেস (Services)',
                 'construction': '👷 মেরামত ও কনস্ট্রাকশন',
-                'tools': '⚙️ কমার্শিয়াল টুলস',
-                'leisure': '🚴 লেজার ও এক্টিভিটি',
-                'kids': '🧸 বেবি ও কিডস',
-                'farm': '🛒 খাদ্য ও কৃষি',
-                'pets': '🐶 পোষা প্রাণী',
-                'jobs': '💼 জবস'
+                'tools': '⚙️ কমার্শিয়াল টুলস (Tools)',
+                'leisure': '🚴 লেজার ও এক্টিভিটি (Leisure)',
+                'kids': '🧸 বেবি ও কিডস (Babies & Kids)',
+                'farm': '🛒 খাদ্য ও কৃষি (Agriculture)',
+                'pets': '🐶 পোষা প্রাণী (Pets)',
+                'jobs': '💼 জবস (Jobs)'
             };
             document.getElementById('sectionTitle').innerText = categoryNames[cat] || 'বিজ্ঞাপনসমূহ';
+
+            const barContainer = document.getElementById('subCategoryBarContainer');
+            const bar = document.getElementById('subCategoryBar');
+            bar.innerHTML = '';
+
+            if(cat !== 'all' && categoryFeatures[cat]) {
+                barContainer.style.display = 'block';
+                categoryFeatures[cat].forEach(sub => {
+                    const activeClass = sub === 'all' ? 'active' : '';
+                    bar.innerHTML += `<button class="sub-chip ${activeClass}" onclick="selectSubCategory('${sub}', this)">${sub}</button>`;
+                });
+            } else {
+                barContainer.style.display = 'none';
+            }
+
             filterAds();
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            window.scrollTo({top: 400, behavior: 'smooth'});
+        };
+
+        window.selectSubCategory = function(sub, element) {
+            currentSubCategory = sub;
+            document.querySelectorAll('.sub-chip').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            filterAds();
         };
 
         window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
