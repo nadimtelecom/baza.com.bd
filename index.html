@@ -437,7 +437,8 @@
         <a class="logo" onclick="selectCategory('all')">Baza<span>.com.bd</span></a>
         <div class="header-controls">
             <button class="btn-post-ad" onclick="openPostModal()">+ বিজ্ঞাপন দিন</button>
-            <button class="btn-account" onclick="openModal('accountModal')">👤 অ্যাকাউন্ট</button>
+            <button class="btn-account" onclick="openModal('loginModal')">সাইন ইন</button>
+            <button class="btn-account" onclick="openModal('registerModal')" style="background:var(--accent); color:#000; border:none;">সাইন আপ</button>
             <button class="btn-toggle" onclick="toggleTheme()">ডার্ক</button>
         </div>
     </header>
@@ -597,7 +598,6 @@
                     <label>পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
                     <input type="file" id="postFiles" accept="image/*" multiple required onchange="handleImageSelection(event)">
                     
-                    <!-- এখানে দুটি সেপারেট বাটন ও স্ট্যাটাস রাখা হয়েছে -->
                     <div id="imageControlBox" style="display: none; margin-top: 8px; display: flex; gap: 8px; align-items: center;">
                         <button type="button" id="actionCancelBtn" onclick="cancelImageUploadProcess()" style="padding: 6px 12px; background: #dc3545; color: white; border: none; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold;">ক্যান্সেল</button>
                         <span id="uploadProgressText" style="font-weight: bold; font-size: 13px; color: var(--primary);">0%</span>
@@ -612,13 +612,27 @@
         </div>
     </div>
 
-    <!-- অ্যাকাউন্ট মোডাল -->
-    <div class="modal" id="accountModal">
+    <!-- সাইন ইন মোডাল -->
+    <div class="modal" id="loginModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
-            <h3 style="margin-top:0;">আপনার অ্যাকাউন্ট</h3>
+            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+            <h3 style="margin-top:0;">সাইন ইন করুন</h3>
             <hr style="margin:10px 0;"><br>
-            <div id="authContent"></div>
+            <div id="loginAuthContent">
+                <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন করুন</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- সাইন আপ মোডাল -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
+            <h3 style="margin-top:0;">নতুন অ্যাকাউন্ট তৈরি করুন</h3>
+            <hr style="margin:10px 0;"><br>
+            <div id="registerAuthContent">
+                <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন আপ করুন</button>
+            </div>
         </div>
     </div>
 
@@ -661,7 +675,7 @@
     <nav class="bottom-nav">
         <button class="nav-item" onclick="selectCategory('all')">🏠 হোম</button>
         <button class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
-        <button class="nav-item" onclick="openModal('accountModal')">👤 অ্যাকাউন্ট</button>
+        <button class="nav-item" onclick="openModal('loginModal')">👤 সাইন ইন</button>
     </nav>
 
     <script>
@@ -691,7 +705,6 @@
         let uploadedImageURLs = [];
         let uploadTaskInstance = null;
 
-        // ইমেজ কম্প্রেশন ফাংশন (টাইমআউট ও এরর ফ্রি করার জন্য অপ্টিমাইজড)
         function compressImage(file, quality = 0.8, maxWidth = 1200, maxHeight = 1200) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -739,7 +752,6 @@
             });
         }
 
-        // ছবি সিলেক্ট করার পর ব্যাকগ্রাউন্ডে আপলোড শুরু করা এবং প্রোগ্রেস পার্সেন্ট দেখানো
         window.handleImageSelection = async function(event) {
             const files = event.target.files;
             const controlBox = document.getElementById('imageControlBox');
@@ -770,7 +782,6 @@
 
             try {
                 let totalFiles = files.length;
-                let currentUploadedCount = 0;
 
                 for (let i = 0; i < totalFiles; i++) {
                     const compressed = await compressImage(files[i]);
@@ -797,10 +808,9 @@
                     });
                 }
 
-                // যখন ১০০% আপলোড শেষ হবে
                 progressText.innerText = "১০০% সম্পন্ন!";
                 cancelBtn.innerText = "Accept";
-                cancelBtn.style.backgroundColor = "#28a745"; // সবুজ রঙ
+                cancelBtn.style.backgroundColor = "#28a745";
                 cancelBtn.onclick = acceptUploadedImages;
 
             } catch (error) {
@@ -809,7 +819,6 @@
             }
         };
 
-        // ১০০% হওয়ার পর Accept করলে ফর্ম সাবমিট এনাবল হবে
         window.acceptUploadedImages = function() {
             const cancelBtn = document.getElementById('actionCancelBtn');
             const progressText = document.getElementById('uploadProgressText');
@@ -825,7 +834,6 @@
             alert("ছবি সফলভাবে গৃহীত হয়েছে! এখন 'পাবলিশ করুন' বাটনে ক্লিক করুন।");
         };
 
-        // আপলোড চলাকালীন বা মাঝপথে ক্যান্সেল করার ফাংশন
         window.cancelImageUploadProcess = function() {
             if (uploadTaskInstance) {
                 try { uploadTaskInstance.cancel(); } catch(e) {}
@@ -990,7 +998,10 @@
 
         window.loginWithGoogle = function() {
             const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider).catch(error => alert(error.message));
+            auth.signInWithPopup(provider).then(() => {
+                closeModal('loginModal');
+                closeModal('registerModal');
+            }).catch(error => alert(error.message));
         };
 
         window.logout = function() {
@@ -998,23 +1009,25 @@
         };
 
         function renderAuthUI() {
-            const container = document.getElementById('authContent');
-            if(!container) return;
+            const loginContainer = document.getElementById('loginAuthContent');
+            const registerContainer = document.getElementById('registerAuthContent');
+            if(!loginContainer || !registerContainer) return;
 
             if(currentUser) {
                 const myAds = allAds.filter(a => a.userId === currentUser.uid);
-                container.innerHTML = `
+                const userBoxHTML = `
                     <p><strong>নাম:</strong> ${currentUser.displayName || 'ব্যবহারকারী'} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
                     <p><strong>ইমেইল:</strong> ${currentUser.email || 'N/A'}</p>
                     <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length}টি</p>
                     ${isAdmin ? '<button style="width:100%; padding:9px; background:#17a2b8; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; margin-top:10px;" onclick="openAdminModal()">⚙️ Admin Dashboard & Income</button>' : ''}
                     <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; margin-top:10px;" onclick="logout()">লগআউট</button>
                 `;
+                loginContainer.innerHTML = userBoxHTML;
+                registerContainer.innerHTML = userBoxHTML;
             } else {
-                container.innerHTML = `
-                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">বিজ্ঞাপন পোস্ট, সাইন-ইন বা সাইন-আপ করতে নিচের বাটনে ক্লিক করুন</p>
-                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন / সাইন আপ করুন</button>
-                `;
+                const defaultGoogleBtn = `<button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন / সাইন আপ করুন</button>`;
+                loginContainer.innerHTML = defaultGoogleBtn;
+                registerContainer.innerHTML = defaultGoogleBtn;
             }
         }
 
@@ -1063,8 +1076,8 @@
 
         window.openPostModal = function() {
             if(!currentUser) {
-                alert("বিজ্ঞাপন পোস্ট করতে প্রথমে সাইন-ইন/সাইন-আপ করুন।");
-                openModal('accountModal');
+                alert("বিজ্ঞাপন পোস্ট করতে প্রথমে সাইন-ইন করুন।");
+                openModal('loginModal');
             } else {
                 onPostCategoryChange();
                 document.getElementById('imageControlBox').style.display = 'none';
