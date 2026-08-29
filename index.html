@@ -41,8 +41,6 @@
             color: var(--text-light);
             transition: background 0.3s, color 0.3s;
             padding-bottom: 70px;
-            overflow-x: hidden;
-            width: 100%;
         }
 
         body.dark-mode {
@@ -71,10 +69,6 @@
             text-decoration: none;
             cursor: pointer;
             white-space: nowrap;
-            transition: transform 0.2s ease;
-        }
-        .logo:hover {
-            transform: scale(1.05);
         }
 
         .logo span {
@@ -99,11 +93,6 @@
             border: none;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.2s ease;
-        }
-        .btn-post-ad:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .btn-toggle, .btn-account {
@@ -116,10 +105,6 @@
             font-size: 11px;
             font-weight: bold;
             white-space: nowrap;
-            transition: background 0.2s;
-        }
-        .btn-toggle:hover, .btn-account:hover {
-            background: rgba(255,255,255,0.2);
         }
 
         @media (min-width: 768px) {
@@ -158,7 +143,6 @@
             padding: 5px;
             border-radius: 8px;
             flex-wrap: wrap;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
         .search-container select, .search-container input {
@@ -185,10 +169,6 @@
             font-weight: bold;
             cursor: pointer;
             color: #000;
-            transition: filter 0.2s;
-        }
-        .search-container button:hover {
-            filter: brightness(0.9);
         }
 
         /* Main Container */
@@ -217,7 +197,7 @@
         .filter-group select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; outline: none; flex-grow: 1; }
         body.dark-mode .filter-group select { background: #2a2a2a; color: white; border-color: #444; }
 
-        /* Colorful Category Icons Grid with Smooth Movement */
+        /* Colorful Category Icons Grid */
         .category-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -239,25 +219,21 @@
             text-decoration: none;
             color: var(--text-light);
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            transition: 0.2s;
             cursor: pointer;
             border: 1px solid rgba(0,0,0,0.04);
         }
         body.dark-mode .category-card { background: var(--card-bg-dark); color: var(--text-dark); border-color: #333; }
 
         .category-card:hover {
-            transform: translateY(-6px) scale(1.03);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .category-card i {
             font-size: 26px;
             margin-bottom: 8px;
             display: block;
-            transition: transform 0.3s ease;
-        }
-        .category-card:hover i {
-            transform: scale(1.2) rotate(5deg);
         }
 
         .category-card span {
@@ -294,7 +270,7 @@
             border-color: var(--primary);
         }
 
-        /* Listings Section with Dynamic Cards */
+        /* Listings Section */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -322,15 +298,10 @@
             flex-direction: column;
             cursor: pointer;
             position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.2s;
         }
         body.dark-mode .product-card { background: var(--card-bg-dark); }
-        
-        /* মেইন ফেস বা কার্ড নড়াচড়া / হোভার এফেক্ট */
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
+        .product-card:hover { transform: translateY(-4px); }
 
         .product-card.featured { border: 2px solid var(--accent); }
         .featured-badge {
@@ -342,10 +313,6 @@
             width: 100%;
             height: 160px;
             object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-        .product-card:hover img {
-            transform: scale(1.05);
         }
 
         .product-details {
@@ -404,7 +371,7 @@
         }
         body.dark-mode footer { border-color: #333; }
 
-        /* Modal Styles with smooth popup animation */
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -412,7 +379,6 @@
             background: rgba(0,0,0,0.6);
             justify-content: center; align-items: center;
             z-index: 1000; padding: 10px;
-            backdrop-filter: blur(3px);
         }
 
         .modal-content {
@@ -420,21 +386,13 @@
             padding: 25px; border-radius: 12px;
             max-width: 480px; width: 100%;
             position: relative; max-height: 90vh; overflow-y: auto;
-            animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
         body.dark-mode .modal-content { background: var(--card-bg-dark); color: var(--text-dark); }
-
-        @keyframes modalPop {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
 
         .close-btn {
             position: absolute; top: 10px; right: 15px;
             font-size: 22px; cursor: pointer; color: #666;
-            transition: color 0.2s;
         }
-        .close-btn:hover { color: var(--primary); }
 
         .payment-box {
             background: #f8f9fa; border: 1px dashed var(--primary);
@@ -447,11 +405,6 @@
         .form-group label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 13px; }
         .form-group input, .form-group textarea, .form-group select {
             width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 13px;
-            transition: border-color 0.2s;
-        }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            border-color: var(--primary);
-            outline: none;
         }
         body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select {
             background: #2a2a2a; color: white; border-color: #444;
@@ -473,8 +426,7 @@
             display: flex; justify-content: space-around; align-items: center; padding: 10px 0;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.3); z-index: 500;
         }
-        .nav-item { color: white; text-align: center; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; background: none; border: none; flex: 1; transition: opacity 0.2s; }
-        .nav-item:hover { opacity: 0.8; }
+        .nav-item { color: white; text-align: center; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; background: none; border: none; flex: 1; }
         @media (min-width: 768px) { .bottom-nav { display: none; } body { padding-bottom: 0; } }
     </style>
 </head>
@@ -485,8 +437,7 @@
         <a class="logo" onclick="selectCategory('all')">Baza<span>.com.bd</span></a>
         <div class="header-controls">
             <button class="btn-post-ad" onclick="openPostModal()">+ বিজ্ঞাপন দিন</button>
-            <button class="btn-account" onclick="openModal('loginModal')">সাইন ইন</button>
-            <button class="btn-account" onclick="openModal('registerModal')" style="background:var(--accent); color:#000; border:none;">সাইন আপ</button>
+            <button class="btn-account" onclick="openModal('accountModal')">👤 অ্যাকাউন্ট</button>
             <button class="btn-toggle" onclick="toggleTheme()">ডার্ক</button>
         </div>
     </header>
@@ -557,53 +508,6 @@
         <p style="font-size:11px; margin-top:5px;">Developed by Nadim</p>
     </footer>
 
-    <!-- Bottom Nav for Mobile -->
-    <div class="bottom-nav">
-        <button class="nav-item" onclick="selectCategory('all')"><i class="fa-solid fa-house"></i><br>হোম</button>
-        <button class="nav-item" onclick="openPostModal()"><i class="fa-solid fa-circle-plus" style="font-size: 20px; color: var(--accent);"></i><br>বিজ্ঞাপন দিন</button>
-        <button class="nav-item" onclick="openModal('loginModal')"><i class="fa-solid fa-user"></i><br>প্রোফাইল</button>
-    </div>
-
-    <!-- Modals -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
-            <h3>সাইন ইন করুন</h3>
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div class="form-group"><label>ইমেইল</label><input type="email" id="loginEmail" required></div>
-                <div class="form-group"><label>পাসওয়ার্ড</label><input type="password" id="loginPassword" required></div>
-                <button type="submit" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">লগইন</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
-            <h3>নতুন অ্যাকাউন্ট তৈরি করুন</h3>
-            <form id="registerForm" onsubmit="handleRegister(event)">
-                <div class="form-group"><label>নাম</label><input type="text" id="regName" required></div>
-                <div class="form-group"><label>ইমেইল</label><input type="email" id="regEmail" required></div>
-                <div class="form-group"><label>পাসওয়ার্ড</label><input type="password" id="regPassword" required></div>
-                <button type="submit" style="width:100%; padding:10px; background:var(--accent); color:#000; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">সাইন আপ</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal" id="postModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('postModal')">&times;</span>
-            <h3>নতুন বিজ্ঞাপন পোস্ট করুন</h3>
-            <form id="postAdForm" onsubmit="submitAd(event)">
-                <div class="form-group"><label>বিজ্ঞাপনের শিরোনাম</label><input type="text" id="postTitle" required></div>
-                <div class="form-group"><label>মূল্য (টাকা)</label><input type="number" id="postPrice" required></div>
-                <div class="form-group"><label>বিবরণ</label><textarea id="postDesc" rows="3" required></textarea></div>
-                <div class="form-group"><label>ছবি আপলোড করুন</label><input type="file" id="postImage" accept="image/*" required></div>
-                <button type="submit" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">বিজ্ঞাপন প্রকাশ করুন</button>
-            </form>
-        </div>
-    </div>
-
     <!-- পণ্যের বিস্তারিত দেখার মোডাল -->
     <div class="modal" id="productModal">
         <div class="modal-content">
@@ -612,38 +516,765 @@
                 <img id="modalMainImg" src="" alt="Product">
             </div>
             <div class="thumb-gallery" id="modalThumbGallery"></div>
+
             <h3 id="modalTitle" style="margin: 10px 0 5px 0; font-size:16px;"></h3>
             <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:18px; margin:5px 0;"></p>
             <p id="modalLocation" style="color:#777; font-size:13px; margin:3px 0;"></p>
             <p id="modalSeller" style="font-size:12px; color:#555; margin:3px 0;"></p>
-            <p id="modalDesc" style="font-size:13px; margin-top:8px; line-height:1.4;"></p>
+            <p id="modalDesc" style="font-size:13px; margin:8px 0;"></p>
+
+            <div class="action-btns" style="margin-top:15px;">
+                <a id="callLink" href="#" class="btn-topup" style="text-align:center; text-decoration:none; padding:10px;">📞 কল করুন</a>
+                <a id="waLink" href="#" target="_blank" class="btn-boost" style="text-align:center; text-decoration:none; padding:10px; background:#25D366; color:white;">💬 WhatsApp</a>
+            </div>
+            <div id="ownerActionsContainer" style="margin-top:10px;"></div>
         </div>
     </div>
 
+    <!-- বিজ্ঞাপন পোস্ট করার মোডাল -->
+    <div class="modal" id="postAdModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
+            <h3 style="margin-top:0; font-size:16px;">নতুন বিজ্ঞাপন দিন</h3>
+            <form id="postAdForm" onsubmit="handlePostAd(event)">
+                <div class="form-group">
+                    <label>শিরোনাম</label>
+                    <input type="text" id="postTitle" required placeholder="যেমন: Redmi Note 13">
+                </div>
+                <div class="form-group">
+                    <label>ক্যাটাগরি</label>
+                    <select id="postCategory" onchange="onPostCategoryChange()">
+                        <option value="vehicles">🚗 Vehicles</option>
+                        <option value="property">🏠 Property</option>
+                        <option value="mobile">📱 Phones & Tablets</option>
+                        <option value="electronics">💻 Electronics</option>
+                        <option value="furniture">🛋️ Home & Furniture</option>
+                        <option value="fashion">👕 Fashion</option>
+                        <option value="beauty">💄 Beauty & Care</option>
+                        <option value="services">🛠️ Services</option>
+                        <option value="construction">👷 Repair & Construction</option>
+                        <option value="tools">⚙️ Commercial Tools</option>
+                        <option value="leisure">🚴 Leisure</option>
+                        <option value="kids">🧸 Babies & Kids</option>
+                        <option value="farm">🛒 Food & Agriculture</option>
+                        <option value="pets">🐶 Animals & Pets</option>
+                        <option value="jobs">💼 Jobs</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>সাব-ক্যাটাগরি / ফিচার</label>
+                    <select id="postSubCategory" required>
+                        <option value="">প্রথমে ক্যাটাগরি সিলেক্ট করুন</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>মূল্য (টাকা)</label>
+                    <input type="text" id="postPrice" required placeholder="যেমন: BDT 25,000">
+                </div>
+                <div class="form-group">
+                    <label>ফোন নম্বর</label>
+                    <input type="tel" id="postPhone" required placeholder="01716390762">
+                </div>
+                <div class="form-group">
+                    <label>বিভাগ (Division)</label>
+                    <select id="postDivision" onchange="onPostDivisionChange()" required>
+                        <option value="">বিভাগ নির্বাচন করুন</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>জেলা (District)</label>
+                    <select id="postDistrict" onchange="onPostDistrictChange()" disabled required>
+                        <option value="">প্রথমে বিভাগ নির্বাচন করুন</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>থানা / উপজেলা (Thana)</label>
+                    <select id="postThana" disabled required>
+                        <option value="">প্রথমে জেলা নির্বাচন করুন</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="file" id="postFiles" accept="image/*" multiple required onchange="handleImageSelection(event)" style="flex: 1;">
+                        <button type="button" id="cancelImageBtn" onclick="clearSelectedImages()" style="display: none; padding: 6px 10px; background: #dc3545; color: white; border: none; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold;">ক্যান্সেল</button>
+                    </div>
+                    <!-- আপলোড স্ট্যাটাস ও ডাইনামিক কাউন্টার -->
+                    <div id="uploadStatus" style="margin-top: 8px; font-weight: bold; font-size: 13px; color: var(--primary);"></div>
+                </div>
+                <div class="form-group">
+                    <label>বিবরণ</label>
+                    <textarea id="postDesc" rows="3" required></textarea>
+                </div>
+                <button type="submit" id="submitBtn" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- অ্যাকাউন্ট মোডাল -->
+    <div class="modal" id="accountModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
+            <h3 style="margin-top:0;">আপনার অ্যাকাউন্ট</h3>
+            <hr style="margin:10px 0;"><br>
+            <div id="authContent"></div>
+        </div>
+    </div>
+
+    <!-- পেমেন্ট ও প্রমোশন মোডাল -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('paymentModal')">&times;</span>
+            <h3 id="modalPaymentTitle" style="color:var(--primary); margin-bottom: 10px;">পেমেন্ট অপশন</h3>
+            <p style="font-size:13px; color:#555;">বিজ্ঞাপন বুস্ট বা টপ-আপ নিশ্চিত করতে নিচের অ্যাকাউন্টে ১০০ টাকা পাঠান:</p>
+
+            <div class="payment-box">
+                <p><strong>বিকাশ / নগদ / রকেট (Personal):</strong></p>
+                <p style="font-size:16px; color:#d9534f; font-weight:bold;">01716390762</p>
+            </div>
+
+            <div class="payment-box">
+                <p><strong>ব্যাংক ডিটেইলস (E-Commerce):</strong></p>
+                <p><strong>ব্যাংক:</strong> BRAC Bank</p>
+                <p><strong>ব্রাঞ্চ:</strong> Bandartila Branch</p>
+                <p><strong>A/C No:</strong> <span style="font-weight:bold; color:var(--primary);">1106104006949001</span></p>
+            </div>
+
+            <p style="font-size:11px; color:#777; margin-top:10px;">* টাকা পাঠানোর পর আপনার ট্রানজেকশন আইডি (TxnID) সহ WhatsApp-এ যোগাযোগ করুন।</p>
+            <a href="https://wa.me/8801716390762?text=I%20have%20sent%20payment%20for%20Ad%20Boost/Topup." target="_blank" class="btn-boost" style="display:block; text-align:center; padding:10px; margin-top:10px; text-decoration:none;">💬 WhatsApp এ কনফার্ম করুন</a>
+        </div>
+    </div>
+
+    <!-- এডমিন ড্যাশবোর্ড মোডাল -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
+            <h3 style="margin-top:0;">⚙️ Admin Control Panel & Income</h3>
+            <div id="adminIncomeStats" style="background:#e8f5e9; color:#2e7d32; padding:10px; border-radius:6px; margin-bottom:12px; font-weight:bold;"></div>
+            <hr style="margin:10px 0;"><br>
+            <div id="adminAdsList"></div>
+        </div>
+    </div>
+
+    <!-- মোবাইল বটম নেভবার -->
+    <nav class="bottom-nav">
+        <button class="nav-item" onclick="selectCategory('all')">🏠 হোম</button>
+        <button class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
+        <button class="nav-item" onclick="openModal('accountModal')">👤 অ্যাকাউন্ট</button>
+    </nav>
+
     <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'flex';
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCFAZIX-TS2_gyWFP0IEurYTxZVGb1_3qg",
+            authDomain: "baza-30f91.firebaseapp.com",
+            projectId: "baza-30f91",
+            storageBucket: "baza-30f91.firebasestorage.app",
+            messagingSenderId: "637633219909",
+            appId: "1:637633219909:web:6f2c6f49dafef5f62f022c",
+            measurementId: "G-ETYZ29DWQH"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+        const auth = firebase.auth();
+
+        const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd"];
+        let currentUser = null;
+        let isAdmin = false;
+        let allAds = [];
+        let currentCategory = 'all';
+        let currentSubCategory = 'all';
+        let uploadCancelled = false; // আপলোড প্রসেস ক্যানসেল করার জন্য ফ্ল্যাগ
+
+        // ইমেজ কম্প্রেশন ফাংশন (ভালো রেজুলেশন ও 0.9 কোয়ালিটি)
+        function compressImage(file, quality = 0.9, maxWidth = 1600, maxHeight = 1600) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > height) {
+                            if (width > maxWidth) {
+                                height *= maxWidth / width;
+                                width = maxWidth;
+                            }
+                        } else {
+                            if (height > maxHeight) {
+                                width *= maxHeight / height;
+                                height = maxHeight;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        canvas.toBlob((blob) => {
+                            const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
+                                type: "image/webp",
+                                lastModified: Date.now(),
+                            });
+                            resolve(compressedFile);
+                        }, 'image/webp', quality);
+                    };
+                    img.onerror = (error) => reject(error);
+                };
+                reader.onerror = (error) => reject(error);
+            });
         }
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
+
+        // ইউজার যখন ফাইল সিলেক্ট করবে তখন ডাইনামিক মোট সংখ্যা দেখাবে এবং ক্যান্সেল বাটন এনে দেবে
+        window.handleImageSelection = function(event) {
+            const files = event.target.files;
+            const cancelBtn = document.getElementById('cancelImageBtn');
+            const statusDiv = document.getElementById('uploadStatus');
+
+            if (files.length > 0) {
+                if (files.length > 5) {
+                    alert("সর্বোচ্চ ৫টি ছবি সিলেক্ট করা যাবে!");
+                    event.target.value = '';
+                    cancelBtn.style.display = 'none';
+                    statusDiv.innerText = '';
+                    return;
+                }
+                cancelBtn.style.display = 'inline-block';
+                statusDiv.innerText = `${files.length}টির ভিতর, 0টি কমপ্লিট, ${files.length}টি পেন্ডিং`;
+            } else {
+                cancelBtn.style.display = 'none';
+                statusDiv.innerText = '';
+            }
+        };
+
+        // ছবি সিলেকশন বা আপলোড রিসেট / ক্যানসেল করার ফাংশন
+        window.clearSelectedImages = function() {
+            document.getElementById('postFiles').value = '';
+            document.getElementById('cancelImageBtn').style.display = 'none';
+            document.getElementById('uploadStatus').innerText = '';
+            uploadCancelled = true;
+        };
+
+        // ডাইনামিক স্ট্যাটাস কাউন্টার আপডেট করার ফাংশন (যতটি ফাইল ততটির হিস্ট্রি দেখাবে)
+        function updateImageUploadStatus(completedCount, totalCount) {
+            let pendingCount = totalCount - completedCount;
+            if (completedCount > totalCount) {
+                completedCount = totalCount;
+                pendingCount = 0;
+            }
+            document.getElementById('uploadStatus').innerHTML = `${totalCount}টির ভিতর, ${completedCount}টি কমপ্লিট, ${pendingCount}টি পেন্ডিং <button type="button" onclick="clearSelectedImages()" style="margin-left: 10px; padding: 2px 6px; background: #dc3545; color: white; border: none; border-radius: 3px; font-size: 11px; cursor: pointer;">ক্যান্সেল</button>`;
         }
-        function openPostModal() {
-            openModal('postModal');
+
+        const categoryFeatures = {
+            'vehicles': ['সকল', 'মোটরসাইকেল', 'কার', 'বাইক', 'সাইকেল', 'বাস ও ট্রাক', 'পার্টস ও এক্সেসরিজ'],
+            'property': ['সকল', 'অ্যাপার্টমেন্ট ও ফ্ল্যাট', 'জমি ও প্লট', 'বাণিজ্যিক জায়গা', 'রুম ভাড়া'],
+            'mobile': ['সকল', 'স্মার্টফোন', 'ফিচার ফোন', 'ট্যাবলেট', 'মোবাইল এক্সেসরিজ'],
+            'electronics': ['সকল', 'ল্যাপটপ ও কম্পিউটার', 'টিভি ও অডিও', 'এসি ও ফ্রিজ', 'ক্যামেরা ও লেন্স', 'হোম অ্যাপ্লায়েন্স'],
+            'furniture': ['সকল', 'বেড ও খাট', 'সোফা ও চেয়ার', 'ডাইনিং টেবিল', 'ওয়ারড্রোব ও আলমারি'],
+            'fashion': ['সকল', 'পুরুষের পোশাক', 'মহিলাদের পোশাক', 'জুতো ও স্যান্ডেল', 'ওয়াচ ও ঘড়ি', 'সাজসজ্জা'],
+            'beauty': ['সকল', 'স্কিন কেয়ার', 'হেয়ার কেয়ার', 'মেকআপ আইটেম', 'পারফিউম'],
+            'services': ['সকল', 'রিপেয়ারিং সার্ভিস', 'টিউশনি ও কোচিং', 'ইভেন্ট ম্যানেজমেন্ট', 'ডিজিটাল মার্কেটিং'],
+            'construction': ['সকল', 'রড ও সিমেন্ট', 'ইট ও বালু', 'টুলস ও হার্ডওয়্যার', 'ইলেকট্রিক্যাল ও প্লাম্বিং'],
+            'tools': ['সকল', 'ইন্ডাস্ট্রিয়াল মেশিন', 'জেনারেটর ও সোলার', 'দোকানের যন্ত্রপাতি'],
+            'leisure': ['সকল', 'স্পোর্টস আইটেম', 'বই ও ম্যাগাজিন', 'মিউজিক্যাল ইন্সট্রুলেন্ট', 'গেম ও হবি'],
+            'kids': ['সকল', 'বাচ্চাদের জামাকাপড়', 'খেলনা', 'বেবি কেয়ার ও স্ট্রোলার'],
+            'farm': ['সকল', 'তাজা ফল ও সবজি', 'বীজ ও সার', 'কৃষি যন্ত্রপাতি', 'খাদ্যপণ্য'],
+            'pets': ['সকল', 'বিড়াল ও কুকুর', 'পাখি ও কবুতর', 'মাছ ও অ্যাকোয়ারিয়াম', 'পেট ফুড'],
+            'jobs': ['সকল', 'সেলস ও মার্কেটিং', 'অফিস স্টাফ', 'ড্রাইভার ও ডেলিভারি', 'টেকনিশিয়ান ও মেকানিক']
+        };
+
+        const bdLocations = [
+            {
+                division: "Chattogram",
+                districts: [
+                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Pahartali", "Kotwali", "Khulshi", "Bayazid", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Boalkhali", "Patiya", "Raozan", "Rangunia", "Sandwip", "Sitakunda", "Mirsharai", "Anwara", "Banshkhali", "Satkania", "Lohagara", "Fatikchhari"] },
+                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Kutubdia", "Ukhiya", "Teknaf", "Pekua", "Ramu", "Maheshkhali"] },
+                    { district: "Comilla", thanas: ["Comilla Sadar", "Barura", "Brahmanpara", "Burichong", "Chandina", "Chauddagram", "Daudkandi", "Homna", "Laksam", "Monohorgonj"] }
+                ]
+            },
+            {
+                division: "Dhaka",
+                districts: [
+                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel", "Ramna", "Pallabi", "Bashundhara"] },
+                    { district: "Savar", thanas: ["Savar Sadar", "Ashulia", "Hemayetpur"] },
+                    { district: "Gazipur", thanas: ["Gazipur Sadar", "Tongi", "Sreepur"] }
+                ]
+            },
+            {
+                division: "Sylhet",
+                districts: [
+                    { district: "Sylhet", thanas: ["Sylhet Sadar", "Beanibazar", "Bishwanath", "South Surma"] },
+                    { district: "Moulvibazar", thanas: ["Moulvibazar Sadar", "Sreemangal"] }
+                ]
+            }
+        ];
+
+        function initLocations() {
+            const heroDiv = document.getElementById('heroDivision');
+            const postDiv = document.getElementById('postDivision');
+            heroDiv.innerHTML = '<option value="">সকল বিভাগ</option>';
+            postDiv.innerHTML = '<option value="">বিভাগ নির্বাচন করুন</option>';
+
+            bdLocations.forEach(div => {
+                heroDiv.innerHTML += `<option value="${div.division}">${div.division}</option>`;
+                postDiv.innerHTML += `<option value="${div.division}">${div.division}</option>`;
+            });
         }
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-        }
-        function selectCategory(cat) {
-            document.getElementById('sectionTitle').innerText = cat === 'all' ? 'সাম্প্রতিক বিজ্ঞাপনসমূহ' : cat + ' ক্যাটাগরির বিজ্ঞাপন';
-        }
-        function filterAds() {}
-        function resetFilters() {
+
+        window.onHeroDivisionChange = function() {
+            const divVal = document.getElementById('heroDivision').value;
+            const distSelect = document.getElementById('filterDistrict');
+            const thanaSelect = document.getElementById('filterThana');
+
+            distSelect.innerHTML = '<option value="">সকল জেলা</option>';
+            thanaSelect.innerHTML = '<option value="">সকল থানা</option>';
+            thanaSelect.disabled = true;
+
+            if(!divVal) {
+                distSelect.disabled = true;
+                filterAds();
+                return;
+            }
+
+            distSelect.disabled = false;
+            const found = bdLocations.find(d => d.division === divVal);
+            if(found) {
+                found.districts.forEach(dist => {
+                    distSelect.innerHTML += `<option value="${dist.district}">${dist.district}</option>`;
+                });
+            }
+            filterAds();
+        };
+
+        window.onPostDivisionChange = function() {
+            const divVal = document.getElementById('postDivision').value;
+            const distSelect = document.getElementById('postDistrict');
+            const thanaSelect = document.getElementById('postThana');
+
+            distSelect.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
+            thanaSelect.innerHTML = '<option value="">প্রথমে জেলা নির্বাচন করুন</option>';
+            thanaSelect.disabled = true;
+
+            if(!divVal) { distSelect.disabled = true; return; }
+            distSelect.disabled = false;
+            const found = bdLocations.find(d => d.division === divVal);
+            if(found) {
+                found.districts.forEach(dist => {
+                    distSelect.innerHTML += `<option value="${dist.district}">${dist.district}</option>`;
+                });
+            }
+        };
+
+        window.onPostDistrictChange = function() {
+            const divVal = document.getElementById('postDivision').value;
+            const distVal = document.getElementById('postDistrict').value;
+            const thanaSelect = document.getElementById('postThana');
+
+            thanaSelect.innerHTML = '<option value="">থানা নির্বাচন করুন</option>';
+            if(!distVal) { thanaSelect.disabled = true; return; }
+            thanaSelect.disabled = false;
+
+            const foundDiv = bdLocations.find(d => d.division === divVal);
+            if(foundDiv) {
+                const foundDist = foundDiv.districts.find(ds => ds.district === distVal);
+                if(foundDist) {
+                    foundDist.thanas.forEach(thana => {
+                        thanaSelect.innerHTML += `<option value="${thana}">${thana}</option>`;
+                    });
+                }
+            }
+        };
+
+        window.onPostCategoryChange = function() {
+            const catVal = document.getElementById('postCategory').value;
+            const subSelect = document.getElementById('postSubCategory');
+            subSelect.innerHTML = '';
+            
+            if(categoryFeatures[catVal]) {
+                categoryFeatures[catVal].forEach(feature => {
+                    if(feature !== 'সকল') {
+                        subSelect.innerHTML += `<option value="${feature}">${feature}</option>`;
+                    }
+                });
+            }
+        };
+
+        window.resetFilters = function() {
+            document.getElementById('heroDivision').value = '';
+            document.getElementById('filterDistrict').innerHTML = '<option value="">প্রথমে বিভাগ সিলেক্ট করুন</option>';
+            document.getElementById('filterDistrict').disabled = true;
+            document.getElementById('filterThana').innerHTML = '<option value="">প্রথমে জেলা সিলেক্ট করুন</option>';
+            document.getElementById('filterThana').disabled = true;
             document.getElementById('searchInput').value = '';
+            filterAds();
+        };
+
+        auth.onAuthStateChanged(user => {
+            currentUser = user;
+            isAdmin = user && user.email && ADMIN_EMAILS.includes(user.email.toLowerCase());
+            renderAuthUI();
+        });
+
+        window.loginWithGoogle = function() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).catch(error => alert(error.message));
+        };
+
+        window.logout = function() {
+            auth.signOut().then(() => alert("লগআউট সফল হয়েছে!"));
+        };
+
+        function renderAuthUI() {
+            const container = document.getElementById('authContent');
+            if(!container) return;
+
+            if(currentUser) {
+                const myAds = allAds.filter(a => a.userId === currentUser.uid);
+                container.innerHTML = `
+                    <p><strong>নাম:</strong> ${currentUser.displayName || 'ব্যবহারকারী'} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
+                    <p><strong>ইমেইল:</strong> ${currentUser.email || 'N/A'}</p>
+                    <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length}টি</p>
+                    ${isAdmin ? '<button style="width:100%; padding:9px; background:#17a2b8; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; margin-top:10px;" onclick="openAdminModal()">⚙️ Admin Dashboard & Income</button>' : ''}
+                    <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; margin-top:10px;" onclick="logout()">লগআউট</button>
+                `;
+            } else {
+                container.innerHTML = `
+                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">বিজ্ঞাপন পোস্ট, সাইন-ইন বা সাইন-আপ করতে নিচের বাটনে ক্লিক করুন</p>
+                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন / সাইন আপ করুন</button>
+                `;
+            }
         }
-        function onHeroDivisionChange() {}
-        function handleLogin(e) { e.preventDefault(); alert('লগইন সফল হয়েছে'); closeModal('loginModal'); }
-        function handleRegister(e) { e.preventDefault(); alert('রেজিস্ট্রেশন সফল হয়েছে'); closeModal('registerModal'); }
-        function submitAd(e) { e.preventDefault(); alert('বিজ্ঞাপন সফলভাবে পোস্ট হয়েছে'); closeModal('postModal'); }
+
+        function fetchAds() {
+            db.collection("ads").orderBy("createdAt", "desc").onSnapshot(snapshot => {
+                allAds = [];
+                snapshot.forEach(doc => { allAds.push({ id: doc.id, ...doc.data() }); });
+                allAds.sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
+                filterAds();
+            });
+        }
+
+        function renderAds(ads) {
+            const grid = document.getElementById('adsGrid');
+            grid.innerHTML = '';
+            if(ads.length === 0) {
+                grid.innerHTML = `<p style="font-size:14px; color:#666; grid-column:1/-1; text-align:center;">কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>`;
+                return;
+            }
+            ads.forEach(ad => {
+                const isFeaturedClass = ad.isFeatured ? 'featured' : '';
+                const featuredBadge = ad.isFeatured ? '<span class="featured-badge">FEATURED</span>' : '';
+                const mainImg = (ad.images && ad.images.length > 0) ? ad.images[0] : (ad.img || '');
+                const subTag = ad.subCategory ? `<small style="background:#eef2f5; padding:2px 6px; border-radius:3px; color:#555; display:inline-block; margin-bottom:4px;">🏷️ ${ad.subCategory}</small>` : '';
+                
+                grid.innerHTML += `
+                    <div class="product-card ${isFeaturedClass}" onclick="openProductDetail('${ad.id}')">
+                        ${featuredBadge}
+                        <img src="${mainImg}" alt="${ad.title}">
+                        <div class="product-details">
+                            <div>
+                                <div class="product-price">${ad.price}</div>
+                                <div class="product-title">${ad.title}</div>
+                                ${subTag}
+                                <div class="product-location">📍 ${ad.location}</div>
+                            </div>
+                            <div class="action-btns">
+                                <button class="btn-boost" onclick="event.stopPropagation(); openPaymentModal('বুস্ট করুন')">বুস্ট</button>
+                                <button class="btn-topup" onclick="event.stopPropagation(); openPaymentModal('টপ-আপ')">টপ-আপ</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.openPostModal = function() {
+            if(!currentUser) {
+                alert("বিজ্ঞাপন পোস্ট করতে প্রথমে সাইন-ইন/সাইন-আপ করুন।");
+                openModal('accountModal');
+            } else {
+                onPostCategoryChange();
+                document.getElementById('uploadStatus').innerText = '';
+                document.getElementById('cancelImageBtn').style.display = 'none';
+                document.getElementById('postAdForm').reset();
+                onPostCategoryChange();
+                openModal('postAdModal');
+            }
+        };
+
+        window.handlePostAd = async function(event) {
+            event.preventDefault();
+            if(!currentUser) return;
+
+            const submitBtn = document.getElementById('submitBtn');
+            const filesInput = document.getElementById('postFiles').files;
+            const div = document.getElementById('postDivision').value;
+            const dist = document.getElementById('postDistrict').value;
+            const thana = document.getElementById('postThana').value;
+
+            if(filesInput.length === 0) return alert("কমপক্ষে একটি ছবি সিলেক্ট করুন!");
+            if(filesInput.length > 5) return alert("সর্বোচ্চ ৫টি ছবি আপলোড করা যাবে!");
+
+            uploadCancelled = false;
+            submitBtn.innerText = "ছবি প্রসেস হচ্ছে...";
+            submitBtn.disabled = true;
+
+            try {
+                let uploadURLs = [];
+                let totalFiles = filesInput.length;
+
+                updateImageUploadStatus(0, totalFiles);
+
+                for(let i=0; i<totalFiles; i++) {
+                    if (uploadCancelled) {
+                        submitBtn.innerText = "পাবলিশ করুন";
+                        submitBtn.disabled = false;
+                        return;
+                    }
+
+                    const originalFile = filesInput[i];
+                    const compressedFile = await compressImage(originalFile, 0.9, 1600, 1600);
+                    
+                    if (uploadCancelled) {
+                        submitBtn.innerText = "পাবলিশ করুন";
+                        submitBtn.disabled = false;
+                        return;
+                    }
+
+                    const storageRef = storage.ref('baza_photos/' + Date.now() + '_' + i + '_' + compressedFile.name);
+                    const snap = await storageRef.put(compressedFile);
+                    const downloadURL = await snap.ref.getDownloadURL();
+                    
+                    if (uploadCancelled) {
+                        submitBtn.innerText = "পাবলিশ করুন";
+                        submitBtn.disabled = false;
+                        return;
+                    }
+
+                    uploadURLs.push(downloadURL);
+                    updateImageUploadStatus(i + 1, totalFiles);
+                }
+
+                submitBtn.innerText = "সেভ হচ্ছে...";
+                const newAd = {
+                    title: document.getElementById('postTitle').value,
+                    category: document.getElementById('postCategory').value.toLowerCase(),
+                    subCategory: document.getElementById('postSubCategory').value,
+                    price: document.getElementById('postPrice').value,
+                    phone: document.getElementById('postPhone').value,
+                    division: div,
+                    district: dist,
+                    thana: thana,
+                    location: `${thana}, ${dist}, ${div}`,
+                    images: uploadURLs,
+                    img: uploadURLs[0],
+                    desc: document.getElementById('postDesc').value,
+                    isFeatured: false,
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                await db.collection("ads").add(newAd);
+                
+                submitBtn.innerText = "পাবলিশ করুন";
+                submitBtn.disabled = false;
+                closeModal('postAdModal');
+                event.target.reset();
+                document.getElementById('uploadStatus').innerText = '';
+                document.getElementById('cancelImageBtn').style.display = 'none';
+                alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
+            } catch (error) {
+                if (!uploadCancelled) {
+                    alert("ত্রুটি: " + error.message);
+                }
+                submitBtn.innerText = "পাবলিশ করুন";
+                submitBtn.disabled = false;
+            }
+        };
+
+        window.openProductDetail = function(id) {
+            const ad = allAds.find(a => a.id === id);
+            if(ad) {
+                document.getElementById('modalTitle').innerText = ad.title;
+                document.getElementById('modalPrice').innerText = ad.price;
+                document.getElementById('modalLocation').innerText = "লোকেশন: " + ad.location;
+                document.getElementById('modalSeller').innerText = "বিক্রেতা: " + (ad.userName || "অজানা");
+                document.getElementById('modalDesc').innerText = ad.desc;
+                
+                const imagesList = ad.images || (ad.img ? [ad.img] : []);
+                const mainImgEl = document.getElementById('modalMainImg');
+                const thumbGalleryEl = document.getElementById('modalThumbGallery');
+
+                thumbGalleryEl.innerHTML = '';
+                if(imagesList.length > 0) {
+                    mainImgEl.src = imagesList[0];
+                    imagesList.forEach((imgUrl, index) => {
+                        thumbGalleryEl.innerHTML += `
+                            <div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="changeMainImage('${imgUrl}', this)">
+                                <img src="${imgUrl}" alt="Thumb">
+                            </div>
+                        `;
+                    });
+                } else {
+                    mainImgEl.src = '';
+                }
+                
+                document.getElementById('callLink').href = "tel:" + ad.phone;
+                document.getElementById('waLink').href = "https://wa.me/88" + ad.phone;
+
+                const ownerContainer = document.getElementById('ownerActionsContainer');
+                ownerContainer.innerHTML = '';
+                if(currentUser && (ad.userId === currentUser.uid || isAdmin)) {
+                    ownerContainer.innerHTML += `<button onclick="deleteAd('${ad.id}')" style="width:100%; padding:8px; background:#dc3545; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">বিজ্ঞাপন ডিলিট করুন</button>`;
+                }
+
+                openModal('productModal');
+            }
+        };
+
+        window.changeMainImage = function(url, element) {
+            document.getElementById('modalMainImg').src = url;
+            document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        };
+
+        window.openPaymentModal = function(serviceName) {
+            document.getElementById('modalPaymentTitle').innerText = serviceName + ' - পেমেন্ট করুন';
+            openModal('paymentModal');
+        };
+
+        window.openAdminModal = function() {
+            if(!isAdmin) return;
+            const container = document.getElementById('adminAdsList');
+            const statsContainer = document.getElementById('adminIncomeStats');
+            container.innerHTML = '';
+            
+            const promotedCount = allAds.filter(a => a.isFeatured).length;
+            statsContainer.innerHTML = `💰 মোট প্রমোটেড বিজ্ঞাপন: ${promotedCount}টি | মোট প্রমোশন ইনকাম: ৳${promotedCount * 100}`;
+
+            allAds.forEach(ad => {
+                const statusText = ad.isFeatured ? '<span style="color:var(--primary); font-weight:bold;">[Featured]</span>' : '';
+                container.innerHTML += `
+                    <div class="admin-list-item">
+                        <div><strong>${ad.title}</strong> ${statusText}<br><small>${ad.price} | ${ad.location}</small></div>
+                        <div style="display:flex; gap:5px;">
+                            ${!ad.isFeatured ? `<button style="background:var(--accent); color:#000; border:none; padding:4px 6px; border-radius:4px; cursor:pointer;" onclick="toggleFeature('${ad.id}', true)">Promote</button>` : `<button style="background:#6c757d; color:white; border:none; padding:4px 6px; border-radius:4px; cursor:pointer;" onclick="toggleFeature('${ad.id}', false)">Unpromote</button>`}
+                            <button style="background:#dc3545; color:white; border:none; padding:4px 6px; border-radius:4px; cursor:pointer;" onclick="deleteAd('${ad.id}')">Delete</button>
+                        </div>
+                    </div>
+                `;
+            });
+            openModal('adminModal');
+        };
+
+        window.toggleFeature = function(id, status) {
+            db.collection("ads").doc(id).update({ isFeatured: status }).then(() => openAdminModal());
+        };
+
+        window.deleteAd = function(id) {
+            if(confirm("আপনি কি নিশ্চিত বিজ্ঞাপনটি ডিলিট করতে চান?")) {
+                db.collection("ads").doc(id).delete().then(() => {
+                    closeModal('productModal');
+                    if(document.getElementById('adminModal').style.display === 'flex') openAdminModal();
+                    alert("সফলভাবে ডিলিট করা হয়েছে!");
+                });
+            }
+        };
+
+        window.filterAds = function() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const divFilter = document.getElementById('heroDivision').value;
+            const distFilter = document.getElementById('filterDistrict').value;
+            const thanaFilter = document.getElementById('filterThana').value;
+
+            let filtered = allAds.filter(ad => {
+                const matchQuery = !query || 
+                    (ad.title && ad.title.toLowerCase().includes(query)) || 
+                    (ad.location && ad.location.toLowerCase().includes(query)) ||
+                    (ad.desc && ad.desc.toLowerCase().includes(query)) ||
+                    (ad.subCategory && ad.subCategory.toLowerCase().includes(query));
+
+                const matchCat = currentCategory === 'all' || (ad.category && ad.category.toLowerCase() === currentCategory.toLowerCase());
+                const matchSubCat = currentSubCategory === 'all' || (ad.subCategory && ad.subCategory === currentSubCategory);
+                const matchDiv = !divFilter || ad.division === divFilter;
+                const matchDist = !distFilter || ad.district === distFilter;
+                const matchThana = !thanaFilter || ad.thana === thanaFilter;
+
+                return matchQuery && matchCat && matchSubCat && matchDiv && matchDist && matchThana;
+            });
+            renderAds(filtered);
+        };
+
+        window.selectCategory = function(cat) {
+            currentCategory = cat;
+            currentSubCategory = 'all';
+            
+            const categoryNames = {
+                'all': '🌐 সব বিজ্ঞাপন',
+                'vehicles': '🚗 যানবাহন (Vehicles)',
+                'property': '🏠 প্রপার্টি (Property)',
+                'mobile': '📱 মোবাইল ও ট্যাবলেট (Phones)',
+                'electronics': '💻 ইলেকট্রনিক্স (Electronics)',
+                'furniture': '🛋️ হোম ও ফার্নিচার (Furniture)',
+                'fashion': '👕 ফ্যাশন (Fashion)',
+                'beauty': '💄 বিউটি ও কেয়ার (Beauty Care)',
+                'services': '🛠️ সার্ভিসেস (Services)',
+                'construction': '👷 মেরামত ও কনস্ট্রাকশন',
+                'tools': '⚙️ কমার্শিয়াল টুলস (Tools)',
+                'leisure': '🚴 লেজার ও এক্টিভিটি (Leisure)',
+                'kids': '🧸 বেবি ও কিডস (Babies & Kids)',
+                'farm': '🛒 খাদ্য ও কৃষি (Agriculture)',
+                'pets': '🐶 পোষা প্রাণী (Pets)',
+                'jobs': '💼 জবস (Jobs)'
+            };
+            document.getElementById('sectionTitle').innerText = categoryNames[cat] || 'বিজ্ঞাপনসমূহ';
+
+            const barContainer = document.getElementById('subCategoryBarContainer');
+            const bar = document.getElementById('subCategoryBar');
+            bar.innerHTML = '';
+
+            if(cat !== 'all' && categoryFeatures[cat]) {
+                barContainer.style.display = 'block';
+                categoryFeatures[cat].forEach(sub => {
+                    const activeClass = sub === 'সকল' ? 'active' : '';
+                    bar.innerHTML += `<button class="sub-chip ${activeClass}" onclick="selectSubCategory('${sub}', this)">${sub}</button>`;
+                });
+            } else {
+                barContainer.style.display = 'none';
+            }
+
+            filterAds();
+            window.scrollTo({top: 400, behavior: 'smooth'});
+        };
+
+        window.selectSubCategory = function(sub, element) {
+            currentSubCategory = sub;
+            document.querySelectorAll('.sub-chip').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            filterAds();
+        };
+
+        window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
+        window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
+        
+        window.toggleTheme = function() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.btn-toggle');
+            btn.innerText = document.body.classList.contains('dark-mode') ? 'লাইট' : 'ডার্ক';
+        };
+
+        window.onload = function() {
+            fetchAds();
+            initLocations();
+        };
     </script>
 </body>
 </html>
