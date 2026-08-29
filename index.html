@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baza.com.bd - ক্রয় ও বিক্রয় করুন সহজে</title>
+    <title>Baza.com.bd - Buy, Sell & Earn</title>
     
-    <!-- Firebase Compat SDK Links -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
@@ -15,6 +14,7 @@
         :root {
             --primary: #00838f;
             --primary-dark: #005662;
+            --accent: #ff9800;
             --bg-light: #f4f6f8;
             --text-light: #333;
             --card-bg-light: #fff;
@@ -40,7 +40,7 @@
         header {
             background-color: var(--primary);
             color: white;
-            padding: 15px 20px;
+            padding: 12px 15px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -53,44 +53,56 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .logo { font-size: 24px; font-weight: bold; cursor: pointer; }
+        .logo { font-size: 22px; font-weight: bold; cursor: pointer; }
 
-        .search-box { flex-grow: 1; max-width: 500px; display: flex; }
-        .search-box input { width: 100%; padding: 10px; border: none; border-radius: 4px 0 0 4px; outline: none; }
-        .search-box button { padding: 10px 15px; background: var(--primary-dark); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+        .search-box { flex-grow: 1; max-width: 450px; display: flex; }
+        .search-box input { width: 100%; padding: 8px 12px; border: none; border-radius: 4px 0 0 4px; outline: none; font-size: 14px; }
+        .search-box button { padding: 8px 12px; background: var(--primary-dark); color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; font-size: 14px; }
 
-        .theme-toggle { background: transparent; border: 1px solid white; color: white; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+        .controls { display: flex; gap: 6px; }
+        .btn-toggle { background: transparent; border: 1px solid white; color: white; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
 
-        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
+        .container { max-width: 1100px; margin: 15px auto; padding: 0 15px; }
 
-        .category-bar {
+        .ad-banner-slot {
+            background: #e9ecef;
+            border: 2px dashed #bbb;
+            text-align: center;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        body.dark-mode .ad-banner-slot { background: #2a2a2a; border-color: #555; color: #aaa; }
+
+        .filter-section {
+            background: var(--card-bg-light);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
             display: flex;
             gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
         }
+        body.dark-mode .filter-section { background: var(--card-bg-dark); }
 
-        .cat-btn {
-            background: #e0e0e0;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            white-space: nowrap;
-            font-weight: bold;
-        }
-
-        body.dark-mode .cat-btn { background: #333; color: #fff; }
+        .filter-group { display: flex; gap: 8px; flex-wrap: wrap; flex-grow: 1; }
+        .filter-group select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; outline: none; flex-grow: 1; }
+        body.dark-mode .filter-group select { background: #2a2a2a; color: white; border-color: #444; }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
+            gap: 15px;
         }
 
         .card {
@@ -103,90 +115,61 @@
             position: relative;
         }
 
+        .card.featured { border: 2px solid var(--accent); }
+        .featured-badge {
+            position: absolute; top: 8px; left: 8px; background: var(--accent); color: white;
+            padding: 3px 6px; font-size: 10px; font-weight: bold; border-radius: 4px; z-index: 10;
+        }
+
         body.dark-mode .card { background-color: var(--card-bg-dark); }
-        .card:hover { transform: translateY(-5px); }
-        .card img { width: 100%; height: 180px; object-fit: cover; }
-        .card-content { padding: 15px; }
-        .card-title { font-size: 16px; font-weight: bold; margin: 0 0 8px 0; }
-        .card-price { color: var(--primary); font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+        .card:hover { transform: translateY(-4px); }
+        .card img { width: 100%; height: 160px; object-fit: cover; }
+        .card-content { padding: 12px; }
+        .card-title { font-size: 15px; font-weight: bold; margin: 0 0 6px 0; }
+        .card-price { color: var(--primary); font-size: 16px; font-weight: bold; margin-bottom: 6px; }
         .card-location { font-size: 12px; color: #777; }
 
         .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 5000;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            box-sizing: border-box;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 5000; justify-content: center; align-items: center; padding: 10px; box-sizing: border-box;
         }
 
         .modal-content {
-            background: white;
-            max-width: 450px;
-            width: 100%;
-            border-radius: 8px;
-            padding: 20px;
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
+            background: white; max-width: 480px; width: 100%; border-radius: 8px; padding: 18px; position: relative; max-height: 90vh; overflow-y: auto;
         }
 
         body.dark-mode .modal-content { background: var(--card-bg-dark); color: white; }
-        .close-btn { position: absolute; right: 15px; top: 15px; font-size: 24px; cursor: pointer; font-weight: bold; }
+        .close-btn { position: absolute; right: 15px; top: 12px; font-size: 22px; cursor: pointer; font-weight: bold; }
 
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 13px; }
         .form-group input, .form-group textarea, .form-group select {
-            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;
+            width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 13px;
+        }
+        body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select {
+            background: #2a2a2a; color: white; border-color: #444;
         }
 
-        .action-btns {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
+        .action-btns { display: flex; gap: 8px; margin-top: 12px; }
+        .btn-call { flex: 1; padding: 10px; background: #28a745; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; }
+        .btn-wa { flex: 1; padding: 10px; background: #25D366; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; font-size: 14px; }
+        .btn-promote { width: 100%; padding: 9px; background: var(--accent); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 8px; }
+        .btn-delete { width: 100%; padding: 9px; background: #dc3545; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 8px; }
+        .admin-badge { background: #d9534f; color: white; font-size: 10px; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
 
-        .btn-call { flex: 1; padding: 12px; background: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
-        .btn-wa { flex: 1; padding: 12px; background: #25D366; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; }
-        .btn-delete { width: 100%; padding: 10px; background: #dc3545; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #ddd; gap: 8px; font-size: 13px; }
 
-        /* বটম নেভিগেশন বার - ফিক্সড ক্লিক ইস্যু */
+        .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
+        .cat-card-item { background: #f8f9fa; border: 1px solid #ddd; padding: 12px; text-align: center; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        body.dark-mode .cat-card-item { background: #2a2a2a; border-color: #444; color: #fff; }
+        .cat-card-item:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
         .bottom-nav {
-            position: fixed;
-            bottom: 0; 
-            left: 0; 
-            width: 100%;
-            background: var(--primary);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 14px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3);
-            z-index: 3000;
-            pointer-events: auto;
+            position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary);
+            display: flex; justify-content: space-around; align-items: center; padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.3); z-index: 3000;
         }
-
-        .nav-item {
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            background: none;
-            border: none;
-            flex: 1;
-            padding: 5px 0;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .nav-item:active {
-            opacity: 0.7;
-        }
+        .nav-item { color: white; text-align: center; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; background: none; border: none; flex: 1; outline: none; }
 
         @media (min-width: 768px) {
             .bottom-nav { display: none; }
@@ -203,57 +186,97 @@
                 <input type="text" id="searchInput" placeholder="যা খুঁজছেন লিখুন..." onkeyup="filterAds()">
                 <button onclick="filterAds()">সার্চ</button>
             </div>
-            <button class="theme-toggle" onclick="toggleTheme()">ডার্ক/লাইট</button>
+            <div class="controls">
+                <button class="btn-toggle" onclick="toggleLanguage()" id="langBtn">EN</button>
+                <button class="btn-toggle" onclick="toggleTheme()">ডার্ক/লাইট</button>
+            </div>
         </div>
     </header>
 
     <div class="container">
-        <div class="category-bar">
-            <button class="cat-btn" onclick="filterCategory('all')">সব বিজ্ঞাপন</button>
-            <button class="cat-btn" onclick="filterCategory('mobile')">মোবাইল</button>
-            <button class="cat-btn" onclick="filterCategory('electronics')">ইলেকট্রনিক্স</button>
-            <button class="cat-btn" onclick="filterCategory('vehicles')">যানবাহন</button>
+        <div class="ad-banner-slot">
+            📢 <strong>স্পন্সরড ব্যানার:</strong> আপনার ব্যবসার বিজ্ঞাপন দিয়ে ভিজিটর বাড়ান।
         </div>
 
-        <h2 id="sectionTitle">সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
+        <div class="filter-section">
+            <div class="filter-group">
+                <select id="filterDivision" onchange="onDivisionChange()">
+                    <option value="">সকল বিভাগ</option>
+                </select>
+                <select id="filterDistrict" onchange="onDistrictChange()" disabled>
+                    <option value="">প্রথমে বিভাগ সিলেক্ট করুন</option>
+                </select>
+                <select id="filterThana" onchange="filterAds()" disabled>
+                    <option value="">প্রথমে জেলা সিলেক্ট করুন</option>
+                </select>
+            </div>
+            <button onclick="resetFilters()" style="padding: 8px 12px; background:#6c757d; color:white; border:none; border-radius:4px; cursor:pointer; font-size:12px;">রিসেট</button>
+        </div>
+
+        <h2 id="sectionTitle" style="font-size: 18px; margin-bottom: 15px;">সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
         <div class="grid" id="adsGrid"></div>
     </div>
 
-    <!-- 1. Product Details Modal -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
-            <img id="modalImg" src="" style="width:100%; height:200px; object-fit:cover; border-radius:5px;" alt="Product">
-            <h3 id="modalTitle"></h3>
-            <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:20px;"></p>
-            <p id="modalLocation" style="color:#777;"></p>
-            <p id="modalSeller" style="font-size:13px; color:#555;"></p>
-            <p id="modalDesc"></p>
+            <img id="modalImg" src="" style="width:100%; height:180px; object-fit:cover; border-radius:5px;" alt="Product">
+            <h3 id="modalTitle" style="margin: 10px 0 5px 0; font-size:16px;"></h3>
+            <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:18px; margin:5px 0;"></p>
+            <p id="modalLocation" style="color:#777; font-size:13px; margin:3px 0;"></p>
+            <p id="modalSeller" style="font-size:12px; color:#555; margin:3px 0;"></p>
+            <p id="modalDesc" style="font-size:13px; margin:8px 0;"></p>
 
             <div class="action-btns">
                 <a id="callLink" href="#" class="btn-call">📞 কল করুন</a>
                 <a id="waLink" href="#" target="_blank" class="btn-wa">💬 WhatsApp</a>
             </div>
-            <div id="deleteContainer"></div>
+            <div id="ownerActionsContainer"></div>
         </div>
     </div>
 
-    <!-- 2. Post New Ad Modal -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('categoryModal')">&times;</span>
+            <h3 style="margin-top:0; font-size:16px;">ক্যাটাগরি নির্বাচন করুন</h3>
+            <div class="cat-grid">
+                <div class="cat-card-item" onclick="selectCategory('all')">🌐 সব বিজ্ঞাপন</div>
+                <div class="cat-card-item" onclick="selectCategory('mobile')">📱 মোবাইল</div>
+                <div class="cat-card-item" onclick="selectCategory('electronics')">💻 ইলেকট্রনিক্স</div>
+                <div class="cat-card-item" onclick="selectCategory('vehicles')">🚗 যানবাহন</div>
+                <div class="cat-card-item" onclick="selectCategory('fashion')">👕 ফ্যাশন</div>
+                <div class="cat-card-item" onclick="selectCategory('beauty')">💄 বিউটি ও কেয়ার</div>
+                <div class="cat-card-item" onclick="selectCategory('services')">🛠️ সার্ভিসেস</div>
+                <div class="cat-card-item" onclick="selectCategory('tools')">🔧 টুলস ও হার্ডওয়্যার</div>
+                <div class="cat-card-item" onclick="selectCategory('kids')">🍼 বেবি ও চিলড্রেন</div>
+                <div class="cat-card-item" onclick="selectCategory('pets')">🐱 পশু ও পাখি</div>
+                <div class="cat-card-item" onclick="selectCategory('farm')">🌾 কৃষি ও ফার্ম</div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
-            <h3>নতুন বিজ্ঞাপন দিন</h3>
+            <h3 style="margin-top:0; font-size:16px;">নতুন বিজ্ঞাপন দিন</h3>
             <form onsubmit="handlePostAd(event)">
                 <div class="form-group">
                     <label>শিরোনাম</label>
-                    <input type="text" id="postTitle" required placeholder="যেমন: Redmi Note 13 Pro">
+                    <input type="text" id="postTitle" required placeholder="যেমন: Redmi Note 13">
                 </div>
                 <div class="form-group">
                     <label>ক্যাটাগরি</label>
                     <select id="postCategory">
-                        <option value="mobile">মোবাইল</option>
-                        <option value="electronics">ইলেকট্রনিক্স</option>
-                        <option value="vehicles">যানবাহন</option>
+                        <option value="mobile">📱 মোবাইল</option>
+                        <option value="electronics">💻 ইলেকট্রনিক্স</option>
+                        <option value="vehicles">🚗 যানবাহন</option>
+                        <option value="fashion">👕 ফ্যাশন</option>
+                        <option value="beauty">💄 বিউটি ও কেয়ার</option>
+                        <option value="services">🛠️ সার্ভিসেস</option>
+                        <option value="tools">🔧 টুলস ও হার্ডওয়্যার</option>
+                        <option value="kids">🍼 বেবি ও চিলড্রেন</option>
+                        <option value="pets">🐱 পশু ও পাখি</option>
+                        <option value="farm">🌾 কৃষি ও ফার্ম</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -261,40 +284,76 @@
                     <input type="text" id="postPrice" required placeholder="যেমন: ২৫,০০০ টাকা">
                 </div>
                 <div class="form-group">
-                    <label>ফোন নম্বর (যোগাযোগের জন্য)</label>
-                    <input type="tel" id="postPhone" required placeholder="যেমন: 018XXXXXXXX">
+                    <label>ফোন নম্বর</label>
+                    <input type="tel" id="postPhone" required placeholder="018XXXXXXXX">
+                </div>
+                
+                <div class="form-group">
+                    <label>বিভাগ (Division)</label>
+                    <select id="postDivision" onchange="onPostDivisionChange()" required>
+                        <option value="">বিভাগ নির্বাচন করুন</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label>লোকেশন</label>
-                    <input type="text" id="postLocation" required placeholder="যেমন: চট্টগ্রাম">
+                    <label>জেলা (District)</label>
+                    <select id="postDistrict" onchange="onPostDistrictChange()" disabled required>
+                        <option value="">প্রথমে বিভাগ নির্বাচন করুন</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label>পণ্যের ছবি (গ্যালারি থেকে সিলেক্ট করুন)</label>
+                    <label>থানা / উপজেলা (Thana/Upazila)</label>
+                    <select id="postThana" disabled required>
+                        <option value="">প্রথমে জেলা নির্বাচন করুন</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>পণ্যের ছবি</label>
                     <input type="file" id="postFile" accept="image/*" required>
                 </div>
                 <div class="form-group">
                     <label>বিবরণ</label>
                     <textarea id="postDesc" rows="3" required></textarea>
                 </div>
-                <button type="submit" id="submitBtn" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
+                <button type="submit" id="submitBtn" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
             </form>
         </div>
     </div>
 
-    <!-- 3. Account Modal -->
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
-            <h3>আপনার অ্যাকাউন্ট</h3>
+            <h3 style="margin-top:0;">আপনার অ্যাকাউন্ট</h3>
             <hr><br>
             <div id="authContent"></div>
         </div>
     </div>
 
-    <!-- Fixed Bottom Navigation -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
+            <h3 style="margin-top:0;">⚙️ Admin Control Panel</h3>
+            <hr><br>
+            <div id="adminAdsList"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="promoteInfoModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('promoteInfoModal')">&times;</span>
+            <h3 style="color:var(--accent); margin-top:0;">🚀 বিজ্ঞাপন প্রমোট করুন</h3>
+            <p style="font-size:13px;">আপনার বিজ্ঞাপনটি সবার উপরে দেখতে প্রমোট করুন!</p>
+            <div style="background:#fff3cd; color:#333; padding:10px; border-radius:4px; margin:8px 0; font-size:13px;">
+                ১. bKash / Nagad Send Money: <strong>01800000000</strong><br>
+                ২. ফি: <strong>১০০ টাকা (৭ দিনের জন্য)</strong>
+            </div>
+            <a href="https://wa.me/8801800000000?text=I%20want%20to%20promote%20my%20ad" target="_blank" class="btn-wa" style="display:block; text-align:center;">💬 WhatsApp-এ কনফার্ম করুন</a>
+        </div>
+    </div>
+
     <nav class="bottom-nav">
-        <button type="button" class="nav-item" onclick="filterCategory('all')">হোম</button>
-        <button type="button" class="nav-item" onclick="scrollToCategories()">ক্যাটাগরি</button>
+        <button type="button" class="nav-item" onclick="selectCategory('all')">হোম</button>
+        <button type="button" class="nav-item" onclick="openModal('categoryModal')">ক্যাটাগরি</button>
         <button type="button" class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
         <button type="button" class="nav-item" onclick="openModal('accountModal')">অ্যাকাউন্ট</button>
     </nav>
@@ -315,21 +374,219 @@
         const storage = firebase.storage();
         const auth = firebase.auth();
 
+        const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd"];
+
         let currentUser = null;
+        let isAdmin = false;
         let allAds = [];
+        let currentLang = 'bn';
+        let currentCategory = 'all';
+
+        const bdLocations = [
+            {
+                division: "Chattogram",
+                districts: [
+                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Pahartali", "Kotwali", "Khulshi", "Bayazid", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Boalkhali", "Patiya", "Raozan", "Rangunia", "Sandwip", "Sitakunda", "Mirsharai", "Anwara", "Banshkhali", "Satkania", "Lohagara", "Fatikchhari"] },
+                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Kutubdia", "Ukhiya", "Teknaf", "Pekua", "Ramu", "Maheshkhali"] },
+                    { district: "Comilla", thanas: ["Comilla Sadar", "Barura", "Brahmanpara", "Burichong", "Chandina", "Chauddagram", "Daudkandi", "Homna", "Laksam", "Monohorgonj", "Meghna", "Titas", "Muradnagar", "Nangalkot"] },
+                    { district: "Feni", thanas: ["Feni Sadar", "Daganbhuiyan", "Chhagalnaiya", "Sonagazi", "Parshuram", "Fulgazi"] },
+                    { district: "Noakhali", thanas: ["Noakhali Sadar", "Begumganj", "Chatkhil", "Companyganj", "Hatia", "Senbagh", "Subarnachar", "Kabirhat"] },
+                    { district: "Brahmanbaria", thanas: ["Brahmanbaria Sadar", "Ashuganj", "Nasirnagar", "Nabinagar", "Sarail", "Kasba", "Akhaura", "Bancharampur", "Bijoynagar"] },
+                    { district: "Chandpur", thanas: ["Chandpur Sadar", "Faridganj", "Haimchar", "Haziganj", "Kachua", "Matlab Dakshin", "Matlab Uttar", "Shahrasti"] },
+                    { district: "Lakshmipur", thanas: ["Lakshmipur Sadar", "Raipur", "Ramganj", "Ramgati", "Kamalnagar"] },
+                    { district: "Khagrachhari", thanas: ["Khagrachhari Sadar", "Dighinala", "Lakshmichhari", "Mahalchhari", "Manaikchhari", "Matiranga", "Panchhari", "Ramgarh"] },
+                    { district: "Rangamati", thanas: ["Rangamati Sadar", "Belaichhari", "Bagaichhari", "Barkal", "Juraichhari", "Langadu", "Naniarchar", "Kaptai", "Rajasthali"] },
+                    { district: "Bandarban", thanas: ["Bandarban Sadar", "Alikadam", "Naikhongchhari", "Rowangchhari", "Ruma", "Thanchi", "Lama"] }
+                ]
+            },
+            {
+                division: "Dhaka",
+                districts: [
+                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel", "Ramna", "Pallabi", "Cantonment", "Badda", "Khilkhet", "Lalbagh", "Hazaribagh", "Demra", "Kadamtali", "Shyampur", "Sutrapur", "Wari", "Sabujbagh", "Khilgaon", "Bashundhara"] },
+                    { district: "Savar", thanas: ["Savar Sadar", "Ashulia", "Hemayetpur"] },
+                    { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Kapasia", "Sreepur", "Tongi"] },
+                    { district: "Narayanganj", thanas: ["Narayanganj Sadar", "Bandar", "Rupganj", "Sonargaon", "Araihazar"] },
+                    { district: "Narsingdi", thanas: ["Narsingdi Sadar", "Belabo", "Monohardi", "Palash", "Raipura", "Shibpur"] },
+                    { district: "Manikganj", thanas: ["Manikganj Sadar", "Singair", "Shivalaya", "Saturia", "Harirampur", "Ghior", "Daulatpur"] },
+                    { district: "Munshiganj", thanas: ["Munshiganj Sadar", "Sreenagar", "Sirajdikhan", "Lohajang", "Tongibari", "Gazaria"] },
+                    { district: "Tangail", thanas: ["Tangail Sadar", "Sakhipur", "Basail", "Bhuapur", "Ghatail", "Kalihati", "Madhupur", "Mirzapur", "Nagarpur", "Dhanbari"] },
+                    { district: "Kishoreganj", thanas: ["Kishoreganj Sadar", "Hossainpur", "Pakundia", "Katiadi", "Bhairab", "Itna", "Tarail", "Nikli", "Bajitpur", "Kuliarchar", "Austagram", "Mithamain"] },
+                    { district: "Faridpur", thanas: ["Faridpur Sadar", "Boalmari", "Alfadanga", "Madhukhali", "Bhanga", "Nagarkanda", "Charbhadrasan", "Sadarpur", "Shaltha"] },
+                    { district: "Gopalganj", thanas: ["Gopalganj Sadar", "Kashiani", "Kotalipara", "Tungipara", "Muksudpur"] },
+                    { district: "Madaripur", thanas: ["Madaripur Sadar", "Shibchar", "Kalkini", "Rajoir", "Dasar"] },
+                    { district: "Shariatpur", thanas: ["Shariatpur Sadar", "Naria", "Zajira", "Gosairhat", "Bhedarganj", "Damudya"] }
+                ]
+            },
+            {
+                division: "Sylhet",
+                districts: [
+                    { district: "Sylhet", thanas: ["Sylhet Sadar", "Beanibazar", "Bishwanath", "Companiganj", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Zakiganj", "South Surma"] },
+                    { district: "Moulvibazar", thanas: ["Moulvibazar Sadar", "Barlekha", "Juri", "Kulaura", "Rajnagar", "Sreemangal", "Kamalganj"] },
+                    { district: "Habiganj", thanas: ["Habiganj Sadar", "Nabiganj", "Bahubal", "Chunarughat", "Madhabpur", "Lakhai", "Ajmiriganj", "Baniachang", "Shayestaganj"] },
+                    { district: "Sunamganj", thanas: ["Sunamganj Sadar", "South Sunamganj", "Bishwamvarpur", "Chhatak", "Doarabazar", "Jagannathpur", "Tahirpur", "Dharmapasha", "Jamalganj", "Shalla", "Madhyanagar"] }
+                ]
+            },
+            {
+                division: "Rajshahi",
+                districts: [
+                    { district: "Rajshahi", thanas: ["Boalia", "Rajpara", "Motihar", "Shah Makhdum", "Paba", "Durgapur", "Mohanpur", "Charghat", "Bagha", "Tanore", "Godagari"] },
+                    { district: "Bogra", thanas: ["Bogra Sadar", "Shibganj", "Sherpur", "Dhunat", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Shahjahanpur", "Adamdighi", "Sonatala"] },
+                    { district: "Pabna", thanas: ["Pabna Sadar", "Ishwardi", "Atgharia", "Bera", "Bhangura", "Chatmohar", "Faridpur", "Santhia", "Sujanagar"] },
+                    { district: "Sirajganj", thanas: ["Sirajganj Sadar", "Belkuchi", "Chauhali", "Kamarkhanda", "Kazipur", "Shahjadpur", "Tarash", "Ullahpara"] },
+                    { district: "Naogaon", thanas: ["Naogaon Sadar", "Mohadevpur", "Manda", "Niamatpur", "Atrai", "Raninagar", "Patnitala", "Dhamoirhat", "Sapahar", "Porsha", "Badalgachhi"] },
+                    { district: "Natore", thanas: ["Natore Sadar", "Baraigram", "Bagatipara", "Lalpur", "Singra", "Gurudaspur", "Naldanga"] },
+                    { district: "Chapainawabganj", thanas: ["Chapainawabganj Sadar", "Gomostapur", "Nachole", "Bholahat", "Shibganj"] },
+                    { district: "Joypurhat", thanas: ["Joypurhat Sadar", "Akkelpur", "Kalai", "Khetlal", "Panchbibi"] }
+                ]
+            }
+        ];
+
+        function initFilterLocations() {
+            const divSelect = document.getElementById('filterDivision');
+            divSelect.innerHTML = '<option value="">সকল বিভাগ</option>';
+            bdLocations.forEach(div => {
+                const opt = document.createElement('option');
+                opt.value = div.division;
+                opt.textContent = div.division;
+                divSelect.appendChild(opt);
+            });
+        }
+
+        window.onDivisionChange = function() {
+            const divVal = document.getElementById('filterDivision').value;
+            const distSelect = document.getElementById('filterDistrict');
+            const thanaSelect = document.getElementById('filterThana');
+            
+            distSelect.innerHTML = '<option value="">সকল জেলা</option>';
+            thanaSelect.innerHTML = '<option value="">সকল থানা</option>';
+            thanaSelect.disabled = true;
+
+            if(!divVal) {
+                distSelect.disabled = true;
+                filterAds();
+                return;
+            }
+
+            distSelect.disabled = false;
+            const foundDiv = bdLocations.find(d => d.division === divVal);
+            if(foundDiv) {
+                foundDiv.districts.forEach(dist => {
+                    const opt = document.createElement('option');
+                    opt.value = dist.district;
+                    opt.textContent = dist.district;
+                    distSelect.appendChild(opt);
+                });
+            }
+            filterAds();
+        };
+
+        window.onDistrictChange = function() {
+            const divVal = document.getElementById('filterDivision').value;
+            const distVal = document.getElementById('filterDistrict').value;
+            const thanaSelect = document.getElementById('filterThana');
+            
+            thanaSelect.innerHTML = '<option value="">সকল থানা</option>';
+
+            if(!distVal) {
+                thanaSelect.disabled = true;
+                filterAds();
+                return;
+            }
+
+            thanaSelect.disabled = false;
+            const foundDiv = bdLocations.find(d => d.division === divVal);
+            if(foundDiv) {
+                const foundDist = foundDiv.districts.find(ds => ds.district === distVal);
+                if(foundDist) {
+                    foundDist.thanas.forEach(thana => {
+                        const opt = document.createElement('option');
+                        opt.value = thana;
+                        opt.textContent = thana;
+                        thanaSelect.appendChild(opt);
+                    });
+                }
+            }
+            filterAds();
+        };
+
+        function initPostLocations() {
+            const divSelect = document.getElementById('postDivision');
+            divSelect.innerHTML = '<option value="">বিভাগ নির্বাচন করুন</option>';
+            bdLocations.forEach(div => {
+                const opt = document.createElement('option');
+                opt.value = div.division;
+                opt.textContent = div.division;
+                divSelect.appendChild(opt);
+            });
+        }
+
+        window.onPostDivisionChange = function() {
+            const divVal = document.getElementById('postDivision').value;
+            const distSelect = document.getElementById('postDistrict');
+            const thanaSelect = document.getElementById('postThana');
+            
+            distSelect.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
+            thanaSelect.innerHTML = '<option value="">প্রথমে জেলা নির্বাচন করুন</option>';
+            thanaSelect.disabled = true;
+
+            if(!divVal) {
+                distSelect.disabled = true;
+                return;
+            }
+
+            distSelect.disabled = false;
+            const foundDiv = bdLocations.find(d => d.division === divVal);
+            if(foundDiv) {
+                foundDiv.districts.forEach(dist => {
+                    const opt = document.createElement('option');
+                    opt.value = dist.district;
+                    opt.textContent = dist.district;
+                    distSelect.appendChild(opt);
+                });
+            }
+        };
+
+        window.onPostDistrictChange = function() {
+            const divVal = document.getElementById('postDivision').value;
+            const distVal = document.getElementById('postDistrict').value;
+            const thanaSelect = document.getElementById('postThana');
+            
+            thanaSelect.innerHTML = '<option value="">থানা নির্বাচন করুন</option>';
+
+            if(!distVal) {
+                thanaSelect.disabled = true;
+                return;
+            }
+
+            thanaSelect.disabled = false;
+            const foundDiv = bdLocations.find(d => d.division === divVal);
+            if(foundDiv) {
+                const foundDist = foundDiv.districts.find(ds => ds.district === distVal);
+                if(foundDist) {
+                    foundDist.thanas.forEach(thana => {
+                        const opt = document.createElement('option');
+                        opt.value = thana;
+                        opt.textContent = thana;
+                        thanaSelect.appendChild(opt);
+                    });
+                }
+            }
+        };
+
+        window.resetFilters = function() {
+            document.getElementById('filterDivision').value = '';
+            document.getElementById('filterDistrict').innerHTML = '<option value="">প্রথমে বিভাগ সিলেক্ট করুন</option>';
+            document.getElementById('filterDistrict').disabled = true;
+            document.getElementById('filterThana').innerHTML = '<option value="">প্রথমে জেলা সিলেক্ট করুন</option>';
+            document.getElementById('filterThana').disabled = true;
+            document.getElementById('searchInput').value = '';
+            filterAds();
+        };
 
         auth.onAuthStateChanged(user => {
             currentUser = user;
+            isAdmin = user && user.email && ADMIN_EMAILS.includes(user.email.toLowerCase());
             renderAuthUI();
-        });
-
-        auth.getRedirectResult().then(result => {
-            if (result.user) {
-                currentUser = result.user;
-                renderAuthUI();
-            }
-        }).catch(error => {
-            if(error.code) alert("লগইন ত্রুটি: " + error.message);
         });
 
         window.loginWithGoogle = function() {
@@ -338,15 +595,29 @@
                 if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
                     auth.signInWithRedirect(provider);
                 } else {
-                    alert("লগইন ব্যর্থ হয়েছে: " + error.message);
+                    alert(error.message);
                 }
             });
         };
 
+        window.loginWithEmail = function() {
+            const email = document.getElementById('authEmail').value;
+            const pass = document.getElementById('authPassword').value;
+            if(!email || !pass) return alert("ইমেইল এবং পাসওয়ার্ড দিন!");
+            auth.signInWithEmailAndPassword(email, pass).catch(error => alert(error.message));
+        };
+
+        window.signupWithEmail = function() {
+            const email = document.getElementById('authEmail').value;
+            const pass = document.getElementById('authPassword').value;
+            if(!email || !pass) return alert("ইমেইল এবং পাসওয়ার্ড দিন!");
+            auth.createUserWithEmailAndPassword(email, pass).then(() => {
+                alert("সাইন আপ সফল হয়েছে!");
+            }).catch(error => alert(error.message));
+        };
+
         window.logout = function() {
-            auth.signOut().then(() => {
-                alert("লগআউট সফল হয়েছে!");
-            });
+            auth.signOut().then(() => alert("লগআউট সফল হয়েছে!"));
         };
 
         function renderAuthUI() {
@@ -354,15 +625,24 @@
             if(currentUser) {
                 const myAds = allAds.filter(a => a.userId === currentUser.uid);
                 container.innerHTML = `
-                    <p><strong>নাম:</strong> ${currentUser.displayName}</p>
+                    <p><strong>নাম:</strong> ${currentUser.displayName || currentUser.email.split('@')[0]} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
                     <p><strong>ইমেইল:</strong> ${currentUser.email}</p>
-                    <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length} টি</p>
-                    <button style="width:100%; padding:10px; background:#dc3545; color:white; border:none; border-radius:5px; cursor:pointer; margin-top:15px;" onclick="logout()">লগআউট</button>
+                    <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length}</p>
+                    ${isAdmin ? '<button style="width:100%; padding:9px; background:#17a2b8; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; margin-top:8px;" onclick="openAdminModal()">⚙️ Admin Dashboard</button>' : ''}
+                    <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; margin-top:8px;" onclick="logout()">লগআউট</button>
                 `;
             } else {
                 container.innerHTML = `
-                    <p style="text-align:center;">বিজ্ঞাপন পোস্ট করতে বা নিয়ন্ত্রণ করতে লগইন করুন</p>
-                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;" onclick="loginWithGoogle()">Google দিয়ে লগইন করুন</button>
+                    <div style="margin-bottom: 12px;">
+                        <input type="email" id="authEmail" placeholder="ইমেইল দিন" style="width:100%; padding:8px; margin-bottom:8px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box; font-size:13px;">
+                        <input type="password" id="authPassword" placeholder="পাসওয়ার্ড দিন" style="width:100%; padding:8px; margin-bottom:8px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box; font-size:13px;">
+                        <div style="display: flex; gap: 8px;">
+                            <button style="flex:1; padding:9px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:13px;" onclick="loginWithEmail()">লগইন</button>
+                            <button style="flex:1; padding:9px; background:#28a745; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:13px;" onclick="signupWithEmail()">সাইন আপ</button>
+                        </div>
+                    </div>
+                    <hr style="border:0; border-top:1px solid #ddd; margin:10px 0;">
+                    <button style="width:100%; padding:10px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;" onclick="loginWithGoogle()">Google দিয়ে লগইন</button>
                 `;
             }
         }
@@ -373,7 +653,8 @@
                 snapshot.forEach(doc => {
                     allAds.push({ id: doc.id, ...doc.data() });
                 });
-                renderAds(allAds);
+                allAds.sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
+                filterAds();
                 if(currentUser) renderAuthUI();
             });
         }
@@ -382,17 +663,20 @@
             const grid = document.getElementById('adsGrid');
             grid.innerHTML = '';
             if(ads.length === 0) {
-                grid.innerHTML = '<p>কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>';
+                grid.innerHTML = `<p style="font-size:14px; color:#666;">কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>`;
                 return;
             }
             ads.forEach(ad => {
+                const isFeatured = ad.isFeatured ? 'featured' : '';
+                const featuredBadge = ad.isFeatured ? '<span class="featured-badge">FEATURED</span>' : '';
                 grid.innerHTML += `
-                    <div class="card" onclick="openProductDetail('${ad.id}')">
+                    <div class="card ${isFeatured}" onclick="openProductDetail('${ad.id}')">
+                        ${featuredBadge}
                         <img src="${ad.img}" alt="${ad.title}">
                         <div class="card-content">
                             <div class="card-title">${ad.title}</div>
                             <div class="card-price">${ad.price}</div>
-                            <div class="card-location">${ad.location}</div>
+                            <div class="card-location">📍 ${ad.location}</div>
                         </div>
                     </div>
                 `;
@@ -401,7 +685,7 @@
 
         window.openPostModal = function() {
             if(!currentUser) {
-                alert("বিজ্ঞাপন পোস্ট করতে আপনাকে অবশ্যই Google দিয়ে লগইন করতে হবে।");
+                alert("বিজ্ঞাপন পোস্ট করতে প্রথমে লগইন করুন।");
                 openModal('accountModal');
             } else {
                 openModal('postAdModal');
@@ -410,31 +694,39 @@
 
         window.handlePostAd = function(event) {
             event.preventDefault();
-            if(!currentUser) return alert("লগইন করুন!");
+            if(!currentUser) return;
 
             const submitBtn = document.getElementById('submitBtn');
             const file = document.getElementById('postFile').files[0];
+            const div = document.getElementById('postDivision').value;
+            const dist = document.getElementById('postDistrict').value;
+            const thana = document.getElementById('postThana').value;
 
-            if(!file) return alert("ছবি নির্বাচন করুন!");
+            if(!file) return alert("ছবির ফাইল সিলেক্ট করুন!");
+            if(!div || !dist || !thana) return alert("সঠিকভাবে বিভাগ, জেলা ও থানা সিলেক্ট করুন!");
 
-            submitBtn.innerText = "ছবি আপলোড হচ্ছে...";
+            submitBtn.innerText = "আপলোড হচ্ছে...";
             submitBtn.disabled = true;
 
             const storageRef = storage.ref('baza_photos/' + Date.now() + '_' + file.name);
             storageRef.put(file).then(snapshot => {
                 return snapshot.ref.getDownloadURL();
             }).then(downloadURL => {
-                submitBtn.innerText = "ডাটা সেভ হচ্ছে...";
+                submitBtn.innerText = "সেভ হচ্ছে...";
                 const newAd = {
                     title: document.getElementById('postTitle').value,
-                    category: document.getElementById('postCategory').value,
+                    category: document.getElementById('postCategory').value.toLowerCase(),
                     price: document.getElementById('postPrice').value,
                     phone: document.getElementById('postPhone').value,
-                    location: document.getElementById('postLocation').value,
+                    division: div,
+                    district: dist,
+                    thana: thana,
+                    location: `${thana}, ${dist}, ${div}`,
                     img: downloadURL,
                     desc: document.getElementById('postDesc').value,
+                    isFeatured: false,
                     userId: currentUser.uid,
-                    userName: currentUser.displayName,
+                    userName: currentUser.displayName || currentUser.email.split('@')[0],
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 return db.collection("ads").add(newAd);
@@ -445,8 +737,7 @@
                 event.target.reset();
                 alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
             }).catch(error => {
-                console.error(error);
-                alert("পোস্ট করতে ব্যর্থ হয়েছে: " + error.message);
+                alert(error.message);
                 submitBtn.innerText = "পাবলিশ করুন";
                 submitBtn.disabled = false;
             });
@@ -457,57 +748,105 @@
             if(ad) {
                 document.getElementById('modalTitle').innerText = ad.title;
                 document.getElementById('modalPrice').innerText = ad.price;
-                document.getElementById('modalLocation').innerText = 'লোকেশন: ' + ad.location;
-                document.getElementById('modalSeller').innerText = 'বিক্রেতা: ' + (ad.userName || 'অজানা');
+                document.getElementById('modalLocation').innerText = "লোকেশন: " + ad.location;
+                document.getElementById('modalSeller').innerText = "বিক্রেতা: " + (ad.userName || "অজানা");
                 document.getElementById('modalDesc').innerText = ad.desc;
                 document.getElementById('modalImg').src = ad.img;
                 
                 document.getElementById('callLink').href = "tel:" + ad.phone;
                 document.getElementById('waLink').href = "https://wa.me/88" + ad.phone;
 
-                const delContainer = document.getElementById('deleteContainer');
-                delContainer.innerHTML = '';
-                if(currentUser && ad.userId === currentUser.uid) {
-                    delContainer.innerHTML = `<button class="btn-delete" onclick="deleteAd('${ad.id}')">বিজ্ঞাপন ডিলিট করুন</button>`;
+                const ownerContainer = document.getElementById('ownerActionsContainer');
+                ownerContainer.innerHTML = '';
+
+                if(currentUser && ad.userId === currentUser.uid && !ad.isFeatured) {
+                    ownerContainer.innerHTML += `<button class="btn-promote" onclick="openModal('promoteInfoModal')">🚀 বিজ্ঞাপনটি প্রমোট করুন</button>`;
+                }
+                if(currentUser && (ad.userId === currentUser.uid || isAdmin)) {
+                    ownerContainer.innerHTML += `<button class="btn-delete" onclick="deleteAd('${ad.id}')">বিজ্ঞাপন ডিলিট করুন</button>`;
                 }
 
                 openModal('productModal');
             }
         };
 
+        window.openAdminModal = function() {
+            if(!isAdmin) return;
+            const container = document.getElementById('adminAdsList');
+            container.innerHTML = '';
+            if(allAds.length === 0) {
+                container.innerHTML = '<p>কোনো বিজ্ঞাপন নেই।</p>';
+            } else {
+                allAds.forEach(ad => {
+                    container.innerHTML += `
+                        <div class="admin-list-item">
+                            <div><strong>${ad.title}</strong><br><small>${ad.price} | ${ad.location}</small></div>
+                            <button style="background:#dc3545; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;" onclick="deleteAd('${ad.id}')">Delete</button>
+                        </div>
+                    `;
+                });
+            }
+            openModal('adminModal');
+        };
+
         window.deleteAd = function(id) {
-            if(confirm("আপনি কি নিশ্চিত যে বিজ্ঞাপনটি মুছে ফেলতে চান?")) {
+            if(confirm("আপনি কি নিশ্চিত বিজ্ঞাপনটি ডিলিট করতে চান?")) {
                 db.collection("ads").doc(id).delete().then(() => {
                     closeModal('productModal');
-                    alert("বিজ্ঞাপন ডিলিট সম্পন্ন হয়েছে!");
+                    if(document.getElementById('adminModal').style.display === 'flex') openAdminModal();
+                    alert("সফলভাবে ডিলিট করা হয়েছে!");
                 });
             }
         };
 
         window.filterAds = function() {
             const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = allAds.filter(ad => ad.title.toLowerCase().includes(query) || ad.location.toLowerCase().includes(query));
+            const divFilter = document.getElementById('filterDivision').value;
+            const distFilter = document.getElementById('filterDistrict').value;
+            const thanaFilter = document.getElementById('filterThana').value;
+
+            let filtered = allAds.filter(ad => {
+                const matchQuery = !query || (ad.title && ad.title.toLowerCase().includes(query)) || (ad.location && ad.location.toLowerCase().includes(query));
+                const matchCat = currentCategory === 'all' || (ad.category && ad.category.toLowerCase() === currentCategory.toLowerCase());
+                const matchDiv = !divFilter || ad.division === divFilter;
+                const matchDist = !distFilter || ad.district === distFilter;
+                const matchThana = !thanaFilter || ad.thana === thanaFilter;
+
+                return matchQuery && matchCat && matchDiv && matchDist && matchThana;
+            });
             renderAds(filtered);
         };
 
-        window.filterCategory = function(cat) {
+        window.selectCategory = function(cat) {
+            currentCategory = cat;
+            closeModal('categoryModal');
+            const categoryNames = {
+                'all': '🌐 সব বিজ্ঞাপন',
+                'mobile': '📱 মোবাইল বিজ্ঞাপনসমূহ',
+                'electronics': '💻 ইলেকট্রনিক্স বিজ্ঞাপনসমূহ',
+                'vehicles': '🚗 যানবাহন বিজ্ঞাপনসমূহ',
+                'fashion': '👕 ফ্যাশন বিজ্ঞাপনসমূহ',
+                'beauty': '💄 বিউটি ও কেয়ার বিজ্ঞাপনসমূহ',
+                'services': '🛠️ সার্ভিসেস বিজ্ঞাপনসমূহ',
+                'tools': '🔧 টুলস ও হার্ডওয়্যার বিজ্ঞাপনসমূহ',
+                'kids': '🍼 বেবি ও চিলড্রেন বিজ্ঞাপনসমূহ',
+                'pets': '🐱 পশু ও পাখি বিজ্ঞাপনসমূহ',
+                'farm': '🌾 কৃষি ও ফার্ম বিজ্ঞাপনসমূহ'
+            };
+            document.getElementById('sectionTitle').innerText = categoryNames[cat] || 'বিজ্ঞাপনসমূহ';
+            filterAds();
             window.scrollTo({top: 0, behavior: 'smooth'});
-            if(cat === 'all') {
-                document.getElementById('sectionTitle').innerText = 'সাম্প্রতিক বিজ্ঞাপনসমূহ';
-                renderAds(allAds);
-            } else {
-                document.getElementById('sectionTitle').innerText = cat.toUpperCase() + ' বিজ্ঞাপনসমূহ';
-                const filtered = allAds.filter(ad => ad.category === cat);
-                renderAds(filtered);
-            }
         };
 
-        window.scrollToCategories = function() { window.scrollTo({top: 0, behavior: 'smooth'}); };
         window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
         window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
         window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
 
-        window.onload = fetchAdsFromFirebase;
+        window.onload = function() {
+            fetchAdsFromFirebase();
+            initFilterLocations();
+            initPostLocations();
+        };
     </script>
 </body>
 </html>
