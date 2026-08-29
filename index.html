@@ -338,19 +338,16 @@
         </div>
     </div>
 
-    <!-- পেমেন্ট অপশন কোডের ভেতর হাইড (display: none) করে রাখা হয়েছে -->
-    <div class="modal" id="promoteInfoModal" style="display: none;">
+    <div class="modal" id="promoteInfoModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('promoteInfoModal')">&times;</span>
             <h3 style="color:var(--accent); margin-top:0;">🚀 বিজ্ঞাপন প্রমোট করুন</h3>
             <p style="font-size:13px;">আপনার বিজ্ঞাপনটি সবার উপরে দেখতে প্রমোট করুন!</p>
             <div style="background:#fff3cd; color:#333; padding:10px; border-radius:4px; margin:8px 0; font-size:13px;">
-                ১. bKash / Nagad / Rocket: <strong>01716390763</strong><br>
-                ২. Bank: <strong>BRAC Bank (Bandartila Branch)</strong><br>
-                ৩. Account No: <strong>1106104006949001</strong><br>
-                ৪. ফি: <strong>১০০ টাকা (৭ দিনের জন্য)</strong>
+                ১. bKash / Nagad Send Money: <strong>01800000000</strong><br>
+                ২. ফি: <strong>১০০ টাকা (৭ দিনের জন্য)</strong>
             </div>
-            <a href="https://wa.me/8801716390763?text=I%20want%20to%20promote%20my%20ad" target="_blank" class="btn-wa" style="display:block; text-align:center;">💬 WhatsApp-এ কনফার্ম করুন</a>
+            <a href="https://wa.me/8801800000000?text=I%20want%20to%20promote%20my%20ad" target="_blank" class="btn-wa" style="display:block; text-align:center;">💬 WhatsApp-এ কনফার্ম করুন</a>
         </div>
     </div>
 
@@ -603,22 +600,6 @@
             });
         };
 
-        window.loginWithEmail = function() {
-            const email = document.getElementById('authEmail').value;
-            const pass = document.getElementById('authPassword').value;
-            if(!email || !pass) return alert("ইমেইল এবং পাসওয়ার্ড দিন!");
-            auth.signInWithEmailAndPassword(email, pass).catch(error => alert(error.message));
-        };
-
-        window.signupWithEmail = function() {
-            const email = document.getElementById('authEmail').value;
-            const pass = document.getElementById('authPassword').value;
-            if(!email || !pass) return alert("ইমেইল এবং পাসওয়ার্ড দিন!");
-            auth.createUserWithEmailAndPassword(email, pass).then(() => {
-                alert("সাইন আপ সফল হয়েছে!");
-            }).catch(error => alert(error.message));
-        };
-
         window.logout = function() {
             auth.signOut().then(() => alert("লগআউট সফল হয়েছে!"));
         };
@@ -628,7 +609,7 @@
             if(currentUser) {
                 const myAds = allAds.filter(a => a.userId === currentUser.uid);
                 container.innerHTML = `
-                    <p><strong>নাম:</strong> ${currentUser.displayName || currentUser.email.split('@')[0]} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
+                    <p><strong>নাম:</strong> ${currentUser.displayName} ${isAdmin ? '<span class="admin-badge">ADMIN</span>' : ''}</p>
                     <p><strong>ইমেইল:</strong> ${currentUser.email}</p>
                     <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length}</p>
                     ${isAdmin ? '<button style="width:100%; padding:9px; background:#17a2b8; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; margin-top:8px;" onclick="openAdminModal()">⚙️ Admin Dashboard</button>' : ''}
@@ -636,15 +617,7 @@
                 `;
             } else {
                 container.innerHTML = `
-                    <div style="margin-bottom: 12px;">
-                        <input type="email" id="authEmail" placeholder="ইমেইল দিন" style="width:100%; padding:8px; margin-bottom:8px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box; font-size:13px;">
-                        <input type="password" id="authPassword" placeholder="পাসওয়ার্ড দিন" style="width:100%; padding:8px; margin-bottom:8px; border:1px solid #ccc; border-radius:4px; box-sizing:border-box; font-size:13px;">
-                        <div style="display: flex; gap: 8px;">
-                            <button style="flex:1; padding:9px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:13px;" onclick="loginWithEmail()">লগইন</button>
-                            <button style="flex:1; padding:9px; background:#28a745; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:13px;" onclick="signupWithEmail()">সাইন আপ</button>
-                        </div>
-                    </div>
-                    <hr style="border:0; border-top:1px solid #ddd; margin:10px 0;">
+                    <p style="text-align:center; font-size:13px;">বিজ্ঞাপন পোস্ট করতে লগইন করুন</p>
                     <button style="width:100%; padding:10px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;" onclick="loginWithGoogle()">Google দিয়ে লগইন</button>
                 `;
             }
@@ -729,7 +702,7 @@
                     desc: document.getElementById('postDesc').value,
                     isFeatured: false,
                     userId: currentUser.uid,
-                    userName: currentUser.displayName || currentUser.email.split('@')[0],
+                    userName: currentUser.displayName,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 return db.collection("ads").add(newAd);
@@ -762,13 +735,9 @@
                 const ownerContainer = document.getElementById('ownerActionsContainer');
                 ownerContainer.innerHTML = '';
 
-                // পেমেন্ট অপশন হাইড থাকায় প্রমোট বাটনটিও সাময়িকভাবে ডিজেবল বা হাইড রাখা হয়েছে
-                /*
                 if(currentUser && ad.userId === currentUser.uid && !ad.isFeatured) {
                     ownerContainer.innerHTML += `<button class="btn-promote" onclick="openModal('promoteInfoModal')">🚀 বিজ্ঞাপনটি প্রমোট করুন</button>`;
                 }
-                */
-
                 if(currentUser && (ad.userId === currentUser.uid || isAdmin)) {
                     ownerContainer.innerHTML += `<button class="btn-delete" onclick="deleteAd('${ad.id}')">বিজ্ঞাপন ডিলিট করুন</button>`;
                 }
