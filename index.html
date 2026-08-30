@@ -20,7 +20,7 @@
         body { background-color: var(--bg-light); color: var(--text-light); transition: background 0.3s, color 0.3s; padding-bottom: 70px; }
         body.dark-mode { background-color: var(--bg-dark); color: var(--text-dark); }
 
-        /* Preloader with Banyan Tree Icon */
+        /* Preloader */
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--card-bg-light); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease; }
         body.dark-mode #preloader { background: var(--bg-dark); }
         .preloader-logo { font-size: 60px; color: var(--primary); animation: bounce 1.2s infinite alternate; }
@@ -28,35 +28,36 @@
         body.dark-mode .preloader-text { color: #aaa; }
         @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
 
-        header { background-color: var(--primary); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.2); gap: 10px; }
-        .logo { font-size: 20px; font-weight: bold; color: #ffffff; text-decoration: none; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
+        /* Header (Upper Dashboard) */
+        header { background-color: var(--primary); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.2); gap: 5px; }
+        .logo { font-size: 18px; font-weight: bold; color: #ffffff; text-decoration: none; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
         .logo span { color: var(--accent); }
         .header-controls { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
-        .btn-post-ad { background-color: var(--accent); color: #000; padding: 6px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 12px; border: none; cursor: pointer; white-space: nowrap; }
-        .btn-toggle, .btn-account { background: transparent; border: 1px solid white; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 11px; font-weight: bold; white-space: nowrap; }
+        .btn-post-ad { background-color: var(--accent); color: #000; padding: 5px 10px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 11px; border: none; cursor: pointer; white-space: nowrap; }
+        .btn-header { background: transparent; border: 1px solid white; color: white; padding: 5px 8px; border-radius: 20px; cursor: pointer; font-size: 11px; font-weight: bold; white-space: nowrap; display: flex; align-items: center; gap: 4px; text-decoration: none; }
         
-        .hero-banner { background-color: var(--primary); color: white; text-align: center; padding: 30px 15px 40px 15px; }
-        .hero-banner h1 { font-size: 24px; margin-bottom: 10px; }
-        .hero-banner p { font-size: 14px; opacity: 0.9; margin-bottom: 20px; }
-        .search-container { max-width: 650px; margin: 0 auto; display: flex; gap: 8px; background: white; padding: 5px; border-radius: 8px; flex-wrap: wrap; }
-        .search-container select, .search-container input { border: none; outline: none; padding: 10px; background: #eef2f5; border-radius: 5px; font-weight: bold; color: #333; font-size: 14px; }
-        .search-container input { flex: 1; background: transparent; }
-        .search-container button { background-color: var(--accent); border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; color: #000; }
+        .hero-banner { background-color: var(--primary); color: white; text-align: center; padding: 25px 15px 35px 15px; }
+        .hero-banner h1 { font-size: 22px; margin-bottom: 8px; }
+        .hero-banner p { font-size: 13px; opacity: 0.9; margin-bottom: 15px; }
+        .search-container { max-width: 650px; margin: 0 auto; display: flex; gap: 6px; background: white; padding: 5px; border-radius: 8px; flex-wrap: wrap; box-sizing: border-box; }
+        .search-container select, .search-container input { border: none; outline: none; padding: 8px; background: #eef2f5; border-radius: 5px; font-weight: bold; color: #333; font-size: 13px; }
+        .search-container input { flex: 1; background: transparent; min-width: 120px; }
+        .search-container button { background-color: var(--accent); border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; color: #000; }
         
-        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
+        .container { max-width: 1100px; margin: 20px auto; padding: 0 10px; width: 100%; box-sizing: border-box; }
         .filter-section { background: var(--card-bg-light); padding: 12px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
         body.dark-mode .filter-section { background: var(--card-bg-dark); }
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; flex-grow: 1; }
         .filter-group select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; outline: none; flex-grow: 1; }
         body.dark-mode .filter-group select { background: #2a2a2a; color: white; border-color: #444; }
 
-        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 30px; }
+        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
         @media (min-width: 768px) { .category-grid { grid-template-columns: repeat(8, 1fr); } }
-        .category-card { background: var(--card-bg-light); padding: 15px 5px; border-radius: 12px; text-align: center; text-decoration: none; color: var(--text-light); box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s; cursor: pointer; border: 1px solid rgba(0,0,0,0.04); }
+        .category-card { background: var(--card-bg-light); padding: 12px 5px; border-radius: 10px; text-align: center; text-decoration: none; color: var(--text-light); box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s; cursor: pointer; border: 1px solid rgba(0,0,0,0.04); }
         body.dark-mode .category-card { background: var(--card-bg-dark); color: var(--text-dark); border-color: #333; }
-        .category-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .category-card i { font-size: 26px; margin-bottom: 8px; display: block; }
-        .category-card span { font-size: 12px; font-weight: 600; display: block; line-height: 1.2; }
+        .category-card:hover { transform: translateY(-3px); }
+        .category-card i { font-size: 24px; margin-bottom: 6px; display: block; }
+        .category-card span { font-size: 11px; font-weight: 600; display: block; line-height: 1.2; }
 
         .sub-category-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; white-space: nowrap; }
         .sub-chip { background: var(--card-bg-light); border: 1px solid #ddd; padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; font-weight: 600; color: inherit; transition: 0.2s; }
@@ -66,21 +67,23 @@
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .section-header h2 { font-size: 18px; color: inherit; }
         
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 15px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); } }
         .product-card { background: var(--card-bg-light); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; flex-direction: column; cursor: pointer; position: relative; transition: transform 0.2s; }
         body.dark-mode .product-card { background: var(--card-bg-dark); }
         .product-card:hover { transform: translateY(-4px); }
-        .product-card img { width: 100%; height: 160px; object-fit: cover; }
-        .product-details { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-price { color: var(--primary); font-weight: bold; font-size: 16px; margin-bottom: 4px; }
-        .product-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: inherit; }
-        .product-location { font-size: 11px; color: #777; margin-bottom: 10px; }
+        .product-card img { width: 100%; height: 140px; object-fit: cover; }
+        .product-details { padding: 10px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-price { color: var(--primary); font-weight: bold; font-size: 15px; margin-bottom: 4px; }
+        .product-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: inherit; }
+        .product-location { font-size: 11px; color: #777; margin-bottom: 6px; }
 
         footer { text-align: center; padding: 20px; margin-top: 40px; font-size: 13px; color: #777; border-top: 1px solid #ddd; }
         body.dark-mode footer { border-color: #333; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; padding: 10px; }
-        .modal-content { background: var(--card-bg-light); padding: 25px; border-radius: 12px; max-width: 480px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
+        /* Modals */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; padding: 10px; box-sizing: border-box; }
+        .modal-content { background: var(--card-bg-light); padding: 20px; border-radius: 12px; max-width: 480px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; box-sizing: border-box; }
         body.dark-mode .modal-content { background: var(--card-bg-dark); color: var(--text-dark); }
         .close-btn { position: absolute; top: 10px; right: 15px; font-size: 22px; cursor: pointer; color: #666; }
 
@@ -96,9 +99,12 @@
         .thumb-item.active { border-color: var(--primary); }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); display: flex; justify-content: space-around; align-items: center; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.3); z-index: 500; }
-        .nav-item { color: white; text-align: center; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; background: none; border: none; flex: 1; }
-        @media (min-width: 768px) { .bottom-nav { display: none; } body { padding-bottom: 0; } }
+        /* Bottom Navigation (Lower Dashboard) */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg-light); border-top: 1px solid #ddd; display: flex; justify-content: space-around; align-items: center; padding: 8px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 500; }
+        body.dark-mode .bottom-nav { background: var(--card-bg-dark); border-color: #333; }
+        .nav-item { color: inherit; text-align: center; text-decoration: none; font-size: 11px; font-weight: 600; cursor: pointer; background: none; border: none; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+        .nav-item i { font-size: 18px; }
+        .nav-item.active { color: var(--primary); }
         
         .dashboard-box { background: rgba(0,0,0,0.03); padding: 12px; border-radius: 6px; margin-bottom: 12px; }
         body.dark-mode .dashboard-box { background: rgba(255,255,255,0.05); }
@@ -107,25 +113,31 @@
 </head>
 <body>
 
+    <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-logo"><i class="fa-solid fa-tree"></i></div>
         <div class="preloader-text">শান্তির ছায়ায় কেনা-বেচা, Baza.com.bd লোড হচ্ছে...</div>
     </div>
 
+    <!-- Upper Dashboard (Header) -->
     <header>
         <a class="logo" onclick="selectCategory('all')">
             <i class="fa-solid fa-tree" style="color: var(--accent);"></i> Baza<span>.com.bd</span>
         </a>
         <div class="header-controls">
             <button class="btn-post-ad" onclick="openPostModal()">+ বিজ্ঞাপন দিন</button>
-            <button class="btn-account" onclick="openModal('accountModal')">👤 ড্যাশবোর্ড</button>
-            <button class="btn-toggle" onclick="toggleTheme()">ডার্ক</button>
+            <button class="btn-header" onclick="openModal('accountModal')" id="headerAuthBtn">
+                <i class="fa-solid fa-user-circle"></i> <span id="headerAuthText">সাইন ইন</span>
+            </button>
+            <button class="btn-header" onclick="openModal('notificationModal')">
+                <i class="fa-solid fa-bell"></i> <span style="font-size: 10px; background: var(--accent); color: #000; padding: 1px 4px; border-radius: 10px; font-weight: bold;">0</span>
+            </button>
         </div>
     </header>
 
     <div class="hero-banner">
         <h1>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
-        <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ ও আস্থার প্ল্যাটফর্ম</p>
+        <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
         <div class="search-container">
             <select id="heroDivision" onchange="onHeroDivisionChange()">
                 <option value="">সকল বিভাগ</option>
@@ -183,6 +195,26 @@
         <p style="font-size:11px; margin-top:5px;">Developed by Nadim</p>
     </footer>
 
+    <!-- Lower Dashboard (Bottom Navigation Bar) -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="selectCategory('all'); highlightNav(this);">
+            <i class="fa-solid fa-house"></i> হোম পেজ
+        </button>
+        <button class="nav-item" onclick="openModal('messagesModal'); highlightNav(this);">
+            <i class="fa-solid fa-comment-dots"></i> মেসেজ
+        </button>
+        <button class="nav-item" onclick="openPostModal(); highlightNav(this);">
+            <i class="fa-solid fa-circle-plus" style="color: var(--primary); font-size: 22px;"></i> বিজ্ঞাপন দিন
+        </button>
+        <button class="nav-item" onclick="openModal('settingsModal'); highlightNav(this);">
+            <i class="fa-solid fa-gear"></i> সেটিংস
+        </button>
+        <button class="nav-item" onclick="openModal('accountModal'); highlightNav(this);">
+            <i class="fa-solid fa-user"></i> প্রফাইল
+        </button>
+    </nav>
+
+    <!-- Product Detail Modal -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
@@ -200,6 +232,7 @@
         </div>
     </div>
 
+    <!-- Post Ad Modal -->
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
@@ -278,20 +311,52 @@
         </div>
     </div>
 
+    <!-- User Dashboard & Profile Modal -->
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
-            <h3 style="margin-top:0;">ইউজার ড্যাশবোর্ড ও সেটিংস</h3>
+            <h3 style="margin-top:0;">প্রফাইল ও অ্যাকাউন্ট</h3>
             <hr style="margin:10px 0;"><br>
             <div id="authContent"></div>
         </div>
     </div>
 
-    <nav class="bottom-nav">
-        <button class="nav-item" onclick="selectCategory('all')">🏠 হোম</button>
-        <button class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
-        <button class="nav-item" onclick="openModal('accountModal')">👤 ড্যাশবোর্ড</button>
-    </nav>
+    <!-- Messages Modal -->
+    <div class="modal" id="messagesModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('messagesModal')">&times;</span>
+            <h3 style="margin-top:0;">💬 মেসেজ</h3>
+            <hr style="margin:10px 0;"><br>
+            <p style="text-align:center; color:#777; font-size:13px; padding: 20px 0;">আপনার কোনো নতুন মেসেজ নেই। সরাসরি বিক্রেতার নাম্বারে কল বা WhatsApp করুন।</p>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('settingsModal')">&times;</span>
+            <h3 style="margin-top:0;">⚙️ সেটিংস</h3>
+            <hr style="margin:10px 0;"><br>
+            <div class="dashboard-box">
+                <h4 style="margin-bottom:6px; font-size:14px;">থিম মোড</h4>
+                <button onclick="toggleTheme()" style="width:100%; padding:9px; background:var(--primary); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;">ডার্ক / লাইট মোড পরিবর্তন করুন</button>
+            </div>
+            <div class="dashboard-box">
+                <h4 style="margin-bottom:6px; font-size:14px;">অ্যাপ ইনফো</h4>
+                <p style="font-size:12px; color:#666;">Baza.com.bd v2.5<br>Developed by Nadim</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifications Modal -->
+    <div class="modal" id="notificationModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('notificationModal')">&times;</span>
+            <h3 style="margin-top:0;">🔔 নোটিফিকেশন</h3>
+            <hr style="margin:10px 0;"><br>
+            <p style="text-align:center; color:#777; font-size:13px; padding: 20px 0;">কোনো নতুন নোটিফিকেশন নেই।</p>
+        </div>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -319,7 +384,6 @@
         let currentCategory = 'all';
         let currentSubCategory = 'all';
 
-        // Hide preloader completely when page loads
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
@@ -327,6 +391,11 @@
                 setTimeout(() => preloader.style.display = 'none', 500);
             }, 800);
         });
+
+        window.highlightNav = function(element) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+        };
 
         function convertImageToBase64(file) {
             return new Promise((resolve, reject) => {
@@ -628,6 +697,10 @@
 
         function renderAuthUI() {
             const container = document.getElementById('authContent');
+            const headerAuthText = document.getElementById('headerAuthText');
+            if(headerAuthText) {
+                headerAuthText.innerText = currentUser ? 'প্রোফাইল' : 'সাইন ইন';
+            }
             if(!container) return;
             if(currentUser) {
                 const myAds = allAds.filter(a => a.userId === currentUser.uid);
@@ -670,15 +743,11 @@
                         </div>
                     </div>
                     ${adminHtml}
-                    <div class="dashboard-box">
-                        <h4 style="margin-bottom:6px; font-size:14px;">⚙️ অ্যাপ সেটিংস</h4>
-                        <button onclick="toggleTheme()" style="width:100%; padding:8px; background:var(--primary); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px; margin-bottom:6px;">ডার্ক / লাইট মোড পরিবর্তন করুন</button>
-                    </div>
                     <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;" onclick="logout()">লগআউট</button>
                 `;
             } else {
                 container.innerHTML = `
-                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">আপনার ড্যাশবোর্ড দেখতে এবং বিজ্ঞাপন পোস্ট করতে সাইন-ইন করুন</p>
+                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">আপনার প্রফাইল এবং ড্যাশবোর্ড দেখতে সাইন-ইন করুন</p>
                     <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন করুন</button>
                 `;
             }
@@ -882,8 +951,6 @@
         window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
         window.toggleTheme = function() {
             document.body.classList.toggle('dark-mode');
-            const btn = document.querySelector('.btn-toggle');
-            if(btn) btn.innerText = document.body.classList.contains('dark-mode') ? 'লাইট' : 'ডার্ক';
         };
 
         fetchAds();
