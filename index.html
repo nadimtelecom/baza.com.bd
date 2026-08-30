@@ -19,12 +19,22 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg-light); color: var(--text-light); transition: background 0.3s, color 0.3s; padding-bottom: 70px; }
         body.dark-mode { background-color: var(--bg-dark); color: var(--text-dark); }
+
+        /* Preloader with Banyan Tree Icon */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--card-bg-light); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease; }
+        body.dark-mode #preloader { background: var(--bg-dark); }
+        .preloader-logo { font-size: 60px; color: var(--primary); animation: bounce 1.2s infinite alternate; }
+        .preloader-text { margin-top: 15px; font-weight: bold; font-size: 15px; color: #555; }
+        body.dark-mode .preloader-text { color: #aaa; }
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
+
         header { background-color: var(--primary); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.2); gap: 10px; }
-        .logo { font-size: 20px; font-weight: bold; color: #ffffff; text-decoration: none; cursor: pointer; white-space: nowrap; }
+        .logo { font-size: 20px; font-weight: bold; color: #ffffff; text-decoration: none; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 8px; }
         .logo span { color: var(--accent); }
         .header-controls { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
         .btn-post-ad { background-color: var(--accent); color: #000; padding: 6px 12px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 12px; border: none; cursor: pointer; white-space: nowrap; }
         .btn-toggle, .btn-account { background: transparent; border: 1px solid white; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 11px; font-weight: bold; white-space: nowrap; }
+        
         .hero-banner { background-color: var(--primary); color: white; text-align: center; padding: 30px 15px 40px 15px; }
         .hero-banner h1 { font-size: 24px; margin-bottom: 10px; }
         .hero-banner p { font-size: 14px; opacity: 0.9; margin-bottom: 20px; }
@@ -32,12 +42,14 @@
         .search-container select, .search-container input { border: none; outline: none; padding: 10px; background: #eef2f5; border-radius: 5px; font-weight: bold; color: #333; font-size: 14px; }
         .search-container input { flex: 1; background: transparent; }
         .search-container button { background-color: var(--accent); border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; color: #000; }
+        
         .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
         .filter-section { background: var(--card-bg-light); padding: 12px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
         body.dark-mode .filter-section { background: var(--card-bg-dark); }
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; flex-grow: 1; }
         .filter-group select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; outline: none; flex-grow: 1; }
         body.dark-mode .filter-group select { background: #2a2a2a; color: white; border-color: #444; }
+
         .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 30px; }
         @media (min-width: 768px) { .category-grid { grid-template-columns: repeat(8, 1fr); } }
         .category-card { background: var(--card-bg-light); padding: 15px 5px; border-radius: 12px; text-align: center; text-decoration: none; color: var(--text-light); box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s; cursor: pointer; border: 1px solid rgba(0,0,0,0.04); }
@@ -45,12 +57,15 @@
         .category-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         .category-card i { font-size: 26px; margin-bottom: 8px; display: block; }
         .category-card span { font-size: 12px; font-weight: 600; display: block; line-height: 1.2; }
+
         .sub-category-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; white-space: nowrap; }
         .sub-chip { background: var(--card-bg-light); border: 1px solid #ddd; padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; font-weight: 600; color: inherit; transition: 0.2s; }
         body.dark-mode .sub-chip { background: var(--card-bg-dark); border-color: #444; }
         .sub-chip.active, .sub-chip:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .section-header h2 { font-size: 18px; color: inherit; }
+        
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 15px; }
         .product-card { background: var(--card-bg-light); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; flex-direction: column; cursor: pointer; position: relative; transition: transform 0.2s; }
         body.dark-mode .product-card { background: var(--card-bg-dark); }
@@ -60,45 +75,57 @@
         .product-price { color: var(--primary); font-weight: bold; font-size: 16px; margin-bottom: 4px; }
         .product-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: inherit; }
         .product-location { font-size: 11px; color: #777; margin-bottom: 10px; }
-        .action-btns { display: flex; gap: 5px; }
-        .btn-boost, .btn-topup { flex: 1; padding: 6px; border: none; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; }
-        .btn-boost { background-color: var(--accent); color: #000; }
-        .btn-topup { background-color: var(--primary); color: white; }
+
         footer { text-align: center; padding: 20px; margin-top: 40px; font-size: 13px; color: #777; border-top: 1px solid #ddd; }
         body.dark-mode footer { border-color: #333; }
+
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; padding: 10px; }
         .modal-content { background: var(--card-bg-light); padding: 25px; border-radius: 12px; max-width: 480px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
         body.dark-mode .modal-content { background: var(--card-bg-dark); color: var(--text-dark); }
         .close-btn { position: absolute; top: 10px; right: 15px; font-size: 22px; cursor: pointer; color: #666; }
+
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 13px; }
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 13px; }
         body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select { background: #2a2a2a; color: white; border-color: #444; }
+
         .main-img-container { width: 100%; height: 200px; border-radius: 5px; overflow: hidden; background: #000; }
         .main-img-container img { width: 100%; height: 100%; object-fit: contain; }
         .thumb-gallery { display: flex; gap: 6px; margin-top: 8px; overflow-x: auto; padding-bottom: 4px; }
         .thumb-item { width: 50px; height: 50px; border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
         .thumb-item.active { border-color: var(--primary); }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); display: flex; justify-content: space-around; align-items: center; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.3); z-index: 500; }
         .nav-item { color: white; text-align: center; text-decoration: none; font-size: 13px; font-weight: bold; cursor: pointer; background: none; border: none; flex: 1; }
         @media (min-width: 768px) { .bottom-nav { display: none; } body { padding-bottom: 0; } }
+        
+        .dashboard-box { background: rgba(0,0,0,0.03); padding: 12px; border-radius: 6px; margin-bottom: 12px; }
+        body.dark-mode .dashboard-box { background: rgba(255,255,255,0.05); }
+        .admin-badge { background: #dc3545; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
     </style>
 </head>
 <body>
 
+    <div id="preloader">
+        <div class="preloader-logo"><i class="fa-solid fa-tree"></i></div>
+        <div class="preloader-text">শান্তির ছায়ায় কেনা-বেচা, Baza.com.bd লোড হচ্ছে...</div>
+    </div>
+
     <header>
-        <a class="logo" onclick="selectCategory('all')">Baza<span>.com.bd</span></a>
+        <a class="logo" onclick="selectCategory('all')">
+            <i class="fa-solid fa-tree" style="color: var(--accent);"></i> Baza<span>.com.bd</span>
+        </a>
         <div class="header-controls">
             <button class="btn-post-ad" onclick="openPostModal()">+ বিজ্ঞাপন দিন</button>
-            <button class="btn-account" onclick="openModal('accountModal')">👤 অ্যাকাউন্ট</button>
+            <button class="btn-account" onclick="openModal('accountModal')">👤 ড্যাশবোর্ড</button>
             <button class="btn-toggle" onclick="toggleTheme()">ডার্ক</button>
         </div>
     </header>
 
     <div class="hero-banner">
         <h1>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
-        <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
+        <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ ও আস্থার প্ল্যাটফর্ম</p>
         <div class="search-container">
             <select id="heroDivision" onchange="onHeroDivisionChange()">
                 <option value="">সকল বিভাগ</option>
@@ -111,7 +138,7 @@
     <div class="container">
         <div class="filter-section">
             <div class="filter-group">
-                <select id="filterDistrict" onchange="filterAds()" disabled>
+                <select id="filterDistrict" onchange="onHeroDistrictChange()" disabled>
                     <option value="">প্রথমে বিভাগ সিলেক্ট করুন</option>
                 </select>
                 <select id="filterThana" onchange="filterAds()" disabled>
@@ -166,11 +193,10 @@
             <p id="modalLocation" style="color:#777; font-size:13px; margin:3px 0;"></p>
             <p id="modalSeller" style="font-size:12px; color:#555; margin:3px 0;"></p>
             <p id="modalDesc" style="font-size:13px; margin:8px 0;"></p>
-            <div class="action-btns" style="margin-top:15px;">
-                <a id="callLink" href="#" class="btn-topup" style="text-align:center; text-decoration:none; padding:10px;">📞 কল করুন</a>
-                <a id="waLink" href="#" target="_blank" class="btn-boost" style="text-align:center; text-decoration:none; padding:10px; background:#25D366; color:white;">💬 WhatsApp</a>
+            <div style="display: flex; gap: 5px; margin-top:15px;">
+                <a id="callLink" href="#" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:var(--primary); color:white; border-radius:4px; font-weight:bold;">📞 কল করুন</a>
+                <a id="waLink" href="#" target="_blank" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:#25D366; color:white; border-radius:4px; font-weight:bold;">💬 WhatsApp</a>
             </div>
-            <div id="ownerActionsContainer" style="margin-top:10px;"></div>
         </div>
     </div>
 
@@ -255,7 +281,7 @@
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
-            <h3 style="margin-top:0;">আপনার অ্যাকাউন্ট</h3>
+            <h3 style="margin-top:0;">ইউজার ড্যাশবোর্ড ও সেটিংস</h3>
             <hr style="margin:10px 0;"><br>
             <div id="authContent"></div>
         </div>
@@ -264,7 +290,7 @@
     <nav class="bottom-nav">
         <button class="nav-item" onclick="selectCategory('all')">🏠 হোম</button>
         <button class="nav-item" onclick="openPostModal()">+ পোস্ট</button>
-        <button class="nav-item" onclick="openModal('accountModal')">👤 অ্যাকাউন্ট</button>
+        <button class="nav-item" onclick="openModal('accountModal')">👤 ড্যাশবোর্ড</button>
     </nav>
 
     <script type="module">
@@ -286,14 +312,22 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd"];
+        const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd", "mdnadimkhan@gmail.com"];
         let currentUser = null;
         let isAdmin = false;
         let allAds = [];
         let currentCategory = 'all';
         let currentSubCategory = 'all';
 
-        // ইমেজ কম্প্রেস এবং কনভার্ট করার ফাংশন
+        // Hide preloader completely when page loads
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 500);
+            }, 800);
+        });
+
         function convertImageToBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -306,13 +340,11 @@
                         let width = img.width;
                         let height = img.height;
                         const maxDim = 500;
-
                         if (width > height) {
                             if (width > maxDim) { height *= maxDim / width; width = maxDim; }
                         } else {
                             if (height > maxDim) { width *= maxDim / height; height = maxDim; }
                         }
-
                         canvas.width = width;
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
@@ -371,14 +403,104 @@
                 division: "Chattogram",
                 districts: [
                     { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Pahartali", "Kotwali", "Khulshi", "Bayazid", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Boalkhali", "Patiya", "Raozan", "Rangunia", "Sandwip", "Sitakunda", "Mirsharai", "Anwara", "Banshkhali", "Satkania", "Lohagara", "Fatikchhari"] },
-                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Kutubdia", "Ukhiya", "Teknaf", "Pekua", "Ramu", "Maheshkhali"] }
+                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Kutubdia", "Ukhiya", "Teknaf", "Pekua", "Ramu", "Maheshkhali"] },
+                    { district: "Comilla", thanas: ["Comilla Sadar", "Barura", "Brahmanpara", "Burichong", "Chandina", "Chauddagram", "Daudkandi", "Homna", "Laksam", "Muradnagar", "Nangalkot", "Titas"] },
+                    { district: "Feni", thanas: ["Feni Sadar", "Daganbhuiyan", "Chhagalnaiya", "Sonagazi", "Parshuram", "Fulgazi"] },
+                    { district: "Noakhali", thanas: ["Noakhali Sadar", "Begumganj", "Chatkhil", "Companyganj", "Hatia", "Senbagh", "Subarnachar", "Kabirhat"] },
+                    { district: "Brahmanbaria", thanas: ["Brahmanbaria Sadar", "Ashuganj", "Nasirnagar", "Nabinagar", "Kandughat", "Kasba", "Akhaura", "Bancharampur", "Sarail"] },
+                    { district: "Chandpur", thanas: ["Chandpur Sadar", "Faridganj", "Haimchar", "Hajiganj", "Kachua", "Matlab Dakshin", "Matlab Uttar", "Shahrasti"] },
+                    { district: "Lakshmipur", thanas: ["Lakshmipur Sadar", "Raipur", "Ramganj", "Ramgati", "Kamalnagar"] },
+                    { district: "Khagrachhari", thanas: ["Khagrachhari Sadar", "Dighinala", "Panchhari", "Laxmichhari", "Mahalchhari", "Manaikchhari", "Ramgarh", "Matiranga"] },
+                    { district: "Rangamati", thanas: ["Rangamati Sadar", "Belaichhari", "Bagaichhari", "Barkal", "Juraichhari", "Karnafuli", "Langadu", "Naniarchar", "Rajsthali"] },
+                    { district: "Bandarban", thanas: ["Bandarban Sadar", "Alikadam", "Lama", "Naikhongchhari", "Rowangchhari", "Ruma", "Thanchi"] }
                 ]
             },
             {
                 division: "Dhaka",
                 districts: [
-                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel"] },
-                    { district: "Savar", thanas: ["Savar Sadar", "Ashulia"] }
+                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel", "Lalbagh", "Ramna", "Pallabi", "Sabujbagh", "Demra", "Jatrabari", "Khilgaon", "Cantonment"] },
+                    { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Kaliganj", "Kapasia", "Sreepur"] },
+                    { district: "Narayanganj", thanas: ["Narayanganj Sadar", "Bandar", "Rupganj", "Sonargaon", "Araihazar"] },
+                    { district: "Savar", thanas: ["Savar Sadar", "Ashulia"] },
+                    { district: "Tangail", thanas: ["Tangail Sadar", "Sakhipur", "Basail", "Madhupur", "Ghatail", "Kalihati", "Nagarpur", "Mirzapur", "Dhanbari", "Bhuapur", "Delduar"] },
+                    { district: "Kishoreganj", thanas: ["Kishoreganj Sadar", "Nandail", "Hossainpur", "Pakundia", "Katiadi", "Bhairab", "Itna", "Tarail", "Nikli", "Bajitpur", "Kuliarchar", "Karimganj", "Mithamain"] },
+                    { district: "Manikganj", thanas: ["Manikganj Sadar", "Singair", "Shibalaya", "Saturia", "Harirampur", "Ghior", "Daulatpur"] },
+                    { district: "Munshiganj", thanas: ["Munshiganj Sadar", "Sreenagar", "Sirajdikhan", "Lohajang", "Tongibari", "Gazaria"] },
+                    { district: "Rajbari", thanas: ["Rajbari Sadar", "Goalundo", "Pangsha", "Baliakandi", "Kalukhali"] },
+                    { district: "Faridpur", thanas: ["Faridpur Sadar", "Boalmari", "Alfadanga", "Madhukhali", "Bhanga", "Nagarkanda", "Charbhadrasan", "Sadarpur", "Shaltha"] },
+                    { district: "Madaripur", thanas: ["Madaripur Sadar", "Shibchar", "Kalkini", "Rajoir", "Dasar"] },
+                    { district: "Gopalganj", thanas: ["Gopalganj Sadar", "Kashiani", "Kotalipara", "Tungipara", "Muksudpur"] },
+                    { district: "Shariatpur", thanas: ["Shariatpur Sadar", "Naria", "Zajira", "Gosairhat", "Bhedarganj", "Damudya"] }
+                ]
+            },
+            {
+                division: "Rajshahi",
+                districts: [
+                    { district: "Rajshahi", thanas: ["Boalia", "Rajpara", "Motihar", "Shah Makhdum", "Paba", "Tanore", "Mohanpur", "Godagari", "Bagha", "Charghat", "Durgapur"] },
+                    { district: "Bogra", thanas: ["Bogra Sadar", "Shajahanpur", "Dhunat", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Sherpur", "Shibganj", "Sonatala", "Adamdighi"] },
+                    { district: "Pabna", thanas: ["Pabna Sadar", "Ishwardi", "Atgharia", "Chatmohar", "Faridpur", "Santhia", "Sujanagar", "Bera", "Bhangura"] },
+                    { district: "Sirajganj", thanas: ["Sirajganj Sadar", "Belkuchi", "Chauhali", "Kamarkhanda", "Kazipur", "Shahjadpur", "Tarash", "Ullahpara", "Raiganj"] },
+                    { district: "Natore", thanas: ["Natore Sadar", "Baraigram", "Bagatipara", "Lalpur", "Singra", "Gurudaspur", "Naldanga"] },
+                    { district: "Naogaon", thanas: ["Naogaon Sadar", "Raninagar", "Atrai", "Badalgachhi", "Manda", "Dhamoirhat", "Patnitala", "Sapahar", "Porsha", "Niamatpur", "Mohadevpur"] },
+                    { district: "Chapainawabganj", thanas: ["Chapainawabganj Sadar", "Gomastapur", "Nachole", "Bholahat", "Shibganj"] },
+                    { district: "Joypurhat", thanas: ["Joypurhat Sadar", "Akkelpur", "Kalai", "Khetlal", "Panchbibi"] }
+                ]
+            },
+            {
+                division: "Khulna",
+                districts: [
+                    { district: "Khulna", thanas: ["Khulna Sadar", "Sonadanga", "Khalishpur", "Daulatpur", "Khan Jahan Ali", "Harintana", "Batiaghata", "Dacope", "Dumuria", "Dighalia", "Koyra", "Paikgachha", "Phultala", "Rupsa"] },
+                    { district: "Jessore", thanas: ["Jessore Sadar", "Abhaynagar", "Bagherpara", "Chaugachha", "Jhikargachha", "Keshabpur", "Manirampur", "Sharsha"] },
+                    { district: "Satkhira", thanas: ["Satkhira Sadar", "Assassuni", "Debhata", "Kalaroa", "Kaliganj", "Shyamnagar", "Tala"] },
+                    { district: "Kushtia", thanas: ["Kushtia Sadar", "Kumarkhali", "Khoksa", "Mirpur", "Bheramara", "Daulatpur"] },
+                    { district: "Jhenaidah", thanas: ["Jhenaidah Sadar", "Shailkupa", "Harinakundu", "Kaliganj", "Kotchandpur", "Moheshpur"] },
+                    { district: "Magura", thanas: ["Magura Sadar", "Mohammadpur", "Shalikha", "Sreepur"] },
+                    { district: "Narail", thanas: ["Narail Sadar", "Lohagara", "Kalia"] },
+                    { district: "Bagerhat", thanas: ["Bagerhat Sadar", "Fakirhat", "Bacchal", "Mollahat", "Mongla", "Morrelganj", "Rampal", "Sarankhola", "Chitalmari"] },
+                    { district: "Chuadanga", thanas: ["Chuadanga Sadar", "Alamdanga", "Damurhuda", "Lifeup"] },
+                    { district: "Meherpur", thanas: ["Meherpur Sadar", "Gangni", "Mujibnagar"] }
+                ]
+            },
+            {
+                division: "Barishal",
+                districts: [
+                    { district: "Barishal", thanas: ["Barishal Sadar", "Babuganj", "Bakerganj", "Banaripara", "Gaurnadi", "Hizla", "Mehendiganj", "Muladi", "Wazirpur", "Agailjhara"] },
+                    { district: "Patuakhali", thanas: ["Patuakhali Sadar", "Bauphal", "Dashmina", "Galachipa", "Kalapara", "Mirzaganj", "Rangabali", "Dumki"] },
+                    { district: "Bhola", thanas: ["Bhola Sadar", "Burhanuddin", "Char Fasson", "Daulatkhan", "Lalmohan", "Tazumuddin", "Manpura"] },
+                    { district: "Pirojpur", thanas: ["Pirojpur Sadar", "Bhandaria", "Kawkhali", "Mathbaria", "Nazirpur", "Nesarabad", "Zianagar"] },
+                    { district: "Barguna", thanas: ["Barguna Sadar", "Amtali", "Bamna", "Betagi", "Patharghata", "Taltali"] },
+                    { district: "Jhalokati", thanas: ["Jhalokati Sadar", "Kathalia", "Nalchity", "Rajapur"] }
+                ]
+            },
+            {
+                division: "Sylhet",
+                districts: [
+                    { district: "Sylhet", thanas: ["Sylhet Sadar", "Beanibazar", "Bishwanath", "Companiganj", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Zakiganj", "South Surma"] },
+                    { district: "Moulvibazar", thanas: ["Moulvibazar Sadar", "Barlekha", "Juri", "Kamalganj", "Kulaura", "Rajnagar", "Sreemangal"] },
+                    { district: "Habiganj", thanas: ["Habiganj Sadar", "Bahubal", "Baniachong", "Chunarughat", "Lakhai", "Madhabpur", "Nabiganj", "Azmiriganj", "Shayestaganj"] },
+                    { district: "Sunamganj", thanas: ["Sunamganj Sadar", "Bishwamvarpur", "Chhatak", "Derai", "Dharamapasha", "Dowarabazar", "Jagannathpur", "Jamalganj", "Sullah", "Tahirpur", "Madhyanagar"] }
+                ]
+            },
+            {
+                division: "Rangpur",
+                districts: [
+                    { district: "Rangpur", thanas: ["Rangpur Sadar", "Badarganj", "Gangachara", "Kaunia", "Mithapukur", "Pirgachha", "Pirganj", "Taraganj"] },
+                    { district: "Dinajpur", thanas: ["Dinajpur Sadar", "Birampur", "Birganj", "Biral", "Bochaganj", "Chirirbandar", "Fulbari", "Ghoraghat", "Hakimpur", "Kaharole", "Khansama", "Nawabganj", "Parbatipur"] },
+                    { district: "Gaibandha", thanas: ["Gaibandha Sadar", "Fulchhari", "Gobindaganj", "Palashbari", "Sadullapur", "Saghata", "Sundarganj"] },
+                    { district: "Kurigram", thanas: ["Kurigram Sadar", "Bhurungamari", "Char Rajibpur", "Chilmari", "Phulbari", "Rajarhat", "Rowmari", "Ulipur"] },
+                    { district: "Lalmonirhat", thanas: ["Lalmonirhat Sadar", "Aditmari", "Kaliganj", "Hatibandha", "Patgram"] },
+                    { district: "Nilphamari", thanas: ["Nilphamari Sadar", "Jaldhaka", "Kishoreganj", "Domar", "Dimla", "Saidpur"] },
+                    { district: "Panchagarh", thanas: ["Panchagarh Sadar", "Boda", "Debiganj", "Atwari", "Tetulia"] },
+                    { district: "Thakurgaon", thanas: ["Thakurgaon Sadar", "Baliadangi", "Haripur", "Ranisankail", "Pirganj"] }
+                ]
+            },
+            {
+                division: "Mymensingh",
+                districts: [
+                    { district: "Mymensingh", thanas: ["Mymensingh Sadar", "Trishal", "Bhaluka", "Muktagachha", "Dhobaura", "Fulbaria", "Gaffargaon", "Gauripur", "Haluaghat", "Ishwarganj", "Nandail", "Tarakanda"] },
+                    { district: "Netrokona", thanas: ["Netrokona Sadar", "Atpara", "Barhatta", "Durgapur", "Kalmakanda", "Kendua", "Khaliajuri", "Madan", "Mohanganj", "Purbadhala"] },
+                    { district: "Sherpur", thanas: ["Sherpur Sadar", "Jhenaigati", "Nakla", "Nalitabari", "Sreebordi"] },
+                    { district: "Jamalpur", thanas: ["Jamalpur Sadar", "Baksiganj", "Dewanganj", "Islampur", "Madarganj", "Melandaha", "Sarishabari"] }
                 ]
             }
         ];
@@ -406,6 +528,23 @@
             const found = bdLocations.find(d => d.division === divVal);
             if(found) {
                 found.districts.forEach(dist => { distSelect.innerHTML += `<option value="${dist.district}">${dist.district}</option>`; });
+            }
+            filterAds();
+        };
+
+        window.onHeroDistrictChange = function() {
+            const divVal = document.getElementById('heroDivision').value;
+            const distVal = document.getElementById('filterDistrict').value;
+            const thanaSelect = document.getElementById('filterThana');
+            thanaSelect.innerHTML = '<option value="">সকল থানা</option>';
+            if(!distVal) { thanaSelect.disabled = true; filterAds(); return; }
+            thanaSelect.disabled = false;
+            const foundDiv = bdLocations.find(d => d.division === divVal);
+            if(foundDiv) {
+                const foundDist = foundDiv.districts.find(ds => ds.district === distVal);
+                if(foundDist) {
+                    foundDist.thanas.forEach(thana => { thanaSelect.innerHTML += `<option value="${thana}">${thana}</option>`; });
+                }
             }
             filterAds();
         };
@@ -476,20 +615,70 @@
             signOut(auth).then(() => alert("লগআউট সফল হয়েছে!"));
         };
 
+        window.deleteAd = async function(id) {
+            if(confirm("আপনি কি এই বিজ্ঞাপনটি মুছে ফেলতে চান?")) {
+                try {
+                    await deleteDoc(doc(db, "ads", id));
+                    alert("বিজ্ঞাপনটি সফলভাবে ডিলিট করা হয়েছে!");
+                } catch(error) {
+                    alert("ত্রুটি: " + error.message);
+                }
+            }
+        };
+
         function renderAuthUI() {
             const container = document.getElementById('authContent');
             if(!container) return;
             if(currentUser) {
                 const myAds = allAds.filter(a => a.userId === currentUser.uid);
+                let myAdsHtml = myAds.map(ad => `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:6px 10px; margin-bottom:5px; border-radius:4px; font-size:12px;">
+                        <span>${ad.title} (৳ ${ad.price})</span>
+                        <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">ডিলিট</button>
+                    </div>
+                `).join('') || '<p style="font-size:12px; color:#777;">আপনার কোনো বিজ্ঞাপন নেই।</p>';
+
+                let adminHtml = '';
+                if(isAdmin) {
+                    let allAdsAdminList = allAds.map(ad => `
+                        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(220,53,69,0.05); padding:6px 10px; margin-bottom:5px; border-radius:4px; font-size:12px;">
+                            <span>${ad.title} - <b>${ad.userName || 'ইউজার'}</b></span>
+                            <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">রিমুভ</button>
+                        </div>
+                    `).join('');
+
+                    adminHtml = `
+                        <div class="dashboard-box" style="border: 1px dashed #dc3545;">
+                            <h4 style="color:#dc3545; margin-bottom:8px;"><i class="fa-solid fa-shield-halved"></i> অ্যাডমিন প্যানেল কন্ট্রোল</h4>
+                            <p style="font-size:12px; margin-bottom:8px;">মোট লাইভ বিজ্ঞাপন: ${allAds.length}টি</p>
+                            <div style="max-height:150px; overflow-y:auto;">
+                                ${allAdsAdminList}
+                            </div>
+                        </div>
+                    `;
+                }
+
                 container.innerHTML = `
-                    <p><strong>নাম:</strong> ${currentUser.displayName || 'ব্যবহারকারী'}</p>
-                    <p><strong>ইমেইল:</strong> ${currentUser.email || 'N/A'}</p>
-                    <p><strong>আমার বিজ্ঞাপন:</strong> ${myAds.length}টি</p>
-                    <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; margin-top:10px;" onclick="logout()">লগআউট</button>
+                    <div class="dashboard-box">
+                        <p><strong>নাম:</strong> ${currentUser.displayName || 'ব্যবহারকারী'} ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''}</p>
+                        <p><strong>ইমেইল:</strong> ${currentUser.email || 'N/A'}</p>
+                    </div>
+                    <div class="dashboard-box">
+                        <h4 style="margin-bottom:6px; font-size:14px;">📦 আমার পোস্টকৃত বিজ্ঞাপন (${myAds.length}টি)</h4>
+                        <div style="max-height:130px; overflow-y:auto;">
+                            ${myAdsHtml}
+                        </div>
+                    </div>
+                    ${adminHtml}
+                    <div class="dashboard-box">
+                        <h4 style="margin-bottom:6px; font-size:14px;">⚙️ অ্যাপ সেটিংস</h4>
+                        <button onclick="toggleTheme()" style="width:100%; padding:8px; background:var(--primary); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px; margin-bottom:6px;">ডার্ক / লাইট মোড পরিবর্তন করুন</button>
+                    </div>
+                    <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;" onclick="logout()">লগআউট</button>
                 `;
             } else {
                 container.innerHTML = `
-                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">বিজ্ঞাপন পোস্ট বা অ্যাকাউন্ট দেখতে সাইন-ইন করুন</p>
+                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">আপনার ড্যাশবোর্ড দেখতে এবং বিজ্ঞাপন পোস্ট করতে সাইন-ইন করুন</p>
                     <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন করুন</button>
                 `;
             }
@@ -501,6 +690,7 @@
                 allAds = [];
                 snapshot.forEach(docSnap => { allAds.push({ id: docSnap.id, ...docSnap.data() }); });
                 filterAds();
+                if(currentUser) renderAuthUI();
             }, error => {
                 console.error("Firestore Error: ", error);
             });
@@ -658,7 +848,6 @@
             currentCategory = cat;
             currentSubCategory = 'all';
             
-            // সাব-ক্যাটাগরি বার রেন্ডার করা
             const barContainer = document.getElementById('subCategoryBarContainer');
             const subBar = document.getElementById('subCategoryBar');
             subBar.innerHTML = '';
@@ -694,7 +883,7 @@
         window.toggleTheme = function() {
             document.body.classList.toggle('dark-mode');
             const btn = document.querySelector('.btn-toggle');
-            btn.innerText = document.body.classList.contains('dark-mode') ? 'লাইট' : 'ডার্ক';
+            if(btn) btn.innerText = document.body.classList.contains('dark-mode') ? 'লাইট' : 'ডার্ক';
         };
 
         fetchAds();
