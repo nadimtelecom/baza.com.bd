@@ -267,7 +267,6 @@
         <button class="nav-item" onclick="openModal('accountModal')">👤 অ্যাকাউন্ট</button>
     </nav>
 
-    <!-- Firebase Modular SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -294,7 +293,7 @@
         let currentCategory = 'all';
         let currentSubCategory = 'all';
 
-        // 이미지 কমপ্রেস এবং বেসসিক কনভার্ট (খুব ছোট সাইজ করার জন্য যাতে ফায়ারস্টোরে ইজিলি সেভ হয়)
+        // ইমেজ কম্প্রেস এবং কনভার্ট করার ফাংশন
         function convertImageToBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -306,7 +305,7 @@
                         const canvas = document.createElement('canvas');
                         let width = img.width;
                         let height = img.height;
-                        const maxDim = 500; // সাইজ ছোট রাখা হলো যাতে ফাস্ট সেভ হয়
+                        const maxDim = 500;
 
                         if (width > height) {
                             if (width > maxDim) { height *= maxDim / width; width = maxDim; }
@@ -658,6 +657,35 @@
         window.selectCategory = function(cat) {
             currentCategory = cat;
             currentSubCategory = 'all';
+            
+            // সাব-ক্যাটাগরি বার রেন্ডার করা
+            const barContainer = document.getElementById('subCategoryBarContainer');
+            const subBar = document.getElementById('subCategoryBar');
+            subBar.innerHTML = '';
+            
+            if(cat !== 'all' && categoryFeatures[cat]) {
+                barContainer.style.display = 'block';
+                categoryFeatures[cat].forEach(sub => {
+                    const isActive = currentSubCategory === sub ? 'active' : '';
+                    subBar.innerHTML += `<button class="sub-chip ${isActive}" onclick="selectSubCategory('${sub}')">${sub}</button>`;
+                });
+            } else {
+                barContainer.style.display = 'none';
+            }
+            
+            filterAds();
+        };
+
+        window.selectSubCategory = function(sub) {
+            currentSubCategory = sub;
+            const chips = document.querySelectorAll('.sub-chip');
+            chips.forEach(chip => {
+                if(chip.innerText === sub) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
             filterAds();
         };
 
