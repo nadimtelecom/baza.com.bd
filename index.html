@@ -13,7 +13,6 @@
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <style>
@@ -595,12 +594,9 @@
                 </div>
                 <div class="form-group">
                     <label>পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <input type="file" id="postFiles" accept="image/*" multiple required onchange="handleImageSelection(event)" style="flex: 1;">
-                    </div>
-                    <!-- একক ও সুন্দর ক্যানসেল বাটন এবং প্রোগ্রেস কাউন্টার স্ট্যাটাস -->
+                    <input type="file" id="postFiles" accept="image/*" multiple required onchange="handleImageSelection(event)">
                     <div id="uploadStatusContainer" style="display: none; margin-top: 8px; align-items: center; justify-content: space-between; background: #f8f9fa; padding: 6px 10px; border-radius: 4px; border: 1px solid #ddd;">
-                        <span id="uploadStatusText" style="font-size: 12px; font-weight: bold; color: var(--primary);">লোড হচ্ছে: 0%</span>
+                        <span id="uploadStatusText" style="font-size: 12px; font-weight: bold; color: var(--primary);">ছবি প্রস্তুত...</span>
                         <button type="button" id="dynamicCancelBtn" onclick="clearSelectedImages()" style="padding: 4px 8px; background: #dc3545; color: white; border: none; border-radius: 3px; font-size: 11px; cursor: pointer; font-weight: bold;">ক্যান্সেল</button>
                     </div>
                 </div>
@@ -679,7 +675,6 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
-        const storage = firebase.storage();
         const auth = firebase.auth();
 
         const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd"];
@@ -688,10 +683,9 @@
         let allAds = [];
         let currentCategory = 'all';
         let currentSubCategory = 'all';
-        let uploadCancelled = false;
 
-        // ইমেজ সাইজ অপ্টিমাইজ ও কম্প্রেস করার ফাংশন (টাইমআউট রোধ করতে)
-        function compressImage(file, quality = 0.8, maxWidth = 1200, maxHeight = 1200) {
+        // ছবি রিসাইজ ও Base64 এ কনভার্ট করার ফাংশন
+        function convertImageToBase64(file, maxWidth = 800, maxHeight = 800, quality = 0.7) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -720,13 +714,8 @@
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
 
-                        canvas.toBlob((blob) => {
-                            const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
-                                type: "image/webp",
-                                lastModified: Date.now(),
-                            });
-                            resolve(compressedFile);
-                        }, 'image/webp', quality);
+                        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                        resolve(dataUrl);
                     };
                     img.onerror = (error) => reject(error);
                 };
@@ -734,7 +723,6 @@
             });
         }
 
-        // ফাইল সিলেক্ট করার পর স্ট্যাটাস ও একক ক্যানসেল বাটন দেখানো
         window.handleImageSelection = function(event) {
             const files = event.target.files;
             const container = document.getElementById('uploadStatusContainer');
@@ -748,17 +736,15 @@
                     return;
                 }
                 container.style.display = 'flex';
-                statusText.innerText = `${files.length}টি ছবি সিলেক্ট করা হয়েছে (পেন্ডিং)`;
+                statusText.innerText = `${files.length}টি ছবি সিলেক্ট করা হয়েছে`;
             } else {
                 container.style.display = 'none';
             }
         };
 
-        // সিলেকশন ক্যানসেল করার ফাংশন
         window.clearSelectedImages = function() {
             document.getElementById('postFiles').value = '';
             document.getElementById('uploadStatusContainer').style.display = 'none';
-            uploadCancelled = true;
         };
 
         const categoryFeatures = {
@@ -1006,59 +992,19 @@
             const div = document.getElementById('postDivision').value;
             const dist = document.getElementById('postDistrict').value;
             const thana = document.getElementById('postThana').value;
-            const statusText = document.getElementById('uploadStatusText');
-            const cancelBtn = document.getElementById('dynamicCancelBtn');
 
             if(filesInput.length === 0) return alert("কমপক্ষে একটি ছবি সিলেক্ট করুন!");
             if(filesInput.length > 5) return alert("সর্বোচ্চ ৫টি ছবি আপলোড করা যাবে!");
 
-            uploadCancelled = false;
             submitBtn.innerText = "ছবি প্রসেস হচ্ছে...";
             submitBtn.disabled = true;
 
             try {
-                let uploadURLs = [];
-                let totalFiles = filesInput.length;
-
-                for(let i=0; i<totalFiles; i++) {
-                    if (uploadCancelled) {
-                        submitBtn.innerText = "পাবলিশ করুন";
-                        submitBtn.disabled = false;
-                        return;
-                    }
-
-                    let percent = Math.round(((i) / totalFiles) * 100);
-                    statusText.innerText = `লোড হচ্ছে: ${percent}% (${i}/${totalFiles})`;
-
-                    const originalFile = filesInput[i];
-                    const compressedFile = await compressImage(originalFile, 0.8, 1200, 1200);
-                    
-                    if (uploadCancelled) {
-                        submitBtn.innerText = "পাবলিশ করুন";
-                        submitBtn.disabled = false;
-                        return;
-                    }
-
-                    const storageRef = storage.ref('baza_photos/' + Date.now() + '_' + i + '_' + compressedFile.name);
-                    const snap = await storageRef.put(compressedFile);
-                    const downloadURL = await snap.ref.getDownloadURL();
-                    
-                    if (uploadCancelled) {
-                        submitBtn.innerText = "পাবলিশ করুন";
-                        submitBtn.disabled = false;
-                        return;
-                    }
-
-                    uploadURLs.push(downloadURL);
+                let base64Images = [];
+                for(let i = 0; i < filesInput.length; i++) {
+                    const base64Str = await convertImageToBase64(filesInput[i], 800, 800, 0.7);
+                    base64Images.push(base64Str);
                 }
-
-                // ১০০% কমপ্লিট হওয়ার পর ক্যানসেল বাটনটি "এসেপ্ট" বা "যুক্ত হয়েছে" বাটনে রূপান্তরিত হবে
-                statusText.innerText = "১০০% লোড সম্পন্ন!";
-                cancelBtn.innerText = "এসেপ্ট / যুক্ত";
-                cancelBtn.style.background = "#28a745";
-                cancelBtn.onclick = function() {
-                    document.getElementById('uploadStatusContainer').style.display = 'none';
-                };
 
                 submitBtn.innerText = "বিজ্ঞাপন সেভ হচ্ছে...";
                 const newAd = {
@@ -1071,8 +1017,8 @@
                     district: dist,
                     thana: thana,
                     location: `${thana}, ${dist}, ${div}`,
-                    images: uploadURLs,
-                    img: uploadURLs[0],
+                    images: base64Images,
+                    img: base64Images[0],
                     desc: document.getElementById('postDesc').value,
                     isFeatured: false,
                     userId: currentUser.uid,
@@ -1089,9 +1035,7 @@
                 document.getElementById('uploadStatusContainer').style.display = 'none';
                 alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
             } catch (error) {
-                if (!uploadCancelled) {
-                    alert("ত্রুটি: " + error.message);
-                }
+                alert("ত্রুটি: " + error.message);
                 submitBtn.innerText = "পাবলিশ করুন";
                 submitBtn.disabled = false;
             }
