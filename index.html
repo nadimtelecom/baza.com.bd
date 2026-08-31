@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baza.com.bd | কেনা-বেচা করুন সহজে ও আয় করুন</title>
+    <title>MD NADIM KHAN - Profile & Baza.com.bd</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -63,6 +63,32 @@
         .search-container button { background-color: var(--accent); border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; color: #000; }
         
         .container { max-width: 1100px; margin: 20px auto; padding: 0 10px; width: 100%; box-sizing: border-box; }
+        
+        /* Profile & Settings Section Wrapper */
+        .profile-wrapper { background: var(--card-bg-light); border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        body.dark-mode .profile-wrapper { background: var(--card-bg-dark); }
+        
+        .profile-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
+        body.dark-mode .profile-header { border-color: #333; }
+        .avatar-icon { font-size: 30px; background: #eef2f5; padding: 8px; border-radius: 50%; }
+        body.dark-mode .avatar-icon { background: #2a2a2a; }
+        .settings-btn { background: none; border: none; font-size: 20px; cursor: pointer; }
+
+        .profile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; }
+        .profile-card { background: rgba(0,0,0,0.02); padding: 10px 5px; border-radius: 8px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.04); }
+        body.dark-mode .profile-card { background: rgba(255,255,255,0.03); border-color: #333; }
+        .profile-card .icon { font-size: 20px; display: block; margin-bottom: 4px; }
+        .profile-card h3 { font-size: 11px; font-weight: 600; }
+
+        .settings-section { margin-top: 15px; }
+        .setting-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 13px; cursor: pointer; }
+        body.dark-mode .setting-item { border-color: #2a2a2a; }
+        .setting-item .text { flex: 1; margin-left: 10px; font-weight: 600; }
+        .value-alert { color: #d9534f; font-size: 11px; font-weight: bold; }
+        .value { color: #777; font-size: 11px; }
+        .status-enabled { color: #28a745; font-weight: bold; }
+        .status-disabled { color: #dc3545; font-weight: bold; }
+
         .filter-section { background: var(--card-bg-light); padding: 12px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
         body.dark-mode .filter-section { background: var(--card-bg-dark); }
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; flex-grow: 1; }
@@ -183,6 +209,51 @@
     </div>
 
     <div class="container">
+        <!-- Integrated Profile & Settings View Container -->
+        <div class="profile-wrapper">
+            <div class="profile-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="avatar-icon">👤</div>
+                    <div class="user-info">
+                        <h2 style="font-size: 16px;">MD NADIM KHAN</h2>
+                    </div>
+                </div>
+                <button class="settings-btn" onclick="openModal('settingsModal')">⚙️</button>
+            </div>
+
+            <!-- Profile Grid Menu -->
+            <div class="profile-grid">
+                <div class="profile-card" onclick="selectCategory('all')">
+                    <span class="icon">📋</span>
+                    <h3>My ads</h3>
+                </div>
+                <div class="profile-card" onclick="openPostModal()">
+                    <span class="icon">💰</span>
+                    <h3>Make money</h3>
+                </div>
+                <div class="profile-card" onclick="openModal('privacyModal')">
+                    <span class="icon">😊</span>
+                    <h3>Feedback</h3>
+                </div>
+                <div class="profile-card" onclick="openModal('termsModal')">
+                    <span class="icon">❓</span>
+                    <h3>FAQ</h3>
+                </div>
+                <div class="profile-card" onclick="openModal('wishlistModal')">
+                    <span class="icon">🔔</span>
+                    <h3>Notifications</h3>
+                </div>
+                <div class="profile-card" onclick="alert('Game Centre is coming soon!')">
+                    <span class="icon">🧩</span>
+                    <h3>Game centre</h3>
+                </div>
+                <div class="profile-card" onclick="alert('No followers yet.')">
+                    <span class="icon">👥</span>
+                    <h3>Followers</h3>
+                </div>
+            </div>
+        </div>
+
         <div class="banner-ad-slot">
             <i class="fa-solid fa-bullhorn" style="color: var(--accent);"></i> স্পন্সরড অ্যাড / গুগলের বিজ্ঞাপন স্পেস (এখানে আপনার অ্যাডসেন্স কোড বসাতে পারেন)
         </div>
@@ -271,7 +342,6 @@
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd-এ আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ। আমরা আপনার ব্যক্তিগত তথ্যের নিরাপত্তা রক্ষায় প্রতিজ্ঞাবদ্ধ।</p>
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>তথ্য সংগ্রহ:</strong> আমরা ব্যবহারকারীদের অ্যাকাউন্ট তৈরি এবং বিজ্ঞাপন পোস্ট করার সময় নাম, ইমেইল, ফোন নম্বর এবং লোকেশন সংগ্রহ করতে পারি।</p>
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong> কুকিজ (Cookies):</strong> আমাদের সাইট ব্যবহারকারীর অভিজ্ঞতা উন্নত করতে কুকিজ ব্যবহার করে। থার্ড-পার্টি ভেন্ডর যেমন Google AdSense কুকিজ ব্যবহার করে ব্যবহারকারীর আগের ভিজিটের ভিত্তিতে বিজ্ঞাপন দেখাতে পারে।</p>
-            <p style="font-size: 13px; line-height: 1.6;">আপনার কোনো প্রশ্ন থাকলে আমাদের সাথে যোগাযোগ করতে পারেন।</p>
         </div>
     </div>
 
@@ -283,7 +353,6 @@
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd ব্যবহার করার মাধ্যমে আপনি আমাদের শর্তাবলীতে সম্মতি প্রদান করছেন।</p>
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>১. বিজ্ঞাপনের সত্যতা:</strong> ব্যবহারকারী নিজে তার পণ্যের বিজ্ঞাপন দেবেন। কোনো ভুয়া, অবৈধ বা প্রতারণামূলক বিজ্ঞাপন পোস্ট করা সম্পূর্ণ নিষিদ্ধ।</p>
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>২. অ্যাডমিন অধিকার:</strong> অ্যাডমিন যেকোনো সময় পলিসি-বিরোধী বা স্প্যাম বিজ্ঞাপন নোটিশ ছাড়াই ডিলিট করার অধিকার সংরক্ষণ করেন।</p>
-            <p style="font-size: 13px; line-height: 1.6;"><strong>৩. দায়বদ্ধতা:</strong> ক্রেতা ও বিক্রেতার মধ্যকার লেনদেনের নিরাপত্তার জন্য Baza কর্তৃপক্ষ সরাসরি দায়ী থাকবে না।</p>
         </div>
     </div>
 
@@ -301,7 +370,7 @@
             
             <div style="background: rgba(0,128,105,0.05); padding:10px; border-radius:6px; margin:10px 0; border: 1px dashed var(--primary);">
                 <p style="font-size:11px; font-weight:bold; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-shield-halved"></i> Baza Safe Delivery & Commission Service</p>
-                <p style="font-size:11px; color:#666;">হোম ডেলিভারি নিতে চাইলে বা নিরাপদে কিনতে অর্ডার কনফার্ম করুন। (সার্ভিস চার্জ প্রযোজ্য)</p>
+                <p style="font-size:11px; color:#666;">হোম ডেলিভারি নিতে চাইলে বা নিরাপদে কিনতে অর্ডার কনফার্ম করুন।</p>
                 <button onclick="requestOnlineOrder()" style="width:100%; margin-top:8px; padding:7px; background:var(--accent); color:#000; border:none; border-radius:4px; font-weight:bold; font-size:12px; cursor:pointer;">🛍️ অনলাইন অর্ডার কনফার্ম করুন</button>
             </div>
 
@@ -355,7 +424,7 @@
                 </div>
                 <div class="form-group">
                     <label>ফোন নম্বর</label>
-                    <input type="tel" id="postPhone" required placeholder="01716390762">
+                    <input type="tel" id="postPhone" required placeholder="01916390762">
                 </div>
                 <div class="form-group">
                     <label>বিভাগ (Division)</label>
@@ -389,28 +458,16 @@
 
                 <div id="paymentSection" style="display: none; border: 1px solid #ddd; padding: 15px; margin-top: 10px; margin-bottom: 12px; border-radius: 5px; background: rgba(0,0,0,0.01);">
                     <h4 style="font-size:14px; margin-bottom:8px;">পেমেন্ট মাধ্যমসমূহ</h4>
-                    
                     <div class="payment-method" style="font-size:12px; margin-bottom:6px;">
-                        <p><strong>বিকাশ / রকেট / নগদ (Personal):</strong> 01716390762</p>
-                    </div>
-
-                    <div class="payment-method" style="font-size:12px;">
-                        <p><strong>ব্যাংক অ্যাকাউন্ট বিবরণী:</strong></p>
-                        <ul style="margin-left: 15px; margin-top: 3px;">
-                            <li>ব্যাংক: BRAC Bank</li>
-                            <li>শাখা: Bandartila, Chattogram</li>
-                            <li>অ্যাকাউন্ট নম্বর: 1106104006949001</li>
-                        </ul>
+                        <p><strong>বিকাশ / রকেট / নগদ (Personal):</strong> 01916390762</p>
                     </div>
                 </div>
 
                 <div class="form-group" style="background: rgba(255,204,0,0.15); padding:10px; border-radius:6px; border:1px solid var(--accent);">
                     <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
                         <input type="checkbox" id="postIsFeatured" style="width:16px; height:16px;">
-                        <span>⭐ এই বিজ্ঞাপনটি ফিচার বা বুস্ট করুন (ফি: ৫০ টাকা)</span>
+                        <span>⭐ এই বিজ্ঞাপনটি ফিচার বা বুস্ট করুন</span>
                     </label>
-                    <p style="font-size:10px; color:#666; margin-top:4px;">বিকাশ/নগদ পার্সোনাল নম্বরে (01716390762) ৫০ টাকা পাঠিয়ে ট্রানজ্যাকশন আইডি নিচে দিন বা অ্যাডমিন ভেরিফাই করবে।</p>
-                    <input type="text" id="postTrxId" placeholder="বিকাশ/নগদ TrxID (অপশনাল)" style="margin-top:6px;">
                 </div>
 
                 <div class="form-group">
@@ -448,13 +505,28 @@
             <span class="close-btn" onclick="closeModal('settingsModal')">&times;</span>
             <h3 style="margin-top:0;">⚙️ সেটিংস</h3>
             <hr style="margin:10px 0;"><br>
-            <div class="dashboard-box">
+            
+            <div class="settings-section">
+                <div class="setting-item">
+                    <span class="icon green">📞</span>
+                    <span class="text">Phone numbers</span>
+                    <span class="value-alert">01916390762 ⚠️</span>
+                </div>
+                <div class="setting-item">
+                    <span class="icon orange">✉️</span>
+                    <span class="text">Confirm email</span>
+                    <span class="value-alert">nadimkhan5050@... ⚠️</span>
+                </div>
+                <div class="setting-item">
+                    <span class="icon green">🌐</span>
+                    <span class="text">Change language</span>
+                    <span class="value">English</span>
+                </div>
+            </div>
+
+            <div class="dashboard-box" style="margin-top: 15px;">
                 <h4 style="margin-bottom:6px; font-size:14px;">থিম মোড</h4>
                 <button onclick="toggleTheme()" style="width:100%; padding:9px; background:var(--primary); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;">ডার্ক / লাইট মোড পরিবর্তন করুন</button>
-            </div>
-            <div class="dashboard-box">
-                <h4 style="margin-bottom:6px; font-size:14px;">অ্যাপ ইনফো</h4>
-                <p style="font-size:12px; color:#666;">Baza.com.bd v3.0 (Monetized Edition)<br>Developed by Nadim</p>
             </div>
         </div>
     </div>
@@ -463,12 +535,7 @@
         function togglePaymentOptions() {
             const checkbox = document.getElementById('togglePayment');
             const paymentSection = document.getElementById('paymentSection');
-            
-            if (checkbox.checked) {
-                paymentSection.style.display = 'block';
-            } else {
-                paymentSection.style.display = 'none';
-            }
+            paymentSection.style.display = checkbox.checked ? 'block' : 'none';
         }
     </script>
 
@@ -630,131 +697,41 @@
         };
 
         window.requestOnlineOrder = function() {
-            alert("আপনার অর্ডার রিকোয়েস্ট সফলভাবে গ্রহণ করা হয়েছে! Baza ডেলিভারি টিম খুব শীঘ্রই আপনার সাথে যোগাযোগ করে ক্যাশ-অন-ডেলিভারি বা পেমেন্ট সম্পন্ন করবে।");
+            alert("আপনার অর্ডার রিকোয়েস্ট সফলভাবে গ্রহণ করা হয়েছে! Baza ডেলিভারি টিম খুব শীঘ্রই আপনার সাথে যোগাযোগ করবে।");
             closeModal('productModal');
         };
 
         const categoryFeatures = {
-            'vehicles': ['সকল', 'মোটরসাইকেল', 'কার', 'বাইক', 'সাইকেল', 'বাস ও ট্রাক', 'পার্টস ও এক্সেসরিজ'],
-            'property': ['সকল', 'অ্যাপার্টমেন্ট ও ফ্ল্যাট', 'জমি ও প্লট', 'বাণিজ্যিক জায়গা', 'রুম ভাড়া'],
+            'vehicles': ['সকল', 'মোটরসাইকেল', 'কার', 'বাইক', 'সাইকেল', 'বাস ও ট্রাক'],
+            'property': ['সকল', 'অ্যাপার্টমেন্ট ও ফ্ল্যাট', 'জমি ও প্লট', 'রুম ভাড়া'],
             'mobile': ['সকল', 'স্মার্টফোন', 'ফিচার ফোন', 'ট্যাবলেট', 'মোবাইল এক্সেসরিজ'],
-            'electronics': ['সকল', 'ল্যাপটপ ও কম্পিউটার', 'টিভি ও অডিও', 'এসি ও ফ্রিজ', 'ক্যামেরা ও লেন্স', 'হোম অ্যাপ্লায়েন্স'],
-            'furniture': ['সকল', 'বেড ও খাট', 'সোফা ও চেয়ার', 'ডাইনিং টেবিল', 'ওয়ারড্রোব ও আলমারি'],
-            'fashion': ['সকল', 'পুরুষের পোশাক', 'মহিলাদের পোশাক', 'জুতো ও স্যান্ডেল', 'ওয়াচ ও ঘড়ি', 'সাজসজ্জা'],
-            'beauty': ['সকল', 'স্কিন কেয়ার', 'হেয়ার কেয়ার', 'মেকআপ আইটেম', 'পারফিউম'],
-            'services': ['সকল', 'রিপেয়ারিং সার্ভিস', 'টিউশনি ও কোচিং', 'ইভেন্ট ম্যানেজমেন্ট', 'ডিজিটাল মার্কেটিং'],
-            'construction': ['সকল', 'রড ও সিমেন্ট', 'ইট ও বালু', 'টুলস ও হার্ডওয়্যার', 'ইলেকট্রিক্যাল ও প্লাম্বিং'],
-            'tools': ['সকল', 'ইন্ডাস্ট্রিয়াল মেশিন', 'জেনারেটর ও সোলার', 'দোকানের যন্ত্রপাতি'],
-            'leisure': ['সকল', 'স্পোর্টস আইটেম', 'বই ও ম্যাগাজিন', 'মিউজিক্যাল ইন্সট্রুলেন্ট', 'গেম ও হবি'],
-            'kids': ['সকল', 'বাচ্চাদের জামাকাপড়', 'খেলনা', 'বেবি কেয়ার ও স্ট্রোলার'],
-            'farm': ['সকল', 'তাজা ফল ও সবজি', 'বীজ ও সার', 'কৃষি যন্ত্রপাতি', 'খাদ্যপণ্য'],
-            'pets': ['সকল', 'বিড়াল ও কুকুর', 'পাখি ও কবুতর', 'মাছ ও অ্যাকোয়ারিয়াম', 'পেট ফুড'],
-            'jobs': ['সকল', 'সেলস ও মার্কেটিং', 'অফিস স্টাফ', 'ড্রাইভার ও ডেলিভারি', 'টেকনিশিয়ান ও মেকানিক']
+            'electronics': ['সকল', 'ল্যাপটপ ও কম্পিউটার', 'টিভি ও অডিও', 'এসি ও ফ্রিজ'],
+            'furniture': ['সকল', 'বেড ও খাট', 'সোফা ও চেয়ার', 'ডাইনিং টেবিল'],
+            'fashion': ['সকল', 'পুরুষের পোশাক', 'মহিলাদের পোশাক', 'জুতো ও স্যান্ডেল'],
+            'beauty': ['সকল', 'স্কিন কেয়ার', 'হেয়ার কেয়ার', 'মেকআপ আইটেম'],
+            'services': ['সকল', 'রিপেয়ারিং সার্ভিস', 'টিউশনি ও কোচিং'],
+            'construction': ['সকল', 'রড ও সিমেন্ট', 'ইট ও বালু', 'টুলস ও হার্ডওয়্যার'],
+            'tools': ['সকল', 'ইন্ডাস্ট্রিয়াল মেশিন', 'জেনারেটর ও সোলার'],
+            'leisure': ['সকল', 'স্পোর্টস আইটেম', 'বই ও ম্যাগাজিন'],
+            'kids': ['সকল', 'বাচ্চাদের জামাকাপড়', 'খেলনা'],
+            'farm': ['সকল', 'তাজা ফল ও সবজি', 'বীজ ও সার'],
+            'pets': ['সকল', 'বিড়াল ও কুকুর', 'পাখি ও কবুতর'],
+            'jobs': ['সকল', 'সেলস ও মার্কেটিং', 'অফিস স্টাফ', 'ড্রাইভার']
         };
 
         const bdLocations = [
             {
                 division: "Chattogram",
                 districts: [
-                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Pahartali", "Kotwali", "Khulshi", "Bayazid", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Boalkhali", "Patiya", "Raozan", "Rangunia", "Sandwip", "Sitakunda", "Mirsharai", "Anwara", "Banshkhali", "Satkania", "Lohagara", "Fatikchhari"] },
-                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Kutubdia", "Ukhiya", "Teknaf", "Pekua", "Ramu", "Maheshkhali"] },
-                    { district: "Comilla", thanas: ["Comilla Sadar", "Barura", "Brahmanpara", "Burichong", "Chandina", "Chauddagram", "Daudkandi", "Homna", "Laksam", "Muradnagar", "Nangalkot", "Titas"] },
-                    { district: "Feni", thanas: ["Feni Sadar", "Daganbhuiyan", "Chhagalnaiya", "Sonagazi", "Parshuram", "Fulgazi"] },
-                    { district: "Noakhali", thanas: ["Noakhali Sadar", "Begumganj", "Chatkhil", "Companyganj", "Hatia", "Senbagh", "Subarnachar", "Kabirhat"] },
-                    { district: "Brahmanbaria", thanas: ["Brahmanbaria Sadar", "Ashuganj", "Nasirnagar", "Nabinagar", "Kandughat", "Kasba", "Akhaura", "Bancharampur", "Sarail"] },
-                    { district: "Chandpur", thanas: ["Chandpur Sadar", "Faridganj", "Haimchar", "Hajiganj", "Kachua", "Matlab Dakshin", "Matlab Uttar", "Shahrasti"] },
-                    { district: "Lakshmipur", thanas: ["Lakshmipur Sadar", "Raipur", "Ramganj", "Ramgati", "Kamalnagar"] },
-                    { district: "Khagrachhari", thanas: ["Khagrachhari Sadar", "Dighinala", "Panchhari", "Laxmichhari", "Mahalchhari", "Manaikchhari", "Ramgarh", "Matiranga"] },
-                    { district: "Rangamati", thanas: ["Rangamati Sadar", "Belaichhari", "Bagaichhari", "Barkal", "Juraichhari", "Karnafuli", "Langadu", "Naniarchar", "Rajsthali"] },
-                    { district: "Bandarban", thanas: ["Bandarban Sadar", "Alikadam", "Lama", "Naikhongchhari", "Rowangchhari", "Ruma", "Thanchi"] }
+                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Kotwali", "Khulshi", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Patiya", "Sitakunda", "Mirsharai"] },
+                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Ukhiya", "Teknaf"] }
                 ]
             },
             {
                 division: "Dhaka",
                 districts: [
-                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel", "Lalbagh", "Ramna", "Pallabi", "Sabujbagh", "Demra", "Jatrabari", "Khilgaon", "Cantonment"] },
-                    { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Kaliganj", "Kapasia", "Sreepur"] },
-                    { district: "Narayanganj", thanas: ["Narayanganj Sadar", "Bandar", "Rupganj", "Sonargaon", "Araihazar"] },
-                    { district: "Savar", thanas: ["Savar Sadar", "Ashulia"] },
-                    { district: "Tangail", thanas: ["Tangail Sadar", "Sakhipur", "Basail", "Madhupur", "Ghatail", "Kalihati", "Nagarpur", "Mirzapur", "Dhanbari", "Bhuapur", "Delduar"] },
-                    { district: "Kishoreganj", thanas: ["Kishoreganj Sadar", "Nandail", "Hossainpur", "Pakundia", "Katiadi", "Bhairab", "Itna", "Tarail", "Nikli", "Bajitpur", "Kuliarchar", "Karimganj", "Mithamain"] },
-                    { district: "Manikganj", thanas: ["Manikganj Sadar", "Singair", "Shibalaya", "Saturia", "Harirampur", "Ghior", "Daulatpur"] },
-                    { district: "Munshiganj", thanas: ["Munshiganj Sadar", "Sreenagar", "Sirajdikhan", "Lohajang", "Tongibari", "Gazaria"] },
-                    { district: "Rajbari", thanas: ["Rajbari Sadar", "Goalundo", "Pangsha", "Baliakandi", "Kalukhali"] },
-                    { district: "Faridpur", thanas: ["Faridpur Sadar", "Boalmari", "Alfadanga", "Madhukhali", "Bhanga", "Nagarkanda", "Charbhadrasan", "Sadarpur", "Shaltha"] },
-                    { district: "Madaripur", thanas: ["Madaripur Sadar", "Shibchar", "Kalkini", "Rajoir", "Dasar"] },
-                    { district: "Gopalganj", thanas: ["Gopalganj Sadar", "Kashiani", "Kotalipara", "Tungipara", "Muksudpur"] },
-                    { district: "Shariatpur", thanas: ["Shariatpur Sadar", "Naria", "Zajira", "Gosairhat", "Bhedarganj", "Damudya"] }
-                ]
-            },
-            {
-                division: "Rajshahi",
-                districts: [
-                    { district: "Rajshahi", thanas: ["Boalia", "Rajpara", "Motihar", "Shah Makhdum", "Paba", "Tanore", "Mohanpur", "Godagari", "Bagha", "Charghat", "Durgapur"] },
-                    { district: "Bogra", thanas: ["Bogra Sadar", "Shajahanpur", "Dhunat", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Sherpur", "Shibganj", "Sonatala", "Adamdighi"] },
-                    { district: "Pabna", thanas: ["Pabna Sadar", "Ishwardi", "Atgharia", "Chatmohar", "Faridpur", "Santhia", "Sujanagar", "Bera", "Bhangura"] },
-                    { district: "Sirajganj", thanas: ["Sirajganj Sadar", "Belkuchi", "Chauhali", "Kamarkhanda", "Kazipur", "Shahjadpur", "Tarash", "Ullahpara", "Raiganj"] },
-                    { district: "Natore", thanas: ["Natore Sadar", "Baraigram", "Bagatipara", "Lalpur", "Singra", "Gurudaspur", "Naldanga"] },
-                    { district: "Naogaon", thanas: ["Naogaon Sadar", "Raninagar", "Atrai", "Badalgachhi", "Manda", "Dhamoirhat", "Patnitala", "Sapahar", "Porsha", "Niamatpur", "Mohadevpur"] },
-                    { district: "Chapainawabganj", thanas: ["Chapainawabganj Sadar", "Gomastapur", "Nachole", "Bholahat", "Shibganj"] },
-                    { district: "Joypurhat", thanas: ["Joypurhat Sadar", "Akkelpur", "Kalai", "Khetlal", "Panchbibi"] }
-                ]
-            },
-            {
-                division: "Khulna",
-                districts: [
-                    { district: "Khulna", thanas: ["Khulna Sadar", "Sonadanga", "Khalishpur", "Daulatpur", "Khan Jahan Ali", "Harintana", "Batiaghata", "Dacope", "Dumuria", "Dighalia", "Koyra", "Paikgachha", "Phultala", "Rupsa"] },
-                    { district: "Jessore", thanas: ["Jessore Sadar", "Abhaynagar", "Bagherpara", "Chaugachha", "Jhikargachha", "Keshabpur", "Manirampur", "Sharsha"] },
-                    { district: "Satkhira", thanas: ["Satkhira Sadar", "Assassuni", "Debhata", "Kalaroa", "Kaliganj", "Shyamnagar", "Tala"] },
-                    { district: "Kushtia", thanas: ["Kushtia Sadar", "Kumarkhali", "Khoksa", "Mirpur", "Bheramara", "Daulatpur"] },
-                    { district: "Jhenaidah", thanas: ["Jhenaidah Sadar", "Shailkupa", "Harinakundu", "Kaliganj", "Kotchandpur", "Moheshpur"] },
-                    { district: "Magura", thanas: ["Magura Sadar", "Mohammadpur", "Shalikha", "Sreepur"] },
-                    { district: "Narail", thanas: ["Narail Sadar", "Lohagara", "Kalia"] },
-                    { district: "Bagerhat", thanas: ["Bagerhat Sadar", "Fakirhat", "Bacchal", "Mollahat", "Mongla", "Morrelganj", "Rampal", "Sarankhola", "Chitalmari"] },
-                    { district: "Chuadanga", thanas: ["Chuadanga Sadar", "Alamdanga", "Damurhuda", "Lifeup"] },
-                    { district: "Meherpur", thanas: ["Meherpur Sadar", "Gangni", "Mujibnagar"] }
-                ]
-            },
-            {
-                division: "Barishal",
-                districts: [
-                    { district: "Barishal", thanas: ["Barishal Sadar", "Babuganj", "Bakerganj", "Banaripara", "Gaurnadi", "Hizla", "Mehendiganj", "Muladi", "Wazirpur", "Agailjhara"] },
-                    { district: "Patuakhali", thanas: ["Patuakhali Sadar", "Bauphal", "Dashmina", "Galachipa", "Kalapara", "Mirzaganj", "Rangabali", "Dumki"] },
-                    { district: "Bhola", thanas: ["Bhola Sadar", "Burhanuddin", "Char Fasson", "Daulatkhan", "Lalmohan", "Tazumuddin", "Manpura"] },
-                    { district: "Pirojpur", thanas: ["Pirojpur Sadar", "Bhandaria", "Kawkhali", "Mathbaria", "Nazirpur", "Nesarabad", "Zianagar"] },
-                    { district: "Barguna", thanas: ["Barguna Sadar", "Amtali", "Bamna", "Betagi", "Patharghata", "Taltali"] },
-                    { district: "Jhalokati", thanas: ["Jhalokati Sadar", "Kathalia", "Nalchity", "Rajapur"] }
-                ]
-            },
-            {
-                division: "Sylhet",
-                districts: [
-                    { district: "Sylhet", thanas: ["Sylhet Sadar", "Beanibazar", "Bishwanath", "Companiganj", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Zakiganj", "South Surma"] },
-                    { district: "Moulvibazar", thanas: ["Moulvibazar Sadar", "Barlekha", "Juri", "Kamalganj", "Kulaura", "Rajnagar", "Sreemangal"] },
-                    { district: "Habiganj", thanas: ["Habiganj Sadar", "Bahubal", "Baniachong", "Chunarughat", "Lakhai", "Madhabpur", "Nabiganj", "Azmiriganj", "Shayestaganj"] },
-                    { district: "Sunamganj", thanas: ["Sunamganj Sadar", "Bishwamvarpur", "Chhatak", "Derai", "Dharamapasha", "Dowarabazar", "Jagannathpur", "Jamalganj", "Sullah", "Tahirpur", "Madhyanagar"] }
-                ]
-            },
-            {
-                division: "Rangpur",
-                districts: [
-                    { district: "Rangpur", thanas: ["Rangpur Sadar", "Badarganj", "Gangachara", "Kaunia", "Mithapukur", "Pirgachha", "Pirganj", "Taraganj"] },
-                    { district: "Dinajpur", thanas: ["Dinajpur Sadar", "Birampur", "Birganj", "Biral", "Bochaganj", "Chirirbandar", "Fulbari", "Ghoraghat", "Hakimpur", "Kaharole", "Khansama", "Nawabganj", "Parbatipur"] },
-                    { district: "Gaibandha", thanas: ["Gaibandha Sadar", "Fulchhari", "Gobindaganj", "Palashbari", "Sadullapur", "Saghata", "Sundarganj"] },
-                    { district: "Kurigram", thanas: ["Kurigram Sadar", "Bhurungamari", "Char Rajibpur", "Chilmari", "Phulbari", "Rajarhat", "Rowmari", "Ulipur"] },
-                    { district: "Lalmonirhat", thanas: ["Lalmonirhat Sadar", "Aditmari", "Kaliganj", "Hatibandha", "Patgram"] },
-                    { district: "Nilphamari", thanas: ["Nilphamari Sadar", "Jaldhaka", "Kishoreganj", "Domar", "Dimla", "Saidpur"] },
-                    { district: "Panchagarh", thanas: ["Panchagarh Sadar", "Boda", "Debiganj", "Atwari", "Tetulia"] },
-                    { district: "Thakurgaon", thanas: ["Thakurgaon Sadar", "Baliadangi", "Haripur", "Ranisankail", "Pirganj"] }
-                ]
-            },
-            {
-                division: "Mymensingh",
-                districts: [
-                    { district: "Mymensingh", thanas: ["Mymensingh Sadar", "Trishal", "Bhaluka", "Muktagachha", "Dhobaura", "Fulbaria", "Gaffargaon", "Gauripur", "Haluaghat", "Ishwarganj", "Nandail", "Tarakanda"] },
-                    { district: "Netrokona", thanas: ["Netrokona Sadar", "Atpara", "Barhatta", "Durgapur", "Kalmakanda", "Kendua", "Khaliajuri", "Madan", "Mohanganj", "Purbadhala"] },
-                    { district: "Sherpur", thanas: ["Sherpur Sadar", "Jhenaigati", "Nakla", "Nalitabari", "Sreebordi"] },
-                    { district: "Jamalpur", thanas: ["Jamalpur Sadar", "Baksiganj", "Dewanganj", "Islampur", "Madarganj", "Melandaha", "Sarishabari"] }
+                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel"] },
+                    { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Sreepur"] }
                 ]
             }
         ];
@@ -900,7 +877,6 @@
             document.getElementById('postThana').value = ad.thana || '';
             document.getElementById('postDesc').value = ad.desc;
             document.getElementById('postIsFeatured').checked = ad.isFeatured || false;
-            document.getElementById('postTrxId').value = ad.trxId || '';
             
             selectedImagesBase64 = ad.images || (ad.img ? [ad.img] : []);
             renderImagePreviews();
@@ -933,7 +909,7 @@
                 if(isAdmin) {
                     let allAdsAdminList = allAds.map(ad => `
                         <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(220,53,69,0.05); padding:6px 10px; margin-bottom:5px; border-radius:4px; font-size:12px;">
-                            <span>${ad.title} - <b>${ad.userName || 'ইউজার'}</b> ${ad.isFeatured ? '(Featured)' : ''}</span>
+                            <span>${ad.title} - <b>${ad.userName || 'ইউজার'}</b></span>
                             <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">রিমুভ</button>
                         </div>
                     `).join('');
@@ -1040,7 +1016,6 @@
             const dist = document.getElementById('postDistrict').value;
             const thana = document.getElementById('postThana').value;
             const isFeatured = document.getElementById('postIsFeatured').checked;
-            const trxId = document.getElementById('postTrxId').value;
 
             if(selectedImagesBase64.length === 0) return alert("কমপক্ষে একটি ছবি দিন বা সিলেক্ট করুন!");
 
@@ -1062,7 +1037,6 @@
                     img: selectedImagesBase64[0],
                     desc: document.getElementById('postDesc').value,
                     isFeatured: isFeatured,
-                    trxId: trxId,
                     userId: currentUser.uid,
                     userName: currentUser.displayName
                 };
@@ -1080,7 +1054,6 @@
                 submitBtn.disabled = false;
                 closeModal('postAdModal');
                 event.target.reset();
-                document.getElementById('paymentSection').style.display = 'none';
                 selectedImagesBase64 = [];
             } catch (error) {
                 alert("ত্রুটি: " + error.message);
@@ -1194,9 +1167,7 @@
 
         window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
         window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
-        window.toggleTheme = function() {
-            document.body.classList.toggle('dark-mode');
-        };
+        window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
 
         fetchAds();
         initLocations();
