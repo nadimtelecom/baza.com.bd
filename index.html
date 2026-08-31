@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baza.com.bd | কেনা-বেচা করুন সহজে</title>
+    <title>Baza.com.bd | কেনা-বেচা করুন সহজে ও আয় করুন</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -17,7 +17,14 @@
             --card-bg-dark: #1e1e1e;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-light); color: var(--text-light); transition: background 0.3s, color 0.3s; padding-bottom: 70px; }
+        body { 
+            background-color: var(--bg-light); 
+            color: var(--text-light); 
+            transition: background 0.3s, color 0.3s; 
+            padding-bottom: 70px; 
+            overflow-x: hidden; 
+            width: 100%;
+        }
         body.dark-mode { background-color: var(--bg-dark); color: var(--text-dark); }
 
         /* Preloader */
@@ -28,18 +35,29 @@
         body.dark-mode .preloader-text { color: #aaa; }
         @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
 
-        /* Header (Upper Dashboard) */
-        header { background-color: var(--primary); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.2); gap: 5px; }
+        /* Header */
+        header { 
+            background-color: var(--primary); 
+            padding: 10px 10px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+            width: 100%;
+        }
         .logo { font-size: 18px; font-weight: bold; color: #ffffff; text-decoration: none; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
         .logo span { color: var(--accent); }
         .header-controls { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
         .btn-post-ad { background-color: var(--accent); color: #000; padding: 5px 10px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 11px; border: none; cursor: pointer; white-space: nowrap; }
         .btn-header { background: transparent; border: 1px solid white; color: white; padding: 5px 8px; border-radius: 20px; cursor: pointer; font-size: 11px; font-weight: bold; white-space: nowrap; display: flex; align-items: center; gap: 4px; text-decoration: none; }
         
-        .hero-banner { background-color: var(--primary); color: white; text-align: center; padding: 25px 15px 35px 15px; }
+        .hero-banner { background-color: var(--primary); color: white; text-align: center; padding: 25px 15px 35px 15px; width: 100%; }
         .hero-banner h1 { font-size: 22px; margin-bottom: 8px; }
         .hero-banner p { font-size: 13px; opacity: 0.9; margin-bottom: 15px; }
-        .search-container { max-width: 650px; margin: 0 auto; display: flex; gap: 6px; background: white; padding: 5px; border-radius: 8px; flex-wrap: wrap; box-sizing: border-box; }
+        .search-container { width: 100%; max-width: 650px; margin: 0 auto; display: flex; gap: 6px; background: white; padding: 5px; border-radius: 8px; flex-wrap: wrap; box-sizing: border-box; }
         .search-container select, .search-container input { border: none; outline: none; padding: 8px; background: #eef2f5; border-radius: 5px; font-weight: bold; color: #333; font-size: 13px; }
         .search-container input { flex: 1; background: transparent; min-width: 120px; }
         .search-container button { background-color: var(--accent); border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; color: #000; }
@@ -50,6 +68,9 @@
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; flex-grow: 1; }
         .filter-group select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; outline: none; flex-grow: 1; }
         body.dark-mode .filter-group select { background: #2a2a2a; color: white; border-color: #444; }
+
+        .banner-ad-slot { background: linear-gradient(135deg, #2c3e50, #bdc3c7); color: white; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        body.dark-mode .banner-ad-slot { background: linear-gradient(135deg, #1a1a1a, #333); }
 
         .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
         @media (min-width: 768px) { .category-grid { grid-template-columns: repeat(8, 1fr); } }
@@ -69,14 +90,18 @@
         
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
         @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); } }
-        .product-card { background: var(--card-bg-light); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; flex-direction: column; cursor: pointer; position: relative; transition: transform 0.2s; }
+        .product-card { background: var(--card-bg-light); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; flex-direction: column; cursor: pointer; position: relative; transition: transform 0.2s; border: 1px solid transparent; }
         body.dark-mode .product-card { background: var(--card-bg-dark); }
+        .product-card.featured-card { border: 2px solid var(--accent); }
         .product-card:hover { transform: translateY(-4px); }
         .product-card img { width: 100%; height: 140px; object-fit: cover; }
         .product-details { padding: 10px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .product-price { color: var(--primary); font-weight: bold; font-size: 15px; margin-bottom: 4px; }
         .product-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: inherit; }
         .product-location { font-size: 11px; color: #777; margin-bottom: 6px; }
+        .featured-badge { position: absolute; top: 8px; left: 8px; background: var(--accent); color: #000; font-size: 9px; font-weight: bold; padding: 2px 6px; border-radius: 4px; z-index: 2; }
+        .fav-btn { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; color: #555; z-index: 2; }
+        .fav-btn.active { color: #ff4757; }
 
         footer { text-align: center; padding: 20px; margin-top: 40px; font-size: 13px; color: #777; border-top: 1px solid #ddd; }
         body.dark-mode footer { border-color: #333; }
@@ -92,6 +117,11 @@
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 13px; }
         body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select { background: #2a2a2a; color: white; border-color: #444; }
 
+        .preview-container { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+        .preview-thumb { position: relative; width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid #ccc; }
+        .preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .preview-thumb .remove-img { position: absolute; top: 2px; right: 2px; background: rgba(220, 53, 69, 0.9); color: white; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
         .main-img-container { width: 100%; height: 200px; border-radius: 5px; overflow: hidden; background: #000; }
         .main-img-container img { width: 100%; height: 100%; object-fit: contain; }
         .thumb-gallery { display: flex; gap: 6px; margin-top: 8px; overflow-x: auto; padding-bottom: 4px; }
@@ -99,7 +129,7 @@
         .thumb-item.active { border-color: var(--primary); }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* Bottom Navigation (Lower Dashboard) */
+        /* Bottom Navigation */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg-light); border-top: 1px solid #ddd; display: flex; justify-content: space-around; align-items: center; padding: 8px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 500; }
         body.dark-mode .bottom-nav { background: var(--card-bg-dark); border-color: #333; }
         .nav-item { color: inherit; text-align: center; text-decoration: none; font-size: 11px; font-weight: 600; cursor: pointer; background: none; border: none; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
@@ -109,6 +139,7 @@
         .dashboard-box { background: rgba(0,0,0,0.03); padding: 12px; border-radius: 6px; margin-bottom: 12px; }
         body.dark-mode .dashboard-box { background: rgba(255,255,255,0.05); }
         .admin-badge { background: #dc3545; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
+        .shop-badge { background: #28a745; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
     </style>
 </head>
 <body>
@@ -119,7 +150,7 @@
         <div class="preloader-text">শান্তির ছায়ায় কেনা-বেচা, Baza.com.bd লোড হচ্ছে...</div>
     </div>
 
-    <!-- Upper Dashboard (Header) -->
+    <!-- Header -->
     <header>
         <a class="logo" onclick="selectCategory('all')">
             <i class="fa-solid fa-tree" style="color: var(--accent);"></i> Baza<span>.com.bd</span>
@@ -129,8 +160,8 @@
             <button class="btn-header" onclick="openModal('accountModal')" id="headerAuthBtn">
                 <i class="fa-solid fa-user-circle"></i> <span id="headerAuthText">সাইন ইন</span>
             </button>
-            <button class="btn-header" onclick="openModal('notificationModal')">
-                <i class="fa-solid fa-bell"></i> <span style="font-size: 10px; background: var(--accent); color: #000; padding: 1px 4px; border-radius: 10px; font-weight: bold;">0</span>
+            <button class="btn-header" onclick="openModal('wishlistModal')">
+                <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span id="wishlistCount" style="font-size: 10px; background: var(--accent); color: #000; padding: 1px 4px; border-radius: 10px; font-weight: bold;">0</span>
             </button>
         </div>
     </header>
@@ -148,6 +179,10 @@
     </div>
 
     <div class="container">
+        <div class="banner-ad-slot">
+            <i class="fa-solid fa-bullhorn" style="color: var(--accent);"></i> স্পন্সরড অ্যাড / গুগলের বিজ্ঞাপন স্পেস (এখানে আপনার অ্যাডসেন্স কোড বসাতে পারেন)
+        </div>
+
         <div class="filter-section">
             <div class="filter-group">
                 <select id="filterDistrict" onchange="onHeroDistrictChange()" disabled>
@@ -155,6 +190,11 @@
                 </select>
                 <select id="filterThana" onchange="filterAds()" disabled>
                     <option value="">প্রথমে জেলা সিলেক্ট করুন</option>
+                </select>
+                <select id="priceSortSelect" onchange="filterAds()">
+                    <option value="">মূল্য অনুযায়ী সাজান (Default)</option>
+                    <option value="low-high">মূল্য: কম থেকে বেশি</option>
+                    <option value="high-low">মূল্য: বেশি থেকে কম</option>
                 </select>
             </div>
             <button onclick="resetFilters()" style="padding: 8px 12px; background:#6c757d; color:white; border:none; border-radius:4px; cursor:pointer; font-size:12px;">রিসেট</button>
@@ -195,13 +235,13 @@
         <p style="font-size:11px; margin-top:5px;">Developed by Nadim</p>
     </footer>
 
-    <!-- Lower Dashboard (Bottom Navigation Bar) -->
+    <!-- Bottom Navigation -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="selectCategory('all'); highlightNav(this);">
             <i class="fa-solid fa-house"></i> হোম পেজ
         </button>
-        <button class="nav-item" onclick="openModal('messagesModal'); highlightNav(this);">
-            <i class="fa-solid fa-comment-dots"></i> মেসেজ
+        <button class="nav-item" onclick="openModal('wishlistModal'); highlightNav(this);">
+            <i class="fa-solid fa-heart"></i> উইশলিস্ট
         </button>
         <button class="nav-item" onclick="openPostModal(); highlightNav(this);">
             <i class="fa-solid fa-circle-plus" style="color: var(--primary); font-size: 22px;"></i> বিজ্ঞাপন দিন
@@ -225,19 +265,27 @@
             <p id="modalLocation" style="color:#777; font-size:13px; margin:3px 0;"></p>
             <p id="modalSeller" style="font-size:12px; color:#555; margin:3px 0;"></p>
             <p id="modalDesc" style="font-size:13px; margin:8px 0;"></p>
-            <div style="display: flex; gap: 5px; margin-top:15px;">
+            
+            <div style="background: rgba(0,128,105,0.05); padding:10px; border-radius:6px; margin:10px 0; border: 1px dashed var(--primary);">
+                <p style="font-size:11px; font-weight:bold; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-shield-halved"></i> Baza Safe Delivery & Commission Service</p>
+                <p style="font-size:11px; color:#666;">হোম ডেলিভারি নিতে চাইলে বা নিরাপদে কিনতে অর্ডার কনফার্ম করুন। (সার্ভিস চার্জ প্রযোজ্য)</p>
+                <button onclick="requestOnlineOrder()" style="width:100%; margin-top:8px; padding:7px; background:var(--accent); color:#000; border:none; border-radius:4px; font-weight:bold; font-size:12px; cursor:pointer;">🛍️ অনলাইন অর্ডার কনফার্ম করুন</button>
+            </div>
+
+            <div style="display: flex; gap: 5px; margin-top:10px;">
                 <a id="callLink" href="#" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:var(--primary); color:white; border-radius:4px; font-weight:bold;">📞 কল করুন</a>
                 <a id="waLink" href="#" target="_blank" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:#25D366; color:white; border-radius:4px; font-weight:bold;">💬 WhatsApp</a>
             </div>
         </div>
     </div>
 
-    <!-- Post Ad Modal -->
+    <!-- Post / Edit Ad Modal (পেমেন্ট অপশন চেকবাক্সসহ আপডেট করা হয়েছে) -->
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
-            <h3 style="margin-top:0; font-size:16px;">নতুন বিজ্ঞাপন দিন</h3>
+            <h3 id="postModalTitle" style="margin-top:0; font-size:16px;">নতুন বিজ্ঞাপন দিন</h3>
             <form id="postAdForm" onsubmit="handlePostAd(event)">
+                <input type="hidden" id="editAdId" value="">
                 <div class="form-group">
                     <label>শিরোনাম</label>
                     <input type="text" id="postTitle" required placeholder="যেমন: Redmi Note 13">
@@ -270,7 +318,7 @@
                 </div>
                 <div class="form-group">
                     <label>মূল্য (টাকা)</label>
-                    <input type="text" id="postPrice" required placeholder="যেমন: 25,000">
+                    <input type="text" id="postPrice" required placeholder="যেমন: 25000">
                 </div>
                 <div class="form-group">
                     <label>ফোন নম্বর</label>
@@ -296,12 +344,44 @@
                 </div>
                 <div class="form-group">
                     <label>পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
-                    <input type="file" id="postFiles" accept="image/*" multiple required onchange="handleImageSelection(event)">
-                    <div id="uploadStatusContainer" style="display: none; margin-top: 8px; align-items: center; justify-content: space-between; background: #f8f9fa; padding: 6px 10px; border-radius: 4px; border: 1px solid #ddd;">
-                        <span id="uploadStatusText" style="font-size: 12px; font-weight: bold; color: var(--primary);">ছবি প্রস্তুত...</span>
-                        <button type="button" onclick="clearSelectedImages()" style="padding: 4px 8px; background: #dc3545; color: white; border: none; border-radius: 3px; font-size: 11px; cursor: pointer; font-weight: bold;">ক্যান্সেল</button>
+                    <input type="file" id="postFiles" accept="image/*" multiple onchange="handleImageSelection(event)">
+                    <div class="preview-container" id="imagePreviewContainer"></div>
+                </div>
+
+                <!-- পেমেন্ট অপশন যোগ করার চেকবাক্স ও সেকশন -->
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="togglePayment" onchange="togglePaymentOptions()"> পেমেন্ট অপশন যোগ করতে চান?
+                    </label>
+                </div>
+
+                <div id="paymentSection" style="display: none; border: 1px solid #ddd; padding: 15px; margin-top: 10px; margin-bottom: 12px; border-radius: 5px; background: rgba(0,0,0,0.01);">
+                    <h4 style="font-size:14px; margin-bottom:8px;">পেমেন্ট মাধ্যমসমূহ</h4>
+                    
+                    <div class="payment-method" style="font-size:12px; margin-bottom:6px;">
+                        <p><strong>বিকাশ / রকেট / নগদ (Personal):</strong> 01716390762</p>
+                    </div>
+
+                    <div class="payment-method" style="font-size:12px;">
+                        <p><strong>ব্যাংক অ্যাকাউন্ট বিবরণী:</strong></p>
+                        <ul style="margin-left: 15px; margin-top: 3px;">
+                            <li>ব্যাংক: BRAC Bank</li>
+                            <li>শাখা: Bandartila, Chattogram</li>
+                            <li>অ্যাকাউন্ট নম্বর: 1106104006949001</li>
+                        </ul>
                     </div>
                 </div>
+
+                <!-- Featured Ad / Boost Option -->
+                <div class="form-group" style="background: rgba(255,204,0,0.15); padding:10px; border-radius:6px; border:1px solid var(--accent);">
+                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                        <input type="checkbox" id="postIsFeatured" style="width:16px; height:16px;">
+                        <span>⭐ এই বিজ্ঞাপনটি ফিচার বা বুস্ট করুন (ফি: ৫০ টাকা)</span>
+                    </label>
+                    <p style="font-size:10px; color:#666; margin-top:4px;">বিকাশ/নগদ পার্সোনাল নম্বরে (01716390762) ৫০ টাকা পাঠিয়ে ট্রানজ্যাকশন আইডি নিচে দিন বা অ্যাডমিন ভেরিফাই করবে।</p>
+                    <input type="text" id="postTrxId" placeholder="বিকাশ/নগদ TrxID (অপশনাল)" style="margin-top:6px;">
+                </div>
+
                 <div class="form-group">
                     <label>বিবরণ</label>
                     <textarea id="postDesc" rows="3" required></textarea>
@@ -321,13 +401,13 @@
         </div>
     </div>
 
-    <!-- Messages Modal -->
-    <div class="modal" id="messagesModal">
+    <!-- Wishlist Modal -->
+    <div class="modal" id="wishlistModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('messagesModal')">&times;</span>
-            <h3 style="margin-top:0;">💬 মেসেজ</h3>
+            <span class="close-btn" onclick="closeModal('wishlistModal')">&times;</span>
+            <h3 style="margin-top:0;">❤️ প্রিয় বিজ্ঞাপনসমূহ (Wishlist)</h3>
             <hr style="margin:10px 0;"><br>
-            <p style="text-align:center; color:#777; font-size:13px; padding: 20px 0;">আপনার কোনো নতুন মেসেজ নেই। সরাসরি বিক্রেতার নাম্বারে কল বা WhatsApp করুন।</p>
+            <div id="wishlistContainer"></div>
         </div>
     </div>
 
@@ -343,20 +423,24 @@
             </div>
             <div class="dashboard-box">
                 <h4 style="margin-bottom:6px; font-size:14px;">অ্যাপ ইনফো</h4>
-                <p style="font-size:12px; color:#666;">Baza.com.bd v2.5<br>Developed by Nadim</p>
+                <p style="font-size:12px; color:#666;">Baza.com.bd v3.0 (Monetized Edition)<br>Developed by Nadim</p>
             </div>
         </div>
     </div>
 
-    <!-- Notifications Modal -->
-    <div class="modal" id="notificationModal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('notificationModal')">&times;</span>
-            <h3 style="margin-top:0;">🔔 নোটিফিকেশন</h3>
-            <hr style="margin:10px 0;"><br>
-            <p style="text-align:center; color:#777; font-size:13px; padding: 20px 0;">কোনো নতুন নোটিফিকেশন নেই।</p>
-        </div>
-    </div>
+    <script>
+        // পেমেন্ট অপশন টগল করার ফাংশন
+        function togglePaymentOptions() {
+            const checkbox = document.getElementById('togglePayment');
+            const paymentSection = document.getElementById('paymentSection');
+            
+            if (checkbox.checked) {
+                paymentSection.style.display = 'block'; // দেখাবে
+            } else {
+                paymentSection.style.display = 'none';  // লুকিয়ে রাখবে
+            }
+        }
+    </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -383,6 +467,9 @@
         let allAds = [];
         let currentCategory = 'all';
         let currentSubCategory = 'all';
+        let selectedImagesBase64 = [];
+        let wishlist = JSON.parse(localStorage.getItem('baza_wishlist')) || [];
+        let shopMembers = JSON.parse(localStorage.getItem('baza_shops')) || [];
 
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
@@ -390,6 +477,7 @@
                 preloader.style.opacity = '0';
                 setTimeout(() => preloader.style.display = 'none', 500);
             }, 800);
+            updateWishlistCount();
         });
 
         window.highlightNav = function(element) {
@@ -426,27 +514,94 @@
             });
         }
 
-        window.handleImageSelection = function(event) {
+        window.handleImageSelection = async function(event) {
             const files = event.target.files;
-            const container = document.getElementById('uploadStatusContainer');
-            const statusText = document.getElementById('uploadStatusText');
             if (files.length > 0) {
-                if (files.length > 5) {
+                if (selectedImagesBase64.length + files.length > 5) {
                     alert("সর্বোচ্চ ৫টি ছবি সিলেক্ট করা যাবে!");
-                    event.target.value = '';
-                    container.style.display = 'none';
                     return;
                 }
-                container.style.display = 'flex';
-                statusText.innerText = `${files.length}টি ছবি সিলেক্ট করা হয়েছে`;
+                for (let i = 0; i < files.length; i++) {
+                    const base64Str = await convertImageToBase64(files[i]);
+                    selectedImagesBase64.push(base64Str);
+                }
+                renderImagePreviews();
+            }
+            event.target.value = '';
+        };
+
+        function renderImagePreviews() {
+            const container = document.getElementById('imagePreviewContainer');
+            container.innerHTML = '';
+            selectedImagesBase64.forEach((imgStr, index) => {
+                container.innerHTML += `
+                    <div class="preview-thumb">
+                        <img src="${imgStr}" alt="Preview">
+                        <button type="button" class="remove-img" onclick="removeSelectedImage(${index})">&times;</button>
+                    </div>
+                `;
+            });
+        }
+
+        window.removeSelectedImage = function(index) {
+            selectedImagesBase64.splice(index, 1);
+            renderImagePreviews();
+        };
+
+        window.toggleWishlist = function(event, id) {
+            event.stopPropagation();
+            const index = wishlist.indexOf(id);
+            if (index > -1) {
+                wishlist.splice(index, 1);
             } else {
-                container.style.display = 'none';
+                wishlist.push(id);
+            }
+            localStorage.setItem('baza_wishlist', JSON.stringify(wishlist));
+            updateWishlistCount();
+            filterAds();
+            renderWishlistModal();
+        };
+
+        function updateWishlistCount() {
+            const el = document.getElementById('wishlistCount');
+            if(el) el.innerText = wishlist.length;
+        }
+
+        function renderWishlistModal() {
+            const container = document.getElementById('wishlistContainer');
+            if(!container) return;
+            const favAds = allAds.filter(ad => wishlist.includes(ad.id));
+            if(favAds.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:#777; font-size:13px; padding: 20px 0;">আপনার উইশলিস্টে কোনো পণ্য নেই।</p>`;
+                return;
+            }
+            container.innerHTML = favAds.map(ad => `
+                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:8px; margin-bottom:6px; border-radius:6px; cursor:pointer;" onclick="openProductDetail('${ad.id}'); closeModal('wishlistModal');">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <img src="${ad.images ? ad.images[0] : ad.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
+                        <div>
+                            <div style="font-size:13px; font-weight:bold;">${ad.title}</div>
+                            <div style="font-size:12px; color:var(--primary);">৳ ${ad.price}</div>
+                        </div>
+                    </div>
+                    <button onclick="toggleWishlist(event, '${ad.id}')" style="background:none; border:none; color:#ff4757; font-size:16px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        window.upgradeToShop = function() {
+            if(!currentUser) return;
+            if(!shopMembers.includes(currentUser.uid)) {
+                shopMembers.push(currentUser.uid);
+                localStorage.setItem('baza_shops', JSON.stringify(shopMembers));
+                alert("অভিনন্দন! আপনার অ্যাকাউন্টটি এখন ভেন্ডর শপ মেম্বারশিপে উন্নীত হয়েছে।");
+                renderAuthUI();
             }
         };
 
-        window.clearSelectedImages = function() {
-            document.getElementById('postFiles').value = '';
-            document.getElementById('uploadStatusContainer').style.display = 'none';
+        window.requestOnlineOrder = function() {
+            alert("আপনার অর্ডার রিকোয়েস্ট সফলভাবে গ্রহণ করা হয়েছে! Baza ডেলিভারি টিম খুব শীঘ্রই আপনার সাথে যোগাযোগ করে ক্যাশ-অন-ডেলিভারি বা পেমেন্ট সম্পন্ন করবে।");
+            closeModal('productModal');
         };
 
         const categoryFeatures = {
@@ -666,6 +821,7 @@
             document.getElementById('filterDistrict').disabled = true;
             document.getElementById('filterThana').innerHTML = '<option value="">প্রথমে জেলা সিলেক্ট করুন</option>';
             document.getElementById('filterThana').disabled = true;
+            document.getElementById('priceSortSelect').value = '';
             document.getElementById('searchInput').value = '';
             filterAds();
         };
@@ -695,6 +851,34 @@
             }
         };
 
+        window.editAd = function(id) {
+            const ad = allAds.find(a => a.id === id);
+            if(!ad) return;
+            
+            document.getElementById('editAdId').value = ad.id;
+            document.getElementById('postModalTitle').innerText = "বিজ্ঞাপন এডিট করুন";
+            document.getElementById('postTitle').value = ad.title;
+            document.getElementById('postCategory').value = ad.category;
+            onPostCategoryChange();
+            document.getElementById('postSubCategory').value = ad.subCategory || '';
+            document.getElementById('postPrice').value = ad.price;
+            document.getElementById('postPhone').value = ad.phone;
+            document.getElementById('postDivision').value = ad.division || '';
+            onPostDivisionChange();
+            document.getElementById('postDistrict').value = ad.district || '';
+            onPostDistrictChange();
+            document.getElementById('postThana').value = ad.thana || '';
+            document.getElementById('postDesc').value = ad.desc;
+            document.getElementById('postIsFeatured').checked = ad.isFeatured || false;
+            document.getElementById('postTrxId').value = ad.trxId || '';
+            
+            selectedImagesBase64 = ad.images || (ad.img ? [ad.img] : []);
+            renderImagePreviews();
+            
+            closeModal('accountModal');
+            openModal('postAdModal');
+        };
+
         function renderAuthUI() {
             const container = document.getElementById('authContent');
             const headerAuthText = document.getElementById('headerAuthText');
@@ -703,11 +887,15 @@
             }
             if(!container) return;
             if(currentUser) {
+                const isShopOwner = shopMembers.includes(currentUser.uid);
                 const myAds = allAds.filter(a => a.userId === currentUser.uid);
                 let myAdsHtml = myAds.map(ad => `
                     <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:6px 10px; margin-bottom:5px; border-radius:4px; font-size:12px;">
-                        <span>${ad.title} (৳ ${ad.price})</span>
-                        <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">ডিলিট</button>
+                        <span>${ad.title} (৳ ${ad.price}) ${ad.isFeatured ? '⭐' : ''}</span>
+                        <div style="display:flex; gap:4px;">
+                            <button onclick="editAd('${ad.id}')" style="background:#ffc107; color:#000; border:none; padding:3px 8px; border-radius:3px; cursor:pointer; font-weight:bold;">এডিট</button>
+                            <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">ডিলিট</button>
+                        </div>
                     </div>
                 `).join('') || '<p style="font-size:12px; color:#777;">আপনার কোনো বিজ্ঞাপন নেই।</p>';
 
@@ -715,7 +903,7 @@
                 if(isAdmin) {
                     let allAdsAdminList = allAds.map(ad => `
                         <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(220,53,69,0.05); padding:6px 10px; margin-bottom:5px; border-radius:4px; font-size:12px;">
-                            <span>${ad.title} - <b>${ad.userName || 'ইউজার'}</b></span>
+                            <span>${ad.title} - <b>${ad.userName || 'ইউজার'}</b> ${ad.isFeatured ? '(Featured)' : ''}</span>
                             <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">রিমুভ</button>
                         </div>
                     `).join('');
@@ -733,8 +921,9 @@
 
                 container.innerHTML = `
                     <div class="dashboard-box">
-                        <p><strong>নাম:</strong> ${currentUser.displayName || 'ব্যবহারকারী'} ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''}</p>
+                        <p><strong>নাম:</strong> ${currentUser.displayName || 'ব্যবহারকারী'} ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''} ${isShopOwner ? '<span class="shop-badge">Verified Shop</span>' : ''}</p>
                         <p><strong>ইমেইল:</strong> ${currentUser.email || 'N/A'}</p>
+                        ${!isShopOwner ? '<button onclick="upgradeToShop()" style="margin-top:8px; width:100%; padding:7px; background:#28a745; color:white; border:none; border-radius:4px; font-weight:bold; font-size:12px; cursor:pointer;">🏪 ভেন্ডর শপ মেম্বারশিপ নিন (স্টোর খুলুন)</button>' : '<p style="font-size:11px; color:#28a745; margin-top:5px;">✓ আপনার শপ অ্যাকাউন্ট সক্রিয় আছে।</p>'}
                     </div>
                     <div class="dashboard-box">
                         <h4 style="margin-bottom:6px; font-size:14px;">📦 আমার পোস্টকৃত বিজ্ঞাপন (${myAds.length}টি)</h4>
@@ -760,6 +949,7 @@
                 snapshot.forEach(docSnap => { allAds.push({ id: docSnap.id, ...docSnap.data() }); });
                 filterAds();
                 if(currentUser) renderAuthUI();
+                renderWishlistModal();
             }, error => {
                 console.error("Firestore Error: ", error);
             });
@@ -774,8 +964,13 @@
             }
             ads.forEach(ad => {
                 const mainImg = (ad.images && ad.images.length > 0) ? ad.images[0] : (ad.img || '');
+                const isFav = wishlist.includes(ad.id);
                 grid.innerHTML += `
-                    <div class="product-card" onclick="openProductDetail('${ad.id}')">
+                    <div class="product-card ${ad.isFeatured ? 'featured-card' : ''}" onclick="openProductDetail('${ad.id}')">
+                        ${ad.isFeatured ? '<div class="featured-badge">⭐ Featured</div>' : ''}
+                        <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleWishlist(event, '${ad.id}')">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
                         <img src="${mainImg}" alt="${ad.title}">
                         <div class="product-details">
                             <div>
@@ -794,9 +989,13 @@
                 alert("বিজ্ঞাপন পোস্ট করতে প্রথমে সাইন-ইন করুন।");
                 openModal('accountModal');
             } else {
-                onPostCategoryChange();
-                document.getElementById('uploadStatusContainer').style.display = 'none';
+                document.getElementById('editAdId').value = '';
+                document.getElementById('postModalTitle').innerText = "নতুন বিজ্ঞাপন দিন";
                 document.getElementById('postAdForm').reset();
+                // রিসেট করার পর পেমেন্ট সেকশন হাইড করে দেওয়া
+                document.getElementById('paymentSection').style.display = 'none';
+                selectedImagesBase64 = [];
+                renderImagePreviews();
                 onPostCategoryChange();
                 openModal('postAdModal');
             }
@@ -806,26 +1005,21 @@
             event.preventDefault();
             if(!currentUser) return;
 
+            const editId = document.getElementById('editAdId').value;
             const submitBtn = document.getElementById('submitBtn');
-            const filesInput = document.getElementById('postFiles').files;
             const div = document.getElementById('postDivision').value;
             const dist = document.getElementById('postDistrict').value;
             const thana = document.getElementById('postThana').value;
+            const isFeatured = document.getElementById('postIsFeatured').checked;
+            const trxId = document.getElementById('postTrxId').value;
 
-            if(filesInput.length === 0) return alert("কমপক্ষে একটি ছবি সিলেক্ট করুন!");
+            if(selectedImagesBase64.length === 0) return alert("কমপক্ষে একটি ছবি দিন বা সিলেক্ট করুন!");
 
-            submitBtn.innerText = "ছবি প্রসেস হচ্ছে...";
+            submitBtn.innerText = "প্রসেস হচ্ছে...";
             submitBtn.disabled = true;
 
             try {
-                let base64Images = [];
-                for(let i = 0; i < filesInput.length; i++) {
-                    const base64Str = await convertImageToBase64(filesInput[i]);
-                    base64Images.push(base64Str);
-                }
-
-                submitBtn.innerText = "বিজ্ঞাপন সেভ হচ্ছে...";
-                const newAd = {
+                const adData = {
                     title: document.getElementById('postTitle').value,
                     category: document.getElementById('postCategory').value.toLowerCase(),
                     subCategory: document.getElementById('postSubCategory').value,
@@ -835,22 +1029,30 @@
                     district: dist,
                     thana: thana,
                     location: `${thana}, ${dist}, ${div}`,
-                    images: base64Images,
-                    img: base64Images[0],
+                    images: selectedImagesBase64,
+                    img: selectedImagesBase64[0],
                     desc: document.getElementById('postDesc').value,
+                    isFeatured: isFeatured,
+                    trxId: trxId,
                     userId: currentUser.uid,
-                    userName: currentUser.displayName,
-                    createdAt: serverTimestamp()
+                    userName: currentUser.displayName
                 };
 
-                await addDoc(collection(db, "ads"), newAd);
+                if(editId) {
+                    await updateDoc(doc(db, "ads", editId), adData);
+                    alert('আপনার বিজ্ঞাপনটি সফলভাবে আপডেট করা হয়েছে!');
+                } else {
+                    adData.createdAt = serverTimestamp();
+                    await addDoc(collection(db, "ads"), adData);
+                    alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
+                }
                 
                 submitBtn.innerText = "পাবলিশ করুন";
                 submitBtn.disabled = false;
                 closeModal('postAdModal');
                 event.target.reset();
-                document.getElementById('uploadStatusContainer').style.display = 'none';
-                alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
+                document.getElementById('paymentSection').style.display = 'none';
+                selectedImagesBase64 = [];
             } catch (error) {
                 alert("ত্রুটি: " + error.message);
                 submitBtn.innerText = "পাবলিশ করুন";
@@ -900,6 +1102,7 @@
             const divFilter = document.getElementById('heroDivision').value;
             const distFilter = document.getElementById('filterDistrict').value;
             const thanaFilter = document.getElementById('filterThana').value;
+            const sortVal = document.getElementById('priceSortSelect').value;
 
             let filtered = allAds.filter(ad => {
                 const matchQuery = !queryVal || (ad.title && ad.title.toLowerCase().includes(queryVal)) || (ad.location && ad.location.toLowerCase().includes(queryVal));
@@ -910,6 +1113,19 @@
                 const matchThana = !thanaFilter || ad.thana === thanaFilter;
                 return matchQuery && matchCat && matchSubCat && matchDiv && matchDist && matchThana;
             });
+
+            filtered.sort((a, b) => {
+                if(a.isFeatured && !b.isFeatured) return -1;
+                if(!a.isFeatured && b.isFeatured) return 1;
+                return 0;
+            });
+
+            if(sortVal === 'low-high') {
+                filtered.sort((a, b) => parseFloat(String(a.price).replace(/,/g, '')) - parseFloat(String(b.price).replace(/,/g, '')));
+            } else if(sortVal === 'high-low') {
+                filtered.sort((a, b) => parseFloat(String(b.price).replace(/,/g, '')) - parseFloat(String(a.price).replace(/,/g, '')));
+            }
+
             renderAds(filtered);
         };
 
