@@ -279,7 +279,7 @@
         </div>
     </div>
 
-    <!-- Post / Edit Ad Modal (পেমেন্ট অপশন চেকবাক্সসহ আপডেট করা হয়েছে) -->
+    <!-- Post / Edit Ad Modal -->
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
@@ -348,7 +348,6 @@
                     <div class="preview-container" id="imagePreviewContainer"></div>
                 </div>
 
-                <!-- পেমেন্ট অপশন যোগ করার চেকবাক্স ও সেকশন -->
                 <div class="form-group">
                     <label>
                         <input type="checkbox" id="togglePayment" onchange="togglePaymentOptions()"> পেমেন্ট অপশন যোগ করতে চান?
@@ -372,7 +371,6 @@
                     </div>
                 </div>
 
-                <!-- Featured Ad / Boost Option -->
                 <div class="form-group" style="background: rgba(255,204,0,0.15); padding:10px; border-radius:6px; border:1px solid var(--accent);">
                     <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
                         <input type="checkbox" id="postIsFeatured" style="width:16px; height:16px;">
@@ -429,15 +427,14 @@
     </div>
 
     <script>
-        // পেমেন্ট অপশন টগল করার ফাংশন
         function togglePaymentOptions() {
             const checkbox = document.getElementById('togglePayment');
             const paymentSection = document.getElementById('paymentSection');
             
             if (checkbox.checked) {
-                paymentSection.style.display = 'block'; // দেখাবে
+                paymentSection.style.display = 'block';
             } else {
-                paymentSection.style.display = 'none';  // লুকিয়ে রাখবে
+                paymentSection.style.display = 'none';
             }
         }
     </script>
@@ -461,7 +458,8 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        const ADMIN_EMAILS = ["nadim@gmail.com", "admin@baza.com.bd", "mdnadimkhan@gmail.com"];
+        // এখানে আপনার জিমেইল অ্যাকাউন্টটি অ্যাডমিন হিসেবে যুক্ত করা হয়েছে
+        const ADMIN_EMAILS = ["nadimkhan5050@gmail.com", "nadim@gmail.com", "admin@baza.com.bd", "mdnadimkhan@gmail.com"];
         let currentUser = null;
         let isAdmin = false;
         let allAds = [];
@@ -992,7 +990,6 @@
                 document.getElementById('editAdId').value = '';
                 document.getElementById('postModalTitle').innerText = "নতুন বিজ্ঞাপন দিন";
                 document.getElementById('postAdForm').reset();
-                // রিসেট করার পর পেমেন্ট সেকশন হাইড করে দেওয়া
                 document.getElementById('paymentSection').style.display = 'none';
                 selectedImagesBase64 = [];
                 renderImagePreviews();
