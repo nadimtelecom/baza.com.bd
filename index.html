@@ -103,8 +103,12 @@
         .fav-btn { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; color: #555; z-index: 2; }
         .fav-btn.active { color: #ff4757; }
 
+        /* Footer Policies Links */
         footer { text-align: center; padding: 20px; margin-top: 40px; font-size: 13px; color: #777; border-top: 1px solid #ddd; }
         body.dark-mode footer { border-color: #333; }
+        .footer-links { margin-top: 8px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .footer-links span { color: var(--primary); cursor: pointer; text-decoration: underline; font-weight: 600; }
+        .footer-links span:hover { color: var(--accent); }
 
         /* Modals */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; padding: 10px; box-sizing: border-box; }
@@ -230,9 +234,14 @@
         <div class="product-grid" id="adsGrid"></div>
     </div>
 
+    <!-- Footer with Policies -->
     <footer>
         <p>&copy; 2026 Baza.com.bd - All Rights Reserved.</p>
-        <p style="font-size:11px; margin-top:5px;">Developed by Nadim</p>
+        <p style="font-size:11px; margin-top:3px;">Developed by Nadim</p>
+        <div class="footer-links">
+            <span onclick="openModal('privacyModal')">Privacy Policy</span>
+            <span onclick="openModal('termsModal')">Terms & Conditions</span>
+        </div>
     </footer>
 
     <!-- Bottom Navigation -->
@@ -253,6 +262,30 @@
             <i class="fa-solid fa-user"></i> প্রফাইল
         </button>
     </nav>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
+            <h3 style="margin-bottom: 12px; color: var(--primary);">🔒 Privacy Policy (গোপনীয়তা নীতি)</h3>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd-এ আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ। আমরা আপনার ব্যক্তিগত তথ্যের নিরাপত্তা রক্ষায় প্রতিজ্ঞাবদ্ধ।</p>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>তথ্য সংগ্রহ:</strong> আমরা ব্যবহারকারীদের অ্যাকাউন্ট তৈরি এবং বিজ্ঞাপন পোস্ট করার সময় নাম, ইমেইল, ফোন নম্বর এবং লোকেশন সংগ্রহ করতে পারি।</p>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong> কুকিজ (Cookies):</strong> আমাদের সাইট ব্যবহারকারীর অভিজ্ঞতা উন্নত করতে কুকিজ ব্যবহার করে। থার্ড-পার্টি ভেন্ডর যেমন Google AdSense কুকিজ ব্যবহার করে ব্যবহারকারীর আগের ভিজিটের ভিত্তিতে বিজ্ঞাপন দেখাতে পারে।</p>
+            <p style="font-size: 13px; line-height: 1.6;">আপনার কোনো প্রশ্ন থাকলে আমাদের সাথে যোগাযোগ করতে পারেন।</p>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Modal -->
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
+            <h3 style="margin-bottom: 12px; color: var(--primary);">📜 Terms & Conditions (শর্তাবলী)</h3>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd ব্যবহার করার মাধ্যমে আপনি আমাদের শর্তাবলীতে সম্মতি প্রদান করছেন।</p>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>১. বিজ্ঞাপনের সত্যতা:</strong> ব্যবহারকারী নিজে তার পণ্যের বিজ্ঞাপন দেবেন। কোনো ভুয়া, অবৈধ বা প্রতারণামূলক বিজ্ঞাপন পোস্ট করা সম্পূর্ণ নিষিদ্ধ।</p>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>২. অ্যাডমিন অধিকার:</strong> অ্যাডমিন যেকোনো সময় পলিসি-বিরোধী বা স্প্যাম বিজ্ঞাপন নোটিশ ছাড়াই ডিলিট করার অধিকার সংরক্ষণ করেন।</p>
+            <p style="font-size: 13px; line-height: 1.6;"><strong>৩. দায়বদ্ধতা:</strong> ক্রেতা ও বিক্রেতার মধ্যকার লেনদেনের নিরাপত্তার জন্য Baza কর্তৃপক্ষ সরাসরি দায়ী থাকবে না।</p>
+        </div>
+    </div>
 
     <!-- Product Detail Modal -->
     <div class="modal" id="productModal">
@@ -458,7 +491,6 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        // এখানে আপনার জিমেইল অ্যাকাউন্টটি অ্যাডমিন হিসেবে যুক্ত করা হয়েছে
         const ADMIN_EMAILS = ["nadimkhan5050@gmail.com", "nadim@gmail.com", "admin@baza.com.bd", "mdnadimkhan@gmail.com"];
         let currentUser = null;
         let isAdmin = false;
