@@ -65,14 +65,93 @@
         .container { max-width: 1100px; margin: 20px auto; padding: 0 10px; width: 100%; box-sizing: border-box; }
         
         /* Profile & Settings Section Wrapper */
-        .profile-wrapper { background: var(--card-bg-light); border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        .profile-wrapper { background: var(--card-bg-light); border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); position: relative; }
         body.dark-mode .profile-wrapper { background: var(--card-bg-dark); }
         
         .profile-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
         body.dark-mode .profile-header { border-color: #333; }
         .avatar-icon { font-size: 30px; background: #eef2f5; padding: 8px; border-radius: 50%; }
         body.dark-mode .avatar-icon { background: #2a2a2a; }
-        .settings-btn { background: none; border: none; font-size: 20px; cursor: pointer; }
+
+        /* ছোট এবং চোখে না পড়ার মতো সেটিংস বাটন স্টাইল */
+        .settings-trigger-btn {
+            background: transparent;
+            border: none;
+            color: #64748b; 
+            font-size: 18px;  
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        .settings-trigger-btn:hover {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        body.dark-mode .settings-trigger-btn { color: #94a3b8; }
+        body.dark-mode .settings-trigger-btn:hover { background-color: #2a2a2a; color: #fff; }
+
+        /* সেটিংস ড্রপডাউন বা পপআপ মেনু */
+        .settings-dropdown-content {
+            display: none; 
+            position: absolute;
+            right: 20px;
+            top: 60px;
+            background: #ffffff;
+            min-width: 240px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            z-index: 1000;
+            border: 1px solid #e2e8f0;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+        body.dark-mode .settings-dropdown-content { background: #1e1e1e; border-color: #333; }
+
+        .settings-header-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-weight: 600;
+            font-size: 14px;
+            color: #334155;
+        }
+        body.dark-mode .settings-header-title { border-color: #333; color: #e2e8f0; }
+        .settings-header-title .close-icon { cursor: pointer; font-size: 14px; color: #94a3b8; }
+
+        .settings-list {
+            list-style: none;
+            margin: 0;
+            padding: 8px 0;
+        }
+        .settings-list li {
+            padding: 10px 16px;
+            font-size: 14px;
+            color: #475569;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.15s;
+        }
+        body.dark-mode .settings-list li { color: #cbd5e1; }
+        .settings-list li:hover {
+            background-color: #f8fafc;
+            color: #0ea5e9;
+        }
+        body.dark-mode .settings-list li:hover { background-color: #2a2a2a; color: #38bdf8; }
+        .settings-list li i {
+            font-size: 16px;
+            width: 20px;
+            color: #64748b;
+        }
+        body.dark-mode .settings-list li i { color: #94a3b8; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .profile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; }
         .profile-card { background: rgba(0,0,0,0.02); padding: 10px 5px; border-radius: 8px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.04); }
@@ -86,8 +165,6 @@
         .setting-item .text { flex: 1; margin-left: 10px; font-weight: 600; }
         .value-alert { color: #d9534f; font-size: 11px; font-weight: bold; }
         .value { color: #777; font-size: 11px; }
-        .status-enabled { color: #28a745; font-weight: bold; }
-        .status-disabled { color: #dc3545; font-weight: bold; }
 
         .filter-section { background: var(--card-bg-light); padding: 12px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
         body.dark-mode .filter-section { background: var(--card-bg-dark); }
@@ -209,7 +286,7 @@
     </div>
 
     <div class="container">
-        <!-- Integrated Profile & Settings View Container -->
+        <!-- Integrated Profile & Settings Section Wrapper -->
         <div class="profile-wrapper">
             <div class="profile-header">
                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -218,7 +295,26 @@
                         <h2 style="font-size: 16px;">MD NADIM KHAN</h2>
                     </div>
                 </div>
-                <button class="settings-btn" onclick="openModal('settingsModal')">⚙️</button>
+                <!-- চোখের জন্য আরামদায়ক ছোট সেটিংস আইকন -->
+                <button class="settings-trigger-btn" onclick="toggleSettingsMenu()" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+
+            <!-- সেটিংসের ভেতরের কার্যকর প্রোগ্রাম/অপশনগুলোর ড্রপডাউন বক্স -->
+            <div id="settingsDropdownMenu" class="settings-dropdown-content">
+                <div class="settings-header-title">
+                    <span>সেটিংস ও প্রোগ্রাম</span>
+                    <i class="fas fa-times close-icon" onclick="toggleSettingsMenu()"></i>
+                </div>
+                <ul class="settings-list">
+                    <li onclick="openProgram('account')"><i class="fas fa-user-shield"></i> অ্যাকাউন্ট ও নিরাপত্তা</li>
+                    <li onclick="openProgram('notifications')"><i class="fas fa-bell"></i> নোটিফিকেশন সেটিংস</li>
+                    <li onclick="openProgram('language')"><i class="fas fa-globe"></i> ভাষা পরিবর্তন (Language)</li>
+                    <li onclick="openProgram('theme')"><i class="fas fa-moon"></i> ডার্ক মোড / থিম</li>
+                    <li onclick="openProgram('privacy')"><i class="fas fa-lock"></i> প্রাইভেসি পলিসি</li>
+                    <li onclick="openProgram('logout')" class="text-danger"><i class="fas fa-sign-out-alt"></i> লগআউট</li>
+                </ul>
             </div>
 
             <!-- Profile Grid Menu -->
@@ -326,7 +422,7 @@
         <button class="nav-item" onclick="openPostModal(); highlightNav(this);">
             <i class="fa-solid fa-circle-plus" style="color: var(--primary); font-size: 22px;"></i> বিজ্ঞাপন দিন
         </button>
-        <button class="nav-item" onclick="openModal('settingsModal'); highlightNav(this);">
+        <button class="nav-item" onclick="toggleSettingsMenu(); highlightNav(this);">
             <i class="fa-solid fa-gear"></i> সেটিংস
         </button>
         <button class="nav-item" onclick="openModal('accountModal'); highlightNav(this);">
@@ -341,7 +437,6 @@
             <h3 style="margin-bottom: 12px; color: var(--primary);">🔒 Privacy Policy (গোপনীয়তা নীতি)</h3>
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd-এ আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ। আমরা আপনার ব্যক্তিগত তথ্যের নিরাপত্তা রক্ষায় প্রতিজ্ঞাবদ্ধ।</p>
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>তথ্য সংগ্রহ:</strong> আমরা ব্যবহারকারীদের অ্যাকাউন্ট তৈরি এবং বিজ্ঞাপন পোস্ট করার সময় নাম, ইমেইল, ফোন নম্বর এবং লোকেশন সংগ্রহ করতে পারি।</p>
-            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong> কুকিজ (Cookies):</strong> আমাদের সাইট ব্যবহারকারীর অভিজ্ঞতা উন্নত করতে কুকিজ ব্যবহার করে। থার্ড-পার্টি ভেন্ডর যেমন Google AdSense কুকিজ ব্যবহার করে ব্যবহারকারীর আগের ভিজিটের ভিত্তিতে বিজ্ঞাপন দেখাতে পারে।</p>
         </div>
     </div>
 
@@ -352,7 +447,6 @@
             <h3 style="margin-bottom: 12px; color: var(--primary);">📜 Terms & Conditions (শর্তাবলী)</h3>
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd ব্যবহার করার মাধ্যমে আপনি আমাদের শর্তাবলীতে সম্মতি প্রদান করছেন।</p>
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>১. বিজ্ঞাপনের সত্যতা:</strong> ব্যবহারকারী নিজে তার পণ্যের বিজ্ঞাপন দেবেন। কোনো ভুয়া, অবৈধ বা প্রতারণামূলক বিজ্ঞাপন পোস্ট করা সম্পূর্ণ নিষিদ্ধ।</p>
-            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>২. অ্যাডমিন অধিকার:</strong> অ্যাডমিন যেকোনো সময় পলিসি-বিরোধী বা স্প্যাম বিজ্ঞাপন নোটিশ ছাড়াই ডিলিট করার অধিকার সংরক্ষণ করেন।</p>
         </div>
     </div>
 
@@ -503,7 +597,7 @@
     <div class="modal" id="settingsModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('settingsModal')">&times;</span>
-            <h3 style="margin-top:0;">⚙️ সেটিংস</h3>
+            <h3 style="margin-top:0;">⚙️ সেটিংস ও অন্যান্য তথ্য</h3>
             <hr style="margin:10px 0;"><br>
             
             <div class="settings-section">
@@ -536,6 +630,57 @@
             const checkbox = document.getElementById('togglePayment');
             const paymentSection = document.getElementById('paymentSection');
             paymentSection.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        // সেটিংস মেনু টগল করার ফাংশন (ক্লিক করলে ওপেন/ক্লোজ হবে)
+        function toggleSettingsMenu() {
+            const menu = document.getElementById('settingsDropdownMenu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        }
+
+        // পেজের বাইরে কোথাও ক্লিক করলে সেটিংস মেনু বন্ধ হয়ে যাবে
+        window.addEventListener('click', function(e) {
+            const menu = document.getElementById('settingsDropdownMenu');
+            const btn = document.querySelector('.settings-trigger-btn');
+            if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+                menu.style.display = 'none';
+            }
+        });
+
+        // ড্রপডাউন মেনুর ভেতরের প্রতিটি প্রোগ্রামের কার্যকারিতা নিয়ন্ত্রণ করার ফাংশন
+        function openProgram(actionType) {
+            switch(actionType) {
+                case 'account':
+                    openModal('accountModal');
+                    break;
+                case 'notifications':
+                    openModal('wishlistModal');
+                    break;
+                case 'language':
+                    alert('ভাষা বর্তমানে ডিফল্ট (English / বাংলা) হিসেবে সেট করা আছে।');
+                    break;
+                case 'theme':
+                    toggleTheme();
+                    break;
+                case 'privacy':
+                    openModal('privacyModal');
+                    break;
+                case 'logout':
+                    if(typeof logout === 'function') {
+                        logout();
+                    } else {
+                        alert('সফলভাবে লগআউট করা হয়েছে।');
+                    }
+                    break;
+                default:
+                    console.log('অজানা প্রোগ্রাম');
+            }
+            const menu = document.getElementById('settingsDropdownMenu');
+            if(menu) menu.style.display = 'none';
         }
     </script>
 
@@ -739,6 +884,7 @@
         function initLocations() {
             const heroDiv = document.getElementById('heroDivision');
             const postDiv = document.getElementById('postDivision');
+            if(!heroDiv || !postDiv) return;
             heroDiv.innerHTML = '<option value="">সকল বিভাগ</option>';
             postDiv.innerHTML = '<option value="">বিভাগ নির্বাচন করুন</option>';
             bdLocations.forEach(div => {
@@ -814,6 +960,7 @@
         window.onPostCategoryChange = function() {
             const catVal = document.getElementById('postCategory').value;
             const subSelect = document.getElementById('postSubCategory');
+            if(!subSelect) return;
             subSelect.innerHTML = '';
             if(categoryFeatures[catVal]) {
                 categoryFeatures[catVal].forEach(feature => {
@@ -963,6 +1110,7 @@
 
         function renderAds(ads) {
             const grid = document.getElementById('adsGrid');
+            if(!grid) return;
             grid.innerHTML = '';
             if(ads.length === 0) {
                 grid.innerHTML = `<p style="font-size:14px; color:#666; grid-column:1/-1; text-align:center;">কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>`;
@@ -1137,6 +1285,7 @@
             
             const barContainer = document.getElementById('subCategoryBarContainer');
             const subBar = document.getElementById('subCategoryBar');
+            if(!barContainer || !subBar) return;
             subBar.innerHTML = '';
             
             if(cat !== 'all' && categoryFeatures[cat]) {
@@ -1165,9 +1314,17 @@
             filterAds();
         };
 
-        window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
-        window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
-        window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
+        window.openModal = function(id) { 
+            const m = document.getElementById(id);
+            if(m) m.style.display = 'flex'; 
+        };
+        window.closeModal = function(id) { 
+            const m = document.getElementById(id);
+            if(m) m.style.display = 'none'; 
+        };
+        window.toggleTheme = function() { 
+            document.body.classList.toggle('dark-mode'); 
+        };
 
         fetchAds();
         initLocations();
