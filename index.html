@@ -3,591 +3,1174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baza .com.bd - সবকিছু কেনা-বেচা করুন সহজে</title>
+    <title>MD NADIM KHAN - Profile & Baza.com.bd</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary: #008069;
+            --accent: #ffcc00;
+            --bg-light: #f4f6f9;
+            --text-light: #333;
+            --card-bg-light: #fff;
+            --bg-dark: #121212;
+            --text-dark: #f1f1f1;
+            --card-bg-dark: #1e1e1e;
         }
-
-        body {
-            background-color: #f4f6f8;
-            color: #333;
-            padding-bottom: 70px;
-        }
-
-        /* Top Header */
-        .header {
-            background-color: #008751;
-            color: white;
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .logo-area i {
-            color: #ffcc00;
-        }
-
-        .logo-area span {
-            color: #ffffff;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .post-ad-btn {
-            background-color: #ffcc00;
-            color: #000;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Profile & Dropdown Menu */
-        .profile-menu-container {
-            position: relative;
-        }
-
-        .profile-btn {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* Dropdown Box */
-        .dropdown-box {
-            position: absolute;
-            right: 0;
-            top: 45px;
-            background: white;
-            color: #333;
-            width: 280px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-            display: none;
-            z-index: 1100;
-            overflow: hidden;
-            animation: fadeIn 0.2s ease-in-out;
-        }
-
-        .dropdown-box.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .dropdown-header {
-            padding: 12px 15px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .dropdown-header .settings-mini-icon {
-            font-size: 14px;
-            color: #555;
-            cursor: pointer;
-        }
-
-        .dropdown-item {
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            text-decoration: none;
-            color: #444;
-            border-bottom: 1px solid #f1f1f1;
-            font-size: 14px;
-            transition: background 0.2s;
-        }
-
-        .dropdown-item:hover {
-            background: #f8f9fa;
-        }
-
-        .dropdown-item-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .dropdown-item i.item-icon {
-            color: #008751;
-            width: 18px;
-            text-align: center;
-        }
-
-        .dropdown-item i.fa-chevron-left {
-            font-size: 11px;
-            color: #888;
-        }
-
-        /* Hero Banner */
-        .hero {
-            background-color: #008751;
-            color: white;
-            padding: 25px 15px 35px 15px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 22px;
-            margin-bottom: 8px;
-        }
-
-        .hero p {
-            font-size: 13px;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        /* Search Box */
-        .search-container {
-            background: white;
-            padding: 8px;
-            border-radius: 8px;
-            display: flex;
-            max-width: 600px;
-            margin: 0 auto;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .search-container select, 
-        .search-container input {
-            border: none;
-            outline: none;
-            padding: 10px;
-            font-size: 14px;
-        }
-
-        .search-container select {
-            background: #f1f1f1;
-            border-radius: 6px;
-            margin-right: 5px;
-            color: #333;
-        }
-
-        .search-container input {
-            flex: 1;
-        }
-
-        .search-btn {
-            background: #ffcc00;
-            border: none;
-            padding: 0 18px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #000;
-        }
-
-        /* Profile Card Section */
-        .profile-card-section {
-            max-width: 600px;
-            margin: -20px auto 15px auto;
-            padding: 0 15px;
-        }
-
-        .user-card {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .user-info-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 12px;
-        }
-
-        .user-details {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            background: #e1f0eb;
-            color: #008751;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .user-name {
-            font-size: 16px;
-            font-weight: bold;
-            color: #222;
-        }
-
-        /* Grid Dashboard Options */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-
-        .dash-item {
-            background: #f9f9f9;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            padding: 12px 5px;
-            text-align: center;
-            text-decoration: none;
-            color: #333;
-            transition: 0.2s;
-        }
-
-        .dash-item:hover {
-            background: #f1f8f5;
-            border-color: #008751;
-        }
-
-        .dash-item i {
-            font-size: 20px;
-            margin-bottom: 6px;
-            color: #008751;
-        }
-
-        .dash-item span {
-            display: block;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        /* Sponsor Ad Section */
-        .sponsor-section {
-            max-width: 600px;
-            margin: 15px auto;
-            padding: 0 15px;
-        }
-
-        .sponsor-box {
-            background: linear-gradient(135deg, #4a5d6e, #2c3e50);
-            color: white;
-            text-align: center;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 13px;
-        }
-
-        .sponsor-box i {
-            color: #ffcc00;
-            margin-right: 5px;
-        }
-
-        /* Bottom Navigation Bar */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { 
+            background-color: var(--bg-light); 
+            color: var(--text-light); 
+            transition: background 0.3s, color 0.3s; 
+            padding-bottom: 70px; 
+            overflow-x: hidden; 
             width: 100%;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
-            z-index: 1000;
         }
+        body.dark-mode { background-color: var(--bg-dark); color: var(--text-dark); }
 
-        .nav-item {
-            text-align: center;
-            text-decoration: none;
-            color: #666;
-            font-size: 11px;
-            flex: 1;
-        }
+        /* Preloader */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--card-bg-light); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease; }
+        body.dark-mode #preloader { background: var(--bg-dark); }
+        .preloader-logo { font-size: 60px; color: var(--primary); animation: bounce 1.2s infinite alternate; }
+        .preloader-text { margin-top: 15px; font-weight: bold; font-size: 15px; color: #555; }
+        body.dark-mode .preloader-text { color: #aaa; }
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
 
-        .nav-item i {
-            display: block;
-            font-size: 18px;
-            margin-bottom: 3px;
+        /* Header */
+        header { 
+            background-color: var(--primary); 
+            padding: 10px 10px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+            width: 100%;
         }
+        .logo { font-size: 18px; font-weight: bold; color: #ffffff; text-decoration: none; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+        .logo span { color: var(--accent); }
+        .header-controls { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+        .btn-post-ad { background-color: var(--accent); color: #000; padding: 5px 10px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 11px; border: none; cursor: pointer; white-space: nowrap; }
+        .btn-header { background: transparent; border: 1px solid white; color: white; padding: 5px 8px; border-radius: 20px; cursor: pointer; font-size: 11px; font-weight: bold; white-space: nowrap; display: flex; align-items: center; gap: 4px; text-decoration: none; }
+        
+        .hero-banner { background-color: var(--primary); color: white; text-align: center; padding: 25px 15px 35px 15px; width: 100%; }
+        .hero-banner h1 { font-size: 22px; margin-bottom: 8px; }
+        .hero-banner p { font-size: 13px; opacity: 0.9; margin-bottom: 15px; }
+        .search-container { width: 100%; max-width: 650px; margin: 0 auto; display: flex; gap: 6px; background: white; padding: 5px; border-radius: 8px; flex-wrap: wrap; box-sizing: border-box; }
+        .search-container select, .search-container input { border: none; outline: none; padding: 8px; background: #eef2f5; border-radius: 5px; font-weight: bold; color: #333; font-size: 13px; }
+        .search-container input { flex: 1; background: transparent; min-width: 120px; }
+        .search-container button { background-color: var(--accent); border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; color: #000; }
+        
+        .container { max-width: 1100px; margin: 20px auto; padding: 0 10px; width: 100%; box-sizing: border-box; }
+        
+        /* Profile & Settings Section Wrapper */
+        .profile-wrapper { background: var(--card-bg-light); border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        body.dark-mode .profile-wrapper { background: var(--card-bg-dark); }
+        
+        .profile-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
+        body.dark-mode .profile-header { border-color: #333; }
+        .avatar-icon { font-size: 30px; background: #eef2f5; padding: 8px; border-radius: 50%; }
+        body.dark-mode .avatar-icon { background: #2a2a2a; }
+        .settings-btn { background: none; border: none; font-size: 20px; cursor: pointer; }
 
-        .nav-item.active, .nav-item:hover {
-            color: #008751;
-        }
+        .profile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; }
+        .profile-card { background: rgba(0,0,0,0.02); padding: 10px 5px; border-radius: 8px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.04); }
+        body.dark-mode .profile-card { background: rgba(255,255,255,0.03); border-color: #333; }
+        .profile-card .icon { font-size: 20px; display: block; margin-bottom: 4px; }
+        .profile-card h3 { font-size: 11px; font-weight: 600; }
 
-        .nav-item.center-btn i {
-            background: #008751;
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 3px auto;
-            font-size: 16px;
-        }
+        .settings-section { margin-top: 15px; }
+        .setting-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 13px; cursor: pointer; }
+        body.dark-mode .setting-item { border-color: #2a2a2a; }
+        .setting-item .text { flex: 1; margin-left: 10px; font-weight: 600; }
+        .value-alert { color: #d9534f; font-size: 11px; font-weight: bold; }
+        .value { color: #777; font-size: 11px; }
+        .status-enabled { color: #28a745; font-weight: bold; }
+        .status-disabled { color: #dc3545; font-weight: bold; }
+
+        .filter-section { background: var(--card-bg-light); padding: 12px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+        body.dark-mode .filter-section { background: var(--card-bg-dark); }
+        .filter-group { display: flex; gap: 8px; flex-wrap: wrap; flex-grow: 1; }
+        .filter-group select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; outline: none; flex-grow: 1; }
+        body.dark-mode .filter-group select { background: #2a2a2a; color: white; border-color: #444; }
+
+        .banner-ad-slot { background: linear-gradient(135deg, #2c3e50, #bdc3c7); color: white; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        body.dark-mode .banner-ad-slot { background: linear-gradient(135deg, #1a1a1a, #333); }
+
+        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
+        @media (min-width: 768px) { .category-grid { grid-template-columns: repeat(8, 1fr); } }
+        .category-card { background: var(--card-bg-light); padding: 12px 5px; border-radius: 10px; text-align: center; text-decoration: none; color: var(--text-light); box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s; cursor: pointer; border: 1px solid rgba(0,0,0,0.04); }
+        body.dark-mode .category-card { background: var(--card-bg-dark); color: var(--text-dark); border-color: #333; }
+        .category-card:hover { transform: translateY(-3px); }
+        .category-card i { font-size: 24px; margin-bottom: 6px; display: block; }
+        .category-card span { font-size: 11px; font-weight: 600; display: block; line-height: 1.2; }
+
+        .sub-category-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; white-space: nowrap; }
+        .sub-chip { background: var(--card-bg-light); border: 1px solid #ddd; padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; font-weight: 600; color: inherit; transition: 0.2s; }
+        body.dark-mode .sub-chip { background: var(--card-bg-dark); border-color: #444; }
+        .sub-chip.active, .sub-chip:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .section-header h2 { font-size: 18px; color: inherit; }
+        
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+        @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); } }
+        .product-card { background: var(--card-bg-light); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; flex-direction: column; cursor: pointer; position: relative; transition: transform 0.2s; border: 1px solid transparent; }
+        body.dark-mode .product-card { background: var(--card-bg-dark); }
+        .product-card.featured-card { border: 2px solid var(--accent); }
+        .product-card:hover { transform: translateY(-4px); }
+        .product-card img { width: 100%; height: 140px; object-fit: cover; }
+        .product-details { padding: 10px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-price { color: var(--primary); font-weight: bold; font-size: 15px; margin-bottom: 4px; }
+        .product-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: inherit; }
+        .product-location { font-size: 11px; color: #777; margin-bottom: 6px; }
+        .featured-badge { position: absolute; top: 8px; left: 8px; background: var(--accent); color: #000; font-size: 9px; font-weight: bold; padding: 2px 6px; border-radius: 4px; z-index: 2; }
+        .fav-btn { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; color: #555; z-index: 2; }
+        .fav-btn.active { color: #ff4757; }
+
+        /* Footer Policies Links */
+        footer { text-align: center; padding: 20px; margin-top: 40px; font-size: 13px; color: #777; border-top: 1px solid #ddd; }
+        body.dark-mode footer { border-color: #333; }
+        .footer-links { margin-top: 8px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .footer-links span { color: var(--primary); cursor: pointer; text-decoration: underline; font-weight: 600; }
+        .footer-links span:hover { color: var(--accent); }
+
+        /* Modals */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; padding: 10px; box-sizing: border-box; }
+        .modal-content { background: var(--card-bg-light); padding: 20px; border-radius: 12px; max-width: 480px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; box-sizing: border-box; }
+        body.dark-mode .modal-content { background: var(--card-bg-dark); color: var(--text-dark); }
+        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 22px; cursor: pointer; color: #666; }
+
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 13px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 13px; }
+        body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select { background: #2a2a2a; color: white; border-color: #444; }
+
+        .preview-container { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+        .preview-thumb { position: relative; width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid #ccc; }
+        .preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .preview-thumb .remove-img { position: absolute; top: 2px; right: 2px; background: rgba(220, 53, 69, 0.9); color: white; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        .main-img-container { width: 100%; height: 200px; border-radius: 5px; overflow: hidden; background: #000; }
+        .main-img-container img { width: 100%; height: 100%; object-fit: contain; }
+        .thumb-gallery { display: flex; gap: 6px; margin-top: 8px; overflow-x: auto; padding-bottom: 4px; }
+        .thumb-item { width: 50px; height: 50px; border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
+        .thumb-item.active { border-color: var(--primary); }
+        .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Bottom Navigation */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg-light); border-top: 1px solid #ddd; display: flex; justify-content: space-around; align-items: center; padding: 8px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 500; }
+        body.dark-mode .bottom-nav { background: var(--card-bg-dark); border-color: #333; }
+        .nav-item { color: inherit; text-align: center; text-decoration: none; font-size: 11px; font-weight: 600; cursor: pointer; background: none; border: none; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+        .nav-item i { font-size: 18px; }
+        .nav-item.active { color: var(--primary); }
+        
+        .dashboard-box { background: rgba(0,0,0,0.03); padding: 12px; border-radius: 6px; margin-bottom: 12px; }
+        body.dark-mode .dashboard-box { background: rgba(255,255,255,0.05); }
+        .admin-badge { background: #dc3545; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
+        .shop-badge { background: #28a745; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
     </style>
 </head>
 <body>
 
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-logo"><i class="fa-solid fa-tree"></i></div>
+        <div class="preloader-text">শান্তির ছায়ায় কেনা-বেচা, Baza.com.bd লোড হচ্ছে...</div>
+    </div>
+
     <!-- Header -->
-    <div class="header">
-        <div class="logo-area">
-            <i class="fa-solid fa-tree"></i>
-            <span>Baza <b>.com.bd</b></span>
+    <header>
+        <a class="logo" onclick="selectCategory('all')">
+            <i class="fa-solid fa-tree" style="color: var(--accent);"></i> Baza<span>.com.bd</span>
+        </a>
+        <div class="header-controls">
+            <button class="btn-post-ad" onclick="openPostModal()">+ বিজ্ঞাপন দিন</button>
+            <button class="btn-header" onclick="openModal('accountModal')" id="headerAuthBtn">
+                <i class="fa-solid fa-user-circle"></i> <span id="headerAuthText">সাইন ইন</span>
+            </button>
+            <button class="btn-header" onclick="openModal('wishlistModal')">
+                <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span id="wishlistCount" style="font-size: 10px; background: var(--accent); color: #000; padding: 1px 4px; border-radius: 10px; font-weight: bold;">0</span>
+            </button>
         </div>
-        <div class="header-right">
-            <!-- একটি মাত্র বিজ্ঞাপন বাটন -->
-            <a href="#" class="post-ad-btn"><i class="fa-solid fa-plus"></i> <span class="lang-bn">বিজ্ঞাপন দিন</span><span class="lang-en" style="display:none;">Post Ad</span></a>
+    </header>
 
-            <!-- Profile & Dropdown Menu -->
-            <div class="profile-menu-container">
-                <button class="profile-btn" id="profileDropdownBtn">
-                    <i class="fa-solid fa-user-circle"></i> <span class="lang-bn">প্রোফাইল</span><span class="lang-en" style="display:none;">Profile</span> <i class="fa-solid fa-caret-down" style="font-size: 10px;"></i>
-                </button>
-
-                <!-- Dropdown Content -->
-                <div class="dropdown-box" id="profileDropdownContent">
-                    <div class="dropdown-header">
-                        <span class="lang-bn">সেটিংস ও প্রোগ্রাম</span><span class="lang-en" style="display:none;">Settings & Programs</span>
-                        <i class="fa-solid fa-gear settings-mini-icon" title="সেটিংস"></i>
-                    </div>
-
-                    <a href="#" class="dropdown-item">
-                        <div class="dropdown-item-left">
-                            <i class="fa-solid fa-user-shield item-icon"></i>
-                            <span class="lang-bn">অ্যাকাউন্ট ও নিরাপত্তা</span><span class="lang-en" style="display:none;">Account & Security</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </a>
-
-                    <a href="#" class="dropdown-item">
-                        <div class="dropdown-item-left">
-                            <i class="fa-solid fa-bell item-icon"></i>
-                            <span class="lang-bn">নোটিফিকেশন সেটিংস</span><span class="lang-en" style="display:none;">Notification Settings</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </a>
-
-                    <!-- Dual Language Toggle inside Dropdown -->
-                    <a href="#" class="dropdown-item" id="languageToggleBtn">
-                        <div class="dropdown-item-left">
-                            <i class="fa-solid fa-globe item-icon"></i>
-                            <span class="lang-bn">ভাষা পরিবর্তন (English)</span><span class="lang-en" style="display:none;">Change Language (বাংলা)</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </a>
-
-                    <a href="#" class="dropdown-item">
-                        <div class="dropdown-item-left">
-                            <i class="fa-solid fa-moon item-icon"></i>
-                            <span class="lang-bn">ডার্ক মোড / থিম</span><span class="lang-en" style="display:none;">Dark Mode / Theme</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </a>
-
-                    <a href="#" class="dropdown-item">
-                        <div class="dropdown-item-left">
-                            <i class="fa-solid fa-shield-halved item-icon"></i>
-                            <span class="lang-bn">প্রাইভেসি পলিসি</span><span class="lang-en" style="display:none;">Privacy Policy</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </a>
-
-                    <a href="#" class="dropdown-item" style="border-bottom: none;">
-                        <div class="dropdown-item-left">
-                            <i class="fa-solid fa-right-from-bracket item-icon" style="color: #d9534f;"></i>
-                            <span style="color: #d9534f;" class="lang-bn">লগআউট</span><span style="color: #d9534f; display:none;" class="lang-en">Logout</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-left" style="color: #d9534f;"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Hero Banner -->
-    <div class="hero">
-        <h1 class="lang-bn">Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
-        <h1 class="lang-en" style="display:none;">Buy & Sell Everything Easily on Baza</h1>
-        
-        <p class="lang-bn">আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
-        <p class="lang-en" style="display:none;">The safest platform to buy and sell your used or new products</p>
-        
+    <div class="hero-banner">
+        <h1>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
+        <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
         <div class="search-container">
-            <select>
-                <option class="lang-bn">সকল বিভাগ</option>
-                <option class="lang-en" style="display:none;">All Categories</option>
-                <option>মোবাইল / Mobile</option>
-                <option>ইলেকট্রনিক্স / Electronics</option>
-                <option>যানবাহন / Vehicles</option>
+            <select id="heroDivision" onchange="onHeroDivisionChange()">
+                <option value="">সকল বিভাগ</option>
             </select>
-            <input type="text" class="search-input-box" placeholder="কী খুঁজছেন? (যেমন: মোবাইল)">
-            <button class="search-btn"><i class="fa-solid fa-search"></i> <span class="lang-bn">খুঁজুন</span><span class="lang-en" style="display:none;">Search</span></button>
+            <input type="text" id="searchInput" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" onkeyup="if(event.key === 'Enter') filterAds()">
+            <button onclick="filterAds()"><i class="fa-solid fa-magnifying-glass"></i> খুঁজুন</button>
         </div>
     </div>
 
-    <!-- Profile Card Section -->
-    <div class="profile-card-section">
-        <div class="user-card">
-            <div class="user-info-header">
-                <div class="user-details">
-                    <div class="user-avatar">
-                        <i class="fa-solid fa-user"></i>
+    <div class="container">
+        <!-- Integrated Profile & Settings View Container -->
+        <div class="profile-wrapper">
+            <div class="profile-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="avatar-icon">👤</div>
+                    <div class="user-info">
+                        <h2 style="font-size: 16px;">MD NADIM KHAN</h2>
                     </div>
-                    <div class="user-name">MD NADIM KHAN</div>
+                </div>
+                <button class="settings-btn" onclick="openModal('settingsModal')">⚙️</button>
+            </div>
+
+            <!-- Profile Grid Menu -->
+            <div class="profile-grid">
+                <div class="profile-card" onclick="selectCategory('all')">
+                    <span class="icon">📋</span>
+                    <h3>My ads</h3>
+                </div>
+                <div class="profile-card" onclick="openPostModal()">
+                    <span class="icon">💰</span>
+                    <h3>Make money</h3>
+                </div>
+                <div class="profile-card" onclick="openModal('privacyModal')">
+                    <span class="icon">😊</span>
+                    <h3>Feedback</h3>
+                </div>
+                <div class="profile-card" onclick="openModal('termsModal')">
+                    <span class="icon">❓</span>
+                    <h3>FAQ</h3>
+                </div>
+                <div class="profile-card" onclick="openModal('wishlistModal')">
+                    <span class="icon">🔔</span>
+                    <h3>Notifications</h3>
+                </div>
+                <div class="profile-card" onclick="alert('Game Centre is coming soon!')">
+                    <span class="icon">🧩</span>
+                    <h3>Game centre</h3>
+                </div>
+                <div class="profile-card" onclick="alert('No followers yet.')">
+                    <span class="icon">👥</span>
+                    <h3>Followers</h3>
                 </div>
             </div>
+        </div>
 
-            <!-- Dashboard Options Grid -->
-            <div class="dashboard-grid">
-                <a href="#" class="dash-item">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                    <span>My ads</span>
-                </a>
-                <a href="#" class="dash-item">
-                    <i class="fa-solid fa-sack-dollar"></i>
-                    <span>Make money</span>
-                </a>
-                <a href="#" class="dash-item">
-                    <i class="fa-solid fa-face-smile"></i>
-                    <span>Feedback</span>
-                </a>
-                <a href="#" class="dash-item">
-                    <i class="fa-solid fa-circle-question"></i>
-                    <span>FAQ</span>
-                </a>
-                <a href="#" class="dash-item">
-                    <i class="fa-solid fa-bell"></i>
-                    <span>Notifications</span>
-                </a>
-                <a href="#" class="dash-item">
-                    <i class="fa-solid fa-puzzle-piece"></i>
-                    <span>Game centre</span>
-                </a>
-                <a href="#" class="dash-item">
-                    <i class="fa-solid fa-user-group"></i>
-                    <span>Followers</span>
-                </a>
+        <div class="banner-ad-slot">
+            <i class="fa-solid fa-bullhorn" style="color: var(--accent);"></i> স্পন্সরড অ্যাড / গুগলের বিজ্ঞাপন স্পেস (এখানে আপনার অ্যাডসেন্স কোড বসাতে পারেন)
+        </div>
+
+        <div class="filter-section">
+            <div class="filter-group">
+                <select id="filterDistrict" onchange="onHeroDistrictChange()" disabled>
+                    <option value="">প্রথমে বিভাগ সিলেক্ট করুন</option>
+                </select>
+                <select id="filterThana" onchange="filterAds()" disabled>
+                    <option value="">প্রথমে জেলা সিলেক্ট করুন</option>
+                </select>
+                <select id="priceSortSelect" onchange="filterAds()">
+                    <option value="">মূল্য অনুযায়ী সাজান (Default)</option>
+                    <option value="low-high">মূল্য: কম থেকে বেশি</option>
+                    <option value="high-low">মূল্য: বেশি থেকে কম</option>
+                </select>
             </div>
+            <button onclick="resetFilters()" style="padding: 8px 12px; background:#6c757d; color:white; border:none; border-radius:4px; cursor:pointer; font-size:12px;">রিসেট</button>
         </div>
+
+        <div class="category-grid">
+            <div class="category-card" onclick="selectCategory('all')"><i class="fa-solid fa-fire" style="color: #ff4757;"></i><span>Trending</span></div>
+            <div class="category-card" onclick="selectCategory('vehicles')"><i class="fa-solid fa-car" style="color: #2ed573;"></i><span>Vehicles</span></div>
+            <div class="category-card" onclick="selectCategory('property')"><i class="fa-solid fa-house" style="color: #ffa502;"></i><span>Property</span></div>
+            <div class="category-card" onclick="selectCategory('mobile')"><i class="fa-solid fa-mobile-screen-button" style="color: #3742fa;"></i><span>Phones</span></div>
+            <div class="category-card" onclick="selectCategory('electronics')"><i class="fa-solid fa-laptop" style="color: #70a1ff;"></i><span>Electronics</span></div>
+            <div class="category-card" onclick="selectCategory('furniture')"><i class="fa-solid fa-couch" style="color: #ff6b81;"></i><span>Furniture</span></div>
+            <div class="category-card" onclick="selectCategory('fashion')"><i class="fa-solid fa-shirt" style="color: #9b59b6;"></i><span>Fashion</span></div>
+            <div class="category-card" onclick="selectCategory('beauty')"><i class="fa-solid fa-pump-soap" style="color: #e84393;"></i><span>Beauty Care</span></div>
+            <div class="category-card" onclick="selectCategory('services')"><i class="fa-solid fa-wrench" style="color: #fd9644;"></i><span>Services</span></div>
+            <div class="category-card" onclick="selectCategory('construction')"><i class="fa-solid fa-helmet-safety" style="color: #f1c40f;"></i><span>Construction</span></div>
+            <div class="category-card" onclick="selectCategory('tools')"><i class="fa-solid fa-gears" style="color: #576574;"></i><span>Tools</span></div>
+            <div class="category-card" onclick="selectCategory('leisure')"><i class="fa-solid fa-person-biking" style="color: #10ac84;"></i><span>Leisure</span></div>
+            <div class="category-card" onclick="selectCategory('kids')"><i class="fa-solid fa-teddy-bear" style="color: #ff9ff3;"></i><span>Babies & Kids</span></div>
+            <div class="category-card" onclick="selectCategory('farm')"><i class="fa-solid fa-basket-shopping" style="color: #01a3a4;"></i><span>Agriculture</span></div>
+            <div class="category-card" onclick="selectCategory('pets')"><i class="fa-solid fa-dog" style="color: #ff7f50;"></i><span>Pets</span></div>
+            <div class="category-card" onclick="selectCategory('jobs')"><i class="fa-solid fa-briefcase" style="color: #2f3640;"></i><span>Jobs</span></div>
+        </div>
+
+        <div id="subCategoryBarContainer" style="display:none;">
+            <div class="sub-category-bar" id="subCategoryBar"></div>
+        </div>
+
+        <div class="section-header">
+            <h2 id="sectionTitle">সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
+        </div>
+
+        <div class="product-grid" id="adsGrid"></div>
     </div>
 
-    <!-- Sponsor Section -->
-    <div class="sponsor-section">
-        <div class="sponsor-box">
-            <i class="fa-solid fa-bullhorn"></i> <span class="lang-bn">স্পনসরড অ্যাড / গুগলের বিজ্ঞাপন স্পেস (এখানে আপনার অ্যাডসেন্স কোড বসাতে পারেন)</span><span class="lang-en" style="display:none;">Sponsored Ad / Google Ad Space (You can place your AdSense code here)</span>
+    <!-- Footer with Policies -->
+    <footer>
+        <p>&copy; 2026 Baza.com.bd - All Rights Reserved.</p>
+        <p style="font-size:11px; margin-top:3px;">Developed by Nadim</p>
+        <div class="footer-links">
+            <span onclick="openModal('privacyModal')">Privacy Policy</span>
+            <span onclick="openModal('termsModal')">Terms & Conditions</span>
         </div>
-    </div>
+    </footer>
 
     <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active">
-            <i class="fa-solid fa-house"></i>
-            <span class="lang-bn">হোম পেজ</span><span class="lang-en" style="display:none;">Home</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-heart"></i>
-            <span class="lang-bn">উইশলিস্ট</span><span class="lang-en" style="display:none;">Wishlist</span>
-        </a>
-        <a href="#" class="nav-item center-btn">
-            <i class="fa-solid fa-plus"></i>
-            <span class="lang-bn">বিজ্ঞাপন</span><span class="lang-en" style="display:none;">Post Ad</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-gear"></i>
-            <span class="lang-bn">সেটিংস</span><span class="lang-en" style="display:none;">Settings</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i class="fa-solid fa-user"></i>
-            <span class="lang-bn">প্রোফাইল</span><span class="lang-en" style="display:none;">Profile</span>
-        </a>
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="selectCategory('all'); highlightNav(this);">
+            <i class="fa-solid fa-house"></i> হোম পেজ
+        </button>
+        <button class="nav-item" onclick="openModal('wishlistModal'); highlightNav(this);">
+            <i class="fa-solid fa-heart"></i> উইশলিস্ট
+        </button>
+        <button class="nav-item" onclick="openPostModal(); highlightNav(this);">
+            <i class="fa-solid fa-circle-plus" style="color: var(--primary); font-size: 22px;"></i> বিজ্ঞাপন দিন
+        </button>
+        <button class="nav-item" onclick="openModal('settingsModal'); highlightNav(this);">
+            <i class="fa-solid fa-gear"></i> সেটিংস
+        </button>
+        <button class="nav-item" onclick="openModal('accountModal'); highlightNav(this);">
+            <i class="fa-solid fa-user"></i> প্রফাইল
+        </button>
+    </nav>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
+            <h3 style="margin-bottom: 12px; color: var(--primary);">🔒 Privacy Policy (গোপনীয়তা নীতি)</h3>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd-এ আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ। আমরা আপনার ব্যক্তিগত তথ্যের নিরাপত্তা রক্ষায় প্রতিজ্ঞাবদ্ধ।</p>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>তথ্য সংগ্রহ:</strong> আমরা ব্যবহারকারীদের অ্যাকাউন্ট তৈরি এবং বিজ্ঞাপন পোস্ট করার সময় নাম, ইমেইল, ফোন নম্বর এবং লোকেশন সংগ্রহ করতে পারি।</p>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong> কুকিজ (Cookies):</strong> আমাদের সাইট ব্যবহারকারীর অভিজ্ঞতা উন্নত করতে কুকিজ ব্যবহার করে। থার্ড-পার্টি ভেন্ডর যেমন Google AdSense কুকিজ ব্যবহার করে ব্যবহারকারীর আগের ভিজিটের ভিত্তিতে বিজ্ঞাপন দেখাতে পারে।</p>
+        </div>
     </div>
 
-    <!-- JavaScript for Dropdown & Dual Language Toggle -->
+    <!-- Terms & Conditions Modal -->
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
+            <h3 style="margin-bottom: 12px; color: var(--primary);">📜 Terms & Conditions (শর্তাবলী)</h3>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd ব্যবহার করার মাধ্যমে আপনি আমাদের শর্তাবলীতে সম্মতি প্রদান করছেন।</p>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>১. বিজ্ঞাপনের সত্যতা:</strong> ব্যবহারকারী নিজে তার পণ্যের বিজ্ঞাপন দেবেন। কোনো ভুয়া, অবৈধ বা প্রতারণামূলক বিজ্ঞাপন পোস্ট করা সম্পূর্ণ নিষিদ্ধ।</p>
+            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>২. অ্যাডমিন অধিকার:</strong> অ্যাডমিন যেকোনো সময় পলিসি-বিরোধী বা স্প্যাম বিজ্ঞাপন নোটিশ ছাড়াই ডিলিট করার অধিকার সংরক্ষণ করেন।</p>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
+            <div class="main-img-container"><img id="modalMainImg" src="" alt="Product"></div>
+            <div class="thumb-gallery" id="modalThumbGallery"></div>
+            <h3 id="modalTitle" style="margin: 10px 0 5px 0; font-size:16px;"></h3>
+            <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:18px; margin:5px 0;"></p>
+            <p id="modalLocation" style="color:#777; font-size:13px; margin:3px 0;"></p>
+            <p id="modalSeller" style="font-size:12px; color:#555; margin:3px 0;"></p>
+            <p id="modalDesc" style="font-size:13px; margin:8px 0;"></p>
+            
+            <div style="background: rgba(0,128,105,0.05); padding:10px; border-radius:6px; margin:10px 0; border: 1px dashed var(--primary);">
+                <p style="font-size:11px; font-weight:bold; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-shield-halved"></i> Baza Safe Delivery & Commission Service</p>
+                <p style="font-size:11px; color:#666;">হোম ডেলিভারি নিতে চাইলে বা নিরাপদে কিনতে অর্ডার কনফার্ম করুন।</p>
+                <button onclick="requestOnlineOrder()" style="width:100%; margin-top:8px; padding:7px; background:var(--accent); color:#000; border:none; border-radius:4px; font-weight:bold; font-size:12px; cursor:pointer;">🛍️ অনলাইন অর্ডার কনফার্ম করুন</button>
+            </div>
+
+            <div style="display: flex; gap: 5px; margin-top:10px;">
+                <a id="callLink" href="#" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:var(--primary); color:white; border-radius:4px; font-weight:bold;">📞 কল করুন</a>
+                <a id="waLink" href="#" target="_blank" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:#25D366; color:white; border-radius:4px; font-weight:bold;">💬 WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post / Edit Ad Modal -->
+    <div class="modal" id="postAdModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
+            <h3 id="postModalTitle" style="margin-top:0; font-size:16px;">নতুন বিজ্ঞাপন দিন</h3>
+            <form id="postAdForm" onsubmit="handlePostAd(event)">
+                <input type="hidden" id="editAdId" value="">
+                <div class="form-group">
+                    <label>শিরোনাম</label>
+                    <input type="text" id="postTitle" required placeholder="যেমন: Redmi Note 13">
+                </div>
+                <div class="form-group">
+                    <label>ক্যাটাগরি</label>
+                    <select id="postCategory" onchange="onPostCategoryChange()">
+                        <option value="vehicles">🚗 Vehicles</option>
+                        <option value="property">🏠 Property</option>
+                        <option value="mobile">📱 Phones & Tablets</option>
+                        <option value="electronics">💻 Electronics</option>
+                        <option value="furniture">🛋️ Home & Furniture</option>
+                        <option value="fashion">👕 Fashion</option>
+                        <option value="beauty">💄 Beauty & Care</option>
+                        <option value="services">🛠️ Services</option>
+                        <option value="construction">👷 Repair & Construction</option>
+                        <option value="tools">⚙️ Commercial Tools</option>
+                        <option value="leisure">🚴 Leisure</option>
+                        <option value="kids">🧸 Babies & Kids</option>
+                        <option value="farm">🛒 Food & Agriculture</option>
+                        <option value="pets">🐶 Animals & Pets</option>
+                        <option value="jobs">💼 Jobs</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>সাব-ক্যাটাগরি / ফিচার</label>
+                    <select id="postSubCategory" required>
+                        <option value="">প্রথমে ক্যাটাগরি সিলেক্ট করুন</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>মূল্য (টাকা)</label>
+                    <input type="text" id="postPrice" required placeholder="যেমন: 25000">
+                </div>
+                <div class="form-group">
+                    <label>ফোন নম্বর</label>
+                    <input type="tel" id="postPhone" required placeholder="01916390762">
+                </div>
+                <div class="form-group">
+                    <label>বিভাগ (Division)</label>
+                    <select id="postDivision" onchange="onPostDivisionChange()" required>
+                        <option value="">বিভাগ নির্বাচন করুন</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>জেলা (District)</label>
+                    <select id="postDistrict" onchange="onPostDistrictChange()" disabled required>
+                        <option value="">প্রথমে বিভাগ নির্বাচন করুন</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>থানা / উপজেলা (Thana)</label>
+                    <select id="postThana" disabled required>
+                        <option value="">প্রথমে জেলা নির্বাচন করুন</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
+                    <input type="file" id="postFiles" accept="image/*" multiple onchange="handleImageSelection(event)">
+                    <div class="preview-container" id="imagePreviewContainer"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="togglePayment" onchange="togglePaymentOptions()"> পেমেন্ট অপশন যোগ করতে চান?
+                    </label>
+                </div>
+
+                <div id="paymentSection" style="display: none; border: 1px solid #ddd; padding: 15px; margin-top: 10px; margin-bottom: 12px; border-radius: 5px; background: rgba(0,0,0,0.01);">
+                    <h4 style="font-size:14px; margin-bottom:8px;">পেমেন্ট মাধ্যমসমূহ</h4>
+                    <div class="payment-method" style="font-size:12px; margin-bottom:6px;">
+                        <p><strong>বিকাশ / রকেট / নগদ (Personal):</strong> 01916390762</p>
+                    </div>
+                </div>
+
+                <div class="form-group" style="background: rgba(255,204,0,0.15); padding:10px; border-radius:6px; border:1px solid var(--accent);">
+                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                        <input type="checkbox" id="postIsFeatured" style="width:16px; height:16px;">
+                        <span>⭐ এই বিজ্ঞাপনটি ফিচার বা বুস্ট করুন</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>বিবরণ</label>
+                    <textarea id="postDesc" rows="3" required></textarea>
+                </div>
+                <button type="submit" id="submitBtn" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Dashboard & Profile Modal -->
+    <div class="modal" id="accountModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
+            <h3 style="margin-top:0;">প্রফাইল ও অ্যাকাউন্ট</h3>
+            <hr style="margin:10px 0;"><br>
+            <div id="authContent"></div>
+        </div>
+    </div>
+
+    <!-- Wishlist Modal -->
+    <div class="modal" id="wishlistModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('wishlistModal')">&times;</span>
+            <h3 style="margin-top:0;">❤️ প্রিয় বিজ্ঞাপনসমূহ (Wishlist)</h3>
+            <hr style="margin:10px 0;"><br>
+            <div id="wishlistContainer"></div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('settingsModal')">&times;</span>
+            <h3 style="margin-top:0;">⚙️ সেটিংস</h3>
+            <hr style="margin:10px 0;"><br>
+            
+            <div class="settings-section">
+                <div class="setting-item">
+                    <span class="icon green">📞</span>
+                    <span class="text">Phone numbers</span>
+                    <span class="value-alert">01916390762 ⚠️</span>
+                </div>
+                <div class="setting-item">
+                    <span class="icon orange">✉️</span>
+                    <span class="text">Confirm email</span>
+                    <span class="value-alert">nadimkhan5050@... ⚠️</span>
+                </div>
+                <div class="setting-item">
+                    <span class="icon green">🌐</span>
+                    <span class="text">Change language</span>
+                    <span class="value">English</span>
+                </div>
+            </div>
+
+            <div class="dashboard-box" style="margin-top: 15px;">
+                <h4 style="margin-bottom:6px; font-size:14px;">থিম মোড</h4>
+                <button onclick="toggleTheme()" style="width:100%; padding:9px; background:var(--primary); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;">ডার্ক / লাইট মোড পরিবর্তন করুন</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const profileBtn = document.getElementById('profileDropdownBtn');
-        const profileDropdown = document.getElementById('profileDropdownContent');
-        const languageToggleBtn = document.getElementById('languageToggleBtn');
-        
-        let currentLang = 'bn';
+        function togglePaymentOptions() {
+            const checkbox = document.getElementById('togglePayment');
+            const paymentSection = document.getElementById('paymentSection');
+            paymentSection.style.display = checkbox.checked ? 'block' : 'none';
+        }
+    </script>
 
-        profileBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            profileDropdown.classList.toggle('active');
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCFAZIX-TS2_gyWFP0IEurYTxZVGb1_3qg",
+            authDomain: "baza-30f91.firebaseapp.com",
+            projectId: "baza-30f91",
+            storageBucket: "baza-30f91.firebasestorage.app",
+            messagingSenderId: "637633219909",
+            appId: "1:637633219909:web:6f2c6f49dafef5f62f022c",
+            measurementId: "G-ETYZ29DWQH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        const ADMIN_EMAILS = ["nadimkhan5050@gmail.com", "nadim@gmail.com", "admin@baza.com.bd", "mdnadimkhan@gmail.com"];
+        let currentUser = null;
+        let isAdmin = false;
+        let allAds = [];
+        let currentCategory = 'all';
+        let currentSubCategory = 'all';
+        let selectedImagesBase64 = [];
+        let wishlist = JSON.parse(localStorage.getItem('baza_wishlist')) || [];
+        let shopMembers = JSON.parse(localStorage.getItem('baza_shops')) || [];
+
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => preloader.style.display = 'none', 500);
+            }, 800);
+            updateWishlistCount();
         });
 
-        // Close dropdown when clicking outside
-        window.addEventListener('click', function() {
-            if (profileDropdown.classList.contains('active')) {
-                profileDropdown.classList.remove('active');
+        window.highlightNav = function(element) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+        };
+
+        function convertImageToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        const maxDim = 500;
+                        if (width > height) {
+                            if (width > maxDim) { height *= maxDim / width; width = maxDim; }
+                        } else {
+                            if (height > maxDim) { width *= maxDim / height; height = maxDim; }
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.6));
+                    };
+                    img.onerror = (error) => reject(error);
+                };
+                reader.onerror = (error) => reject(error);
+            });
+        }
+
+        window.handleImageSelection = async function(event) {
+            const files = event.target.files;
+            if (files.length > 0) {
+                if (selectedImagesBase64.length + files.length > 5) {
+                    alert("সর্বোচ্চ ৫টি ছবি সিলেক্ট করা যাবে!");
+                    return;
+                }
+                for (let i = 0; i < files.length; i++) {
+                    const base64Str = await convertImageToBase64(files[i]);
+                    selectedImagesBase64.push(base64Str);
+                }
+                renderImagePreviews();
             }
-        });
+            event.target.value = '';
+        };
 
-        profileDropdown.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
+        function renderImagePreviews() {
+            const container = document.getElementById('imagePreviewContainer');
+            container.innerHTML = '';
+            selectedImagesBase64.forEach((imgStr, index) => {
+                container.innerHTML += `
+                    <div class="preview-thumb">
+                        <img src="${imgStr}" alt="Preview">
+                        <button type="button" class="remove-img" onclick="removeSelectedImage(${index})">&times;</button>
+                    </div>
+                `;
+            });
+        }
 
-        // Dual Language Switcher Logic
-        languageToggleBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const bnElements = document.querySelectorAll('.lang-bn');
-            const enElements = document.querySelectorAll('.lang-en');
-            const searchInput = document.querySelector('.search-input-box');
+        window.removeSelectedImage = function(index) {
+            selectedImagesBase64.splice(index, 1);
+            renderImagePreviews();
+        };
 
-            if (currentLang === 'bn') {
-                currentLang = 'en';
-                bnElements.forEach(el => el.style.display = 'none');
-                enElements.forEach(el => el.style.display = 'inline');
-                if(searchInput) searchInput.placeholder = "What are you looking for? (e.g. mobile)";
+        window.toggleWishlist = function(event, id) {
+            event.stopPropagation();
+            const index = wishlist.indexOf(id);
+            if (index > -1) {
+                wishlist.splice(index, 1);
             } else {
-                currentLang = 'bn';
-                enElements.forEach(el => el.style.display = 'none');
-                bnElements.forEach(el => el.style.display = 'inline');
-                if(searchInput) searchInput.placeholder = "কী খুঁজছেন? (যেমন: মোবাইল)";
+                wishlist.push(id);
             }
-            profileDropdown.classList.remove('active');
+            localStorage.setItem('baza_wishlist', JSON.stringify(wishlist));
+            updateWishlistCount();
+            filterAds();
+            renderWishlistModal();
+        };
+
+        function updateWishlistCount() {
+            const el = document.getElementById('wishlistCount');
+            if(el) el.innerText = wishlist.length;
+        }
+
+        function renderWishlistModal() {
+            const container = document.getElementById('wishlistContainer');
+            if(!container) return;
+            const favAds = allAds.filter(ad => wishlist.includes(ad.id));
+            if(favAds.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:#777; font-size:13px; padding: 20px 0;">আপনার উইশলিস্টে কোনো পণ্য নেই।</p>`;
+                return;
+            }
+            container.innerHTML = favAds.map(ad => `
+                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:8px; margin-bottom:6px; border-radius:6px; cursor:pointer;" onclick="openProductDetail('${ad.id}'); closeModal('wishlistModal');">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <img src="${ad.images ? ad.images[0] : ad.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
+                        <div>
+                            <div style="font-size:13px; font-weight:bold;">${ad.title}</div>
+                            <div style="font-size:12px; color:var(--primary);">৳ ${ad.price}</div>
+                        </div>
+                    </div>
+                    <button onclick="toggleWishlist(event, '${ad.id}')" style="background:none; border:none; color:#ff4757; font-size:16px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+        }
+
+        window.upgradeToShop = function() {
+            if(!currentUser) return;
+            if(!shopMembers.includes(currentUser.uid)) {
+                shopMembers.push(currentUser.uid);
+                localStorage.setItem('baza_shops', JSON.stringify(shopMembers));
+                alert("অভিনন্দন! আপনার অ্যাকাউন্টটি এখন ভেন্ডর শপ মেম্বারশিপে উন্নীত হয়েছে।");
+                renderAuthUI();
+            }
+        };
+
+        window.requestOnlineOrder = function() {
+            alert("আপনার অর্ডার রিকোয়েস্ট সফলভাবে গ্রহণ করা হয়েছে! Baza ডেলিভারি টিম খুব শীঘ্রই আপনার সাথে যোগাযোগ করবে।");
+            closeModal('productModal');
+        };
+
+        const categoryFeatures = {
+            'vehicles': ['সকল', 'মোটরসাইকেল', 'কার', 'বাইক', 'সাইকেল', 'বাস ও ট্রাক'],
+            'property': ['সকল', 'অ্যাপার্টমেন্ট ও ফ্ল্যাট', 'জমি ও প্লট', 'রুম ভাড়া'],
+            'mobile': ['সকল', 'স্মার্টফোন', 'ফিচার ফোন', 'ট্যাবলেট', 'মোবাইল এক্সেসরিজ'],
+            'electronics': ['সকল', 'ল্যাপটপ ও কম্পিউটার', 'টিভি ও অডিও', 'এসি ও ফ্রিজ'],
+            'furniture': ['সকল', 'বেড ও খাট', 'সোফা ও চেয়ার', 'ডাইনিং টেবিল'],
+            'fashion': ['সকল', 'পুরুষের পোশাক', 'মহিলাদের পোশাক', 'জুতো ও স্যান্ডেল'],
+            'beauty': ['সকল', 'স্কিন কেয়ার', 'হেয়ার কেয়ার', 'মেকআপ আইটেম'],
+            'services': ['সকল', 'রিপেয়ারিং সার্ভিস', 'টিউশনি ও কোচিং'],
+            'construction': ['সকল', 'রড ও সিমেন্ট', 'ইট ও বালু', 'টুলস ও হার্ডওয়্যার'],
+            'tools': ['সকল', 'ইন্ডাস্ট্রিয়াল মেশিন', 'জেনারেটর ও সোলার'],
+            'leisure': ['সকল', 'স্পোর্টস আইটেম', 'বই ও ম্যাগাজিন'],
+            'kids': ['সকল', 'বাচ্চাদের জামাকাপড়', 'খেলনা'],
+            'farm': ['সকল', 'তাজা ফল ও সবজি', 'বীজ ও সার'],
+            'pets': ['সকল', 'বিড়াল ও কুকুর', 'পাখি ও কবুতর'],
+            'jobs': ['সকল', 'সেলস ও মার্কেটিং', 'অফিস স্টাফ', 'ড্রাইভার']
+        };
+
+        const bdLocations = [
+            {
+                division: "Chattogram",
+                districts: [
+                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Kotwali", "Khulshi", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Patiya", "Sitakunda", "Mirsharai"] },
+                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Ukhiya", "Teknaf"] }
+                ]
+            },
+            {
+                division: "Dhaka",
+                districts: [
+                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel"] },
+                    { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Sreepur"] }
+                ]
+            }
+        ];
+
+        function initLocations() {
+            const heroDiv = document.getElementById('heroDivision');
+            const postDiv = document.getElementById('postDivision');
+            heroDiv.innerHTML = '<option value="">সকল বিভাগ</option>';
+            postDiv.innerHTML = '<option value="">বিভাগ নির্বাচন করুন</option>';
+            bdLocations.forEach(div => {
+                heroDiv.innerHTML += `<option value="${div.division}">${div.division}</option>`;
+                postDiv.innerHTML += `<option value="${div.division}">${div.division}</option>`;
+            });
+        }
+
+        window.onHeroDivisionChange = function() {
+            const divVal = document.getElementById('heroDivision').value;
+            const distSelect = document.getElementById('filterDistrict');
+            const thanaSelect = document.getElementById('filterThana');
+            distSelect.innerHTML = '<option value="">সকল জেলা</option>';
+            thanaSelect.innerHTML = '<option value="">সকল থানা</option>';
+            thanaSelect.disabled = true;
+            if(!divVal) { distSelect.disabled = true; filterAds(); return; }
+            distSelect.disabled = false;
+            const found = bdLocations.find(d => d.division === divVal);
+            if(found) {
+                found.districts.forEach(dist => { distSelect.innerHTML += `<option value="${dist.district}">${dist.district}</option>`; });
+            }
+            filterAds();
+        };
+
+        window.onHeroDistrictChange = function() {
+            const divVal = document.getElementById('heroDivision').value;
+            const distVal = document.getElementById('filterDistrict').value;
+            const thanaSelect = document.getElementById('filterThana');
+            thanaSelect.innerHTML = '<option value="">সকল থানা</option>';
+            if(!distVal) { thanaSelect.disabled = true; filterAds(); return; }
+            thanaSelect.disabled = false;
+            const foundDiv = bdLocations.find(d => d.division === divVal);
+            if(foundDiv) {
+                const foundDist = foundDiv.districts.find(ds => ds.district === distVal);
+                if(foundDist) {
+                    foundDist.thanas.forEach(thana => { thanaSelect.innerHTML += `<option value="${thana}">${thana}</option>`; });
+                }
+            }
+            filterAds();
+        };
+
+        window.onPostDivisionChange = function() {
+            const divVal = document.getElementById('postDivision').value;
+            const distSelect = document.getElementById('postDistrict');
+            const thanaSelect = document.getElementById('postThana');
+            distSelect.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
+            thanaSelect.innerHTML = '<option value="">প্রথমে জেলা নির্বাচন করুন</option>';
+            thanaSelect.disabled = true;
+            if(!divVal) { distSelect.disabled = true; return; }
+            distSelect.disabled = false;
+            const found = bdLocations.find(d => d.division === divVal);
+            if(found) {
+                found.districts.forEach(dist => { distSelect.innerHTML += `<option value="${dist.district}">${dist.district}</option>`; });
+            }
+        };
+
+        window.onPostDistrictChange = function() {
+            const divVal = document.getElementById('postDivision').value;
+            const distVal = document.getElementById('postDistrict').value;
+            const thanaSelect = document.getElementById('postThana');
+            thanaSelect.innerHTML = '<option value="">থানা নির্বাচন করুন</option>';
+            if(!distVal) { thanaSelect.disabled = true; return; }
+            thanaSelect.disabled = false;
+            const foundDiv = bdLocations.find(d => d.division === divVal);
+            if(foundDiv) {
+                const foundDist = foundDiv.districts.find(ds => ds.district === distVal);
+                if(foundDist) {
+                    foundDist.thanas.forEach(thana => { thanaSelect.innerHTML += `<option value="${thana}">${thana}</option>`; });
+                }
+            }
+        };
+
+        window.onPostCategoryChange = function() {
+            const catVal = document.getElementById('postCategory').value;
+            const subSelect = document.getElementById('postSubCategory');
+            subSelect.innerHTML = '';
+            if(categoryFeatures[catVal]) {
+                categoryFeatures[catVal].forEach(feature => {
+                    if(feature !== 'সকল') { subSelect.innerHTML += `<option value="${feature}">${feature}</option>`; }
+                });
+            }
+        };
+
+        window.resetFilters = function() {
+            document.getElementById('heroDivision').value = '';
+            document.getElementById('filterDistrict').innerHTML = '<option value="">প্রথমে বিভাগ সিলেক্ট করুন</option>';
+            document.getElementById('filterDistrict').disabled = true;
+            document.getElementById('filterThana').innerHTML = '<option value="">প্রথমে জেলা সিলেক্ট করুন</option>';
+            document.getElementById('filterThana').disabled = true;
+            document.getElementById('priceSortSelect').value = '';
+            document.getElementById('searchInput').value = '';
+            filterAds();
+        };
+
+        onAuthStateChanged(auth, user => {
+            currentUser = user;
+            isAdmin = user && user.email && ADMIN_EMAILS.includes(user.email.toLowerCase());
+            renderAuthUI();
         });
+
+        window.loginWithGoogle = function() {
+            signInWithPopup(auth, new GoogleAuthProvider()).catch(error => alert(error.message));
+        };
+
+        window.logout = function() {
+            signOut(auth).then(() => alert("লগআউট সফল হয়েছে!"));
+        };
+
+        window.deleteAd = async function(id) {
+            if(confirm("আপনি কি এই বিজ্ঞাপনটি মুছে ফেলতে চান?")) {
+                try {
+                    await deleteDoc(doc(db, "ads", id));
+                    alert("বিজ্ঞাপনটি সফলভাবে ডিলিট করা হয়েছে!");
+                } catch(error) {
+                    alert("ত্রুটি: " + error.message);
+                }
+            }
+        };
+
+        window.editAd = function(id) {
+            const ad = allAds.find(a => a.id === id);
+            if(!ad) return;
+            
+            document.getElementById('editAdId').value = ad.id;
+            document.getElementById('postModalTitle').innerText = "বিজ্ঞাপন এডিট করুন";
+            document.getElementById('postTitle').value = ad.title;
+            document.getElementById('postCategory').value = ad.category;
+            onPostCategoryChange();
+            document.getElementById('postSubCategory').value = ad.subCategory || '';
+            document.getElementById('postPrice').value = ad.price;
+            document.getElementById('postPhone').value = ad.phone;
+            document.getElementById('postDivision').value = ad.division || '';
+            onPostDivisionChange();
+            document.getElementById('postDistrict').value = ad.district || '';
+            onPostDistrictChange();
+            document.getElementById('postThana').value = ad.thana || '';
+            document.getElementById('postDesc').value = ad.desc;
+            document.getElementById('postIsFeatured').checked = ad.isFeatured || false;
+            
+            selectedImagesBase64 = ad.images || (ad.img ? [ad.img] : []);
+            renderImagePreviews();
+            
+            closeModal('accountModal');
+            openModal('postAdModal');
+        };
+
+        function renderAuthUI() {
+            const container = document.getElementById('authContent');
+            const headerAuthText = document.getElementById('headerAuthText');
+            if(headerAuthText) {
+                headerAuthText.innerText = currentUser ? 'প্রোফাইল' : 'সাইন ইন';
+            }
+            if(!container) return;
+            if(currentUser) {
+                const isShopOwner = shopMembers.includes(currentUser.uid);
+                const myAds = allAds.filter(a => a.userId === currentUser.uid);
+                let myAdsHtml = myAds.map(ad => `
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:6px 10px; margin-bottom:5px; border-radius:4px; font-size:12px;">
+                        <span>${ad.title} (৳ ${ad.price}) ${ad.isFeatured ? '⭐' : ''}</span>
+                        <div style="display:flex; gap:4px;">
+                            <button onclick="editAd('${ad.id}')" style="background:#ffc107; color:#000; border:none; padding:3px 8px; border-radius:3px; cursor:pointer; font-weight:bold;">এডিট</button>
+                            <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">ডিলিট</button>
+                        </div>
+                    </div>
+                `).join('') || '<p style="font-size:12px; color:#777;">আপনার কোনো বিজ্ঞাপন নেই।</p>';
+
+                let adminHtml = '';
+                if(isAdmin) {
+                    let allAdsAdminList = allAds.map(ad => `
+                        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(220,53,69,0.05); padding:6px 10px; margin-bottom:5px; border-radius:4px; font-size:12px;">
+                            <span>${ad.title} - <b>${ad.userName || 'ইউজার'}</b></span>
+                            <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">রিমুভ</button>
+                        </div>
+                    `).join('');
+
+                    adminHtml = `
+                        <div class="dashboard-box" style="border: 1px dashed #dc3545;">
+                            <h4 style="color:#dc3545; margin-bottom:8px;"><i class="fa-solid fa-shield-halved"></i> অ্যাডমিন প্যানেল কন্ট্রোল</h4>
+                            <p style="font-size:12px; margin-bottom:8px;">মোট লাইভ বিজ্ঞাপন: ${allAds.length}টি</p>
+                            <div style="max-height:150px; overflow-y:auto;">
+                                ${allAdsAdminList}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML = `
+                    <div class="dashboard-box">
+                        <p><strong>নাম:</strong> ${currentUser.displayName || 'ব্যবহারকারী'} ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''} ${isShopOwner ? '<span class="shop-badge">Verified Shop</span>' : ''}</p>
+                        <p><strong>ইমেইল:</strong> ${currentUser.email || 'N/A'}</p>
+                        ${!isShopOwner ? '<button onclick="upgradeToShop()" style="margin-top:8px; width:100%; padding:7px; background:#28a745; color:white; border:none; border-radius:4px; font-weight:bold; font-size:12px; cursor:pointer;">🏪 ভেন্ডর শপ মেম্বারশিপ নিন (স্টোর খুলুন)</button>' : '<p style="font-size:11px; color:#28a745; margin-top:5px;">✓ আপনার শপ অ্যাকাউন্ট সক্রিয় আছে।</p>'}
+                    </div>
+                    <div class="dashboard-box">
+                        <h4 style="margin-bottom:6px; font-size:14px;">📦 আমার পোস্টকৃত বিজ্ঞাপন (${myAds.length}টি)</h4>
+                        <div style="max-height:130px; overflow-y:auto;">
+                            ${myAdsHtml}
+                        </div>
+                    </div>
+                    ${adminHtml}
+                    <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;" onclick="logout()">লগআউট</button>
+                `;
+            } else {
+                container.innerHTML = `
+                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">আপনার প্রফাইল এবং ড্যাশবোর্ড দেখতে সাইন-ইন করুন</p>
+                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন করুন</button>
+                `;
+            }
+        }
+
+        function fetchAds() {
+            const q = query(collection(db, "ads"), orderBy("createdAt", "desc"));
+            onSnapshot(q, snapshot => {
+                allAds = [];
+                snapshot.forEach(docSnap => { allAds.push({ id: docSnap.id, ...docSnap.data() }); });
+                filterAds();
+                if(currentUser) renderAuthUI();
+                renderWishlistModal();
+            }, error => {
+                console.error("Firestore Error: ", error);
+            });
+        }
+
+        function renderAds(ads) {
+            const grid = document.getElementById('adsGrid');
+            grid.innerHTML = '';
+            if(ads.length === 0) {
+                grid.innerHTML = `<p style="font-size:14px; color:#666; grid-column:1/-1; text-align:center;">কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>`;
+                return;
+            }
+            ads.forEach(ad => {
+                const mainImg = (ad.images && ad.images.length > 0) ? ad.images[0] : (ad.img || '');
+                const isFav = wishlist.includes(ad.id);
+                grid.innerHTML += `
+                    <div class="product-card ${ad.isFeatured ? 'featured-card' : ''}" onclick="openProductDetail('${ad.id}')">
+                        ${ad.isFeatured ? '<div class="featured-badge">⭐ Featured</div>' : ''}
+                        <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleWishlist(event, '${ad.id}')">
+                            <i class="fa-solid fa-heart"></i>
+                        </button>
+                        <img src="${mainImg}" alt="${ad.title}">
+                        <div class="product-details">
+                            <div>
+                                <div class="product-price">৳ ${ad.price}</div>
+                                <div class="product-title">${ad.title}</div>
+                                <div class="product-location">📍 ${ad.location}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.openPostModal = function() {
+            if(!currentUser) {
+                alert("বিজ্ঞাপন পোস্ট করতে প্রথমে সাইন-ইন করুন।");
+                openModal('accountModal');
+            } else {
+                document.getElementById('editAdId').value = '';
+                document.getElementById('postModalTitle').innerText = "নতুন বিজ্ঞাপন দিন";
+                document.getElementById('postAdForm').reset();
+                document.getElementById('paymentSection').style.display = 'none';
+                selectedImagesBase64 = [];
+                renderImagePreviews();
+                onPostCategoryChange();
+                openModal('postAdModal');
+            }
+        };
+
+        window.handlePostAd = async function(event) {
+            event.preventDefault();
+            if(!currentUser) return;
+
+            const editId = document.getElementById('editAdId').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const div = document.getElementById('postDivision').value;
+            const dist = document.getElementById('postDistrict').value;
+            const thana = document.getElementById('postThana').value;
+            const isFeatured = document.getElementById('postIsFeatured').checked;
+
+            if(selectedImagesBase64.length === 0) return alert("কমপক্ষে একটি ছবি দিন বা সিলেক্ট করুন!");
+
+            submitBtn.innerText = "প্রসেস হচ্ছে...";
+            submitBtn.disabled = true;
+
+            try {
+                const adData = {
+                    title: document.getElementById('postTitle').value,
+                    category: document.getElementById('postCategory').value.toLowerCase(),
+                    subCategory: document.getElementById('postSubCategory').value,
+                    price: document.getElementById('postPrice').value,
+                    phone: document.getElementById('postPhone').value,
+                    division: div,
+                    district: dist,
+                    thana: thana,
+                    location: `${thana}, ${dist}, ${div}`,
+                    images: selectedImagesBase64,
+                    img: selectedImagesBase64[0],
+                    desc: document.getElementById('postDesc').value,
+                    isFeatured: isFeatured,
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName
+                };
+
+                if(editId) {
+                    await updateDoc(doc(db, "ads", editId), adData);
+                    alert('আপনার বিজ্ঞাপনটি সফলভাবে আপডেট করা হয়েছে!');
+                } else {
+                    adData.createdAt = serverTimestamp();
+                    await addDoc(collection(db, "ads"), adData);
+                    alert('আপনার বিজ্ঞাপনটি সফলভাবে পোস্ট হয়েছে!');
+                }
+                
+                submitBtn.innerText = "পাবলিশ করুন";
+                submitBtn.disabled = false;
+                closeModal('postAdModal');
+                event.target.reset();
+                selectedImagesBase64 = [];
+            } catch (error) {
+                alert("ত্রুটি: " + error.message);
+                submitBtn.innerText = "পাবলিশ করুন";
+                submitBtn.disabled = false;
+            }
+        };
+
+        window.openProductDetail = function(id) {
+            const ad = allAds.find(a => a.id === id);
+            if(ad) {
+                document.getElementById('modalTitle').innerText = ad.title;
+                document.getElementById('modalPrice').innerText = "৳ " + ad.price;
+                document.getElementById('modalLocation').innerText = "লোকেশন: " + ad.location;
+                document.getElementById('modalSeller').innerText = "বিক্রেতা: " + (ad.userName || "অজানা");
+                document.getElementById('modalDesc').innerText = ad.desc;
+                
+                const imagesList = ad.images || (ad.img ? [ad.img] : []);
+                const mainImgEl = document.getElementById('modalMainImg');
+                const thumbGalleryEl = document.getElementById('modalThumbGallery');
+                thumbGalleryEl.innerHTML = '';
+                if(imagesList.length > 0) {
+                    mainImgEl.src = imagesList[0];
+                    imagesList.forEach((imgUrl, index) => {
+                        thumbGalleryEl.innerHTML += `
+                            <div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="changeMainImage('${imgUrl}', this)">
+                                <img src="${imgUrl}" alt="Thumb">
+                            </div>
+                        `;
+                    });
+                } else {
+                    mainImgEl.src = '';
+                }
+                document.getElementById('callLink').href = "tel:" + ad.phone;
+                document.getElementById('waLink').href = "https://wa.me/88" + ad.phone;
+                openModal('productModal');
+            }
+        };
+
+        window.changeMainImage = function(url, element) {
+            document.getElementById('modalMainImg').src = url;
+            document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+        };
+
+        window.filterAds = function() {
+            const queryVal = document.getElementById('searchInput').value.toLowerCase().trim();
+            const divFilter = document.getElementById('heroDivision').value;
+            const distFilter = document.getElementById('filterDistrict').value;
+            const thanaFilter = document.getElementById('filterThana').value;
+            const sortVal = document.getElementById('priceSortSelect').value;
+
+            let filtered = allAds.filter(ad => {
+                const matchQuery = !queryVal || (ad.title && ad.title.toLowerCase().includes(queryVal)) || (ad.location && ad.location.toLowerCase().includes(queryVal));
+                const matchCat = currentCategory === 'all' || (ad.category && ad.category.toLowerCase() === currentCategory.toLowerCase());
+                const matchSubCat = currentSubCategory === 'all' || (ad.subCategory && ad.subCategory === currentSubCategory);
+                const matchDiv = !divFilter || ad.division === divFilter;
+                const matchDist = !distFilter || ad.district === distFilter;
+                const matchThana = !thanaFilter || ad.thana === thanaFilter;
+                return matchQuery && matchCat && matchSubCat && matchDiv && matchDist && matchThana;
+            });
+
+            filtered.sort((a, b) => {
+                if(a.isFeatured && !b.isFeatured) return -1;
+                if(!a.isFeatured && b.isFeatured) return 1;
+                return 0;
+            });
+
+            if(sortVal === 'low-high') {
+                filtered.sort((a, b) => parseFloat(String(a.price).replace(/,/g, '')) - parseFloat(String(b.price).replace(/,/g, '')));
+            } else if(sortVal === 'high-low') {
+                filtered.sort((a, b) => parseFloat(String(b.price).replace(/,/g, '')) - parseFloat(String(a.price).replace(/,/g, '')));
+            }
+
+            renderAds(filtered);
+        };
+
+        window.selectCategory = function(cat) {
+            currentCategory = cat;
+            currentSubCategory = 'all';
+            
+            const barContainer = document.getElementById('subCategoryBarContainer');
+            const subBar = document.getElementById('subCategoryBar');
+            subBar.innerHTML = '';
+            
+            if(cat !== 'all' && categoryFeatures[cat]) {
+                barContainer.style.display = 'block';
+                categoryFeatures[cat].forEach(sub => {
+                    const isActive = currentSubCategory === sub ? 'active' : '';
+                    subBar.innerHTML += `<button class="sub-chip ${isActive}" onclick="selectSubCategory('${sub}')">${sub}</button>`;
+                });
+            } else {
+                barContainer.style.display = 'none';
+            }
+            
+            filterAds();
+        };
+
+        window.selectSubCategory = function(sub) {
+            currentSubCategory = sub;
+            const chips = document.querySelectorAll('.sub-chip');
+            chips.forEach(chip => {
+                if(chip.innerText === sub) {
+                    chip.classList.add('active');
+                } else {
+                    chip.classList.remove('active');
+                }
+            });
+            filterAds();
+        };
+
+        window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
+        window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
+        window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
+
+        fetchAds();
+        initLocations();
     </script>
 </body>
 </html>
