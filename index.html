@@ -288,6 +288,7 @@
             <div class="category-card" onclick="selectCategory('vehicles')"><i class="fa-solid fa-car" style="color: #2ed573;"></i><span data-bn="Vehicles" data-en="Vehicles">Vehicles</span></div>
             <div class="category-card" onclick="selectCategory('property')"><i class="fa-solid fa-house" style="color: #ffa502;"></i><span data-bn="Property" data-en="Property">Property</span></div>
             <div class="category-card" onclick="selectCategory('mobile')"><i class="fa-solid fa-mobile-screen-button" style="color: #3742fa;"></i><span data-bn="Phones" data-en="Phones">Phones</span></div>
+            <div class="category-card" onclick="selectCategory('mobile-accessories')"><i class="fa-solid fa-headphones" style="color: #00cec9;"></i><span data-bn="Mobile Accessories" data-en="Mobile Accessories">Mobile Accessories</span></div>
             <div class="category-card" onclick="selectCategory('electronics')"><i class="fa-solid fa-laptop" style="color: #70a1ff;"></i><span data-bn="Electronics" data-en="Electronics">Electronics</span></div>
             <div class="category-card" onclick="selectCategory('furniture')"><i class="fa-solid fa-couch" style="color: #ff6b81;"></i><span data-bn="Furniture" data-en="Furniture">Furniture</span></div>
             <div class="category-card" onclick="selectCategory('fashion')"><i class="fa-solid fa-shirt" style="color: #9b59b6;"></i><span data-bn="Fashion" data-en="Fashion">Fashion</span></div>
@@ -406,6 +407,7 @@
                         <option value="vehicles">🚗 Vehicles</option>
                         <option value="property">🏠 Property</option>
                         <option value="mobile">📱 Phones & Tablets</option>
+                        <option value="mobile-accessories">🎧 Mobile Accessories</option>
                         <option value="electronics">💻 Electronics</option>
                         <option value="furniture">🛋️ Home & Furniture</option>
                         <option value="fashion">👕 Fashion</option>
@@ -974,7 +976,8 @@
         const categoryFeatures = {
             'vehicles': ['সকল', 'মোটরসাইকেল', 'কার', 'বাইক', 'সাইকেল', 'বাস ও ট্রাক'],
             'property': ['সকল', 'অ্যাপার্টমেন্ট ও ফ্ল্যাট', 'জমি ও প্লট', 'রুম ভাড়া'],
-            'mobile': ['সকল', 'স্মার্টফোন', 'ফিচার ফোন', 'ট্যাবলেট', 'মোবাইল এক্সেসরিজ'],
+            'mobile': ['সকল', 'স্মার্টফোন', 'ফিচার ফোন', 'ট্যাবলেট'],
+            'mobile-accessories': ['সকল', 'হেডফোন ও ইয়ারবাড', 'চার্জার ও ক্যাবল', 'পাওয়ার ব্যাংক', 'ব্যাক কাভার ও প্রটেক্টর', 'স্মার্টওয়াচ ও ব্যান্ড'],
             'electronics': ['সকল', 'ল্যাপটপ ও কম্পিউটার', 'টিভি ও অডিও', 'এসি ও ফ্রিজ'],
             'furniture': ['সকল', 'বেড ও খাট', 'সোফা ও চেয়ার', 'ডাইনিং টেবিল'],
             'fashion': ['সকল', 'পুরুষের পোশাক', 'মহিলাদের পোশাক', 'Watch (ঘড়ি)', 'জুতো ও স্যান্ডেল'],
