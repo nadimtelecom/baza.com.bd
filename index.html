@@ -490,6 +490,8 @@
                 <div class="form-group">
                     <label data-bn="পণ্যের ছবি (সর্বোচ্চ ৫টি)" data-en="Product Images (Max 5)">পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
                     <input type="file" id="postFiles" accept="image/*" multiple onchange="handleImageSelection(event)">
+                    <!-- ছবি লোডিং পার্সেন্টেজ শো করার জন্য এলিমেন্ট -->
+                    <div id="imageLoadingStatus" style="font-size: 12px; font-weight: bold; color: var(--primary); margin-top: 5px;"></div>
                     <div class="preview-container" id="imagePreviewContainer"></div>
                 </div>
 
@@ -807,6 +809,13 @@
         window.addEventListener('DOMContentLoaded', () => {
             setLanguage(currentLang);
         });
+
+        // ১. এক্সিট কনফার্মেশন প্রোগ্রাম (Exit Confirmation)
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = 'আপনি কি সত্যি ওয়েবসাইট থেকে বের হতে চান?';
+            return e.returnValue;
+        });
     </script>
 
     <script type="module">
@@ -852,11 +861,24 @@
             element.classList.add('active');
         };
 
-        function convertImageToBase64(file) {
+        // ২. ছবি লোডিং এবং পার্সেন্টেজ প্রোগ্রেস দেখানোর প্রোগ্রাম
+        function convertImageWithProgress(file) {
             return new Promise((resolve, reject) => {
+                const statusEl = document.getElementById('imageLoadingStatus');
+                statusEl.innerText = "ছবি লোড হচ্ছে: 0%";
+                
                 const reader = new FileReader();
+                
+                reader.onprogress = (event) => {
+                    if (event.lengthComputable) {
+                        const percentLoaded = Math.round((event.loaded / event.total) * 50);
+                        statusEl.innerText = `ছবি প্রসেস হচ্ছে: ${percentLoaded}%`;
+                    }
+                };
+
                 reader.readAsDataURL(file);
                 reader.onload = (event) => {
+                    statusEl.innerText = "ছবি প্রসেস হচ্ছে: 75%";
                     const img = new Image();
                     img.src = event.target.result;
                     img.onload = () => {
@@ -873,6 +895,9 @@
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
+                        
+                        statusEl.innerText = "ছবি লোড সম্পূর্ণ: 100% ✓";
+                        setTimeout(() => { statusEl.innerText = ""; }, 1500);
                         resolve(canvas.toDataURL('image/jpeg', 0.6));
                     };
                     img.onerror = (error) => reject(error);
@@ -889,7 +914,7 @@
                     return;
                 }
                 for (let i = 0; i < files.length; i++) {
-                    const base64Str = await convertImageToBase64(files[i]);
+                    const base64Str = await convertImageWithProgress(files[i]);
                     selectedImagesBase64.push(base64Str);
                 }
                 renderImagePreviews();
@@ -1544,7 +1569,7 @@
             const subBar = document.getElementById('subCategoryBar');
             subBar.innerHTML = '';
             
-            if(cat !== 'all' && categoryFeatures[cat]) {
+            , categoryFeatures[cat]) {
                 barContainer.style.display = 'block';
                 categoryFeatures[cat].forEach(sub => {
                     const isActive = currentSubCategory === sub ? 'active' : '';
