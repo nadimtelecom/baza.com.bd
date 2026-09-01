@@ -80,10 +80,18 @@
         .profile-card .icon { font-size: 20px; display: block; margin-bottom: 4px; }
         .profile-card h3 { font-size: 11px; font-weight: 600; }
 
+        /* Settings Accordion Dropdown Styles */
         .settings-section { margin-top: 15px; }
-        .setting-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 13px; cursor: pointer; }
-        body.dark-mode .setting-item { border-color: #2a2a2a; }
-        .setting-item .text { flex: 1; margin-left: 10px; font-weight: 600; }
+        .setting-dropdown-item { border-bottom: 1px solid #eee; }
+        body.dark-mode .setting-dropdown-item { border-color: #2a2a2a; }
+        .setting-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; font-size: 13px; cursor: pointer; font-weight: 600; }
+        .setting-header-left { display: flex; align-items: center; gap: 10px; }
+        .setting-content { display: none; padding: 0 10px 12px 30px; font-size: 12px; color: #666; line-height: 1.5; }
+        body.dark-mode .setting-content { color: #aaa; }
+        .setting-dropdown-item.active .setting-content { display: block; }
+        .setting-dropdown-item.active .fa-chevron-right { transform: rotate(90deg); transition: transform 0.2s; }
+        .fa-chevron-right { transition: transform 0.2s; font-size: 11px; color: #888; }
+
         .value-alert { color: #d9534f; font-size: 11px; font-weight: bold; }
         .value { color: #777; font-size: 11px; }
 
@@ -532,28 +540,225 @@
         </div>
     </div>
 
-    <!-- Settings Modal -->
+    <!-- Settings Modal with Dropdowns -->
     <div class="modal" id="settingsModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('settingsModal')">&times;</span>
             <h3 style="margin-top:0;">⚙️ সেটিংস</h3>
-            <hr style="margin:10px 0;"><br>
+            <hr style="margin:10px 0;">
             
             <div class="settings-section">
-                <div class="setting-item">
-                    <span class="icon green">📞</span>
-                    <span class="text">Phone numbers</span>
-                    <span class="value-alert">01916390762 ⚠️</span>
+                <!-- Personal info -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>👤</span>
+                            <span>Personal info</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-content">আপনার নাম, প্রোফাইল পিকচার এবং অ্যাকাউন্ট সংক্রান্ত ব্যক্তিগত তথ্য এখানে দেখতে ও পরিবর্তন করতে পারবেন।</div>
                 </div>
-                <div class="setting-item">
-                    <span class="icon orange">✉️</span>
-                    <span class="text">Confirm email</span>
-                    <span class="value-alert">nadimkhan5050@... ⚠️</span>
+
+                <!-- Company verification -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>📄</span>
+                            <span>Company verification</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-content">আপনার বিজনেস বা কোম্পানির ভেরিফিকেশন স্ট্যাটাস চেক করুন এবং প্রয়োজনীয় কাগজপত্র জমা দিয়ে ভেরিফাইড শপ ব্যাজ নিন।</div>
                 </div>
-                <div class="setting-item">
-                    <span class="icon green">🌐</span>
-                    <span class="text">Change language</span>
-                    <span class="value">English</span>
+
+                <!-- Phone numbers -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>📞</span>
+                            <span>Phone numbers</span>
+                        </div>
+                        <div>
+                            <span class="value-alert">01916390762 ⚠️</span>
+                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
+                        </div>
+                    </div>
+                    <div class="setting-content">আপনার অ্যাকাউন্ট এবং বিজ্ঞাপনের সাথে যুক্ত ফোন নম্বর। নম্বর ভেরিফাই বা পরিবর্তন করতে এখানে ট্যাপ করুন।</div>
+                </div>
+
+                <!-- Confirm email -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>✉️</span>
+                            <span>Confirm email</span>
+                        </div>
+                        <div>
+                            <span class="value-alert">nadimkhan5050@... ⚠️</span>
+                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
+                        </div>
+                    </div>
+                    <div class="setting-content">আপনার জিমেইল বা ইমেইল ঠিকানা কনফার্ম করুন যাতে অ্যাকাউন্ট সুরক্ষিত থাকে এবং নোটিফিকেশন পেতে পারেন।</div>
+                </div>
+
+                <!-- Change language -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>🌐</span>
+                            <span>Change language</span>
+                        </div>
+                        <div>
+                            <span class="value">English</span>
+                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
+                        </div>
+                    </div>
+                    <div class="setting-content">ওয়েবসাইটের ভাষা পরিবর্তন করুন। আপনি চাইলে বাংলা অথবা ইংরেজি ভাষা সিলেক্ট করতে পারেন।</div>
+                </div>
+
+                <!-- Disable chats -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>💬</span>
+                            <span>Disable chats</span>
+                        </div>
+                        <div>
+                            <span class="value">Enabled</span>
+                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
+                        </div>
+                    </div>
+                    <div class="setting-content">ক্রেতা বা বিক্রেতাদের সাথে চ্যাট সিস্টেম চালু বা বন্ধ করার অপশন।</div>
+                </div>
+
+                <!-- Disable feedback -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>😊</span>
+                            <span>Disable feedback</span>
+                        </div>
+                        <div>
+                            <span class="value">Enabled</span>
+                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
+                        </div>
+                    </div>
+                    <div class="setting-content">গ্রাহক বা ব্যবহারকারীদের ফিডব্যাক ও রিভিউ অপশন নিয়ন্ত্রণ বা ডিজেবল করুন।</div>
+                </div>
+
+                <!-- In-app calls -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>📞</span>
+                            <span>In-app calls</span>
+                        </div>
+                        <div>
+                            <span class="value">Disabled</span>
+                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
+                        </div>
+                    </div>
+                    <div class="setting-content">অ্যাপের ভেতর সরাসরি ভয়েস কল করার সুবিধা চালু বা বন্ধ করতে পারবেন।</div>
+                </div>
+
+                <!-- Manage notifications -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>🔔</span>
+                            <span>Manage notifications</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-content">কোন কোন বিষয়ের নোটিফিকেশন বা অ্যালার্ট আপনার ফোনে বা ইমেইলে আসবে তা কাস্টমাইজ করুন।</div>
+                </div>
+
+                <!-- About Baza -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>ℹ️</span>
+                            <span>About Baza</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-content">Baza.com.bd প্ল্যাটফর্ম সম্পর্কে বিস্তারিত জানুন, ডেভেলপার তথ্য ও অ্যাপ ভার্সন চেক করুন।</div>
+                </div>
+
+                <!-- Check connection -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>📶</span>
+                            <span>Check connection</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-content">আপনার ইন্টারনেট কানেকশন বা সার্ভার সংযোগের বর্তমান অবস্থা টেস্ট করুন।</div>
+                </div>
+
+                <!-- Rate Us -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>⭐</span>
+                            <span>Rate Us</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-content">আমাদের ওয়েবসাইট বা অ্যাপটি কেমন লাগছে তা রেটিং দিয়ে আপনার মূল্যবান মতামত জানান।</div>
+                </div>
+
+                <!-- Dark mode -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>🌙</span>
+                            <span>Dark mode</span>
+                        </div>
+                        <div>
+                            <span class="value">System (default)</span>
+                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
+                        </div>
+                    </div>
+                    <div class="setting-content">চোখের আরামের জন্য ডার্ক মোড বা লাইট মোড সিলেক্ট করুন অথবা সিস্টেম ডিফল্ট সেট করুন।</div>
+                </div>
+
+                <!-- Change password -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>🔒</span>
+                            <span>Change password</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-content">আপনার অ্যাকাউন্ট সুরক্ষিত রাখতে বর্তমান পাসওয়ার্ড পরিবর্তন করে নতুন শক্তিশালী পাসওয়ার্ড সেট করুন।</div>
+                </div>
+
+                <!-- Delete my account permanently -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left" style="color: #d9534f;">
+                            <span>🗑️</span>
+                            <span>Delete my account permanently</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-content">সাবধান! এই অপশনটির মাধ্যমে আপনার অ্যাকাউন্ট এবং সমস্ত ডেটা চিরতরে মুছে ফেলতে পারবেন।</div>
+                </div>
+
+                <!-- Log out -->
+                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
+                    <div class="setting-header">
+                        <div class="setting-header-left">
+                            <span>🚪</span>
+                            <span>Log out</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="setting-content">আপনার বর্তমান অ্যাকাউন্ট থেকে নিরাপদভাবে লগআউট বা সাইন-আউট করুন।</div>
                 </div>
             </div>
 
@@ -569,6 +774,11 @@
             const checkbox = document.getElementById('togglePayment');
             const paymentSection = document.getElementById('paymentSection');
             paymentSection.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        // সেটিংস ড্রপডাউন টগল ফাংশন
+        function toggleSettingDropdown(element) {
+            element.classList.toggle('active');
         }
     </script>
 
@@ -752,7 +962,6 @@
             'jobs': ['সকল', 'সেলস ও মার্কেটিং', 'অফিস স্টাফ', 'ড্রাইভার']
         };
 
-        // বাংলাদেশের সকল বিভাগ, জেলা ও থানার সম্পূর্ণ ডাটাবেজ
         const bdLocations = [
             {
                 division: "Dhaka",
@@ -939,7 +1148,6 @@
             const subSelect = document.getElementById('postSubCategory');
             subSelect.innerHTML = '';
             
-            // Watch ড্রপডাউন রিসেট ও হাইড করা
             document.getElementById('groupTypeSelect').style.display = 'none';
             document.getElementById('groupCategorySelect').style.display = 'none';
             document.getElementById('groupOptionSelect').style.display = 'none';
@@ -952,7 +1160,6 @@
             }
         };
 
-        // সাব-ক্যাটাগরি Watch সিলেক্ট হলে ড্রপডাউন চালু করার লজিক
         document.getElementById('postSubCategory').addEventListener('change', function() {
             if(this.value === 'Watch (ঘড়ি)') {
                 document.getElementById('groupTypeSelect').style.display = 'block';
