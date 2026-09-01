@@ -161,10 +161,10 @@
 
         /* Upload Progress Bar Styles */
         .upload-progress-container { margin-top: 8px; display: none; }
-        .progress-bar-bg { width: 100%; background-color: #e0e0e0; border-radius: 4px; height: 16px; overflow: hidden; position: relative; }
+        .progress-bar-bg { width: 100%; background-color: #e0e0e0; border-radius: 4px; height: 18px; overflow: hidden; position: relative; }
         body.dark-mode .progress-bar-bg { background-color: #333; }
         .progress-bar-fill { height: 100%; width: 0%; background-color: var(--primary); border-radius: 4px; transition: width 0.1s linear; }
-        .progress-text { font-size: 11px; font-weight: bold; text-align: right; margin-top: 3px; color: var(--primary); }
+        .progress-text { font-size: 12px; font-weight: bold; text-align: center; margin-top: 4px; color: var(--primary); }
 
         .preview-container { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
         .preview-thumb { position: relative; width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid #ccc; }
@@ -517,11 +517,12 @@
                         <option value="" data-bn="প্রথমে জেলা নির্বাচন করুন" data-en="Select district first">প্রথমে জেলা নির্বাচন করুন</option>
                     </select>
                 </div>
+                
+                <!-- Image Upload & Percentage Progress Bar Section -->
                 <div class="form-group">
                     <label data-bn="পণ্যের ছবি (সর্বোচ্চ ৫টি)" data-en="Product Images (Max 5)">পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
                     <input type="file" id="postFiles" accept="image/*" multiple onchange="handleImageSelection(event)">
                     
-                    <!-- Image Upload Progress Bar Container -->
                     <div class="upload-progress-container" id="uploadProgressContainer">
                         <div class="progress-bar-bg">
                             <div class="progress-bar-fill" id="progressBarFill"></div>
@@ -643,7 +644,7 @@
                     <div class="setting-content">আপনার জিমেইল বা ইমেইল ঠিকানা কনফার্ম করুন যাতে অ্যাকাউন্ট সুরক্ষিত থাকে এবং নোটিফিকেশন পেতে পারেন।</div>
                 </div>
 
-                <!-- Change language (Dual Language Toggle) -->
+                <!-- Change language -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -825,7 +826,6 @@
             element.classList.toggle('active');
         }
 
-        // Back Arrow Functionality
         function goBack() {
             if (window.history.length > 1) {
                 window.history.back();
@@ -834,20 +834,16 @@
             }
         }
 
-        // Exit App Permission Functions
         function confirmExitApp() {
             openModal('exitAppModal');
         }
 
         function performAppExit() {
-            // Web view / App exit emulation
             window.close();
-            // Fallback for browsers that block window.close()
             alert("ধন্যবাদ! আপনি এখন অ্যাপ থেকে বের হয়ে গেছেন। আপনি ট্যাবটি বন্ধ করতে পারেন।");
             closeModal('exitAppModal');
         }
 
-        // Dual Language Functionality
         let currentLang = localStorage.getItem('baza_lang') || 'bn';
         function setLanguage(lang) {
             currentLang = lang;
@@ -868,6 +864,18 @@
         window.addEventListener('DOMContentLoaded', () => {
             setLanguage(currentLang);
         });
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
     </script>
 
     <script type="module">
@@ -906,6 +914,8 @@
                 setTimeout(() => preloader.style.display = 'none', 500);
             }, 800);
             updateWishlistCount();
+            initLocations();
+            fetchAds();
         });
 
         window.highlightNav = function(element) {
@@ -913,6 +923,7 @@
             element.classList.add('active');
         };
 
+        // Real-time Image Loading with Percentage Progress Bar
         function convertImageToBase64WithProgress(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -922,19 +933,19 @@
 
                 progressContainer.style.display = 'block';
                 progressBarFill.style.width = '0%';
-                progressText.innerText = '0%';
+                progressText.innerText = '0% (লোড হচ্ছে...)';
 
                 reader.onprogress = (event) => {
                     if (event.lengthComputable) {
-                        let percentLoaded = Math.round((event.loaded / event.total) * 50); // First 50% for reading
+                        let percentLoaded = Math.round((event.loaded / event.total) * 60);
                         progressBarFill.style.width = percentLoaded + '%';
                         progressText.innerText = percentLoaded + '% (লোড হচ্ছে...)';
                     }
                 };
 
                 reader.onload = (event) => {
-                    progressBarFill.style.width = '70%';
-                    progressText.innerText = '70% (প্রসেসিং...)';
+                    progressBarFill.style.width = '80%';
+                    progressText.innerText = '80% (প্রসেসিং ও রিসাইজ হচ্ছে...)';
 
                     const img = new Image();
                     img.src = event.target.result;
@@ -942,7 +953,7 @@
                         const canvas = document.createElement('canvas');
                         let width = img.width;
                         let height = img.height;
-                        const maxDim = 500;
+                        const maxDim = 600;
                         if (width > height) {
                             if (width > maxDim) { height *= maxDim / width; width = maxDim; }
                         } else {
@@ -958,9 +969,9 @@
 
                         setTimeout(() => {
                             progressContainer.style.display = 'none';
-                        }, 600);
+                        }, 700);
 
-                        resolve(canvas.toDataURL('image/jpeg', 0.6));
+                        resolve(canvas.toDataURL('image/jpeg', 0.7));
                     };
                     img.onerror = (error) => reject(error);
                 };
@@ -1099,7 +1110,7 @@
             {
                 division: "Chattogram",
                 districts: [
-                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Kotwali", "Khulshi", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Patiya", "Sitakunda", "Mirsharai", "Anwara", "Banshkhali", "Boalkhali", "Fatikchhari", "Hathazari", "Lohagara", "Raozan", "Sandwip", "Satkania", "Boalkhali", "Karnafuli"] },
+                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Kotwali", "Khulshi", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Patiya", "Sitakunda", "Mirsharai", "Anwara", "Banshkhali", "Boalkhali", "Fatikchhari", "Hathazari", "Lohagara", "Raozan", "Sandwip", "Satkania", "Karnafuli"] },
                     { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Ukhiya", "Teknaf", "Pekua", "Ramu", "Kutubdia", "Maheshkhali"] },
                     { district: "Bandarban", thanas: ["Bandarban Sadar", "Alikadam", "Naikhongchhari", "Rowangchhari", "Ruma", "Thanchi", "Lama"] },
                     { district: "Brahmanbaria", thanas: ["Brahmanbaria Sadar", "Akhaura", "Bancharampur", "Bijoynagar", "Kasba", "Nabinagar", "Nasirnagar", "Sarail"] },
@@ -1167,7 +1178,7 @@
                     { district: "Gaibandha", thanas: ["Gaibandha Sadar", "Fulchhari", "Gobindaganj", "Palashbari", "Sadullapur", "Saghata", "Sundarganj"] },
                     { district: "Kurigram", thanas: ["Kurigram Sadar", "Bhurungamari", "Char Rajibpur", "Chilmari", "Phulbari", "Rajarhat", "Rowmari", "Ulipur"] },
                     { district: "Lalmonirhat", thanas: ["Lalmonirhat Sadar", "Aditmari", "Hatibandha", "Kaliganj", "Patgram"] },
-                    { district: "Nilphamari", thanas: ["Nilphamari Sadar", "Dimla", "Jaldhaka", "Kishoreganj", "Saidpur", "Jaldhaka"] },
+                    { district: "Nilphamari", thanas: ["Nilphamari Sadar", "Dimla", "Jaldhaka", "Kishoreganj", "Saidpur"] },
                     { district: "Panchagarh", thanas: ["Panchagarh Sadar", "Atwari", "Boda", "Debiganj", "Tetulia"] },
                     { district: "Thakurgaon", thanas: ["Thakurgaon Sadar", "Baliadangi", "Haripur", "Pirganj", "Ranisankail"] }
                 ]
@@ -1177,7 +1188,7 @@
                 districts: [
                     { district: "Mymensingh", thanas: ["Mymensingh Sadar", "Bhaluka", "Dhobaura", "Fulbaria", "Gaffargaon", "Gauripur", "Haluaghat", "Ishwarganj", "Muktagachha", "Nandail", "Trishal"] },
                     { district: "Jamalpur", thanas: ["Jamalpur Sadar", "Baksiganj", "Dewanganj", "Islampur", "Madarganj", "Melandaha", "Sarishabari"] },
-                    { district: "Netrokona", thanas: ["Netrokona Sadar", "Atpara", "Barhatta", "Durgapur", "Kakalihata", "Kendua", "Khaliajuri", "Madanganj", "Mohanganj", "Purbadhala"] },
+                    { district: "Netrokona", thanas: ["Netrokona Sadar", "Atpara", "Barhatta", "Durgapur", "Kendua", "Khaliajuri", "Mohanganj", "Purbadhala"] },
                     { district: "Sherpur", thanas: ["Sherpur Sadar", "Jhenaigati", "Nakla", "Nalitabari", "Sreebordi"] }
                 ]
             }
@@ -1186,6 +1197,7 @@
         function initLocations() {
             const heroDiv = document.getElementById('heroDivision');
             const postDiv = document.getElementById('postDivision');
+            if(!heroDiv || !postDiv) return;
             heroDiv.innerHTML = '<option value="">সকল বিভাগ</option>';
             postDiv.innerHTML = '<option value="">বিভাগ নির্বাচন করুন</option>';
             bdLocations.forEach(div => {
@@ -1275,16 +1287,19 @@
             }
         };
 
-        document.getElementById('postSubCategory').addEventListener('change', function() {
-            if(this.value === 'Watch (ঘড়ি)') {
-                document.getElementById('groupTypeSelect').style.display = 'block';
-                document.getElementById('standardSubCategoryGroup').style.display = 'none';
-            } else {
-                document.getElementById('groupTypeSelect').style.display = 'none';
-                document.getElementById('groupCategorySelect').style.display = 'none';
-                document.getElementById('groupOptionSelect').style.display = 'none';
-            }
-        });
+        const subCategoryElem = document.getElementById('postSubCategory');
+        if(subCategoryElem) {
+            subCategoryElem.addEventListener('change', function() {
+                if(this.value === 'Watch (ঘড়ি)') {
+                    document.getElementById('groupTypeSelect').style.display = 'block';
+                    document.getElementById('standardSubCategoryGroup').style.display = 'none';
+                } else {
+                    document.getElementById('groupTypeSelect').style.display = 'none';
+                    document.getElementById('groupCategorySelect').style.display = 'none';
+                    document.getElementById('groupOptionSelect').style.display = 'none';
+                }
+            });
+        }
 
         window.onWatchTypeChange = function() {
             const val = document.getElementById('postWatchType').value;
@@ -1657,13 +1672,6 @@
             });
             filterAds();
         };
-
-        window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
-        window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
-        window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
-
-        fetchAds();
-        initLocations();
     </script>
 </body>
 </html>
