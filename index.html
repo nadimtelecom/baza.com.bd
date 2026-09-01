@@ -48,6 +48,10 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
             width: 100%;
         }
+        .header-left-group { display: flex; align-items: center; gap: 8px; }
+        .back-arrow-btn { background: transparent; border: none; color: white; font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .back-arrow-btn:hover { background: rgba(255,255,255,0.2); }
+        
         .logo { font-size: 18px; font-weight: bold; color: #ffffff; text-decoration: none; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
         .logo span { color: var(--accent); }
         .header-controls { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
@@ -155,6 +159,13 @@
         .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 13px; }
         body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select { background: #2a2a2a; color: white; border-color: #444; }
 
+        /* Upload Progress Bar Styles */
+        .upload-progress-container { margin-top: 8px; display: none; }
+        .progress-bar-bg { width: 100%; background-color: #e0e0e0; border-radius: 4px; height: 16px; overflow: hidden; position: relative; }
+        body.dark-mode .progress-bar-bg { background-color: #333; }
+        .progress-bar-fill { height: 100%; width: 0%; background-color: var(--primary); border-radius: 4px; transition: width 0.1s linear; }
+        .progress-text { font-size: 11px; font-weight: bold; text-align: right; margin-top: 3px; color: var(--primary); }
+
         .preview-container { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
         .preview-thumb { position: relative; width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid #ccc; }
         .preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
@@ -190,9 +201,14 @@
 
     <!-- Header -->
     <header>
-        <a class="logo" onclick="selectCategory('all')">
-            <i class="fa-solid fa-tree" style="color: var(--accent);"></i> Baza<span>.com.bd</span>
-        </a>
+        <div class="header-left-group">
+            <button class="back-arrow-btn" onclick="goBack()" title="পেছনে যান">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <a class="logo" onclick="selectCategory('all')">
+                <i class="fa-solid fa-tree" style="color: var(--accent);"></i> Baza<span>.com.bd</span>
+            </a>
+        </div>
         <div class="header-controls">
             <button class="btn-post-ad" onclick="openPostModal()" data-bn="+ বিজ্ঞাপন দিন" data-en="+ Post Ad">+ বিজ্ঞাপন দিন</button>
             <button class="btn-header" onclick="openModal('accountModal')" id="headerAuthBtn">
@@ -320,6 +336,7 @@
         <div class="footer-links">
             <span onclick="openModal('privacyModal')">Privacy Policy</span>
             <span onclick="openModal('termsModal')">Terms & Conditions</span>
+            <span onclick="confirmExitApp()" style="color:#d9534f;">Exit App</span>
         </div>
     </footer>
 
@@ -341,6 +358,19 @@
             <i class="fa-solid fa-user"></i> <span data-bn="প্রফাইল" data-en="Profile">প্রফাইল</span>
         </button>
     </nav>
+
+    <!-- Exit Confirmation Modal -->
+    <div class="modal" id="exitAppModal">
+        <div class="modal-content" style="max-width: 320px; text-align: center;">
+            <i class="fa-solid fa-right-from-bracket" style="font-size: 40px; color: var(--primary); margin-bottom: 10px;"></i>
+            <h3 style="margin-bottom: 8px;" data-bn="অ্যাপ থেকে বের হতে চান?" data-en="Exit App?">অ্যাপ থেকে বের হতে চান?</h3>
+            <p style="font-size: 13px; color: #666; margin-bottom: 20px;" data-bn="আপনি কি নিশ্চিতভাবে Baza.com.bd থেকে বের হয়ে যেতে চান?" data-en="Are you sure you want to exit Baza.com.bd?">আপনি কি নিশ্চিতভাবে Baza.com.bd থেকে বের হয়ে যেতে চান?</p>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="closeModal('exitAppModal')" style="flex: 1; padding: 10px; background: #6c757d; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;" data-bn="বাতিল" data-en="Cancel">বাতিল</button>
+                <button onclick="performAppExit()" style="flex: 1; padding: 10px; background: #dc3545; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;" data-bn="এক্সিট" data-en="Exit">এক্সিট</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Privacy Policy Modal -->
     <div class="modal" id="privacyModal">
@@ -490,6 +520,15 @@
                 <div class="form-group">
                     <label data-bn="পণ্যের ছবি (সর্বোচ্চ ৫টি)" data-en="Product Images (Max 5)">পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
                     <input type="file" id="postFiles" accept="image/*" multiple onchange="handleImageSelection(event)">
+                    
+                    <!-- Image Upload Progress Bar Container -->
+                    <div class="upload-progress-container" id="uploadProgressContainer">
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="progressBarFill"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">0%</div>
+                    </div>
+
                     <div class="preview-container" id="imagePreviewContainer"></div>
                 </div>
 
@@ -786,6 +825,28 @@
             element.classList.toggle('active');
         }
 
+        // Back Arrow Functionality
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                selectCategory('all');
+            }
+        }
+
+        // Exit App Permission Functions
+        function confirmExitApp() {
+            openModal('exitAppModal');
+        }
+
+        function performAppExit() {
+            // Web view / App exit emulation
+            window.close();
+            // Fallback for browsers that block window.close()
+            alert("ধন্যবাদ! আপনি এখন অ্যাপ থেকে বের হয়ে গেছেন। আপনি ট্যাবটি বন্ধ করতে পারেন।");
+            closeModal('exitAppModal');
+        }
+
         // Dual Language Functionality
         let currentLang = localStorage.getItem('baza_lang') || 'bn';
         function setLanguage(lang) {
@@ -852,11 +913,29 @@
             element.classList.add('active');
         };
 
-        function convertImageToBase64(file) {
+        function convertImageToBase64WithProgress(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                reader.readAsDataURL(file);
+                const progressContainer = document.getElementById('uploadProgressContainer');
+                const progressBarFill = document.getElementById('progressBarFill');
+                const progressText = document.getElementById('progressText');
+
+                progressContainer.style.display = 'block';
+                progressBarFill.style.width = '0%';
+                progressText.innerText = '0%';
+
+                reader.onprogress = (event) => {
+                    if (event.lengthComputable) {
+                        let percentLoaded = Math.round((event.loaded / event.total) * 50); // First 50% for reading
+                        progressBarFill.style.width = percentLoaded + '%';
+                        progressText.innerText = percentLoaded + '% (লোড হচ্ছে...)';
+                    }
+                };
+
                 reader.onload = (event) => {
+                    progressBarFill.style.width = '70%';
+                    progressText.innerText = '70% (প্রসেসিং...)';
+
                     const img = new Image();
                     img.src = event.target.result;
                     img.onload = () => {
@@ -873,11 +952,20 @@
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
+
+                        progressBarFill.style.width = '100%';
+                        progressText.innerText = '100% (সম্পন্ন!)';
+
+                        setTimeout(() => {
+                            progressContainer.style.display = 'none';
+                        }, 600);
+
                         resolve(canvas.toDataURL('image/jpeg', 0.6));
                     };
                     img.onerror = (error) => reject(error);
                 };
                 reader.onerror = (error) => reject(error);
+                reader.readAsDataURL(file);
             });
         }
 
@@ -889,7 +977,7 @@
                     return;
                 }
                 for (let i = 0; i < files.length; i++) {
-                    const base64Str = await convertImageToBase64(files[i]);
+                    const base64Str = await convertImageToBase64WithProgress(files[i]);
                     selectedImagesBase64.push(base64Str);
                 }
                 renderImagePreviews();
