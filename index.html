@@ -388,7 +388,7 @@
                 <input type="hidden" id="editAdId" value="">
                 <div class="form-group">
                     <label>শিরোনাম</label>
-                    <input type="text" id="postTitle" required placeholder="যেমন: Redmi Note 13">
+                    <input type="text" id="postTitle" required placeholder="যেমন: Watch / ঘড়ি">
                 </div>
                 <div class="form-group">
                     <label>ক্যাটাগরি</label>
@@ -410,15 +410,50 @@
                         <option value="jobs">💼 Jobs</option>
                     </select>
                 </div>
-                <div class="form-group">
+                
+                <!-- ড্রপডাউন ১: লেডিস অর জেন্স -->
+                <div class="form-group" id="groupTypeSelect" style="display:none;">
+                    <label>টাইপ নির্বাচন করুন</label>
+                    <select id="postWatchType" onchange="onWatchTypeChange()">
+                        <option value="">-- সিলেক্ট করুন --</option>
+                        <option value="Ladies">Ladies (লেডিস)</option>
+                        <option value="Gents">Gents (জেন্স)</option>
+                    </select>
+                </div>
+
+                <!-- ড্রপডাউন ২: স্মারট অয়াচ অর এনালোগ -->
+                <div class="form-group" id="groupCategorySelect" style="display:none;">
+                    <label>ঘড়ির ক্যাটাগরি</label>
+                    <select id="postWatchCategory" onchange="onWatchCategoryChange()">
+                        <option value="">-- সিলেক্ট করুন --</option>
+                        <option value="Smart Watch">Smart Watch (স্মার্ট ওয়াচ)</option>
+                        <option value="Analog">Analog (এনালগ)</option>
+                    </select>
+                </div>
+
+                <!-- ড্রপডাউন ৩: ঘড়ির অপ্সন -->
+                <div class="form-group" id="groupOptionSelect" style="display:none;">
+                    <label>ঘড়ির নির্দিষ্ট অপশন / মডেল</label>
+                    <select id="postWatchOption">
+                        <option value="">-- অপশন সিলেক্ট করুন --</option>
+                        <option value="Digital Watch">Digital Watch</option>
+                        <option value="Sports Watch">Sports Watch</option>
+                        <option value="Leather Strap Watch">Leather Strap Watch</option>
+                        <option value="Metal Chain Watch">Metal Chain Watch</option>
+                        <option value="Luxury Watch">Luxury Watch</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="standardSubCategoryGroup">
                     <label>সাব-ক্যাটাগরি / ফিচার</label>
-                    <select id="postSubCategory" required>
+                    <select id="postSubCategory">
                         <option value="">প্রথমে ক্যাটাগরি সিলেক্ট করুন</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label>মূল্য (টাকা)</label>
-                    <input type="text" id="postPrice" required placeholder="যেমন: 25000">
+                    <input type="text" id="postPrice" required placeholder="যেমন: 2500">
                 </div>
                 <div class="form-group">
                     <label>ফোন নম্বর</label>
@@ -705,7 +740,7 @@
             'mobile': ['সকল', 'স্মার্টফোন', 'ফিচার ফোন', 'ট্যাবলেট', 'মোবাইল এক্সেসরিজ'],
             'electronics': ['সকল', 'ল্যাপটপ ও কম্পিউটার', 'টিভি ও অডিও', 'এসি ও ফ্রিজ'],
             'furniture': ['সকল', 'বেড ও খাট', 'সোফা ও চেয়ার', 'ডাইনিং টেবিল'],
-            'fashion': ['সকল', 'পুরুষের পোশাক', 'মহিলাদের পোশাক', 'জুতো ও স্যান্ডেল'],
+            'fashion': ['সকল', 'পুরুষের পোশাক', 'মহিলাদের পোশাক', 'Watch (ঘড়ি)', 'জুতো ও স্যান্ডেল'],
             'beauty': ['সকল', 'স্কিন কেয়ার', 'হেয়ার কেয়ার', 'মেকআপ আইটেম'],
             'services': ['সকল', 'রিপেয়ারিং সার্ভিস', 'টিউশনি ও কোচিং'],
             'construction': ['সকল', 'রড ও সিমেন্ট', 'ইট ও বালু', 'টুলস ও হার্ডওয়্যার'],
@@ -903,10 +938,48 @@
             const catVal = document.getElementById('postCategory').value;
             const subSelect = document.getElementById('postSubCategory');
             subSelect.innerHTML = '';
+            
+            // Watch ড্রপডাউন রিসেট ও হাইড করা
+            document.getElementById('groupTypeSelect').style.display = 'none';
+            document.getElementById('groupCategorySelect').style.display = 'none';
+            document.getElementById('groupOptionSelect').style.display = 'none';
+            document.getElementById('standardSubCategoryGroup').style.display = 'block';
+
             if(categoryFeatures[catVal]) {
                 categoryFeatures[catVal].forEach(feature => {
                     if(feature !== 'সকল') { subSelect.innerHTML += `<option value="${feature}">${feature}</option>`; }
                 });
+            }
+        };
+
+        // সাব-ক্যাটাগরি Watch সিলেক্ট হলে ড্রপডাউন চালু করার লজিক
+        document.getElementById('postSubCategory').addEventListener('change', function() {
+            if(this.value === 'Watch (ঘড়ি)') {
+                document.getElementById('groupTypeSelect').style.display = 'block';
+                document.getElementById('standardSubCategoryGroup').style.display = 'none';
+            } else {
+                document.getElementById('groupTypeSelect').style.display = 'none';
+                document.getElementById('groupCategorySelect').style.display = 'none';
+                document.getElementById('groupOptionSelect').style.display = 'none';
+            }
+        });
+
+        window.onWatchTypeChange = function() {
+            const val = document.getElementById('postWatchType').value;
+            if(val) {
+                document.getElementById('groupCategorySelect').style.display = 'block';
+            } else {
+                document.getElementById('groupCategorySelect').style.display = 'none';
+                document.getElementById('groupOptionSelect').style.display = 'none';
+            }
+        };
+
+        window.onWatchCategoryChange = function() {
+            const val = document.getElementById('postWatchCategory').value;
+            if(val) {
+                document.getElementById('groupOptionSelect').style.display = 'block';
+            } else {
+                document.getElementById('groupOptionSelect').style.display = 'none';
             }
         };
 
@@ -1110,11 +1183,19 @@
             submitBtn.innerText = "প্রসেস হচ্ছে...";
             submitBtn.disabled = true;
 
+            let subCatVal = document.getElementById('postSubCategory').value;
+            if(subCatVal === 'Watch (ঘড়ি)') {
+                const t = document.getElementById('postWatchType').value;
+                const c = document.getElementById('postWatchCategory').value;
+                const o = document.getElementById('postWatchOption').value;
+                subCatVal = `Watch: ${t} > ${c} > ${o}`;
+            }
+
             try {
                 const adData = {
                     title: document.getElementById('postTitle').value,
                     category: document.getElementById('postCategory').value.toLowerCase(),
-                    subCategory: document.getElementById('postSubCategory').value,
+                    subCategory: subCatVal,
                     price: document.getElementById('postPrice').value,
                     phone: document.getElementById('postPhone').value,
                     division: div,
@@ -1197,7 +1278,7 @@
             let filtered = allAds.filter(ad => {
                 const matchQuery = !queryVal || (ad.title && ad.title.toLowerCase().includes(queryVal)) || (ad.location && ad.location.toLowerCase().includes(queryVal));
                 const matchCat = currentCategory === 'all' || (ad.category && ad.category.toLowerCase() === currentCategory.toLowerCase());
-                const matchSubCat = currentSubCategory === 'all' || (ad.subCategory && ad.subCategory === currentSubCategory);
+                const matchSubCat = currentSubCategory === 'all' || (ad.subCategory && ad.subCategory.includes(currentSubCategory));
                 const matchDiv = !divFilter || ad.division === divFilter;
                 const matchDist = !distFilter || ad.district === distFilter;
                 const matchThana = !thanaFilter || ad.thana === thanaFilter;
