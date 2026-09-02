@@ -64,9 +64,8 @@
         
         .container { max-width: 1100px; margin: 20px auto; padding: 0 10px; width: 100%; box-sizing: border-box; }
         
-        /* Profile & Settings Section Wrapper (প্রয়োজনীয় ক্ষেত্রে লুকানো বা প্রদর্শনযোগ্য) */
-        .profile-wrapper { background: var(--card-bg-light); border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-        body.dark-mode .profile-wrapper { background: var(--card-bg-dark); }
+        /* Profile & Settings Section Wrapper (লুকিয়ে দেওয়া হয়েছে) */
+        .profile-wrapper { display: none; }
         
         .profile-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
         body.dark-mode .profile-header { border-color: #333; }
@@ -217,7 +216,7 @@
     </div>
 
     <div class="container">
-        <!-- Integrated Profile & Settings View Container -->
+        <!-- Integrated Profile & Settings View Container (লুকানো) -->
         <div class="profile-wrapper">
             <div class="profile-header">
                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -1328,7 +1327,7 @@
             ads.forEach(ad => {
                 const mainImg = (ad.images && ad.images.length > 0) ? ad.images[0] : (ad.img || '');
                 const isFav = wishlist.includes(ad.id);
-                const sellerName = ad.userName ? ad.userName : "Nadim Khan";
+                const sellerName = ad.userName ? ad.userName : "MD NADIM KHAN";
                 grid.innerHTML += `
                     <div class="product-card ${ad.isFeatured ? 'featured-card' : ''}" onclick="openProductDetail('${ad.id}')">
                         ${ad.isFeatured ? '<div class="featured-badge">⭐ Featured</div>' : ''}
