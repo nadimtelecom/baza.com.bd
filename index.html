@@ -777,6 +777,18 @@
         </div>
     </div>
 
+    <!-- Exit Confirmation Modal Window -->
+    <div id="exitModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center;">
+        <div style="background: var(--card-bg-light); color: var(--text-light); padding: 20px 25px; border-radius: 12px; text-align: center; max-width: 300px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <h3 style="margin-top: 0; color: inherit;">বের হয়ে যেতে চান?</h3>
+            <p style="color: #666; font-size: 14px;">আপনি কি নিশ্চিত যে ওয়েবসাইট থেকে বের হতে চান?</p>
+            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                <button onclick="confirmExit()" style="background: #e74c3c; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold;">Exit (বের হন)</button>
+                <button onclick="closeExitModal()" style="background: #ccc; color: #333; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer;">থাকুন</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function togglePaymentOptions() {
             const checkbox = document.getElementById('togglePayment');
@@ -809,6 +821,22 @@
         window.addEventListener('DOMContentLoaded', () => {
             setLanguage(currentLang);
         });
+
+        // Exit modal helper functions
+        window.closeExitModal = function() {
+            document.getElementById('exitModal').style.display = 'none';
+            history.pushState(null, null, location.href);
+        }
+
+        window.confirmExit = function() {
+            history.back();
+        }
+
+        // History state push for exit confirmation
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            document.getElementById('exitModal').style.display = 'flex';
+        };
     </script>
 
     <script type="module">
@@ -1303,26 +1331,6 @@
                     </div>
                 `).join('') || '<p style="font-size:12px; color:#777;">আপনার কোনো বিজ্ঞাপন নেই।</p>';
 
-                let adminHtml = '';
-                if(isAdmin) {
-                    let allAdsAdminList = allAds.map(ad => `
-                        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(220,53,69,0.05); padding:6px 10px; margin-bottom:5px; border-radius:4px; font-size:12px;">
-                            <span>${ad.title} - <b>${ad.userName || 'ইউজার'}</b></span>
-                            <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">রিমুভ</button>
-                        </div>
-                    `).join('');
-
-                    adminHtml = `
-                        <div class="dashboard-box" style="border: 1px dashed #dc3545;">
-                            <h4 style="color:#dc3545; margin-bottom:8px;"><i class="fa-solid fa-shield-halved"></i> অ্যাডমিন প্যানেল কন্ট্রোল</h4>
-                            <p style="font-size:12px; margin-bottom:8px;">মোট লাইভ বিজ্ঞাপন: ${allAds.length}টি</p>
-                            <div style="max-height:150px; overflow-y:auto;">
-                                ${allAdsAdminList}
-                            </div>
-                        </div>
-                    `;
-                }
-
                 container.innerHTML = `
                     <div class="dashboard-box">
                         <p><strong>নাম:</strong> ${currentUser.displayName || 'ব্যবহারকারী'} ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''} ${isShopOwner ? '<span class="shop-badge">Verified Shop</span>' : ''}</p>
@@ -1335,7 +1343,6 @@
                             ${myAdsHtml}
                         </div>
                     </div>
-                    ${adminHtml}
                     <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;" onclick="logout()">লগআউট</button>
                 `;
             } else {
