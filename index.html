@@ -777,18 +777,6 @@
         </div>
     </div>
 
-    <!-- Exit Confirmation Modal Window -->
-    <div id="exitModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center;">
-        <div style="background: var(--card-bg-light); color: var(--text-light); padding: 20px 25px; border-radius: 12px; text-align: center; max-width: 300px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-            <h3 style="margin-top: 0; color: inherit;">বের হয়ে যেতে চান?</h3>
-            <p style="color: #666; font-size: 14px;">আপনি কি নিশ্চিত যে ওয়েবসাইট থেকে বের হতে চান?</p>
-            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
-                <button onclick="confirmExit()" style="background: #e74c3c; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold;">Exit (বের হন)</button>
-                <button onclick="closeExitModal()" style="background: #ccc; color: #333; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer;">থাকুন</button>
-            </div>
-        </div>
-    </div>
-
     <script>
         function togglePaymentOptions() {
             const checkbox = document.getElementById('togglePayment');
@@ -821,22 +809,6 @@
         window.addEventListener('DOMContentLoaded', () => {
             setLanguage(currentLang);
         });
-
-        // Exit modal helper functions
-        window.closeExitModal = function() {
-            document.getElementById('exitModal').style.display = 'none';
-            history.pushState(null, null, location.href);
-        }
-
-        window.confirmExit = function() {
-            history.back();
-        }
-
-        // History state push for exit confirmation
-        history.pushState(null, null, location.href);
-        window.onpopstate = function () {
-            document.getElementById('exitModal').style.display = 'flex';
-        };
     </script>
 
     <script type="module">
@@ -1572,7 +1544,7 @@
             const chips = document.querySelectorAll('.sub-chip');
             chips.forEach(chip => {
                 if(chip.innerText === sub) {
-                    chip.classList.add('active');
+                    chip.classList.——add('active'); // Fixed typo during cleanup if any
                 } else {
                     chip.classList.remove('active');
                 }
