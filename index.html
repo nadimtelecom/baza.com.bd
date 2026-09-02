@@ -64,7 +64,7 @@
         
         .container { max-width: 1100px; margin: 20px auto; padding: 0 10px; width: 100%; box-sizing: border-box; }
         
-        /* Profile & Settings Section Wrapper */
+        /* Profile & Settings Section Wrapper (প্রয়োজনীয় ক্ষেত্রে লুকানো বা প্রদর্শনযোগ্য) */
         .profile-wrapper { background: var(--card-bg-light); border-radius: 12px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
         body.dark-mode .profile-wrapper { background: var(--card-bg-dark); }
         
@@ -423,7 +423,6 @@
                     </select>
                 </div>
                 
-                <!-- ড্রপডাউন ১ -->
                 <div class="form-group" id="groupTypeSelect" style="display:none;">
                     <label data-bn="টাইপ নির্বাচন করুন" data-en="Select Type">টাইপ নির্বাচন করুন</label>
                     <select id="postWatchType" onchange="onWatchTypeChange()">
@@ -433,7 +432,6 @@
                     </select>
                 </div>
 
-                <!-- ড্রপডাউন ২ -->
                 <div class="form-group" id="groupCategorySelect" style="display:none;">
                     <label data-bn="ঘড়ির ক্যাটাগরি" data-en="Watch Category">ঘড়ির ক্যাটাগরি</label>
                     <select id="postWatchCategory" onchange="onWatchCategoryChange()">
@@ -443,7 +441,6 @@
                     </select>
                 </div>
 
-                <!-- ড্রপডাউন ৩ -->
                 <div class="form-group" id="groupOptionSelect" style="display:none;">
                     <label data-bn="ঘড়ির নির্দিষ্ট অপশন / মডেল" data-en="Watch Specific Option / Model">ঘড়ির নির্দিষ্ট অপশন / মডেল</label>
                     <select id="postWatchOption">
@@ -552,7 +549,6 @@
             <hr style="margin:10px 0;">
             
             <div class="settings-section">
-                <!-- Personal info -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -564,7 +560,6 @@
                     <div class="setting-content">আপনার নাম, প্রোফাইল পিকচার এবং অ্যাকাউন্ট সংক্রান্ত ব্যক্তিগত তথ্য এখানে দেখতে ও পরিবর্তন করতে পারবেন।</div>
                 </div>
 
-                <!-- Company verification -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -576,7 +571,6 @@
                     <div class="setting-content">আপনার বিজনেস বা কোম্পানির ভেরিফিকেশন স্ট্যাটাস চেক করুন এবং প্রয়োজনীয় কাগজপত্র জমা দিয়ে ভেরিফাইড শপ ব্যাজ নিন।</div>
                 </div>
 
-                <!-- Phone numbers -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -591,7 +585,6 @@
                     <div class="setting-content">আপনার অ্যাকাউন্ট এবং বিজ্ঞাপনের সাথে যুক্ত ফোন নম্বর। নম্বর ভেরিফাই বা পরিবর্তন করতে এখানে ট্যাপ করুন।</div>
                 </div>
 
-                <!-- Confirm email -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -606,7 +599,6 @@
                     <div class="setting-content">আপনার জিমেইল বা ইমেইল ঠিকানা কনফার্ম করুন যাতে অ্যাকাউন্ট সুরক্ষিত থাকে এবং নোটিফিকেশন পেতে পারেন।</div>
                 </div>
 
-                <!-- Change language (Dual Language Toggle) -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -625,7 +617,6 @@
                     </div>
                 </div>
 
-                <!-- Disable chats -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -640,7 +631,6 @@
                     <div class="setting-content">ক্রেতা বা বিক্রেতাদের সাথে চ্যাট সিস্টেম চালু বা বন্ধ করার অপশন।</div>
                 </div>
 
-                <!-- Disable feedback -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -655,7 +645,6 @@
                     <div class="setting-content">গ্রাহক বা ব্যবহারকারীদের ফিডব্যাক ও রিভিউ অপশন নিয়ন্ত্রণ বা ডিজেবল করুন।</div>
                 </div>
 
-                <!-- In-app calls -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -670,7 +659,6 @@
                     <div class="setting-content">অ্যাপের ভেতর সরাসরি ভয়েস কল করার সুবিধা চালু বা বন্ধ করতে পারবেন।</div>
                 </div>
 
-                <!-- Manage notifications -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -682,7 +670,6 @@
                     <div class="setting-content">কোন কোন বিষয়ের নোটিফিকেশন বা অ্যালার্ট আপনার ফোনে বা ইমেইলে আসবে তা কাস্টমাইজ করুন।</div>
                 </div>
 
-                <!-- About Baza -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -694,7 +681,6 @@
                     <div class="setting-content">Baza.com.bd প্ল্যাটফর্ম সম্পর্কে বিস্তারিত জানুন, ডেভেলপার তথ্য ও অ্যাপ ভার্সন চেক করুন।</div>
                 </div>
 
-                <!-- Check connection -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -706,7 +692,6 @@
                     <div class="setting-content">আপনার ইন্টারনেট কানেকশন বা সার্ভার সংযোগের বর্তমান অবস্থা টেস্ট করুন।</div>
                 </div>
 
-                <!-- Rate Us -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -718,7 +703,6 @@
                     <div class="setting-content">আমাদের ওয়েবসাইট বা অ্যাপটি কেমন লাগছে তা রেটিং দিয়ে আপনার মূল্যবান মতামত জানান।</div>
                 </div>
 
-                <!-- Dark mode -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -733,7 +717,6 @@
                     <div class="setting-content">চোখের আরামের জন্য ডার্ক মোড বা লাইট মোড সিলেক্ট করুন অথবা সিস্টেম ডিফল্ট সেট করুন।</div>
                 </div>
 
-                <!-- Change password -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -745,7 +728,6 @@
                     <div class="setting-content">আপনার অ্যাকাউন্ট সুরক্ষিত রাখতে বর্তমান পাসওয়ার্ড পরিবর্তন করে নতুন শক্তিশালী পাসওয়ার্ড সেট করুন।</div>
                 </div>
 
-                <!-- Delete my account permanently -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left" style="color: #d9534f;">
@@ -757,7 +739,6 @@
                     <div class="setting-content">সাবধান! এই অপশনটির মাধ্যমে আপনার অ্যাকাউন্ট এবং সমস্ত ডেটা চিরতরে মুছে ফেলতে পারবেন।</div>
                 </div>
 
-                <!-- Log out -->
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
                         <div class="setting-header-left">
@@ -788,7 +769,6 @@
             element.classList.toggle('active');
         }
 
-        // Dual Language Functionality
         let currentLang = localStorage.getItem('baza_lang') || 'bn';
         function setLanguage(lang) {
             currentLang = lang;
@@ -1544,7 +1524,7 @@
             const chips = document.querySelectorAll('.sub-chip');
             chips.forEach(chip => {
                 if(chip.innerText === sub) {
-                    chip.classList.——add('active'); // Fixed typo during cleanup if any
+                    chip.classList.add('active');
                 } else {
                     chip.classList.remove('active');
                 }
