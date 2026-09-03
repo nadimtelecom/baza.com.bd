@@ -101,10 +101,15 @@
         .drawer-header {
             padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
             border-bottom: 1px solid #ddd; background: var(--primary); color: white;
+            min-height: 60px; /* সংশোধন করা হয়েছে */
         }
         body.dark-mode .drawer-header { border-color: #333; }
-        .drawer-header h3 { font-size: 16px; }
-        .drawer-close { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+        .drawer-header h3 { font-size: 16px; margin: 0; padding-right: 15px; } /* সংশোধন করা হয়েছে */
+        .drawer-close { 
+            background: none; border: none; color: white; font-size: 24px; 
+            cursor: pointer; width: 35px; height: 35px; display: flex; 
+            align-items: center; justify-content: center; flex-shrink: 0; 
+        } /* সংশোধন করা হয়েছে */
         
         .drawer-body { padding: 10px 0; }
         .drawer-item {
@@ -838,7 +843,6 @@
             openModal('postAdModal');
         };
 
-        // Render Profile Dashboard matching your first screenshot
         function renderAuthUI() {
             const container = document.getElementById('authContent');
             const headerAuthText = document.getElementById('headerAuthText');
