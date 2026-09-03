@@ -64,36 +64,6 @@
         
         .container { max-width: 1100px; margin: 20px auto; padding: 0 10px; width: 100%; box-sizing: border-box; }
         
-        /* Profile & Settings Section Wrapper (লুকিয়ে দেওয়া হয়েছে) */
-        .profile-wrapper { display: none; }
-        
-        .profile-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #ddd; }
-        body.dark-mode .profile-header { border-color: #333; }
-        .avatar-icon { font-size: 30px; background: #eef2f5; padding: 8px; border-radius: 50%; }
-        body.dark-mode .avatar-icon { background: #2a2a2a; }
-        .settings-btn { background: none; border: none; font-size: 20px; cursor: pointer; }
-
-        .profile-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; }
-        .profile-card { background: rgba(0,0,0,0.02); padding: 10px 5px; border-radius: 8px; text-align: center; cursor: pointer; border: 1px solid rgba(0,0,0,0.04); }
-        body.dark-mode .profile-card { background: rgba(255,255,255,0.03); border-color: #333; }
-        .profile-card .icon { font-size: 20px; display: block; margin-bottom: 4px; }
-        .profile-card h3 { font-size: 11px; font-weight: 600; }
-
-        /* Settings Accordion Dropdown Styles */
-        .settings-section { margin-top: 15px; }
-        .setting-dropdown-item { border-bottom: 1px solid #eee; }
-        body.dark-mode .setting-dropdown-item { border-color: #2a2a2a; }
-        .setting-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; font-size: 13px; cursor: pointer; font-weight: 600; }
-        .setting-header-left { display: flex; align-items: center; gap: 10px; }
-        .setting-content { display: none; padding: 0 10px 12px 30px; font-size: 12px; color: #666; line-height: 1.5; }
-        body.dark-mode .setting-content { color: #aaa; }
-        .setting-dropdown-item.active .setting-content { display: block; }
-        .setting-dropdown-item.active .fa-chevron-right { transform: rotate(90deg); transition: transform 0.2s; }
-        .fa-chevron-right { transition: transform 0.2s; font-size: 11px; color: #888; }
-
-        .value-alert { color: #d9534f; font-size: 11px; font-weight: bold; }
-        .value { color: #777; font-size: 11px; }
-
         .filter-section { background: var(--card-bg-light); padding: 12px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
         body.dark-mode .filter-section { background: var(--card-bg-dark); }
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; flex-grow: 1; }
@@ -136,7 +106,6 @@
         .fav-btn { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; color: #555; z-index: 2; }
         .fav-btn.active { color: #ff4757; }
 
-        /* Footer Policies Links */
         footer { text-align: center; padding: 20px; margin-top: 40px; font-size: 13px; color: #777; border-top: 1px solid #ddd; }
         body.dark-mode footer { border-color: #333; }
         .footer-links { margin-top: 8px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
@@ -177,6 +146,20 @@
         body.dark-mode .dashboard-box { background: rgba(255,255,255,0.05); }
         .admin-badge { background: #dc3545; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
         .shop-badge { background: #28a745; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
+
+        /* Settings Accordion Styles */
+        .settings-section { margin-top: 15px; }
+        .setting-dropdown-item { border-bottom: 1px solid #eee; }
+        body.dark-mode .setting-dropdown-item { border-color: #2a2a2a; }
+        .setting-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; font-size: 13px; cursor: pointer; font-weight: 600; }
+        .setting-header-left { display: flex; align-items: center; gap: 10px; }
+        .setting-content { display: none; padding: 0 10px 12px 30px; font-size: 12px; color: #666; line-height: 1.5; }
+        body.dark-mode .setting-content { color: #aaa; }
+        .setting-dropdown-item.active .setting-content { display: block; }
+        .setting-dropdown-item.active .fa-chevron-right { transform: rotate(90deg); transition: transform 0.2s; }
+        .fa-chevron-right { transition: transform 0.2s; font-size: 11px; color: #888; }
+        .value-alert { color: #d9534f; font-size: 11px; font-weight: bold; }
+        .value { color: #777; font-size: 11px; }
     </style>
 </head>
 <body>
@@ -203,6 +186,7 @@
         </div>
     </header>
 
+    <!-- Hero Banner -->
     <div class="hero-banner">
         <h1 data-bn="Baza-তে সবকিছু কেনা-বেচা করুন সহজে" data-en="Buy and Sell Everything Easily on Baza">Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
         <p data-bn="আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম" data-en="The safest platform for buying and selling your used or new products">আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
@@ -215,52 +199,8 @@
         </div>
     </div>
 
+    <!-- Main Container -->
     <div class="container">
-        <!-- Integrated Profile & Settings View Container (লুকানো) -->
-        <div class="profile-wrapper">
-            <div class="profile-header">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <div class="avatar-icon">👤</div>
-                    <div class="user-info">
-                        <h2 style="font-size: 16px;">MD NADIM KHAN</h2>
-                    </div>
-                </div>
-                <button class="settings-btn" onclick="openModal('settingsModal')">⚙️</button>
-            </div>
-
-            <!-- Profile Grid Menu -->
-            <div class="profile-grid">
-                <div class="profile-card" onclick="selectCategory('all')">
-                    <span class="icon">📋</span>
-                    <h3 data-bn="My ads" data-en="My ads">My ads</h3>
-                </div>
-                <div class="profile-card" onclick="openPostModal()">
-                    <span class="icon">💰</span>
-                    <h3 data-bn="Make money" data-en="Make money">Make money</h3>
-                </div>
-                <div class="profile-card" onclick="openModal('privacyModal')">
-                    <span class="icon">😊</span>
-                    <h3 data-bn="Feedback" data-en="Feedback">Feedback</h3>
-                </div>
-                <div class="profile-card" onclick="openModal('termsModal')">
-                    <span class="icon">❓</span>
-                    <h3 data-bn="FAQ" data-en="FAQ">FAQ</h3>
-                </div>
-                <div class="profile-card" onclick="openModal('wishlistModal')">
-                    <span class="icon">🔔</span>
-                    <h3 data-bn="Notifications" data-en="Notifications">Notifications</h3>
-                </div>
-                <div class="profile-card" onclick="alert('Game Centre is coming soon!')">
-                    <span class="icon">🧩</span>
-                    <h3 data-bn="Game centre" data-en="Game centre">Game centre</h3>
-                </div>
-                <div class="profile-card" onclick="alert('No followers yet.')">
-                    <span class="icon">👥</span>
-                    <h3 data-bn="Followers" data-en="Followers">Followers</h3>
-                </div>
-            </div>
-        </div>
-
         <div class="banner-ad-slot" data-bn="স্পন্সরড অ্যাড / গুগলের বিজ্ঞাপন স্পেস (এখানে আপনার অ্যাডসেন্স কোড বসাতে পারেন)" data-en="Sponsored Ad / Google Ads Space (Place your AdSense code here)">
             <i class="fa-solid fa-bullhorn" style="color: var(--accent);"></i> স্পন্সরড অ্যাড / গুগলের বিজ্ঞাপন স্পেস (এখানে আপনার অ্যাডসেন্স কোড বসাতে পারেন)
         </div>
@@ -282,6 +222,7 @@
             <button onclick="resetFilters()" style="padding: 8px 12px; background:#6c757d; color:white; border:none; border-radius:4px; cursor:pointer; font-size:12px;" data-bn="রিসেট" data-en="Reset">রিসেট</button>
         </div>
 
+        <!-- Categories -->
         <div class="category-grid">
             <div class="category-card" onclick="selectCategory('all')"><i class="fa-solid fa-fire" style="color: #ff4757;"></i><span data-bn="Trending" data-en="Trending">Trending</span></div>
             <div class="category-card" onclick="selectCategory('vehicles')"><i class="fa-solid fa-car" style="color: #2ed573;"></i><span data-bn="Vehicles" data-en="Vehicles">Vehicles</span></div>
@@ -313,7 +254,7 @@
         <div class="product-grid" id="adsGrid"></div>
     </div>
 
-    <!-- Footer with Policies -->
+    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Baza.com.bd - All Rights Reserved.</p>
         <p style="font-size:11px; margin-top:3px;">Developed by Nadim</p>
@@ -342,14 +283,13 @@
         </button>
     </nav>
 
+    <!-- Modals -->
     <!-- Privacy Policy Modal -->
     <div class="modal" id="privacyModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
             <h3 style="margin-bottom: 12px; color: var(--primary);">🔒 Privacy Policy (গোপনীয়তা নীতি)</h3>
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd-এ আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ। আমরা আপনার ব্যক্তিগত তথ্যের নিরাপত্তা রক্ষায় প্রতিজ্ঞাবদ্ধ।</p>
-            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>তথ্য সংগ্রহ:</strong> আমরা ব্যবহারকারীদের অ্যাকাউন্ট তৈরি এবং বিজ্ঞাপন পোস্ট করার সময় নাম, ইমেইল, ফোন নম্বর এবং লোকেশন সংগ্রহ করতে পারি।</p>
-            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong> কুকিজ (Cookies):</strong> আমাদের সাইট ব্যবহারকারীর অভিজ্ঞতা উন্নত করতে কুকিজ ব্যবহার করে। থার্ড-পার্টি ভেন্ডর যেমন Google AdSense কুকিজ ব্যবহার করে ব্যবহারকারীর আগের ভিজিটের ভিত্তিতে বিজ্ঞাপন দেখাতে পারে।</p>
         </div>
     </div>
 
@@ -359,8 +299,6 @@
             <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
             <h3 style="margin-bottom: 12px; color: var(--primary);">📜 Terms & Conditions (শর্তাবলী)</h3>
             <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd ব্যবহার করার মাধ্যমে আপনি আমাদের শর্তাবলীতে সম্মতি প্রদান করছেন।</p>
-            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>১. বিজ্ঞাপনের সত্যতা:</strong> ব্যবহারকারী নিজে তার পণ্যের বিজ্ঞাপন দেবেন। কোনো ভুয়া, অবৈধ বা প্রতারণামূলক বিজ্ঞাপন পোস্ট করা সম্পূর্ণ নিষিদ্ধ।</p>
-            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;"><strong>২. অ্যাডমিন অধিকার:</strong> অ্যাডমিন যেকোনো সময় পলিসি-বিরোধী বা স্প্যাম বিজ্ঞাপন নোটিশ ছাড়াই ডিলিট করার অধিকার সংরক্ষণ করেন।</p>
         </div>
     </div>
 
@@ -378,7 +316,6 @@
             
             <div style="background: rgba(0,128,105,0.05); padding:10px; border-radius:6px; margin:10px 0; border: 1px dashed var(--primary);">
                 <p style="font-size:11px; font-weight:bold; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-shield-halved"></i> Baza Safe Delivery & Commission Service</p>
-                <p style="font-size:11px; color:#666;">হোম ডেলিভারি নিতে চাইলে বা নিরাপদে কিনতে অর্ডার কনফার্ম করুন।</p>
                 <button onclick="requestOnlineOrder()" style="width:100%; margin-top:8px; padding:7px; background:var(--accent); color:#000; border:none; border-radius:4px; font-weight:bold; font-size:12px; cursor:pointer;" data-bn="🛍️ অনলাইন অর্ডার কনফার্ম করুন" data-en="🛍️ Confirm Online Order">🛍️ অনলাইন অর্ডার কনফার্ম করুন</button>
             </div>
 
@@ -491,19 +428,6 @@
                     <div class="preview-container" id="imagePreviewContainer"></div>
                 </div>
 
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" id="togglePayment" onchange="togglePaymentOptions()"> <span data-bn="পেমেন্ট অপশন যোগ করতে চান?" data-en="Want to add payment options?">পেমেন্ট অপশন যোগ করতে চান?</span>
-                    </label>
-                </div>
-
-                <div id="paymentSection" style="display: none; border: 1px solid #ddd; padding: 15px; margin-top: 10px; margin-bottom: 12px; border-radius: 5px; background: rgba(0,0,0,0.01);">
-                    <h4 style="font-size:14px; margin-bottom:8px;" data-bn="পেমেন্ট মাধ্যমসমূহ" data-en="Payment Methods">পেমেন্ট মাধ্যমসমূহ</h4>
-                    <div class="payment-method" style="font-size:12px; margin-bottom:6px;">
-                        <p><strong>বিকাশ / রকেট / নগদ (Personal):</strong> 01916390762</p>
-                    </div>
-                </div>
-
                 <div class="form-group" style="background: rgba(255,204,0,0.15); padding:10px; border-radius:6px; border:1px solid var(--accent);">
                     <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
                         <input type="checkbox" id="postIsFeatured" style="width:16px; height:16px;">
@@ -520,7 +444,7 @@
         </div>
     </div>
 
-    <!-- User Dashboard & Profile Modal -->
+    <!-- User Account Modal -->
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
@@ -540,7 +464,7 @@
         </div>
     </div>
 
-    <!-- Settings Modal with Dropdowns -->
+    <!-- Settings Modal -->
     <div class="modal" id="settingsModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('settingsModal')">&times;</span>
@@ -550,203 +474,14 @@
             <div class="settings-section">
                 <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
                     <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>👤</span>
-                            <span>Personal info</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="setting-content">আপনার নাম, প্রোফাইল পিকচার এবং অ্যাকাউন্ট সংক্রান্ত ব্যক্তিগত তথ্য এখানে দেখতে ও পরিবর্তন করতে পারবেন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>📄</span>
-                            <span>Company verification</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="setting-content">আপনার বিজনেস বা কোম্পানির ভেরিফিকেশন স্ট্যাটাস চেক করুন এবং প্রয়োজনীয় কাগজপত্র জমা দিয়ে ভেরিফাইড শপ ব্যাজ নিন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>📞</span>
-                            <span>Phone numbers</span>
-                        </div>
-                        <div>
-                            <span class="value-alert">01916390762 ⚠️</span>
-                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
-                        </div>
-                    </div>
-                    <div class="setting-content">আপনার অ্যাকাউন্ট এবং বিজ্ঞাপনের সাথে যুক্ত ফোন নম্বর। নম্বর ভেরিফাই বা পরিবর্তন করতে এখানে ট্যাপ করুন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>✉️</span>
-                            <span>Confirm email</span>
-                        </div>
-                        <div>
-                            <span class="value-alert">nadimkhan5050@... ⚠️</span>
-                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
-                        </div>
-                    </div>
-                    <div class="setting-content">আপনার জিমেইল বা ইমেইল ঠিকানা কনফার্ম করুন যাতে অ্যাকাউন্ট সুরক্ষিত থাকে এবং নোটিফিকেশন পেতে পারেন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>🌐</span>
-                            <span data-bn="Change language (ভাষা পরিবর্তন)" data-en="Change language">Change language</span>
-                        </div>
-                        <div>
-                            <span class="value" id="currentLangLabel">বাংলা</span>
-                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
-                        </div>
+                        <div class="setting-header-left"><span>🌐</span> <span data-bn="Change language (ভাষা পরিবর্তন)" data-en="Change language">Change language</span></div>
+                        <div><span class="value" id="currentLangLabel">বাংলা</span> <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i></div>
                     </div>
                     <div class="setting-content">
-                        <p style="margin-bottom:8px;">ওয়েবসাইটের ভাষা পরিবর্তন করুন / Switch website language:</p>
+                        <p style="margin-bottom:8px;">ওয়েবসাইটের ভাষা পরিবর্তন করুন:</p>
                         <button onclick="setLanguage('bn')" style="padding:5px 10px; background:var(--primary); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-right:5px;">বাংলা</button>
                         <button onclick="setLanguage('en')" style="padding:5px 10px; background:#4285F4; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">English</button>
                     </div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>💬</span>
-                            <span>Disable chats</span>
-                        </div>
-                        <div>
-                            <span class="value">Enabled</span>
-                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
-                        </div>
-                    </div>
-                    <div class="setting-content">ক্রেতা বা বিক্রেতাদের সাথে চ্যাট সিস্টেম চালু বা বন্ধ করার অপশন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>😊</span>
-                            <span>Disable feedback</span>
-                        </div>
-                        <div>
-                            <span class="value">Enabled</span>
-                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
-                        </div>
-                    </div>
-                    <div class="setting-content">গ্রাহক বা ব্যবহারকারীদের ফিডব্যাক ও রিভিউ অপশন নিয়ন্ত্রণ বা ডিজেবল করুন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>📞</span>
-                            <span>In-app calls</span>
-                        </div>
-                        <div>
-                            <span class="value">Disabled</span>
-                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
-                        </div>
-                    </div>
-                    <div class="setting-content">অ্যাপের ভেতর সরাসরি ভয়েস কল করার সুবিধা চালু বা বন্ধ করতে পারবেন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>🔔</span>
-                            <span>Manage notifications</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="setting-content">কোন কোন বিষয়ের নোটিফিকেশন বা অ্যালার্ট আপনার ফোনে বা ইমেইলে আসবে তা কাস্টমাইজ করুন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>ℹ️</span>
-                            <span>About Baza</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="setting-content">Baza.com.bd প্ল্যাটফর্ম সম্পর্কে বিস্তারিত জানুন, ডেভেলপার তথ্য ও অ্যাপ ভার্সন চেক করুন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>📶</span>
-                            <span>Check connection</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="setting-content">আপনার ইন্টারনেট কানেকশন বা সার্ভার সংযোগের বর্তমান অবস্থা টেস্ট করুন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>⭐</span>
-                            <span>Rate Us</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="setting-content">আমাদের ওয়েবসাইট বা অ্যাপটি কেমন লাগছে তা রেটিং দিয়ে আপনার মূল্যবান মতামত জানান।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>🌙</span>
-                            <span>Dark mode</span>
-                        </div>
-                        <div>
-                            <span class="value">System (default)</span>
-                            <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i>
-                        </div>
-                    </div>
-                    <div class="setting-content">চোখের আরামের জন্য ডার্ক মোড বা লাইট মোড সিলেক্ট করুন অথবা সিস্টেম ডিফল্ট সেট করুন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>🔒</span>
-                            <span>Change password</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="setting-content">আপনার অ্যাকাউন্ট সুরক্ষিত রাখতে বর্তমান পাসওয়ার্ড পরিবর্তন করে নতুন শক্তিশালী পাসওয়ার্ড সেট করুন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left" style="color: #d9534f;">
-                            <span>🗑️</span>
-                            <span>Delete my account permanently</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="setting-content">সাবধান! এই অপশনটির মাধ্যমে আপনার অ্যাকাউন্ট এবং সমস্ত ডেটা চিরতরে মুছে ফেলতে পারবেন।</div>
-                </div>
-
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left">
-                            <span>🚪</span>
-                            <span>Log out</span>
-                        </div>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="setting-content">আপনার বর্তমান অ্যাকাউন্ট থেকে নিরাপদভাবে লগআউট বা সাইন-আউট করুন।</div>
                 </div>
             </div>
 
@@ -757,13 +492,8 @@
         </div>
     </div>
 
+    <!-- Scripts -->
     <script>
-        function togglePaymentOptions() {
-            const checkbox = document.getElementById('togglePayment');
-            const paymentSection = document.getElementById('paymentSection');
-            paymentSection.style.display = checkbox.checked ? 'block' : 'none';
-        }
-
         function toggleSettingDropdown(element) {
             element.classList.toggle('active');
         }
@@ -975,104 +705,15 @@
             {
                 division: "Dhaka",
                 districts: [
-                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel", "Ramna", "Lalbagh", "Paltan", "Khilkhet", "Badda", "Cantonment", "Demra", "Hazaribagh", "Jatrabari", "Kadamtali", "Kafrul", "Kamrangirchar", "Khilgaon", "Pallabi", "Rupnagar", "Sabujbagh", "Shah Ali", "Shahbagh", "Sher-e-Bangla Nagar", "Shyampur", "Sutrapur", "Tejgaon Industrial Area", "Turag", "Uttar Khan", "Vatara", "Wari", "Dohar", "Keraniganj", "Nawabganj", "Savar", "Dhamrai"] },
-                    { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Kaliganj", "Kapasia", "Sreepur", "Tongi"] },
-                    { district: "Kishoreganj", thanas: ["Kishoreganj Sadar", "Austagram", "Bajitpur", "Hossainpur", "Itna", "Karimganj", "Katiadi", "Kuliarchar", "Mithamoin", "Nikli", "Pakundia", "Tarail"] },
-                    { district: "Manikganj", thanas: ["Manikganj Sadar", "Daulatpur", "Gior", "Harirampur", "Saturia", "Shivalaya", "Singair"] },
-                    { district: "Munshiganj", thanas: ["Munshiganj Sadar", "Gazaria", "Lohajang", "Sirajdikhan", "Sreenagar", "Tongibari"] },
-                    { district: "Narayanganj", thanas: ["Narayanganj Sadar", "Araihazar", "Bandar", "Rupganj", "Sonargaon"] },
-                    { district: "Narsingdi", thanas: ["Narsingdi Sadar", "Belabo", "Monohardi", "Palash", "Raipura", "Shibpur"] },
-                    { district: "Tangail", thanas: ["Tangail Sadar", "Basail", "Bhuapur", "Delduar", "Dhanbari", "Ghatail", "Gopalpur", "Kalihati", "Madhupur", "Mirzapur", "Nagarpur", "Sakhipur"] },
-                    { district: "Faridpur", thanas: ["Faridpur Sadar", "Alfadanga", "Bhanga", "Boalmari", "Charbhadrasan", "Madhukhali", "Nagarkanda", "Sadarpur", "Saltha"] },
-                    { district: "Gopalganj", thanas: ["Gopalganj Sadar", "Kashiani", "Kotalipara", "Muksudpur", "Tungipara"] },
-                    { district: "Madaripur", thanas: ["Madaripur Sadar", "Kalkini", "Rajoir", "Shibchar"] },
-                    { district: "Rajbari", thanas: ["Rajbari Sadar", "Baliakandi", "Goalandaghat", "Pangsha", "Kalukhali"] },
-                    { district: "Shariatpur", thanas: ["Shariatpur Sadar", "Bhedarganj", "Damudya", "Gosairhat", "Naria", "Zajira"] }
+                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel"] },
+                    { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Kaliganj", "Tongi"] }
                 ]
             },
             {
                 division: "Chattogram",
                 districts: [
-                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Kotwali", "Khulshi", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon", "Patiya", "Sitakunda", "Mirsharai", "Anwara", "Banshkhali", "Boalkhali", "Fatikchhari", "Hathazari", "Lohagara", "Raozan", "Sandwip", "Satkania", "Boalkhali", "Karnafuli"] },
-                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Ukhiya", "Teknaf", "Pekua", "Ramu", "Kutubdia", "Maheshkhali"] },
-                    { district: "Bandarban", thanas: ["Bandarban Sadar", "Alikadam", "Naikhongchhari", "Rowangchhari", "Ruma", "Thanchi", "Lama"] },
-                    { district: "Brahmanbaria", thanas: ["Brahmanbaria Sadar", "Akhaura", "Bancharampur", "Bijoynagar", "Kasba", "Nabinagar", "Nasirnagar", "Sarail"] },
-                    { district: "Chandpur", thanas: ["Chandpur Sadar", "Faridganj", "Haimchar", "Hajiganj", "Kachua", "Matlab Dakshin", "Matlab Uttar", "Shahrasti"] },
-                    { district: "Cumilla", thanas: ["Cumilla Sadar", "Barura", "Brahmanpara", "Burichong", "Chandina", "Chauddagram", "Daudkandi", "Debidwar", "Homna", "Laksam", "Monohorganj", "Meghna", "Muradnagar", "Nangalkot", "Titas"] },
-                    { district: "Khagrachhari", thanas: ["Khagrachhari Sadar", "Dighinala", "Lakshmichhari", "Mahalchhari", "Manaikchhari", "Matiranga", "Panchhari", "Ramgarh"] },
-                    { district: "Lakshmipur", thanas: ["Lakshmipur Sadar", "Kamalnagar", "Raipur", "Ramganj", "Ramgati"] },
-                    { district: "Noakhali", thanas: ["Noakhali Sadar", "Begumganj", "Chatkhil", "Companiganj", "Hatiya", "Kabirhat", "Senbagh", "Subarnachar"] },
-                    { district: "Rangamati", thanas: ["Rangamati Sadar", "Belaichhari", "Bagaichhari", "Barkal", "Karnafuli", "Langadu", "Naniarchar", "Rajasthali", "Juraichhari"] }
-                ]
-            },
-            {
-                division: "Rajshahi",
-                districts: [
-                    { district: "Rajshahi", thanas: ["Boalia", "Rajpara", "Motihar", "Shah Makhdum", "Katakhali", "Paba", "Bagha", "Charghat", "Durgapur", "Godagari", "Mohanpur", "Puthia", "Tanore"] },
-                    { district: "Bogura", thanas: ["Bogura Sadar", "Adamdighi", "Dhunat", "Dhupchanchia", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Shahjahanpur", "Sherpur", "Shibganj", "Sonatala"] },
-                    { district: "Joypurhat", thanas: ["Joypurhat Sadar", "Akkelpur", "Kalai", "Khetlal", "Panchbibi"] },
-                    { district: "Naogaon", thanas: ["Naogaon Sadar", "Atrai", "Badalgachhi", "Dhamoirhat", "Manda", "Mahadevapur", "Niamatpur", "Patnitala", "Porsha", "Raninagar", "Sapahar"] },
-                    { district: "Natore", thanas: ["Natore Sadar", "Bagatipara", "Baraigram", "Gurudaspur", "Lalpur", "Singra"] },
-                    { district: "Chapainawabganj", thanas: ["Chapainawabganj Sadar", "Bholahat", "Gomostapur", "Nachole", "Shibganj"] },
-                    { district: "Pabna", thanas: ["Pabna Sadar", "Atgharia", "Bera", "Chatmohar", "Faridpur", "Ishwardi", "Santhia", "Sujanagar"] },
-                    { district: "Sirajganj", thanas: ["Sirajganj Sadar", "Belkuchi", "Chauhali", "Kamarkhanda", "Kazipur", "Royganj", "Shahjadpur", "Tarash", "Ullahpara"] }
-                ]
-            },
-            {
-                division: "Khulna",
-                districts: [
-                    { district: "Khulna", thanas: ["Sonadanga", "Khalishpur", "Daulatpur", "Khan Jahan Ali", "Kotwali", "Harintana", "Batiaghata", "Dacope", "Dumuria", "Dighalia", "Koyra", "Paikgachha", "Phultala", "Rupsa"] },
-                    { district: "Bagerhat", thanas: ["Bagerhat Sadar", "Chitalmari", "Fakirhat", "Kachua", "Mollahat", "Mongla", "Morrelganj", "Rampal", "Sarankhola"] },
-                    { district: "Chuadanga", thanas: ["Chuadanga Sadar", "Alamdanga", "Damurhuda", "Jibannagar"] },
-                    { district: "Jashore", thanas: ["Jashore Sadar", "Abhaynagar", "Bagherpara", "Chaugachha", "Jhikargachha", "Keshabpur", "Manirampur", "Sharsha"] },
-                    { district: "Jhenaidah", thanas: ["Jhenaidah Sadar", "Harinakunda", "Kaliganj", "Kotchandpur", "Maheshpur", "Shailkupa"] },
-                    { district: "Kushtia", thanas: ["Kushtia Sadar", "Bheramara", "Daulatpur", "Khoksa", "Kumarkhali", "Mirpur"] },
-                    { district: "Magura", thanas: ["Magura Sadar", "Mohammadpur", "Shalikha", "Sreepur"] },
-                    { district: "Meherpur", thanas: ["Meherpur Sadar", "Gangni", "Mujibnagar"] },
-                    { district: "Narail", thanas: ["Narail Sadar", "Kalia", "Lohagara"] },
-                    { district: "Satkhira", thanas: ["Satkhira Sadar", "Assasuni", "Debhata", "Kalaroa", "Kaliganj", "Shyamnagar", "Tala"] }
-                ]
-            },
-            {
-                division: "Barishal",
-                districts: [
-                    { district: "Barishal", thanas: ["Barishal Sadar", "Babuganj", "Bakerganj", "Banaripara", "Gaurnadi", "Hizla", "Mehendiganj", "Muladi", "Wazirpur"] },
-                    { district: "Barguna", thanas: ["Barguna Sadar", "Amtali", "Bamna", "Betagi", "Patharghata", "Taltali"] },
-                    { district: "Bhola", thanas: ["Bhola Sadar", "Burhanuddin", "Char Fasson", "Daulatkhan", "Lalmohan", "Manpura", "Tazumuddin"] },
-                    { district: "Jhalokati", thanas: ["Jhalokati Sadar", "Kanthalia", "Nalchity", "Rajapur"] },
-                    { district: "Patuakhali", thanas: ["Patuakhali Sadar", "Bauphal", "Dashmina", "Dumki", "Galachipa", "Kalapara", "Mirzaganj", "Rangabali"] },
-                    { district: "Pirojpur", thanas: ["Pirojpur Sadar", "Bhandaria", "Kawkhali", "Mathbaria", "Nazirpur", "Nesarabad", "Zianagar"] }
-                ]
-            },
-            {
-                division: "Sylhet",
-                districts: [
-                    { district: "Sylhet", thanas: ["Sylhet Sadar", "Beanibazar", "Bishwanath", "Companiganj", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Zakiganj", "South Surma"] },
-                    { district: "Habiganj", thanas: ["Habiganj Sadar", "Ajmiriganj", "Bahubal", "Baniachong", "Chunarughat", "Lakhai", "Madhabpur", "Nabiganj"] },
-                    { district: "Moulvibazar", thanas: ["Moulvibazar Sadar", "Barlekha", "Juri", "Kamalganj", "Kulaura", "Rajnagar", "Sreemangal"] },
-                    { district: "Sunamganj", thanas: ["Sunamganj Sadar", "Bishwamvarpur", "Chhatak", "Derai", "Dharamapasha", "Doarabazar", "Jagannathpur", "Jamalganj", "Sullah", "Tahirpur", "South Sunamganj"] }
-                ]
-            },
-            {
-                division: "Rangpur",
-                districts: [
-                    { district: "Rangpur", thanas: ["Rangpur Sadar", "Badarganj", "Gangachara", "Kaunia", "Mithapukur", "Pirgachha", "Pirganj", "Taraganj"] },
-                    { district: "Dinajpur", thanas: ["Dinajpur Sadar", "Birampur", "Birganj", "Biral", "Bochaganj", "Chirirbandar", "Fulbari", "Ghoraghat", "Hakimpur", "Kaharole", "Khansama", "Nawabganj", "Parbatipur"] },
-                    { district: "Gaibandha", thanas: ["Gaibandha Sadar", "Fulchhari", "Gobindaganj", "Palashbari", "Sadullapur", "Saghata", "Sundarganj"] },
-                    { district: "Kurigram", thanas: ["Kurigram Sadar", "Bhurungamari", "Char Rajibpur", "Chilmari", "Phulbari", "Rajarhat", "Rowmari", "Ulipur"] },
-                    { district: "Lalmonirhat", thanas: ["Lalmonirhat Sadar", "Aditmari", "Hatibandha", "Kaliganj", "Patgram"] },
-                    { district: "Nilphamari", thanas: ["Nilphamari Sadar", "Dimla", "Jaldhaka", "Kishoreganj", "Saidpur", "Jaldhaka"] },
-                    { district: "Panchagarh", thanas: ["Panchagarh Sadar", "Atwari", "Boda", "Debiganj", "Tetulia"] },
-                    { district: "Thakurgaon", thanas: ["Thakurgaon Sadar", "Baliadangi", "Haripur", "Pirganj", "Ranisankail"] }
-                ]
-            },
-            {
-                division: "Mymensingh",
-                districts: [
-                    { district: "Mymensingh", thanas: ["Mymensingh Sadar", "Bhaluka", "Dhobaura", "Fulbaria", "Gaffargaon", "Gauripur", "Haluaghat", "Ishwarganj", "Muktagachha", "Nandail", "Trishal"] },
-                    { district: "Jamalpur", thanas: ["Jamalpur Sadar", "Baksiganj", "Dewanganj", "Islampur", "Madarganj", "Melandaha", "Sarishabari"] },
-                    { district: "Netrokona", thanas: ["Netrokona Sadar", "Atpara", "Barhatta", "Durgapur", "Kakalihata", "Kendua", "Khaliajuri", "Madanganj", "Mohanganj", "Purbadhala"] },
-                    { district: "Sherpur", thanas: ["Sherpur Sadar", "Jhenaigati", "Nakla", "Nalitabari", "Sreebordi"] }
+                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Kotwali", "Khulshi", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon"] },
+                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Ukhiya", "Teknaf"] }
                 ]
             }
         ];
@@ -1356,7 +997,6 @@
                 document.getElementById('editAdId').value = '';
                 document.getElementById('postModalTitle').innerText = "নতুন বিজ্ঞাপন দিন";
                 document.getElementById('postAdForm').reset();
-                document.getElementById('paymentSection').style.display = 'none';
                 selectedImagesBase64 = [];
                 renderImagePreviews();
                 onPostCategoryChange();
