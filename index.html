@@ -81,10 +81,40 @@
         .category-card i { font-size: 24px; margin-bottom: 6px; display: block; }
         .category-card span { font-size: 11px; font-weight: 600; display: block; line-height: 1.2; }
 
-        .sub-category-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; white-space: nowrap; }
-        .sub-chip { background: var(--card-bg-light); border: 1px solid #ddd; padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; font-weight: 600; color: inherit; transition: 0.2s; }
-        body.dark-mode .sub-chip { background: var(--card-bg-dark); border-color: #444; }
-        .sub-chip.active, .sub-chip:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        /* Bikroy Style Slide-in Drawer Styles */
+        .category-drawer-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); z-index: 2000;
+            display: none; justify-content: flex-end; transition: opacity 0.3s ease;
+        }
+        .category-drawer {
+            width: 100%; max-width: 400px; height: 100%;
+            background: var(--card-bg-light); color: var(--text-light);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            transform: translateX(100%); transition: transform 0.3s ease-in-out;
+            display: flex; flex-direction: column; overflow-y: auto;
+        }
+        body.dark-mode .category-drawer { background: var(--card-bg-dark); color: var(--text-dark); }
+        .category-drawer-overlay.open { display: flex; }
+        .category-drawer-overlay.open .category-drawer { transform: translateX(0); }
+        
+        .drawer-header {
+            padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid #ddd; background: var(--primary); color: white;
+        }
+        body.dark-mode .drawer-header { border-color: #333; }
+        .drawer-header h3 { font-size: 16px; }
+        .drawer-close { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+        
+        .drawer-body { padding: 10px 0; }
+        .drawer-item {
+            padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
+            text-decoration: none; color: inherit; font-size: 14px; font-weight: 600;
+            border-bottom: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: background 0.2s;
+        }
+        body.dark-mode .drawer-item { border-color: rgba(255,255,255,0.05); }
+        .drawer-item:hover { background: rgba(0, 128, 105, 0.1); color: var(--primary); }
+        .drawer-item i { color: #888; font-size: 12px; }
 
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .section-header h2 { font-size: 18px; color: inherit; }
@@ -243,8 +273,17 @@
             <div class="category-card" onclick="selectCategory('jobs')"><i class="fa-solid fa-briefcase" style="color: #2f3640;"></i><span data-bn="Jobs" data-en="Jobs">Jobs</span></div>
         </div>
 
-        <div id="subCategoryBarContainer" style="display:none;">
-            <div class="sub-category-bar" id="subCategoryBar"></div>
+        <!-- Bikroy Style Slide-in Drawer Container -->
+        <div class="category-drawer-overlay" id="categoryDrawerOverlay" onclick="closeCategoryDrawer(event)">
+            <div class="category-drawer" id="categoryDrawer" onclick="event.stopPropagation()">
+                <div class="drawer-header">
+                    <h3 id="drawerTitle">ক্যাটাগরি</h3>
+                    <button class="drawer-close" onclick="closeCategoryDrawerForce()">&times;</button>
+                </div>
+                <div class="drawer-body" id="drawerBody">
+                    <!-- Dynamic Sub-categories will load here -->
+                </div>
+            </div>
         </div>
 
         <div class="section-header">
@@ -1110,8 +1149,7 @@
             const divFilter = document.getElementById('heroDivision').value;
             const distFilter = document.getElementById('filterDistrict').value;
             const thanaFilter = document.getElementById('filterThana').value;
-            const sortVal = document.getElementById('priceSortSelect'
-            ).value;
+            const sortVal = document.getElementById('priceSortSelect').value;
 
             let filtered = allAds.filter(ad => {
                 const matchQuery = !queryVal || (ad.title && ad.title.toLowerCase().includes(queryVal)) || (ad.location && ad.location.toLowerCase().includes(queryVal));
@@ -1138,38 +1176,59 @@
             renderAds(filtered);
         };
 
+        // Bikroy Style Slide-in Category Selection
         window.selectCategory = function(cat) {
             currentCategory = cat;
             currentSubCategory = 'all';
             
-            const barContainer = document.getElementById('subCategoryBarContainer');
-            const subBar = document.getElementById('subCategoryBar');
-            subBar.innerHTML = '';
-            
-            if(cat !== 'all' && categoryFeatures[cat]) {
-                barContainer.style.display = 'block';
-                categoryFeatures[cat].forEach(sub => {
-                    const isActive = currentSubCategory === sub ? 'active' : '';
-                    subBar.innerHTML += `<button class="sub-chip ${isActive}" onclick="selectSubCategory('${sub}')">${sub}</button>`;
-                });
-            } else {
-                barContainer.style.display = 'none';
+            if(cat === 'all') {
+                filterAds();
+                return;
             }
-            
+
+            if(categoryFeatures[cat]) {
+                const drawerBody = document.getElementById('drawerBody');
+                drawerBody.innerHTML = '';
+                
+                // Add 'All' option first
+                drawerBody.innerHTML += `
+                    <div class="drawer-item" onclick="selectSubCategoryAndClose('all', 'সকল')">
+                        <span>সকল বিজ্ঞাপন (${cat})</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                `;
+
+                categoryFeatures[cat].forEach(sub => {
+                    if(sub !== 'সকল') {
+                        drawerBody.innerHTML += `
+                            <div class="drawer-item" onclick="selectSubCategoryAndClose('${sub}', '${sub}')">
+                                <span>${sub}</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+                        `;
+                    }
+                });
+
+                document.getElementById('drawerTitle').innerText = cat.toUpperCase() + " ক্যাটাগরি";
+                document.getElementById('categoryDrawerOverlay').classList.add('open');
+            } else {
+                filterAds();
+            }
+        };
+
+        window.selectSubCategoryAndClose = function(subKey, subName) {
+            currentSubCategory = subKey === 'all' ? 'all' : subName;
+            filterAds();
+            closeCategoryDrawerForce();
+        };
+
+        window.closeCategoryDrawer = function(event) {
+            document.getElementById('categoryDrawerOverlay').classList.remove('open');
             filterAds();
         };
 
-        window.selectSubCategory = function(sub) {
-            currentSubCategory = sub;
-            const chips = document.querySelectorAll('.sub-chip');
-            chips.forEach(chip => {
-                if(chip.innerText === sub) {
-                    chip.classList.add('active');
-                } else {
-                    chip.classList.remove('active');
-                }
-            });
-            filterAds();
+        window.closeCategoryDrawerForce = function() {
+            document.getElementById('categoryDrawerOverlay').classList.remove('open');
         };
 
         window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
