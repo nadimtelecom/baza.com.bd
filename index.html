@@ -177,19 +177,30 @@
         .admin-badge { background: #dc3545; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
         .shop-badge { background: #28a745; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
 
-        /* Settings Accordion Styles */
-        .settings-section { margin-top: 15px; }
-        .setting-dropdown-item { border-bottom: 1px solid #eee; }
-        body.dark-mode .setting-dropdown-item { border-color: #2a2a2a; }
-        .setting-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; font-size: 13px; cursor: pointer; font-weight: 600; }
-        .setting-header-left { display: flex; align-items: center; gap: 10px; }
-        .setting-content { display: none; padding: 0 10px 12px 30px; font-size: 12px; color: #666; line-height: 1.5; }
-        body.dark-mode .setting-content { color: #aaa; }
-        .setting-dropdown-item.active .setting-content { display: block; }
-        .setting-dropdown-item.active .fa-chevron-right { transform: rotate(90deg); transition: transform 0.2s; }
-        .fa-chevron-right { transition: transform 0.2s; font-size: 11px; color: #888; }
-        .value-alert { color: #d9534f; font-size: 11px; font-weight: bold; }
-        .value { color: #777; font-size: 11px; }
+        /* Bikroy Style Profile Layout Styles */
+        .profile-header-card { display: flex; align-items: center; justify-content: space-between; padding-bottom: 15px; border-bottom: 1px solid #eee; margin-bottom: 15px; }
+        body.dark-mode .profile-header-card { border-color: #333; }
+        .profile-user-info { display: flex; align-items: center; gap: 12px; }
+        .profile-avatar-icon { font-size: 40px; color: var(--primary); }
+        .profile-name-title { font-size: 16px; font-weight: bold; }
+        .profile-settings-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: inherit; }
+
+        .profile-grid-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+        .profile-menu-card { background: var(--card-bg-light); border: 1px solid #eee; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; color: inherit; transition: 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+        body.dark-mode .profile-menu-card { background: var(--card-bg-dark); border-color: #333; }
+        .profile-menu-card:hover { border-color: var(--primary); }
+        .profile-menu-card i { font-size: 22px; color: var(--primary); }
+        .profile-menu-text { font-size: 13px; font-weight: 600; }
+
+        /* Settings Style Menu Styles (Bikroy Look) */
+        .settings-list-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 10px; border-bottom: 1px solid #eee; text-decoration: none; color: inherit; font-size: 14px; font-weight: 500; cursor: pointer; }
+        body.dark-mode .settings-list-item { border-color: #2a2a2a; }
+        .settings-list-item:hover { background: rgba(0,0,0,0.02); }
+        body.dark-mode .settings-list-item:hover { background: rgba(255,255,255,0.02); }
+        .settings-item-left { display: flex; align-items: center; gap: 12px; }
+        .settings-item-left i { font-size: 18px; width: 24px; text-align: center; }
+        .settings-item-right { display: flex; align-items: center; gap: 8px; color: #777; font-size: 13px; }
+        .badge-alert { background: #ffebee; color: #c62828; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; border: 1px solid #ffcdd2; }
     </style>
 </head>
 <body>
@@ -197,7 +208,7 @@
     <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-logo">🌳</div>
-        <div class="preloader-text" data-bn="শান্তির ছায়ায় কেনা-বেচা, Baza.com.bd লোড হচ্ছে..." data-en="Safe Trading Platform, Baza.com.bd is loading...">শান্তির ছায়ায় কেনা-বেচা, Baza.com.bd লোড হচ্ছে...</div>
+        <div class="preloader-text">শান্তির ছায়ায় কেনা-বেচা, Baza.com.bd লোড হচ্ছে...</div>
     </div>
 
     <!-- Header -->
@@ -206,9 +217,9 @@
             🌳 Baza<span>.com.bd</span>
         </a>
         <div class="header-controls">
-            <button class="btn-post-ad" onclick="openPostModal()" data-bn="+ বিজ্ঞাপন দিন" data-en="+ Post Ad">+ বিজ্ঞাপন দিন</button>
+            <button class="btn-post-ad" onclick="openPostModal()">+ বিজ্ঞাপন দিন</button>
             <button class="btn-header" onclick="openModal('accountModal')" id="headerAuthBtn">
-                <i class="fa-solid fa-user-circle"></i> <span id="headerAuthText" data-bn="সাইন ইন" data-en="Sign In">সাইন ইন</span>
+                <i class="fa-solid fa-user-circle"></i> <span id="headerAuthText">প্রফাইল</span>
             </button>
             <button class="btn-header" onclick="openModal('wishlistModal')">
                 <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span id="wishlistCount" style="font-size: 10px; background: var(--accent); color: #000; padding: 1px 4px; border-radius: 10px; font-weight: bold;">0</span>
@@ -218,59 +229,59 @@
 
     <!-- Hero Banner -->
     <div class="hero-banner">
-        <h1 data-bn="Baza-তে সবকিছু কেনা-বেচা করুন সহজে" data-en="Buy and Sell Everything Easily on Baza">Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
-        <p data-bn="আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম" data-en="The safest platform for buying and selling your used or new products">আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
+        <h1>Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
+        <p>আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
         <div class="search-container">
             <select id="heroDivision" onchange="onHeroDivisionChange()">
-                <option value="" data-bn="সকল বিভাগ" data-en="All Divisions">সকল বিভাগ</option>
+                <option value="">সকল বিভাগ</option>
             </select>
-            <input type="text" id="searchInput" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" data-bn-placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" data-en-placeholder="What are you looking for? (e.g., Mobile, Bike)" onkeyup="if(event.key === 'Enter') filterAds()">
-            <button onclick="filterAds()"><i class="fa-solid fa-magnifying-glass"></i> <span data-bn="খুঁজুন" data-en="Search">খুঁজুন</span></button>
+            <input type="text" id="searchInput" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" onkeyup="if(event.key === 'Enter') filterAds()">
+            <button onclick="filterAds()"><i class="fa-solid fa-magnifying-glass"></i> খুঁজুন</button>
         </div>
     </div>
 
     <!-- Main Container -->
     <div class="container">
-        <div class="banner-ad-slot" data-bn="স্পন্সরড অ্যাড / গুগলের বিজ্ঞাপন স্পেস (এখানে আপনার অ্যাডসেন্স কোড বসাতে পারেন)" data-en="Sponsored Ad / Google Ads Space (Place your AdSense code here)">
+        <div class="banner-ad-slot">
             <i class="fa-solid fa-bullhorn" style="color: var(--accent);"></i> স্পন্সরড অ্যাড / গুগলের বিজ্ঞাপন স্পেস (এখানে আপনার অ্যাডসেন্স কোড বসাতে পারেন)
         </div>
 
         <div class="filter-section">
             <div class="filter-group">
                 <select id="filterDistrict" onchange="onHeroDistrictChange()" disabled>
-                    <option value="" data-bn="প্রথমে বিভাগ সিলেক্ট করুন" data-en="Select division first">প্রথমে বিভাগ সিলেক্ট করুন</option>
+                    <option value="">প্রথমে বিভাগ সিলেক্ট করুন</option>
                 </select>
                 <select id="filterThana" onchange="filterAds()" disabled>
-                    <option value="" data-bn="প্রথমে জেলা সিলেক্ট করুন" data-en="Select district first">প্রথমে জেলা সিলেক্ট করুন</option>
+                    <option value="">প্রথমে জেলা সিলেক্ট করুন</option>
                 </select>
                 <select id="priceSortSelect" onchange="filterAds()">
-                    <option value="" data-bn="মূল্য অনুযায়ী সাজান (Default)" data-en="Sort by price (Default)">মূল্য অনুযায়ী সাজান (Default)</option>
-                    <option value="low-high" data-bn="মূল্য: কম থেকে বেশি" data-en="Price: Low to High">মূল্য: কম থেকে বেশি</option>
-                    <option value="high-low" data-bn="মূল্য: বেশি থেকে কম" data-en="Price: High to Low">মূল্য: বেশি থেকে কম</option>
+                    <option value="">মূল্য অনুযায়ী সাজান (Default)</option>
+                    <option value="low-high">মূল্য: কম থেকে বেশি</option>
+                    <option value="high-low">মূল্য: বেশি থেকে কম</option>
                 </select>
             </div>
-            <button onclick="resetFilters()" style="padding: 8px 12px; background:#6c757d; color:white; border:none; border-radius:4px; cursor:pointer; font-size:12px;" data-bn="রিসেট" data-en="Reset">রিসেট</button>
+            <button onclick="resetFilters()" style="padding: 8px 12px; background:#6c757d; color:white; border:none; border-radius:4px; cursor:pointer; font-size:12px;">রিসেট</button>
         </div>
 
         <!-- Categories -->
         <div class="category-grid">
-            <div class="category-card" onclick="selectCategory('all')"><i class="fa-solid fa-fire" style="color: #ff4757;"></i><span data-bn="Trending" data-en="Trending">Trending</span></div>
-            <div class="category-card" onclick="selectCategory('vehicles')"><i class="fa-solid fa-car" style="color: #2ed573;"></i><span data-bn="Vehicles" data-en="Vehicles">Vehicles</span></div>
-            <div class="category-card" onclick="selectCategory('property')"><i class="fa-solid fa-house" style="color: #ffa502;"></i><span data-bn="Property" data-en="Property">Property</span></div>
-            <div class="category-card" onclick="selectCategory('mobile')"><i class="fa-solid fa-mobile-screen-button" style="color: #3742fa;"></i><span data-bn="Phones" data-en="Phones">Phones</span></div>
-            <div class="category-card" onclick="selectCategory('mobile-accessories')"><i class="fa-solid fa-headphones" style="color: #00cec9;"></i><span data-bn="Mobile Accessories" data-en="Mobile Accessories">Mobile Accessories</span></div>
-            <div class="category-card" onclick="selectCategory('electronics')"><i class="fa-solid fa-laptop" style="color: #70a1ff;"></i><span data-bn="Electronics" data-en="Electronics">Electronics</span></div>
-            <div class="category-card" onclick="selectCategory('furniture')"><i class="fa-solid fa-couch" style="color: #ff6b81;"></i><span data-bn="Furniture" data-en="Furniture">Furniture</span></div>
-            <div class="category-card" onclick="selectCategory('fashion')"><i class="fa-solid fa-shirt" style="color: #9b59b6;"></i><span data-bn="Fashion" data-en="Fashion">Fashion</span></div>
-            <div class="category-card" onclick="selectCategory('beauty')"><i class="fa-solid fa-pump-soap" style="color: #e84393;"></i><span data-bn="Beauty Care" data-en="Beauty Care">Beauty Care</span></div>
-            <div class="category-card" onclick="selectCategory('services')"><i class="fa-solid fa-wrench" style="color: #fd9644;"></i><span data-bn="Services" data-en="Services">Services</span></div>
-            <div class="category-card" onclick="selectCategory('construction')"><i class="fa-solid fa-helmet-safety" style="color: #f1c40f;"></i><span data-bn="Construction" data-en="Construction">Construction</span></div>
-            <div class="category-card" onclick="selectCategory('tools')"><i class="fa-solid fa-gears" style="color: #576574;"></i><span data-bn="Tools" data-en="Tools">Tools</span></div>
-            <div class="category-card" onclick="selectCategory('leisure')"><i class="fa-solid fa-person-biking" style="color: #10ac84;"></i><span data-bn="Leisure" data-en="Leisure">Leisure</span></div>
-            <div class="category-card" onclick="selectCategory('kids')"><i class="fa-solid fa-teddy-bear" style="color: #ff9ff3;"></i><span data-bn="Babies & Kids" data-en="Babies & Kids">Babies & Kids</span></div>
-            <div class="category-card" onclick="selectCategory('farm')"><i class="fa-solid fa-basket-shopping" style="color: #01a3a4;"></i><span data-bn="Agriculture" data-en="Agriculture">Agriculture</span></div>
-            <div class="category-card" onclick="selectCategory('pets')"><i class="fa-solid fa-dog" style="color: #ff7f50;"></i><span data-bn="Pets" data-en="Pets">Pets</span></div>
-            <div class="category-card" onclick="selectCategory('jobs')"><i class="fa-solid fa-briefcase" style="color: #2f3640;"></i><span data-bn="Jobs" data-en="Jobs">Jobs</span></div>
+            <div class="category-card" onclick="selectCategory('all')"><i class="fa-solid fa-fire" style="color: #ff4757;"></i><span>Trending</span></div>
+            <div class="category-card" onclick="selectCategory('vehicles')"><i class="fa-solid fa-car" style="color: #2ed573;"></i><span>Vehicles</span></div>
+            <div class="category-card" onclick="selectCategory('property')"><i class="fa-solid fa-house" style="color: #ffa502;"></i><span>Property</span></div>
+            <div class="category-card" onclick="selectCategory('mobile')"><i class="fa-solid fa-mobile-screen-button" style="color: #3742fa;"></i><span>Phones</span></div>
+            <div class="category-card" onclick="selectCategory('mobile-accessories')"><i class="fa-solid fa-headphones" style="color: #00cec9;"></i><span>Mobile Accessories</span></div>
+            <div class="category-card" onclick="selectCategory('electronics')"><i class="fa-solid fa-laptop" style="color: #70a1ff;"></i><span>Electronics</span></div>
+            <div class="category-card" onclick="selectCategory('furniture')"><i class="fa-solid fa-couch" style="color: #ff6b81;"></i><span>Furniture</span></div>
+            <div class="category-card" onclick="selectCategory('fashion')"><i class="fa-solid fa-shirt" style="color: #9b59b6;"></i><span>Fashion</span></div>
+            <div class="category-card" onclick="selectCategory('beauty')"><i class="fa-solid fa-pump-soap" style="color: #e84393;"></i><span>Beauty Care</span></div>
+            <div class="category-card" onclick="selectCategory('services')"><i class="fa-solid fa-wrench" style="color: #fd9644;"></i><span>Services</span></div>
+            <div class="category-card" onclick="selectCategory('construction')"><i class="fa-solid fa-helmet-safety" style="color: #f1c40f;"></i><span>Construction</span></div>
+            <div class="category-card" onclick="selectCategory('tools')"><i class="fa-solid fa-gears" style="color: #576574;"></i><span>Tools</span></div>
+            <div class="category-card" onclick="selectCategory('leisure')"><i class="fa-solid fa-person-biking" style="color: #10ac84;"></i><span>Leisure</span></div>
+            <div class="category-card" onclick="selectCategory('kids')"><i class="fa-solid fa-teddy-bear" style="color: #ff9ff3;"></i><span>Babies & Kids</span></div>
+            <div class="category-card" onclick="selectCategory('farm')"><i class="fa-solid fa-basket-shopping" style="color: #01a3a4;"></i><span>Agriculture</span></div>
+            <div class="category-card" onclick="selectCategory('pets')"><i class="fa-solid fa-dog" style="color: #ff7f50;"></i><span>Pets</span></div>
+            <div class="category-card" onclick="selectCategory('jobs')"><i class="fa-solid fa-briefcase" style="color: #2f3640;"></i><span>Jobs</span></div>
         </div>
 
         <!-- Bikroy Style Slide-in Drawer Container -->
@@ -280,14 +291,12 @@
                     <h3 id="drawerTitle">ক্যাটাগরি</h3>
                     <button class="drawer-close" onclick="closeCategoryDrawerForce()">&times;</button>
                 </div>
-                <div class="drawer-body" id="drawerBody">
-                    <!-- Dynamic Sub-categories will load here -->
-                </div>
+                <div class="drawer-body" id="drawerBody"></div>
             </div>
         </div>
 
         <div class="section-header">
-            <h2 id="sectionTitle" data-bn="সাম্প্রতিক বিজ্ঞাপনসমূহ" data-en="Recent Ads">সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
+            <h2 id="sectionTitle">সাম্প্রতিক বিজ্ঞাপনসমূহ</h2>
         </div>
 
         <div class="product-grid" id="adsGrid"></div>
@@ -306,19 +315,19 @@
     <!-- Bottom Navigation -->
     <nav class="bottom-nav">
         <button class="nav-item active" onclick="selectCategory('all'); highlightNav(this);">
-            <i class="fa-solid fa-house"></i> <span data-bn="হোম পেজ" data-en="Home">হোম পেজ</span>
+            <i class="fa-solid fa-house"></i> <span>হোম পেজ</span>
         </button>
         <button class="nav-item" onclick="openModal('wishlistModal'); highlightNav(this);">
-            <i class="fa-solid fa-heart"></i> <span data-bn="উইশলিস্ট" data-en="Wishlist">উইশলিস্ট</span>
+            <i class="fa-solid fa-heart"></i> <span>উইশলিস্ট</span>
         </button>
         <button class="nav-item" onclick="openPostModal(); highlightNav(this);">
-            <i class="fa-solid fa-circle-plus" style="color: var(--primary); font-size: 22px;"></i> <span data-bn="বিজ্ঞাপন দিন" data-en="Post Ad">বিজ্ঞাপন দিন</span>
+            <i class="fa-solid fa-circle-plus" style="color: var(--primary); font-size: 22px;"></i> <span>বিজ্ঞাপন দিন</span>
         </button>
         <button class="nav-item" onclick="openModal('settingsModal'); highlightNav(this);">
-            <i class="fa-solid fa-gear"></i> <span data-bn="সেটিংস" data-en="Settings">সেটিংস</span>
+            <i class="fa-solid fa-gear"></i> <span>সেটিংস</span>
         </button>
         <button class="nav-item" onclick="openModal('accountModal'); highlightNav(this);">
-            <i class="fa-solid fa-user"></i> <span data-bn="প্রফাইল" data-en="Profile">প্রফাইল</span>
+            <i class="fa-solid fa-user"></i> <span>প্রফাইল</span>
         </button>
     </nav>
 
@@ -328,7 +337,7 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
             <h3 style="margin-bottom: 12px; color: var(--primary);">🔒 Privacy Policy (গোপনীয়তা নীতি)</h3>
-            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd-এ আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ। আমরা আপনার ব্যক্তিগত তথ্যের নিরাপত্তা রক্ষায় প্রতিজ্ঞাবদ্ধ।</p>
+            <p style="font-size: 13px; line-height: 1.6;">Baza.com.bd-এ আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ।</p>
         </div>
     </div>
 
@@ -337,7 +346,7 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
             <h3 style="margin-bottom: 12px; color: var(--primary);">📜 Terms & Conditions (শর্তাবলী)</h3>
-            <p style="font-size: 13px; line-height: 1.6; margin-bottom: 8px;">Baza.com.bd ব্যবহার করার মাধ্যমে আপনি আমাদের শর্তাবলীতে সম্মতি প্রদান করছেন।</p>
+            <p style="font-size: 13px; line-height: 1.6;">Baza.com.bd ব্যবহার করার মাধ্যমে আপনি আমাদের শর্তাবলীতে সম্মতি প্রদান করছেন।</p>
         </div>
     </div>
 
@@ -352,14 +361,9 @@
             <p id="modalLocation" style="color:#777; font-size:13px; margin:3px 0;"></p>
             <p id="modalSeller" style="font-size:13px; color:#333; font-weight:bold; margin:4px 0;"></p>
             <p id="modalDesc" style="font-size:13px; margin:8px 0;"></p>
-            
-            <div style="background: rgba(0,128,105,0.05); padding:10px; border-radius:6px; margin:10px 0; border: 1px dashed var(--primary);">
-                <p style="font-size:11px; font-weight:bold; color:var(--primary); margin-bottom:4px;"><i class="fa-solid fa-shield-halved"></i> Baza Safe Delivery & Commission Service</p>
-                <button onclick="requestOnlineOrder()" style="width:100%; margin-top:8px; padding:7px; background:var(--accent); color:#000; border:none; border-radius:4px; font-weight:bold; font-size:12px; cursor:pointer;" data-bn="🛍️ অনলাইন অর্ডার কনফার্ম করুন" data-en="🛍️ Confirm Online Order">🛍️ অনলাইন অর্ডার কনফার্ম করুন</button>
-            </div>
-
+            <button onclick="requestOnlineOrder()" style="width:100%; margin-top:8px; padding:8px; background:var(--accent); color:#000; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">🛍️ অনলাইন অর্ডার কনফার্ম করুন</button>
             <div style="display: flex; gap: 5px; margin-top:10px;">
-                <a id="callLink" href="#" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:var(--primary); color:white; border-radius:4px; font-weight:bold;" data-bn="📞 কল করুন" data-en="📞 Call">📞 কল করুন</a>
+                <a id="callLink" href="#" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:var(--primary); color:white; border-radius:4px; font-weight:bold;">📞 কল করুন</a>
                 <a id="waLink" href="#" target="_blank" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:#25D366; color:white; border-radius:4px; font-weight:bold;">💬 WhatsApp</a>
             </div>
         </div>
@@ -369,15 +373,15 @@
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
-            <h3 id="postModalTitle" style="margin-top:0; font-size:16px;" data-bn="নতুন বিজ্ঞাপন দিন" data-en="Post New Ad">নতুন বিজ্ঞাপন দিন</h3>
+            <h3 id="postModalTitle" style="margin-top:0; font-size:16px;">নতুন বিজ্ঞাপন দিন</h3>
             <form id="postAdForm" onsubmit="handlePostAd(event)">
                 <input type="hidden" id="editAdId" value="">
                 <div class="form-group">
-                    <label data-bn="শিরোনাম" data-en="Title">শিরোনাম</label>
+                    <label>শিরোনাম</label>
                     <input type="text" id="postTitle" required placeholder="যেমন: Watch / ঘড়ি">
                 </div>
                 <div class="form-group">
-                    <label data-bn="ক্যাটাগরি" data-en="Category">ক্যাটাগরি</label>
+                    <label>ক্যাটাগরি</label>
                     <select id="postCategory" onchange="onPostCategoryChange()">
                         <option value="vehicles">🚗 Vehicles</option>
                         <option value="property">🏠 Property</option>
@@ -397,98 +401,62 @@
                         <option value="jobs">💼 Jobs</option>
                     </select>
                 </div>
-                
-                <div class="form-group" id="groupTypeSelect" style="display:none;">
-                    <label data-bn="টাইপ নির্বাচন করুন" data-en="Select Type">টাইপ নির্বাচন করুন</label>
-                    <select id="postWatchType" onchange="onWatchTypeChange()">
-                        <option value="">-- সিলেক্ট করুন --</option>
-                        <option value="Ladies">Ladies (লেডিস)</option>
-                        <option value="Gents">Gents (জেন্স)</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="groupCategorySelect" style="display:none;">
-                    <label data-bn="ঘড়ির ক্যাটাগরি" data-en="Watch Category">ঘড়ির ক্যাটাগরি</label>
-                    <select id="postWatchCategory" onchange="onWatchCategoryChange()">
-                        <option value="">-- সিলেক্ট করুন --</option>
-                        <option value="Smart Watch">Smart Watch (স্মার্ট ওয়াচ)</option>
-                        <option value="Analog">Analog (এনালগ)</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="groupOptionSelect" style="display:none;">
-                    <label data-bn="ঘড়ির নির্দিষ্ট অপশন / মডেল" data-en="Watch Specific Option / Model">ঘড়ির নির্দিষ্ট অপশন / মডেল</label>
-                    <select id="postWatchOption">
-                        <option value="">-- অপশন সিলেক্ট করুন --</option>
-                        <option value="Digital Watch">Digital Watch</option>
-                        <option value="Sports Watch">Sports Watch</option>
-                        <option value="Leather Strap Watch">Leather Strap Watch</option>
-                        <option value="Metal Chain Watch">Metal Chain Watch</option>
-                        <option value="Luxury Watch">Luxury Watch</option>
-                    </select>
-                </div>
-
                 <div class="form-group" id="standardSubCategoryGroup">
-                    <label data-bn="সাব-ক্যাটাগরি / ফিচার" data-en="Sub-Category / Feature">সাব-ক্যাটাগরি / ফিচার</label>
+                    <label>সাব-ক্যাটাগরি / ফিচার</label>
                     <select id="postSubCategory">
-                        <option value="" data-bn="প্রথমে ক্যাটাগরি সিলেক্ট করুন" data-en="Select category first">প্রথমে ক্যাটাগরি সিলেক্ট করুন</option>
+                        <option value="">প্রথমে ক্যাটাগরি সিলেক্ট করুন</option>
                     </select>
                 </div>
-
                 <div class="form-group">
-                    <label data-bn="মূল্য (টাকা)" data-en="Price (BDT)">মূল্য (টাকা)</label>
+                    <label>মূল্য (টাকা)</label>
                     <input type="text" id="postPrice" required placeholder="যেমন: 2500">
                 </div>
                 <div class="form-group">
-                    <label data-bn="ফোন নম্বর" data-en="Phone Number">ফোন নম্বর</label>
+                    <label>ফোন নম্বর</label>
                     <input type="tel" id="postPhone" required placeholder="01916390762">
                 </div>
                 <div class="form-group">
-                    <label data-bn="বিভাগ (Division)" data-en="Division">বিভাগ (Division)</label>
+                    <label>বিভাগ (Division)</label>
                     <select id="postDivision" onchange="onPostDivisionChange()" required>
-                        <option value="" data-bn="বিভাগ নির্বাচন করুন" data-en="Select Division">বিভাগ নির্বাচন করুন</option>
+                        <option value="">বিভাগ নির্বাচন করুন</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label data-bn="জেলা (District)" data-en="District">জেলা (District)</label>
+                    <label>জেলা (District)</label>
                     <select id="postDistrict" onchange="onPostDistrictChange()" disabled required>
-                        <option value="" data-bn="প্রথমে বিভাগ নির্বাচন করুন" data-en="Select division first">প্রথমে বিভাগ নির্বাচন করুন</option>
+                        <option value="">প্রথমে বিভাগ নির্বাচন করুন</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label data-bn="থানা / উপজেলা (Thana)" data-en="Thana / Upazila">থানা / উপজেলা (Thana)</label>
+                    <label>থানা / উপজেলা (Thana)</label>
                     <select id="postThana" disabled required>
-                        <option value="" data-bn="প্রথমে জেলা নির্বাচন করুন" data-en="Select district first">প্রথমে জেলা নির্বাচন করুন</option>
+                        <option value="">প্রথমে জেলা নির্বাচন করুন</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label data-bn="পণ্যের ছবি (সর্বোচ্চ ৫টি)" data-en="Product Images (Max 5)">পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
+                    <label>পণ্যের ছবি (সর্বোচ্চ ৫টি)</label>
                     <input type="file" id="postFiles" accept="image/*" multiple onchange="handleImageSelection(event)">
                     <div class="preview-container" id="imagePreviewContainer"></div>
                 </div>
-
-                <div class="form-group" style="background: rgba(255,204,0,0.15); padding:10px; border-radius:6px; border:1px solid var(--accent);">
+                <div class="form-group">
                     <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
                         <input type="checkbox" id="postIsFeatured" style="width:16px; height:16px;">
-                        <span data-bn="⭐ এই বিজ্ঞাপনটি ফিচার বা বুস্ট করুন" data-en="⭐ Feature or boost this ad">⭐ এই বিজ্ঞাপনটি ফিচার বা বুস্ট করুন</span>
+                        <span>⭐ এই বিজ্ঞাপনটি ফিচার বা বুস্ট করুন</span>
                     </label>
                 </div>
-
                 <div class="form-group">
-                    <label data-bn="বিবরণ" data-en="Description">বিবরণ</label>
+                    <label>বিবরণ</label>
                     <textarea id="postDesc" rows="3" required></textarea>
                 </div>
-                <button type="submit" id="submitBtn" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;" data-bn="পাবলিশ করুন" data-en="Publish">পাবলিশ করুন</button>
+                <button type="submit" id="submitBtn" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
             </form>
         </div>
     </div>
 
-    <!-- User Account Modal -->
+    <!-- User Account / Profile Modal (Updated as requested) -->
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
-            <h3 style="margin-top:0;" data-bn="প্রফাইল ও অ্যাকাউন্ট" data-en="Profile & Account">প্রফাইল ও অ্যাকাউন্ট</h3>
-            <hr style="margin:10px 0;"><br>
             <div id="authContent"></div>
         </div>
     </div>
@@ -497,68 +465,47 @@
     <div class="modal" id="wishlistModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('wishlistModal')">&times;</span>
-            <h3 style="margin-top:0;" data-bn="❤️ প্রিয় বিজ্ঞাপনসমূহ (Wishlist)" data-en="❤️ Favorite Ads (Wishlist)">❤️ প্রিয় বিজ্ঞাপনসমূহ (Wishlist)</h3>
+            <h3 style="margin-top:0;">❤️ প্রিয় বিজ্ঞাপনসমূহ (Wishlist)</h3>
             <hr style="margin:10px 0;"><br>
             <div id="wishlistContainer"></div>
         </div>
     </div>
 
-    <!-- Settings Modal -->
+    <!-- Settings Modal (Updated as requested) -->
     <div class="modal" id="settingsModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('settingsModal')">&times;</span>
-            <h3 style="margin-top:0;" data-bn="⚙️ সেটিংস" data-en="⚙️ Settings">⚙️ সেটিংস</h3>
+            <h3 style="margin-top:0; margin-bottom: 10px;">Settings</h3>
             <hr style="margin:10px 0;">
             
-            <div class="settings-section">
-                <div class="setting-dropdown-item" onclick="toggleSettingDropdown(this)">
-                    <div class="setting-header">
-                        <div class="setting-header-left"><span>🌐</span> <span data-bn="Change language (ভাষা পরিবর্তন)" data-en="Change language">Change language</span></div>
-                        <div><span class="value" id="currentLangLabel">বাংলা</span> <i class="fa-solid fa-chevron-right" style="margin-left: 6px;"></i></div>
-                    </div>
-                    <div class="setting-content">
-                        <p style="margin-bottom:8px;">ওয়েবসাইটের ভাষা পরিবর্তন করুন:</p>
-                        <button onclick="setLanguage('bn')" style="padding:5px 10px; background:var(--primary); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; margin-right:5px;">বাংলা</button>
-                        <button onclick="setLanguage('en')" style="padding:5px 10px; background:#4285F4; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">English</button>
-                    </div>
-                </div>
+            <div class="settings-list-item" onclick="openModal('accountModal'); closeModal('settingsModal');">
+                <div class="settings-item-left"><i class="fa-solid fa-user-circle" style="color: #4CAF50;"></i> Personal info</div>
+                <div class="settings-item-right"><i class="fa-solid fa-chevron-right"></i></div>
             </div>
-
-            <div class="dashboard-box" style="margin-top: 15px;">
-                <h4 style="margin-bottom:6px; font-size:14px;" data-bn="থিম মোড" data-en="Theme Mode">থিম মোড</h4>
-                <button onclick="toggleTheme()" style="width:100%; padding:9px; background:var(--primary); color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold; font-size:12px;" data-bn="ডার্ক / লাইট মোড পরিবর্তন করুন" data-en="Toggle Dark / Light Mode">ডার্ক / লাইট মোড পরিবর্তন করুন</button>
+            <div class="settings-list-item" onclick="alert('Verification feature')">
+                <div class="settings-item-left"><i class="fa-solid fa-file-lines" style="color: #2196F3;"></i> Company verification</div>
+                <div class="settings-item-right"><i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+            <div class="settings-list-item" onclick="alert('Phone numbers setting')">
+                <div class="settings-item-left"><i class="fa-solid fa-phone" style="color: #4CAF50;"></i> Phone numbers</div>
+                <div class="settings-item-right"><span class="badge-alert">!</span> 01916390762 <i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+            <div class="settings-list-item" onclick="alert('Email setting')">
+                <div class="settings-item-left"><i class="fa-solid fa-envelope" style="color: #FF9800;"></i> Confirm email</div>
+                <div class="settings-item-right"><span class="badge-alert">!</span> nadimkhan... <i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+            <div class="settings-list-item" onclick="toggleTheme()">
+                <div class="settings-item-left"><i class="fa-solid fa-moon" style="color: #607D8B;"></i> Dark mode</div>
+                <div class="settings-item-right"><span id="themeSettingLabel">System (default)</span> <i class="fa-solid fa-chevron-right"></i></div>
+            </div>
+            <div class="settings-list-item" onclick="logout()">
+                <div class="settings-item-left"><i class="fa-solid fa-right-from-bracket" style="color: #f44336;"></i> Log out</div>
+                <div class="settings-item-right"><i class="fa-solid fa-chevron-right"></i></div>
             </div>
         </div>
     </div>
 
     <!-- Scripts -->
-    <script>
-        function toggleSettingDropdown(element) {
-            element.classList.toggle('active');
-        }
-
-        let currentLang = localStorage.getItem('baza_lang') || 'bn';
-        function setLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('baza_lang', lang);
-            document.getElementById('currentLangLabel').innerText = lang === 'bn' ? 'বাংলা' : 'English';
-            
-            document.querySelectorAll('[data-bn]').forEach(el => {
-                const text = el.getAttribute(`data-${lang}`);
-                if(text) el.innerText = text;
-            });
-
-            document.querySelectorAll('[data-bn-placeholder]').forEach(el => {
-                const placeholder = el.getAttribute(`data-${lang}-placeholder`);
-                if(placeholder) el.placeholder = placeholder;
-            });
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            setLanguage(currentLang);
-        });
-    </script>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -706,18 +653,8 @@
             `).join('');
         }
 
-        window.upgradeToShop = function() {
-            if(!currentUser) return;
-            if(!shopMembers.includes(currentUser.uid)) {
-                shopMembers.push(currentUser.uid);
-                localStorage.setItem('baza_shops', JSON.stringify(shopMembers));
-                alert("অভিনন্দন! আপনার অ্যাকাউন্টটি এখন ভেন্ডর শপ মেম্বারশিপে উন্নীত হয়েছে।");
-                renderAuthUI();
-            }
-        };
-
         window.requestOnlineOrder = function() {
-            alert("আপনার অর্ডার রিকোয়েস্ট সফলভাবে গ্রহণ করা হয়েছে! Baza ডেলিভারি টিম খুব শীঘ্রই আপনার সাথে যোগাযোগ করবে।");
+            alert("আপনার অর্ডার রিকোয়েস্ট সফলভাবে গ্রহণ করা হয়েছে!");
             closeModal('productModal');
         };
 
@@ -725,35 +662,29 @@
             'vehicles': ['সকল', 'মোটরসাইকেল', 'কার', 'বাইক', 'সাইকেল', 'বাস ও ট্রাক'],
             'property': ['সকল', 'অ্যাপার্টমেন্ট ও ফ্ল্যাট', 'জমি ও প্লট', 'রুম ভাড়া'],
             'mobile': ['সকল', 'স্মার্টফোন', 'ফিচার ফোন', 'ট্যাবলেট'],
-            'mobile-accessories': ['সকল', 'হেডফোন ও ইয়ারবাড', 'চার্জার ও ক্যাবল', 'পাওয়ার ব্যাংক', 'ব্যাক কাভার ও প্রটেক্টর', 'স্মার্টওয়াচ ও ব্যান্ড'],
+            'mobile-accessories': ['সকল', 'হেডফোন ও ইয়ারবাড', 'চার্জার ও ক্যাবল', 'পাওয়ার ব্যাংক'],
             'electronics': ['সকল', 'ল্যাপটপ ও কম্পিউটার', 'টিভি ও অডিও', 'এসি ও ফ্রিজ'],
             'furniture': ['সকল', 'বেড ও খাট', 'সোফা ও চেয়ার', 'ডাইনিং টেবিল'],
-            'fashion': ['সকল', 'পুরুষের পোশাক', 'মহিলাদের পোশাক', 'Watch (ঘড়ি)', 'জুতো ও স্যান্ডেল'],
-            'beauty': ['সকল', 'স্কিন কেয়ার', 'হেয়ার কেয়ার', 'মেকআপ আইটেম'],
-            'services': ['সকল', 'রিপেয়ারিং সার্ভিস', 'টিউশনি ও কোচিং'],
-            'construction': ['সকল', 'রড ও সিমেন্ট', 'ইট ও বালু', 'টুলস ও হার্ডওয়্যার'],
-            'tools': ['সকল', 'ইন্ডাস্ট্রিয়াল মেশিন', 'জেনারেটর ও সোলার'],
-            'leisure': ['সকল', 'স্পোর্টস আইটেম', 'বই ও ম্যাগাজিন'],
+            'fashion': ['সকল', 'পুরুষের পোশাক', 'মহিলাদের পোশাক', 'Watch (ঘড়ি)', 'জুতো'],
+            'beauty': ['সকল', 'স্কিন কেয়ার', 'হেয়ার কেয়ার', 'মেকআপ'],
+            'services': ['সকল', 'রিপেয়ারিং সার্ভিস', 'টিউশনি'],
+            'construction': ['সকল', 'রড ও সিমেন্ট', 'ইট ও বালু', 'টুলস'],
+            'tools': ['সকল', 'ইন্ডাস্ট্রিয়াল মেশিন', 'জেনারেটর'],
+            'leisure': ['সকল', 'স্পোর্টস আইটেম', 'বই'],
             'kids': ['সকল', 'বাচ্চাদের জামাকাপড়', 'খেলনা'],
             'farm': ['সকল', 'তাজা ফল ও সবজি', 'বীজ ও সার'],
-            'pets': ['সকল', 'বিড়াল ও কুকুর', 'পাখি ও কবুতর'],
-            'jobs': ['সকল', 'সেলস ও মার্কেটিং', 'অফিস স্টাফ', 'ড্রাইভার']
+            'pets': ['সকল', 'বিড়াল ও কুকুর', 'পাখি'],
+            'jobs': ['সকল', 'সেলস ও মার্কেটিং', 'অফিস স্টাফ']
         };
 
         const bdLocations = [
             {
                 division: "Dhaka",
-                districts: [
-                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Mohammadpur", "Tejgaon", "Motijheel"] },
-                    { district: "Gazipur", thanas: ["Gazipur Sadar", "Kaliakair", "Kaliganj", "Tongi"] }
-                ]
+                districts: [{ district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi"] }]
             },
             {
                 division: "Chattogram",
-                districts: [
-                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Kotwali", "Khulshi", "Panchlaish", "Halishahar", "Bakalia", "Patenga", "Chandgaon"] },
-                    { district: "Cox's Bazar", thanas: ["Cox's Bazar Sadar", "Chakaria", "Ukhiya", "Teknaf"] }
-                ]
+                districts: [{ district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Kotwali", "Khulshi", "Panchlaish"] }]
             }
         ];
 
@@ -836,46 +767,10 @@
             const catVal = document.getElementById('postCategory').value;
             const subSelect = document.getElementById('postSubCategory');
             subSelect.innerHTML = '';
-            
-            document.getElementById('groupTypeSelect').style.display = 'none';
-            document.getElementById('groupCategorySelect').style.display = 'none';
-            document.getElementById('groupOptionSelect').style.display = 'none';
-            document.getElementById('standardSubCategoryGroup').style.display = 'block';
-
             if(categoryFeatures[catVal]) {
                 categoryFeatures[catVal].forEach(feature => {
                     if(feature !== 'সকল') { subSelect.innerHTML += `<option value="${feature}">${feature}</option>`; }
                 });
-            }
-        };
-
-        document.getElementById('postSubCategory').addEventListener('change', function() {
-            if(this.value === 'Watch (ঘড়ি)') {
-                document.getElementById('groupTypeSelect').style.display = 'block';
-                document.getElementById('standardSubCategoryGroup').style.display = 'none';
-            } else {
-                document.getElementById('groupTypeSelect').style.display = 'none';
-                document.getElementById('groupCategorySelect').style.display = 'none';
-                document.getElementById('groupOptionSelect').style.display = 'none';
-            }
-        });
-
-        window.onWatchTypeChange = function() {
-            const val = document.getElementById('postWatchType').value;
-            if(val) {
-                document.getElementById('groupCategorySelect').style.display = 'block';
-            } else {
-                document.getElementById('groupCategorySelect').style.display = 'none';
-                document.getElementById('groupOptionSelect').style.display = 'none';
-            }
-        };
-
-        window.onWatchCategoryChange = function() {
-            const val = document.getElementById('postWatchCategory').value;
-            if(val) {
-                document.getElementById('groupOptionSelect').style.display = 'block';
-            } else {
-                document.getElementById('groupOptionSelect').style.display = 'none';
             }
         };
 
@@ -901,7 +796,11 @@
         };
 
         window.logout = function() {
-            signOut(auth).then(() => alert("লগআউট সফল হয়েছে!"));
+            signOut(auth).then(() => {
+                alert("লগআউট সফল হয়েছে!");
+                closeModal('settingsModal');
+                closeModal('accountModal');
+            });
         };
 
         window.deleteAd = async function(id) {
@@ -918,7 +817,6 @@
         window.editAd = function(id) {
             const ad = allAds.find(a => a.id === id);
             if(!ad) return;
-            
             document.getElementById('editAdId').value = ad.id;
             document.getElementById('postModalTitle').innerText = "বিজ্ঞাপন এডিট করুন";
             document.getElementById('postTitle').value = ad.title;
@@ -934,52 +832,88 @@
             document.getElementById('postThana').value = ad.thana || '';
             document.getElementById('postDesc').value = ad.desc;
             document.getElementById('postIsFeatured').checked = ad.isFeatured || false;
-            
             selectedImagesBase64 = ad.images || (ad.img ? [ad.img] : []);
             renderImagePreviews();
-            
             closeModal('accountModal');
             openModal('postAdModal');
         };
 
+        // Render Profile Dashboard matching your first screenshot
         function renderAuthUI() {
             const container = document.getElementById('authContent');
             const headerAuthText = document.getElementById('headerAuthText');
             if(headerAuthText) {
-                headerAuthText.innerText = currentUser ? 'প্রোফাইল' : 'সাইন ইন';
+                headerAuthText.innerText = currentUser ? (currentUser.displayName || 'প্রোফাইল') : 'সাইন ইন';
             }
             if(!container) return;
+            
             if(currentUser) {
-                const isShopOwner = shopMembers.includes(currentUser.uid);
+                const userName = currentUser.displayName || "MD NADIM KHAN";
                 const myAds = allAds.filter(a => a.userId === currentUser.uid);
-                let myAdsHtml = myAds.map(ad => `
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:6px 10px; margin-bottom:5px; border-radius:4px; font-size:12px;">
-                        <span>${ad.title} (৳ ${ad.price}) ${ad.isFeatured ? '⭐' : ''}</span>
-                        <div style="display:flex; gap:4px;">
-                            <button onclick="editAd('${ad.id}')" style="background:#ffc107; color:#000; border:none; padding:3px 8px; border-radius:3px; cursor:pointer; font-weight:bold;">এডিট</button>
-                            <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">ডিলিট</button>
-                        </div>
-                    </div>
-                `).join('') || '<p style="font-size:12px; color:#777;">আপনার কোনো বিজ্ঞাপন নেই।</p>';
-
+                
                 container.innerHTML = `
-                    <div class="dashboard-box">
-                        <p><strong>নাম:</strong> ${currentUser.displayName || 'ব্যবহারকারী'} ${isAdmin ? '<span class="admin-badge">Admin</span>' : ''} ${isShopOwner ? '<span class="shop-badge">Verified Shop</span>' : ''}</p>
-                        <p><strong>ইমেইল:</strong> ${currentUser.email || 'N/A'}</p>
-                        ${!isShopOwner ? '<button onclick="upgradeToShop()" style="margin-top:8px; width:100%; padding:7px; background:#28a745; color:white; border:none; border-radius:4px; font-weight:bold; font-size:12px; cursor:pointer;">🏪 ভেন্ডর শপ মেম্বারশিপ নিন (স্টোর খুলুন)</button>' : '<p style="font-size:11px; color:#28a745; margin-top:5px;">✓ আপনার শপ অ্যাকাউন্ট সক্রিয় আছে।</p>'}
+                    <div class="profile-header-card">
+                        <div class="profile-user-info">
+                            <i class="fa-solid fa-circle-user profile-avatar-icon"></i>
+                            <div>
+                                <div class="profile-name-title">${userName}</div>
+                                <div style="font-size: 12px; color: #777;">${currentUser.email || ''}</div>
+                            </div>
+                        </div>
+                        <button class="profile-settings-btn" onclick="closeModal('accountModal'); openModal('settingsModal');">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
                     </div>
-                    <div class="dashboard-box">
-                        <h4 style="margin-bottom:6px; font-size:14px;">📦 আমার পোস্টকৃত বিজ্ঞাপন (${myAds.length}টি)</h4>
-                        <div style="max-height:130px; overflow-y:auto;">
-                            ${myAdsHtml}
+
+                    <div class="profile-grid-menu">
+                        <div class="profile-menu-card" onclick="alert('My Ads count: ${myAds.length}')">
+                            <i class="fa-solid fa-rectangle-ad"></i>
+                            <div class="profile-menu-text">My ads (${myAds.length})</div>
+                        </div>
+                        <div class="profile-menu-card" onclick="alert('Make money feature coming soon!')">
+                            <i class="fa-solid fa-money-bill-trend-up"></i>
+                            <div class="profile-menu-text">Make money</div>
+                        </div>
+                        <div class="profile-menu-card" onclick="alert('Feedback sent successfully')">
+                            <i class="fa-solid fa-face-smile"></i>
+                            <div class="profile-menu-text">Feedback</div>
+                        </div>
+                        <div class="profile-menu-card" onclick="alert('FAQ section')">
+                            <i class="fa-solid fa-circle-question"></i>
+                            <div class="profile-menu-text">FAQ</div>
+                        </div>
+                        <div class="profile-menu-card" onclick="alert('Notifications box is empty')">
+                            <i class="fa-solid fa-bell"></i>
+                            <div class="profile-menu-text">Notifications</div>
+                        </div>
+                        <div class="profile-menu-card" onclick="alert('Game centre')">
+                            <i class="fa-solid fa-puzzle-piece"></i>
+                            <div class="profile-menu-text">Game centre</div>
                         </div>
                     </div>
-                    <button style="width:100%; padding:9px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;" onclick="logout()">লগআউট</button>
+
+                    <div class="dashboard-box" style="margin-top: 15px;">
+                        <h4 style="margin-bottom:6px; font-size:14px;">📦 আমার পোস্টকৃত বিজ্ঞাপনসমূহ</h4>
+                        <div style="max-height:120px; overflow-y:auto;">
+                            ${myAds.map(ad => `
+                                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:5px 8px; margin-bottom:4px; border-radius:4px; font-size:11px;">
+                                    <span>${ad.title} (৳ ${ad.price})</span>
+                                    <div>
+                                        <button onclick="editAd('${ad.id}')" style="background:#ffc107; border:none; padding:2px 6px; border-radius:3px; cursor:pointer; font-weight:bold;">এডিট</button>
+                                        <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:2px 6px; border-radius:3px; cursor:pointer;">ডিলিট</button>
+                                    </div>
+                                </div>
+                            `).join('') || '<p style="font-size:11px; color:#777;">কোনো বিজ্ঞাপন নেই।</p>'}
+                        </div>
+                    </div>
                 `;
             } else {
                 container.innerHTML = `
-                    <p style="text-align:center; font-size:13px; margin-bottom: 15px;">আপনার প্রফাইল এবং ড্যাশবোর্ড দেখতে সাইন-ইন করুন</p>
-                    <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন করুন</button>
+                    <div style="text-align:center; padding: 20px 0;">
+                        <h3 style="margin-bottom: 10px;">প্রোফাইল ও ড্যাশবোর্ড</h3>
+                        <p style="font-size: 13px; color: #777; margin-bottom: 20px;">আপনার প্রফাইল দেখতে এবং ম্যানেজ করতে সাইন-ইন করুন</p>
+                        <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন করুন</button>
+                    </div>
                 `;
             }
         }
@@ -1059,19 +993,11 @@
             submitBtn.innerText = "প্রসেস হচ্ছে...";
             submitBtn.disabled = true;
 
-            let subCatVal = document.getElementById('postSubCategory').value;
-            if(subCatVal === 'Watch (ঘড়ি)') {
-                const t = document.getElementById('postWatchType').value;
-                const c = document.getElementById('postWatchCategory').value;
-                const o = document.getElementById('postWatchOption').value;
-                subCatVal = `Watch: ${t} > ${c} > ${o}`;
-            }
-
             try {
                 const adData = {
                     title: document.getElementById('postTitle').value,
                     category: document.getElementById('postCategory').value.toLowerCase(),
-                    subCategory: subCatVal,
+                    subCategory: document.getElementById('postSubCategory').value,
                     price: document.getElementById('postPrice').value,
                     phone: document.getElementById('postPhone').value,
                     division: div,
@@ -1176,7 +1102,6 @@
             renderAds(filtered);
         };
 
-        // Bikroy Style Slide-in Category Selection
         window.selectCategory = function(cat) {
             currentCategory = cat;
             currentSubCategory = 'all';
@@ -1189,8 +1114,6 @@
             if(categoryFeatures[cat]) {
                 const drawerBody = document.getElementById('drawerBody');
                 drawerBody.innerHTML = '';
-                
-                // Add 'All' option first
                 drawerBody.innerHTML += `
                     <div class="drawer-item" onclick="selectSubCategoryAndClose('all', 'সকল')">
                         <span>সকল বিজ্ঞাপন (${cat})</span>
@@ -1233,7 +1156,11 @@
 
         window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
         window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
-        window.toggleTheme = function() { document.body.classList.toggle('dark-mode'); };
+        window.toggleTheme = function() { 
+            document.body.classList.toggle('dark-mode'); 
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('themeSettingLabel').innerText = isDark ? 'Dark' : 'Light';
+        };
 
         fetchAds();
         initLocations();
