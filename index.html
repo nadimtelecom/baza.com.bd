@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MD NADIM KHAN - Profile & Baza.com.bd</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -17,13 +17,16 @@
             --card-bg-dark: #1e1e1e;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { 
+        
+        /* সম্পূর্ণ পেজে ওভারফ্লো বন্ধ করার জন্য */
+        html, body { 
             background-color: var(--bg-light); 
             color: var(--text-light); 
             transition: background 0.3s, color 0.3s; 
             padding-bottom: 70px; 
             overflow-x: hidden; 
             width: 100%;
+            max-width: 100vw;
         }
         body.dark-mode { background-color: var(--bg-dark); color: var(--text-dark); }
 
@@ -31,14 +34,14 @@
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--card-bg-light); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease; }
         body.dark-mode #preloader { background: var(--bg-dark); }
         .preloader-logo { font-size: 60px; color: var(--primary); animation: bounce 1.2s infinite alternate; }
-        .preloader-text { margin-top: 15px; font-weight: bold; font-size: 15px; color: #555; }
+        .preloader-text { margin-top: 15px; font-weight: bold; font-size: 15px; color: #555; text-align: center; padding: 0 15px; }
         body.dark-mode .preloader-text { color: #aaa; }
         @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
 
-        /* Header */
+        /* Header - ফিক্সড উইথ এবং ওভারফ্লো রোধ */
         header { 
             background-color: var(--primary); 
-            padding: 10px 10px; 
+            padding: 10px 12px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -47,39 +50,49 @@
             z-index: 100; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
             width: 100%;
+            max-width: 100vw;
         }
-        .logo { font-size: 18px; font-weight: bold; color: #ffffff; text-decoration: none; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+        .logo { font-size: 16px; font-weight: bold; color: #ffffff; text-decoration: none; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
         .logo span { color: var(--accent); }
-        .header-controls { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
-        .btn-post-ad { background-color: var(--accent); color: #000; padding: 5px 10px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 11px; border: none; cursor: pointer; white-space: nowrap; }
-        .btn-header { background: transparent; border: 1px solid white; color: white; padding: 5px 8px; border-radius: 20px; cursor: pointer; font-size: 11px; font-weight: bold; white-space: nowrap; display: flex; align-items: center; gap: 4px; text-decoration: none; }
+        .header-controls { display: flex; gap: 5px; align-items: center; flex-shrink: 0; }
+        .btn-post-ad { background-color: var(--accent); color: #000; padding: 5px 8px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 11px; border: none; cursor: pointer; white-space: nowrap; }
+        .btn-header { background: transparent; border: 1px solid white; color: white; padding: 5px 7px; border-radius: 20px; cursor: pointer; font-size: 11px; font-weight: bold; white-space: nowrap; display: flex; align-items: center; gap: 3px; text-decoration: none; }
         
-        .hero-banner { background-color: var(--primary); color: white; text-align: center; padding: 25px 15px 35px 15px; width: 100%; }
-        .hero-banner h1 { font-size: 22px; margin-bottom: 8px; }
-        .hero-banner p { font-size: 13px; opacity: 0.9; margin-bottom: 15px; }
-        .search-container { width: 100%; max-width: 650px; margin: 0 auto; display: flex; gap: 6px; background: white; padding: 5px; border-radius: 8px; flex-wrap: wrap; box-sizing: border-box; }
-        .search-container select, .search-container input { border: none; outline: none; padding: 8px; background: #eef2f5; border-radius: 5px; font-weight: bold; color: #333; font-size: 13px; }
-        .search-container input { flex: 1; background: transparent; min-width: 120px; }
-        .search-container button { background-color: var(--accent); border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; color: #000; }
+        /* Hero Banner - উইথ সমস্যার সমাধান */
+        .hero-banner { background-color: var(--primary); color: white; text-align: center; padding: 20px 12px 30px 12px; width: 100%; max-width: 100vw; box-sizing: border-box; }
+        .hero-banner h1 { font-size: 20px; margin-bottom: 6px; line-height: 1.3; }
+        .hero-banner p { font-size: 12px; opacity: 0.9; margin-bottom: 12px; line-height: 1.4; }
         
-        .container { max-width: 1100px; margin: 20px auto; padding: 0 10px; width: 100%; box-sizing: border-box; }
+        .search-container { width: 100%; max-width: 650px; margin: 0 auto; display: flex; gap: 5px; background: white; padding: 6px; border-radius: 8px; box-sizing: border-box; align-items: center; }
+        .search-container select { border: none; outline: none; padding: 6px; background: #eef2f5; border-radius: 4px; font-weight: bold; color: #333; font-size: 12px; max-width: 110px; flex-shrink: 0; }
+        .search-container input { border: none; outline: none; padding: 6px; background: transparent; font-size: 12px; flex: 1; min-width: 60px; color: #333; }
+        .search-container button { background-color: var(--accent); border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; color: #000; font-size: 12px; flex-shrink: 0; }
         
-        .filter-section { background: var(--card-bg-light); padding: 12px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+        .container { max-width: 1100px; margin: 15px auto; padding: 0 10px; width: 100%; box-sizing: border-box; }
+        
+        /* Filter Section - ঠিকভাবে সাজানো */
+        .filter-section { background: var(--card-bg-light); padding: 12px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; gap: 8px; flex-direction: column; width: 100%; box-sizing: border-box; }
         body.dark-mode .filter-section { background: var(--card-bg-dark); }
-        .filter-group { display: flex; gap: 8px; flex-wrap: wrap; flex-grow: 1; }
-        .filter-group select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 13px; outline: none; flex-grow: 1; }
+        .filter-group { display: flex; gap: 8px; flex-direction: column; width: 100%; }
+        @media(min-width: 768px) {
+            .filter-section { flex-direction: row; align-items: center; justify-content: space-between; }
+            .filter-group { flex-direction: row; flex-wrap: wrap; flex-grow: 1; }
+        }
+        .filter-group select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 12px; outline: none; width: 100%; background: #fff; }
+        @media(min-width: 768px) { .filter-group select { width: auto; flex-grow: 1; } }
         body.dark-mode .filter-group select { background: #2a2a2a; color: white; border-color: #444; }
 
-        .banner-ad-slot { background: linear-gradient(135deg, #2c3e50, #bdc3c7); color: white; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .banner-ad-slot { background: linear-gradient(135deg, #2c3e50, #bdc3c7); color: white; padding: 12px; border-radius: 8px; text-align: center; margin-bottom: 15px; font-size: 12px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); word-break: break-word; }
         body.dark-mode .banner-ad-slot { background: linear-gradient(135deg, #1a1a1a, #333); }
 
-        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
-        @media (min-width: 768px) { .category-grid { grid-template-columns: repeat(8, 1fr); } }
-        .category-card { background: var(--card-bg-light); padding: 12px 5px; border-radius: 10px; text-align: center; text-decoration: none; color: var(--text-light); box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s; cursor: pointer; border: 1px solid rgba(0,0,0,0.04); }
+        /* Category Grid - ৪ কলাম মোবাইল এবং ৮ কলাম পিসিতে */
+        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+        @media (min-width: 768px) { .category-grid { grid-template-columns: repeat(8, 1fr); gap: 10px; } }
+        .category-card { background: var(--card-bg-light); padding: 10px 4px; border-radius: 8px; text-align: center; text-decoration: none; color: var(--text-light); box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s; cursor: pointer; border: 1px solid rgba(0,0,0,0.04); }
         body.dark-mode .category-card { background: var(--card-bg-dark); color: var(--text-dark); border-color: #333; }
         .category-card:hover { transform: translateY(-3px); }
-        .category-card i { font-size: 24px; margin-bottom: 6px; display: block; }
-        .category-card span { font-size: 11px; font-weight: 600; display: block; line-height: 1.2; }
+        .category-card i { font-size: 20px; margin-bottom: 4px; display: block; }
+        .category-card span { font-size: 10px; font-weight: 600; display: block; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
         /* Bikroy Style Slide-in Drawer Styles */
         .category-drawer-overlay {
@@ -88,7 +101,7 @@
             display: none; justify-content: flex-end; transition: opacity 0.3s ease;
         }
         .category-drawer {
-            width: 100%; max-width: 400px; height: 100%;
+            width: 100%; max-width: 360px; height: 100%;
             background: var(--card-bg-light); color: var(--text-light);
             box-shadow: -5px 0 15px rgba(0,0,0,0.2);
             transform: translateX(100%); transition: transform 0.3s ease-in-out;
@@ -99,113 +112,112 @@
         .category-drawer-overlay.open .category-drawer { transform: translateX(0); }
         
         .drawer-header {
-            padding: 15px 20px; display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 15px; display: flex; align-items: center; justify-content: space-between;
             border-bottom: 1px solid #ddd; background: var(--primary); color: white;
-            min-height: 60px; /* সংশোধন করা হয়েছে */
+            min-height: 55px; box-sizing: border-box;
         }
         body.dark-mode .drawer-header { border-color: #333; }
-        .drawer-header h3 { font-size: 16px; margin: 0; padding-right: 15px; } /* সংশোধন করা হয়েছে */
+        .drawer-header h3 { font-size: 15px; margin: 0; padding-right: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .drawer-close { 
-            background: none; border: none; color: white; font-size: 24px; 
-            cursor: pointer; width: 35px; height: 35px; display: flex; 
+            background: none; border: none; color: white; font-size: 22px; 
+            cursor: pointer; width: 32px; height: 32px; display: flex; 
             align-items: center; justify-content: center; flex-shrink: 0; 
-        } /* সংশোধন করা হয়েছে */
+        }
         
-        .drawer-body { padding: 10px 0; }
+        .drawer-body { padding: 5px 0; }
         .drawer-item {
-            padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
-            text-decoration: none; color: inherit; font-size: 14px; font-weight: 600;
+            padding: 12px 15px; display: flex; align-items: center; justify-content: space-between;
+            text-decoration: none; color: inherit; font-size: 13px; font-weight: 600;
             border-bottom: 1px solid rgba(0,0,0,0.05); cursor: pointer; transition: background 0.2s;
         }
         body.dark-mode .drawer-item { border-color: rgba(255,255,255,0.05); }
         .drawer-item:hover { background: rgba(0, 128, 105, 0.1); color: var(--primary); }
-        .drawer-item i { color: #888; font-size: 12px; }
+        .drawer-item i { color: #888; font-size: 11px; }
 
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .section-header h2 { font-size: 18px; color: inherit; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .section-header h2 { font-size: 16px; color: inherit; }
         
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
-        @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); } }
+        /* Product Grid */
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; } }
         .product-card { background: var(--card-bg-light); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; flex-direction: column; cursor: pointer; position: relative; transition: transform 0.2s; border: 1px solid transparent; }
         body.dark-mode .product-card { background: var(--card-bg-dark); }
         .product-card.featured-card { border: 2px solid var(--accent); }
-        .product-card:hover { transform: translateY(-4px); }
-        .product-card img { width: 100%; height: 140px; object-fit: cover; }
-        .product-details { padding: 10px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-price { color: var(--primary); font-weight: bold; font-size: 15px; margin-bottom: 4px; }
-        .product-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: inherit; }
-        .product-seller-info { font-size: 11px; color: #555; margin-bottom: 3px; font-weight: 600; }
+        .product-card:hover { transform: translateY(-3px); }
+        .product-card img { width: 100%; height: 130px; object-fit: cover; }
+        .product-details { padding: 8px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-price { color: var(--primary); font-weight: bold; font-size: 14px; margin-bottom: 3px; }
+        .product-title { font-size: 12px; font-weight: 600; margin-bottom: 3px; color: inherit; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-seller-info { font-size: 10px; color: #555; margin-bottom: 2px; font-weight: 600; }
         body.dark-mode .product-seller-info { color: #ccc; }
-        .product-location { font-size: 11px; color: #777; margin-bottom: 6px; }
-        .featured-badge { position: absolute; top: 8px; left: 8px; background: var(--accent); color: #000; font-size: 9px; font-weight: bold; padding: 2px 6px; border-radius: 4px; z-index: 2; }
-        .fav-btn { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; color: #555; z-index: 2; }
+        .product-location { font-size: 10px; color: #777; margin-bottom: 4px; }
+        .featured-badge { position: absolute; top: 6px; left: 6px; background: var(--accent); color: #000; font-size: 8px; font-weight: bold; padding: 2px 5px; border-radius: 3px; z-index: 2; }
+        .fav-btn { position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; color: #555; z-index: 2; }
         .fav-btn.active { color: #ff4757; }
 
-        footer { text-align: center; padding: 20px; margin-top: 40px; font-size: 13px; color: #777; border-top: 1px solid #ddd; }
+        footer { text-align: center; padding: 15px; margin-top: 30px; font-size: 12px; color: #777; border-top: 1px solid #ddd; }
         body.dark-mode footer { border-color: #333; }
-        .footer-links { margin-top: 8px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .footer-links span { color: var(--primary); cursor: pointer; text-decoration: underline; font-weight: 600; }
+        .footer-links { margin-top: 6px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .footer-links span { color: var(--primary); cursor: pointer; text-decoration: underline; font-weight: 600; font-size: 12px; }
         .footer-links span:hover { color: var(--accent); }
 
         /* Modals */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; padding: 10px; box-sizing: border-box; }
-        .modal-content { background: var(--card-bg-light); padding: 20px; border-radius: 12px; max-width: 480px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; box-sizing: border-box; }
+        .modal-content { background: var(--card-bg-light); padding: 15px; border-radius: 10px; max-width: 450px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; box-sizing: border-box; }
         body.dark-mode .modal-content { background: var(--card-bg-dark); color: var(--text-dark); }
-        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 22px; cursor: pointer; color: #666; }
+        .close-btn { position: absolute; top: 8px; right: 12px; font-size: 20px; cursor: pointer; color: #666; }
 
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; margin-bottom: 4px; font-weight: bold; font-size: 13px; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 13px; }
+        .form-group { margin-bottom: 10px; }
+        .form-group label { display: block; margin-bottom: 3px; font-weight: bold; font-size: 12px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 12px; }
         body.dark-mode .form-group input, body.dark-mode .form-group textarea, body.dark-mode .form-group select { background: #2a2a2a; color: white; border-color: #444; }
 
-        .preview-container { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-        .preview-thumb { position: relative; width: 60px; height: 60px; border-radius: 4px; overflow: hidden; border: 1px solid #ccc; }
+        .preview-container { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+        .preview-thumb { position: relative; width: 55px; height: 55px; border-radius: 4px; overflow: hidden; border: 1px solid #ccc; }
         .preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
-        .preview-thumb .remove-img { position: absolute; top: 2px; right: 2px; background: rgba(220, 53, 69, 0.9); color: white; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .preview-thumb .remove-img { position: absolute; top: 1px; right: 1px; background: rgba(220, 53, 69, 0.9); color: white; border: none; border-radius: 50%; width: 16px; height: 16px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        .main-img-container { width: 100%; height: 200px; border-radius: 5px; overflow: hidden; background: #000; }
+        .main-img-container { width: 100%; height: 180px; border-radius: 4px; overflow: hidden; background: #000; }
         .main-img-container img { width: 100%; height: 100%; object-fit: contain; }
-        .thumb-gallery { display: flex; gap: 6px; margin-top: 8px; overflow-x: auto; padding-bottom: 4px; }
-        .thumb-item { width: 50px; height: 50px; border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
+        .thumb-gallery { display: flex; gap: 5px; margin-top: 6px; overflow-x: auto; padding-bottom: 3px; }
+        .thumb-item { width: 45px; height: 45px; border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
         .thumb-item.active { border-color: var(--primary); }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
 
         /* Bottom Navigation */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg-light); border-top: 1px solid #ddd; display: flex; justify-content: space-around; align-items: center; padding: 8px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 500; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--card-bg-light); border-top: 1px solid #ddd; display: flex; justify-content: space-around; align-items: center; padding: 6px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 500; }
         body.dark-mode .bottom-nav { background: var(--card-bg-dark); border-color: #333; }
-        .nav-item { color: inherit; text-align: center; text-decoration: none; font-size: 11px; font-weight: 600; cursor: pointer; background: none; border: none; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-        .nav-item i { font-size: 18px; }
+        .nav-item { color: inherit; text-align: center; text-decoration: none; font-size: 10px; font-weight: 600; cursor: pointer; background: none; border: none; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+        .nav-item i { font-size: 16px; }
         .nav-item.active { color: var(--primary); }
         
-        .dashboard-box { background: rgba(0,0,0,0.03); padding: 12px; border-radius: 6px; margin-bottom: 12px; }
+        .dashboard-box { background: rgba(0,0,0,0.03); padding: 10px; border-radius: 6px; margin-bottom: 10px; }
         body.dark-mode .dashboard-box { background: rgba(255,255,255,0.05); }
-        .admin-badge { background: #dc3545; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
-        .shop-badge { background: #28a745; color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-left: 5px; }
 
-        /* Bikroy Style Profile Layout Styles */
-        .profile-header-card { display: flex; align-items: center; justify-content: space-between; padding-bottom: 15px; border-bottom: 1px solid #eee; margin-bottom: 15px; }
+        /* Profile Layout Styles */
+        .profile-header-card { display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid #eee; margin-bottom: 12px; }
         body.dark-mode .profile-header-card { border-color: #333; }
-        .profile-user-info { display: flex; align-items: center; gap: 12px; }
-        .profile-avatar-icon { font-size: 40px; color: var(--primary); }
-        .profile-name-title { font-size: 16px; font-weight: bold; }
-        .profile-settings-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: inherit; }
+        .profile-user-info { display: flex; align-items: center; gap: 10px; }
+        .profile-avatar-icon { font-size: 35px; color: var(--primary); }
+        .profile-name-title { font-size: 15px; font-weight: bold; }
+        .profile-settings-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: inherit; }
 
-        .profile-grid-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .profile-menu-card { background: var(--card-bg-light); border: 1px solid #eee; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; color: inherit; transition: 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+        .profile-grid-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+        .profile-menu-card { background: var(--card-bg-light); border: 1px solid #eee; padding: 12px; border-radius: 6px; display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; color: inherit; transition: 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
         body.dark-mode .profile-menu-card { background: var(--card-bg-dark); border-color: #333; }
         .profile-menu-card:hover { border-color: var(--primary); }
-        .profile-menu-card i { font-size: 22px; color: var(--primary); }
-        .profile-menu-text { font-size: 13px; font-weight: 600; }
+        .profile-menu-card i { font-size: 18px; color: var(--primary); }
+        .profile-menu-text { font-size: 12px; font-weight: 600; }
 
-        /* Settings Style Menu Styles (Bikroy Look) */
-        .settings-list-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 10px; border-bottom: 1px solid #eee; text-decoration: none; color: inherit; font-size: 14px; font-weight: 500; cursor: pointer; }
+        /* Settings Menu Styles */
+        .settings-list-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 8px; border-bottom: 1px solid #eee; text-decoration: none; color: inherit; font-size: 13px; font-weight: 500; cursor: pointer; }
         body.dark-mode .settings-list-item { border-color: #2a2a2a; }
         .settings-list-item:hover { background: rgba(0,0,0,0.02); }
         body.dark-mode .settings-list-item:hover { background: rgba(255,255,255,0.02); }
-        .settings-item-left { display: flex; align-items: center; gap: 12px; }
-        .settings-item-left i { font-size: 18px; width: 24px; text-align: center; }
-        .settings-item-right { display: flex; align-items: center; gap: 8px; color: #777; font-size: 13px; }
-        .badge-alert { background: #ffebee; color: #c62828; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; border: 1px solid #ffcdd2; }
+        .settings-item-left { display: flex; align-items: center; gap: 10px; }
+        .settings-item-left i { font-size: 16px; width: 20px; text-align: center; }
+        .settings-item-right { display: flex; align-items: center; gap: 6px; color: #777; font-size: 12px; }
+        .badge-alert { background: #ffebee; color: #c62828; padding: 2px 5px; border-radius: 3px; font-size: 10px; font-weight: bold; border: 1px solid #ffcdd2; }
     </style>
 </head>
 <body>
@@ -227,7 +239,7 @@
                 <i class="fa-solid fa-user-circle"></i> <span id="headerAuthText">প্রফাইল</span>
             </button>
             <button class="btn-header" onclick="openModal('wishlistModal')">
-                <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span id="wishlistCount" style="font-size: 10px; background: var(--accent); color: #000; padding: 1px 4px; border-radius: 10px; font-weight: bold;">0</span>
+                <i class="fa-solid fa-heart" style="color: #ff4757;"></i> <span id="wishlistCount" style="font-size: 9px; background: var(--accent); color: #000; padding: 1px 3px; border-radius: 8px; font-weight: bold;">0</span>
             </button>
         </div>
     </header>
@@ -240,7 +252,7 @@
             <select id="heroDivision" onchange="onHeroDivisionChange()">
                 <option value="">সকল বিভাগ</option>
             </select>
-            <input type="text" id="searchInput" placeholder="কী খুঁজছেন? (যেমন: মোবাইল, বাইক)" onkeyup="if(event.key === 'Enter') filterAds()">
+            <input type="text" id="searchInput" placeholder="কী খুঁজছেন? (যেমন: মোবাইল)" onkeyup="if(event.key === 'Enter') filterAds()">
             <button onclick="filterAds()"><i class="fa-solid fa-magnifying-glass"></i> খুঁজুন</button>
         </div>
     </div>
@@ -265,7 +277,7 @@
                     <option value="high-low">মূল্য: বেশি থেকে কম</option>
                 </select>
             </div>
-            <button onclick="resetFilters()" style="padding: 8px 12px; background:#6c757d; color:white; border:none; border-radius:4px; cursor:pointer; font-size:12px;">রিসেট</button>
+            <button onclick="resetFilters()" style="padding: 8px 12px; background:#6c757d; color:white; border:none; border-radius:4px; cursor:pointer; font-size:12px; width:100%;">রিসেট</button>
         </div>
 
         <!-- Categories -->
@@ -274,7 +286,7 @@
             <div class="category-card" onclick="selectCategory('vehicles')"><i class="fa-solid fa-car" style="color: #2ed573;"></i><span>Vehicles</span></div>
             <div class="category-card" onclick="selectCategory('property')"><i class="fa-solid fa-house" style="color: #ffa502;"></i><span>Property</span></div>
             <div class="category-card" onclick="selectCategory('mobile')"><i class="fa-solid fa-mobile-screen-button" style="color: #3742fa;"></i><span>Phones</span></div>
-            <div class="category-card" onclick="selectCategory('mobile-accessories')"><i class="fa-solid fa-headphones" style="color: #00cec9;"></i><span>Mobile Accessories</span></div>
+            <div class="category-card" onclick="selectCategory('mobile-accessories')"><i class="fa-solid fa-headphones" style="color: #00cec9;"></i><span>Accessories</span></div>
             <div class="category-card" onclick="selectCategory('electronics')"><i class="fa-solid fa-laptop" style="color: #70a1ff;"></i><span>Electronics</span></div>
             <div class="category-card" onclick="selectCategory('furniture')"><i class="fa-solid fa-couch" style="color: #ff6b81;"></i><span>Furniture</span></div>
             <div class="category-card" onclick="selectCategory('fashion')"><i class="fa-solid fa-shirt" style="color: #9b59b6;"></i><span>Fashion</span></div>
@@ -283,10 +295,9 @@
             <div class="category-card" onclick="selectCategory('construction')"><i class="fa-solid fa-helmet-safety" style="color: #f1c40f;"></i><span>Construction</span></div>
             <div class="category-card" onclick="selectCategory('tools')"><i class="fa-solid fa-gears" style="color: #576574;"></i><span>Tools</span></div>
             <div class="category-card" onclick="selectCategory('leisure')"><i class="fa-solid fa-person-biking" style="color: #10ac84;"></i><span>Leisure</span></div>
-            <div class="category-card" onclick="selectCategory('kids')"><i class="fa-solid fa-teddy-bear" style="color: #ff9ff3;"></i><span>Babies & Kids</span></div>
+            <div class="category-card" onclick="selectCategory('kids')"><i class="fa-solid fa-teddy-bear" style="color: #ff9ff3;"></i><span>Kids</span></div>
             <div class="category-card" onclick="selectCategory('farm')"><i class="fa-solid fa-basket-shopping" style="color: #01a3a4;"></i><span>Agriculture</span></div>
             <div class="category-card" onclick="selectCategory('pets')"><i class="fa-solid fa-dog" style="color: #ff7f50;"></i><span>Pets</span></div>
-            <div class="category-card" onclick="selectCategory('jobs')"><i class="fa-solid fa-briefcase" style="color: #2f3640;"></i><span>Jobs</span></div>
         </div>
 
         <!-- Bikroy Style Slide-in Drawer Container -->
@@ -310,7 +321,7 @@
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 Baza.com.bd - All Rights Reserved.</p>
-        <p style="font-size:11px; margin-top:3px;">Developed by Nadim</p>
+        <p style="font-size:11px; margin-top:2px;">Developed by Nadim</p>
         <div class="footer-links">
             <span onclick="openModal('privacyModal')">Privacy Policy</span>
             <span onclick="openModal('termsModal')">Terms & Conditions</span>
@@ -326,7 +337,7 @@
             <i class="fa-solid fa-heart"></i> <span>উইশলিস্ট</span>
         </button>
         <button class="nav-item" onclick="openPostModal(); highlightNav(this);">
-            <i class="fa-solid fa-circle-plus" style="color: var(--primary); font-size: 22px;"></i> <span>বিজ্ঞাপন দিন</span>
+            <i class="fa-solid fa-circle-plus" style="color: var(--primary); font-size: 20px;"></i> <span>বিজ্ঞাপন</span>
         </button>
         <button class="nav-item" onclick="openModal('settingsModal'); highlightNav(this);">
             <i class="fa-solid fa-gear"></i> <span>সেটিংস</span>
@@ -337,48 +348,44 @@
     </nav>
 
     <!-- Modals -->
-    <!-- Privacy Policy Modal -->
     <div class="modal" id="privacyModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
-            <h3 style="margin-bottom: 12px; color: var(--primary);">🔒 Privacy Policy (গোপনীয়তা নীতি)</h3>
-            <p style="font-size: 13px; line-height: 1.6;">Baza.com.bd-এ আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ।</p>
+            <h3 style="margin-bottom: 10px; color: var(--primary); font-size:16px;">🔒 Privacy Policy</h3>
+            <p style="font-size: 12px; line-height: 1.5;">Baza.com.bd-এ আপনার গোপনীয়তা আমাদের কাছে অত্যন্ত গুরুত্বপূর্ণ।</p>
         </div>
     </div>
 
-    <!-- Terms & Conditions Modal -->
     <div class="modal" id="termsModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
-            <h3 style="margin-bottom: 12px; color: var(--primary);">📜 Terms & Conditions (শর্তাবলী)</h3>
-            <p style="font-size: 13px; line-height: 1.6;">Baza.com.bd ব্যবহার করার মাধ্যমে আপনি আমাদের শর্তাবলীতে সম্মতি প্রদান করছেন।</p>
+            <h3 style="margin-bottom: 10px; color: var(--primary); font-size:16px;">📜 Terms & Conditions</h3>
+            <p style="font-size: 12px; line-height: 1.5;">Baza.com.bd ব্যবহার করার মাধ্যমে আপনি শর্তাবলীতে সম্মতি প্রদান করছেন।</p>
         </div>
     </div>
 
-    <!-- Product Detail Modal -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
             <div class="main-img-container"><img id="modalMainImg" src="" alt="Product"></div>
             <div class="thumb-gallery" id="modalThumbGallery"></div>
-            <h3 id="modalTitle" style="margin: 10px 0 5px 0; font-size:16px;"></h3>
-            <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:18px; margin:5px 0;"></p>
-            <p id="modalLocation" style="color:#777; font-size:13px; margin:3px 0;"></p>
-            <p id="modalSeller" style="font-size:13px; color:#333; font-weight:bold; margin:4px 0;"></p>
-            <p id="modalDesc" style="font-size:13px; margin:8px 0;"></p>
-            <button onclick="requestOnlineOrder()" style="width:100%; margin-top:8px; padding:8px; background:var(--accent); color:#000; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">🛍️ অনলাইন অর্ডার কনফার্ম করুন</button>
-            <div style="display: flex; gap: 5px; margin-top:10px;">
-                <a id="callLink" href="#" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:var(--primary); color:white; border-radius:4px; font-weight:bold;">📞 কল করুন</a>
-                <a id="waLink" href="#" target="_blank" style="flex:1; text-align:center; text-decoration:none; padding:10px; background:#25D366; color:white; border-radius:4px; font-weight:bold;">💬 WhatsApp</a>
+            <h3 id="modalTitle" style="margin: 8px 0 4px 0; font-size:15px;"></h3>
+            <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:16px; margin:4px 0;"></p>
+            <p id="modalLocation" style="color:#777; font-size:12px; margin:2px 0;"></p>
+            <p id="modalSeller" style="font-size:12px; color:#333; font-weight:bold; margin:3px 0;"></p>
+            <p id="modalDesc" style="font-size:12px; margin:6px 0;"></p>
+            <button onclick="requestOnlineOrder()" style="width:100%; margin-top:6px; padding:8px; background:var(--accent); color:#000; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:12px;">🛍️ অনলাইন অর্ডার কনফার্ম করুন</button>
+            <div style="display: flex; gap: 5px; margin-top:8px;">
+                <a id="callLink" href="#" style="flex:1; text-align:center; text-decoration:none; padding:8px; background:var(--primary); color:white; border-radius:4px; font-weight:bold; font-size:12px;">📞 কল করুন</a>
+                <a id="waLink" href="#" target="_blank" style="flex:1; text-align:center; text-decoration:none; padding:8px; background:#25D366; color:white; border-radius:4px; font-weight:bold; font-size:12px;">💬 WhatsApp</a>
             </div>
         </div>
     </div>
 
-    <!-- Post / Edit Ad Modal -->
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
-            <h3 id="postModalTitle" style="margin-top:0; font-size:16px;">নতুন বিজ্ঞাপন দিন</h3>
+            <h3 id="postModalTitle" style="margin-top:0; font-size:15px;">নতুন বিজ্ঞাপন দিন</h3>
             <form id="postAdForm" onsubmit="handlePostAd(event)">
                 <input type="hidden" id="editAdId" value="">
                 <div class="form-group">
@@ -444,8 +451,8 @@
                     <div class="preview-container" id="imagePreviewContainer"></div>
                 </div>
                 <div class="form-group">
-                    <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
-                        <input type="checkbox" id="postIsFeatured" style="width:16px; height:16px;">
+                    <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:12px;">
+                        <input type="checkbox" id="postIsFeatured" style="width:14px; height:14px;">
                         <span>⭐ এই বিজ্ঞাপনটি ফিচার বা বুস্ট করুন</span>
                     </label>
                 </div>
@@ -453,12 +460,11 @@
                     <label>বিবরণ</label>
                     <textarea id="postDesc" rows="3" required></textarea>
                 </div>
-                <button type="submit" id="submitBtn" style="width:100%; padding:10px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">পাবলিশ করুন</button>
+                <button type="submit" id="submitBtn" style="width:100%; padding:9px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:13px;">পাবলিশ করুন</button>
             </form>
         </div>
     </div>
 
-    <!-- User Account / Profile Modal (Updated as requested) -->
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
@@ -466,22 +472,20 @@
         </div>
     </div>
 
-    <!-- Wishlist Modal -->
     <div class="modal" id="wishlistModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('wishlistModal')">&times;</span>
-            <h3 style="margin-top:0;">❤️ প্রিয় বিজ্ঞাপনসমূহ (Wishlist)</h3>
-            <hr style="margin:10px 0;"><br>
+            <h3 style="margin-top:0; font-size:16px;">❤️ প্রিয় বিজ্ঞাপনসমূহ</h3>
+            <hr style="margin:8px 0;"><br>
             <div id="wishlistContainer"></div>
         </div>
     </div>
 
-    <!-- Settings Modal (Updated as requested) -->
     <div class="modal" id="settingsModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('settingsModal')">&times;</span>
-            <h3 style="margin-top:0; margin-bottom: 10px;">Settings</h3>
-            <hr style="margin:10px 0;">
+            <h3 style="margin-top:0; margin-bottom: 8px; font-size:16px;">Settings</h3>
+            <hr style="margin:8px 0;">
             
             <div class="settings-list-item" onclick="openModal('accountModal'); closeModal('settingsModal');">
                 <div class="settings-item-left"><i class="fa-solid fa-user-circle" style="color: #4CAF50;"></i> Personal info</div>
@@ -501,7 +505,7 @@
             </div>
             <div class="settings-list-item" onclick="toggleTheme()">
                 <div class="settings-item-left"><i class="fa-solid fa-moon" style="color: #607D8B;"></i> Dark mode</div>
-                <div class="settings-item-right"><span id="themeSettingLabel">System (default)</span> <i class="fa-solid fa-chevron-right"></i></div>
+                <div class="settings-item-right"><span id="themeSettingLabel">System</span> <i class="fa-solid fa-chevron-right"></i></div>
             </div>
             <div class="settings-list-item" onclick="logout()">
                 <div class="settings-item-left"><i class="fa-solid fa-right-from-bracket" style="color: #f44336;"></i> Log out</div>
@@ -538,14 +542,13 @@
         let currentSubCategory = 'all';
         let selectedImagesBase64 = [];
         let wishlist = JSON.parse(localStorage.getItem('baza_wishlist')) || [];
-        let shopMembers = JSON.parse(localStorage.getItem('baza_shops')) || [];
 
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
                 preloader.style.opacity = '0';
                 setTimeout(() => preloader.style.display = 'none', 500);
-            }, 800);
+            }, 600);
             updateWishlistCount();
         });
 
@@ -565,7 +568,7 @@
                         const canvas = document.createElement('canvas');
                         let width = img.width;
                         let height = img.height;
-                        const maxDim = 500;
+                        const maxDim = 450;
                         if (width > height) {
                             if (width > maxDim) { height *= maxDim / width; width = maxDim; }
                         } else {
@@ -641,19 +644,19 @@
             if(!container) return;
             const favAds = allAds.filter(ad => wishlist.includes(ad.id));
             if(favAds.length === 0) {
-                container.innerHTML = `<p style="text-align:center; color:#777; font-size:13px; padding: 20px 0;">আপনার উইশলিস্টে কোনো পণ্য নেই।</p>`;
+                container.innerHTML = `<p style="text-align:center; color:#777; font-size:12px; padding: 15px 0;">আপনার উইশলিস্টে কোনো পণ্য নেই।</p>`;
                 return;
             }
             container.innerHTML = favAds.map(ad => `
-                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:8px; margin-bottom:6px; border-radius:6px; cursor:pointer;" onclick="openProductDetail('${ad.id}'); closeModal('wishlistModal');">
-                    <div style="display:flex; gap:10px; align-items:center;">
-                        <img src="${ad.images ? ad.images[0] : ad.img}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:6px; margin-bottom:5px; border-radius:6px; cursor:pointer;" onclick="openProductDetail('${ad.id}'); closeModal('wishlistModal');">
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <img src="${ad.images ? ad.images[0] : ad.img}" style="width:35px; height:35px; object-fit:cover; border-radius:4px;">
                         <div>
-                            <div style="font-size:13px; font-weight:bold;">${ad.title}</div>
-                            <div style="font-size:12px; color:var(--primary);">৳ ${ad.price}</div>
+                            <div style="font-size:12px; font-weight:bold;">${ad.title}</div>
+                            <div style="font-size:11px; color:var(--primary);">৳ ${ad.price}</div>
                         </div>
                     </div>
-                    <button onclick="toggleWishlist(event, '${ad.id}')" style="background:none; border:none; color:#ff4757; font-size:16px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                    <button onclick="toggleWishlist(event, '${ad.id}')" style="background:none; border:none; color:#ff4757; font-size:14px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
                 </div>
             `).join('');
         }
@@ -861,7 +864,7 @@
                             <i class="fa-solid fa-circle-user profile-avatar-icon"></i>
                             <div>
                                 <div class="profile-name-title">${userName}</div>
-                                <div style="font-size: 12px; color: #777;">${currentUser.email || ''}</div>
+                                <div style="font-size: 11px; color: #777;">${currentUser.email || ''}</div>
                             </div>
                         </div>
                         <button class="profile-settings-btn" onclick="closeModal('accountModal'); openModal('settingsModal');">
@@ -886,25 +889,17 @@
                             <i class="fa-solid fa-circle-question"></i>
                             <div class="profile-menu-text">FAQ</div>
                         </div>
-                        <div class="profile-menu-card" onclick="alert('Notifications box is empty')">
-                            <i class="fa-solid fa-bell"></i>
-                            <div class="profile-menu-text">Notifications</div>
-                        </div>
-                        <div class="profile-menu-card" onclick="alert('Game centre')">
-                            <i class="fa-solid fa-puzzle-piece"></i>
-                            <div class="profile-menu-text">Game centre</div>
-                        </div>
                     </div>
 
-                    <div class="dashboard-box" style="margin-top: 15px;">
-                        <h4 style="margin-bottom:6px; font-size:14px;">📦 আমার পোস্টকৃত বিজ্ঞাপনসমূহ</h4>
-                        <div style="max-height:120px; overflow-y:auto;">
+                    <div class="dashboard-box" style="margin-top: 10px;">
+                        <h4 style="margin-bottom:5px; font-size:13px;">📦 আমার পোস্টকৃত বিজ্ঞাপনসমূহ</h4>
+                        <div style="max-height:110px; overflow-y:auto;">
                             ${myAds.map(ad => `
-                                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:5px 8px; margin-bottom:4px; border-radius:4px; font-size:11px;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.02); padding:4px 6px; margin-bottom:3px; border-radius:4px; font-size:11px;">
                                     <span>${ad.title} (৳ ${ad.price})</span>
                                     <div>
-                                        <button onclick="editAd('${ad.id}')" style="background:#ffc107; border:none; padding:2px 6px; border-radius:3px; cursor:pointer; font-weight:bold;">এডিট</button>
-                                        <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:2px 6px; border-radius:3px; cursor:pointer;">ডিলিট</button>
+                                        <button onclick="editAd('${ad.id}')" style="background:#ffc107; border:none; padding:2px 5px; border-radius:3px; cursor:pointer; font-weight:bold; font-size:10px;">এডিট</button>
+                                        <button onclick="deleteAd('${ad.id}')" style="background:#dc3545; color:white; border:none; padding:2px 5px; border-radius:3px; cursor:pointer; font-size:10px;">ডিলিট</button>
                                     </div>
                                 </div>
                             `).join('') || '<p style="font-size:11px; color:#777;">কোনো বিজ্ঞাপন নেই।</p>'}
@@ -913,10 +908,10 @@
                 `;
             } else {
                 container.innerHTML = `
-                    <div style="text-align:center; padding: 20px 0;">
-                        <h3 style="margin-bottom: 10px;">প্রোফাইল ও ড্যাশবোর্ড</h3>
-                        <p style="font-size: 13px; color: #777; margin-bottom: 20px;">আপনার প্রফাইল দেখতে এবং ম্যানেজ করতে সাইন-ইন করুন</p>
-                        <button style="width:100%; padding:12px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:14px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন করুন</button>
+                    <div style="text-align:center; padding: 15px 0;">
+                        <h3 style="margin-bottom: 8px; font-size:16px;">প্রোফাইল ও ড্যাশবোর্ড</h3>
+                        <p style="font-size: 12px; color: #777; margin-bottom: 15px;">আপনার প্রফাইল দেখতে সাইন-ইন করুন</p>
+                        <button style="width:100%; padding:10px; background:#4285F4; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:13px;" onclick="loginWithGoogle()">Google দিয়ে সাইন ইন করুন</button>
                     </div>
                 `;
             }
@@ -939,7 +934,7 @@
             const grid = document.getElementById('adsGrid');
             grid.innerHTML = '';
             if(ads.length === 0) {
-                grid.innerHTML = `<p style="font-size:14px; color:#666; grid-column:1/-1; text-align:center;">কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>`;
+                grid.innerHTML = `<p style="font-size:13px; color:#666; grid-column:1/-1; text-align:center;">কোনো বিজ্ঞাপন পাওয়া যায়নি।</p>`;
                 return;
             }
             ads.forEach(ad => {
