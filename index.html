@@ -508,7 +508,7 @@
             </div>
             <div class="settings-list-item" onclick="alert('Email setting')">
                 <div class="settings-item-left"><i class="fa-solid fa-envelope" style="color: #FF9800;"></i> <span data-bn="ইমেইল নিশ্চিত করুন" data-en="Confirm email">Confirm email</span></div>
-                <div class="settings-item-right"><span class="badge-alert">!</span> nadimkhan... <i class="fa-solid fa-chevron-right"></i></div>
+                <div class="settings-item-right"><span class="badge-alert">!</span> [ লুকানো ] <i class="fa-solid fa-chevron-right"></i></div>
             </div>
             <div class="settings-list-item" onclick="toggleTheme()">
                 <div class="settings-item-left"><i class="fa-solid fa-moon" style="color: #607D8B;"></i> <span data-bn="ডার্ক মোড" data-en="Dark mode">Dark mode</span></div>
@@ -878,7 +878,7 @@
             const ad = allAds.find(a => a.id === id);
             if(!ad) return;
             document.getElementById('editAdId').value = ad.id;
-            document.getElementById('postModalTitleinnerText').innerText = currentLang === 'bn' ? "বিজ্ঞাপন এডিট করুন" : "Edit Ad";
+            document.getElementById('postModalTitle').innerText = currentLang === 'bn' ? "বিজ্ঞাপন এডিট করুন" : "Edit Ad";
             document.getElementById('postTitle').value = ad.title;
             document.getElementById('postCategory').value = ad.category;
             onPostCategoryChange();
@@ -916,7 +916,7 @@
                             <i class="fa-solid fa-circle-user profile-avatar-icon"></i>
                             <div>
                                 <div class="profile-name-title">${userName}</div>
-                                <div style="font-size: 11px; color: #777;">${currentUser.email || ''}</div>
+                                <div style="font-size: 11px; color: #777;">[ ইমেইল লুকানো হয়েছে ]</div>
                             </div>
                         </div>
                         <button class="profile-settings-btn" onclick="closeModal('accountModal'); openModal('settingsModal');">
