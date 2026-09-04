@@ -522,10 +522,16 @@
         import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // --- ব্রাউজার বা ট্যাব বন্ধ করার সময় Exit কনফার্মেশন পপআপ কোড ---
+        let pageInteracted = false;
+        window.addEventListener('click', () => { pageInteracted = true; });
+        window.addEventListener('keydown', () => { pageInteracted = true; });
+
         window.addEventListener('beforeunload', function (e) {
-            e.preventDefault();
-            e.returnValue = ''; // আধুনিক ব্রাউজারগুলোর জন্য আবশ্যক
-            return '';
+            if (pageInteracted) {
+                e.preventDefault();
+                e.returnValue = ''; // আধুনিক ব্রাউজারের জন্য আবশ্যক
+                return '';
+            }
         });
         // -----------------------------------------------------------------
 
