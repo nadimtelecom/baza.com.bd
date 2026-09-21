@@ -334,6 +334,7 @@
         <div class="footer-links">
             <span onclick="openModal('privacyModal')">Privacy Policy</span>
             <span onclick="openModal('termsModal')">Terms & Conditions</span>
+            <span onclick="openModal('disputeModal')" style="color:#d9534f;" data-bn="⚠️ অভিযোগ ও অসন্তুষ্টি" data-en="⚠️ Dispute & Support">⚠️ অভিযোগ ও অসন্তুষ্টি</span>
         </div>
     </footer>
 
@@ -373,6 +374,48 @@
         </div>
     </div>
 
+    <!-- Dispute / Grievance Modal (Buyer & Seller Dissatisfaction Feature) -->
+    <div class="modal" id="disputeModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('disputeModal')">&times;</span>
+            <h3 style="margin-bottom: 8px; color: #d9534f; font-size:16px;" data-bn="⚠️ ক্রেতা ও বিক্রেতার অসন্তুষ্টি / অভিযোগ ফরম" data-en="⚠️ Buyer & Seller Dispute / Grievance">⚠️ ক্রেতা ও বিক্রেতার অসন্তুষ্টি / অভিযোগ ফরম</h3>
+            <p style="font-size: 11px; color: #777; margin-bottom: 10px;" data-bn="পণ্য, লেনদেন বা অন্য কোনো বিষয়ে আপনার অসন্তুষ্টি বা অভিযোগ থাকলে নিচে বিস্তারিত জানান।" data-en="If you have any dissatisfaction regarding products, transactions, or anything else, please report below.">পণ্য, লেনদেন বা অন্য কোনো বিষয়ে আপনার অসন্তুষ্টি বা অভিযোগ থাকলে নিচে বিস্তারিত জানান।</p>
+            
+            <form id="disputeForm" onsubmit="handleDisputeSubmit(event)">
+                <div class="form-group">
+                    <label data-bn="আপনার ভূমিকা (Role)" data-en="Your Role">আপনার ভূমিকা (Role)</label>
+                    <select id="disputeRole" required>
+                        <option value="buyer" data-bn="ক্রেতা (Buyer)" data-en="Buyer">ক্রেতা (Buyer)</option>
+                        <option value="seller" data-bn="বিক্রেতা (Seller)" data-en="Seller">বিক্রেতা (Seller)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-bn="আপনার নাম" data-en="Your Name">আপনার নাম</label>
+                    <input type="text" id="disputeName" required placeholder="আপনার নাম লিখুন">
+                </div>
+                <div class="form-group">
+                    <label data-bn="যোগাযোগের ফোন নম্বর" data-en="Phone Number">যোগাযোগের ফোন নম্বর</label>
+                    <input type="tel" id="disputePhone" required placeholder="01916390762">
+                </div>
+                <div class="form-group">
+                    <label data-bn="অসন্তুষ্টির কারণ (Reason)" data-en="Reason for Dissatisfaction">অসন্তুষ্টির কারণ (Reason)</label>
+                    <select id="disputeReason" required>
+                        <option value="fake-product" data-bn="নকল বা ত্রুটিপূর্ণ পণ্য দেওয়া হয়েছে" data-en="Fake or Defective Product">নকল বা ত্রুটিপূর্ণ পণ্য দেওয়া হয়েছে</option>
+                        <option value="payment-issue" data-bn="পেমেন্ট বা টাকা নিয়ে জটিলতা" data-en="Payment Issue">পেমেন্ট বা টাকা নিয়ে জটিলতা</option>
+                        <option value="poor-behavior" data-bn="খারাপ আচরণ বা প্রতারণা" data-en="Poor Behavior / Fraud">খারাপ আচরণ বা প্রতারণা</option>
+                        <option value="delivery-delay" data-bn="ডেলিভারিতে অতিরিক্ত বিলম্ব" data-en="Delivery Delay">ডেলিভারিতে অতিরিক্ত বিলম্ব</option>
+                        <option value="other" data-bn="অন্যান্য কারণ" data-en="Other Reasons">অন্যান্য কারণ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-bn="অভিযোগের বিস্তারিত বিবরণ" data-en="Detailed Description">অভিযোগের বিস্তারিত বিবরণ</label>
+                    <textarea id="disputeDesc" rows="3" required placeholder="আপনার সমস্যাটি বিস্তারিত লিখুন..."></textarea>
+                </div>
+                <button type="submit" style="width:100%; padding:9px; background:#d9534f; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:13px;" data-bn="অভিযোগ জমা দিন" data-en="Submit Dispute">অভিযোগ জমা দিন</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Product Detail Modal with Share & Offer Feature -->
     <div class="modal" id="productModal">
         <div class="modal-content">
@@ -396,6 +439,8 @@
             </div>
             
             <button onclick="shareCurrentAd()" style="width:100%; margin-top:8px; padding:8px; background:#6c757d; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:12px;" data-bn="🔗 বিজ্ঞাপনটি শেয়ার করুন" data-en="🔗 Share Ad">🔗 বিজ্ঞাপনটি শেয়ার করুন</button>
+            
+            <button onclick="openModal('disputeModal'); closeModal('productModal');" style="width:100%; margin-top:6px; padding:8px; background:#d9534f; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:11px;" data-bn="⚠️ এই পণ্য বা বিক্রেতা নিয়ে অভিযোগ জানান" data-en="⚠️ Report this Ad/Seller">⚠️ এই পণ্য বা বিক্রেতা নিয়ে অভিযোগ জানান</button>
         </div>
     </div>
 
@@ -525,6 +570,10 @@
                 <div class="settings-item-left"><i class="fa-solid fa-user-circle" style="color: #4CAF50;"></i> <span data-bn="ব্যক্তিগত তথ্য" data-en="Personal info">Personal info</span></div>
                 <div class="settings-item-right"><i class="fa-solid fa-chevron-right"></i></div>
             </div>
+            <div class="settings-list-item" onclick="openModal('disputeModal'); closeModal('settingsModal');">
+                <div class="settings-item-left"><i class="fa-solid fa-triangle-exclamation" style="color: #d9534f;"></i> <span data-bn="অভিযোগ বা অসন্তুষ্টি জানান" data-en="Dispute & Grievance">Dispute & Grievance</span></div>
+                <div class="settings-item-right"><span class="badge-alert">New</span> <i class="fa-solid fa-chevron-right"></i></div>
+            </div>
             <div class="settings-list-item" onclick="alert('Verification feature')">
                 <div class="settings-item-left"><i class="fa-solid fa-file-lines" style="color: #2196F3;"></i> <span data-bn="কোম্পানি ভেরিফিকেশন" data-en="Company verification">Company verification</span></div>
                 <div class="settings-item-right"><i class="fa-solid fa-chevron-right"></i></div>
@@ -532,10 +581,6 @@
             <div class="settings-list-item" onclick="alert('Phone numbers setting')">
                 <div class="settings-item-left"><i class="fa-solid fa-phone" style="color: #4CAF50;"></i> <span data-bn="ফোন নম্বর" data-en="Phone numbers">Phone numbers</span></div>
                 <div class="settings-item-right"><span class="badge-alert">!</span> 01916390762 <i class="fa-solid fa-chevron-right"></i></div>
-            </div>
-            <div class="settings-list-item" onclick="alert('Email setting')">
-                <div class="settings-item-left"><i class="fa-solid fa-envelope" style="color: #FF9800;"></i> <span data-bn="ইমেইল নিশ্চিত করুন" data-en="Confirm email">Confirm email</span></div>
-                <div class="settings-item-right"><span class="badge-alert">!</span> [ লুকানো ] <i class="fa-solid fa-chevron-right"></i></div>
             </div>
             <div class="settings-list-item" onclick="toggleTheme()">
                 <div class="settings-item-left"><i class="fa-solid fa-moon" style="color: #607D8B;"></i> <span data-bn="ডার্ক মোড" data-en="Dark mode">Dark mode</span></div>
@@ -758,6 +803,32 @@
             document.getElementById('offerName').value = '';
             document.getElementById('offerPrice').value = '';
             closeModal('offerModal');
+        };
+
+        window.handleDisputeSubmit = async function(event) {
+            event.preventDefault();
+            const role = document.getElementById('disputeRole').value;
+            const name = document.getElementById('disputeName').value;
+            const phone = document.getElementById('disputePhone').value;
+            const reason = document.getElementById('disputeReason').value;
+            const desc = document.getElementById('disputeDesc').value;
+
+            try {
+                await addDoc(collection(db, "disputes"), {
+                    role: role,
+                    name: name,
+                    phone: phone,
+                    reason: reason,
+                    desc: desc,
+                    createdAt: serverTimestamp(),
+                    status: "Pending"
+                });
+                alert(currentLang === 'bn' ? "আপনার অভিযোগ সফলভাবে জমা দেওয়া হয়েছে। আমাদের টিম শীঘ্রই যোগাযোগ করবে।" : "Your dispute/grievance has been successfully submitted. Our team will contact you soon.");
+                document.getElementById('disputeForm').reset();
+                closeModal('disputeModal');
+            } catch(error) {
+                alert("ত্রুটি: " + error.message);
+            }
         };
 
         window.shareCurrentAd = function() {
@@ -984,9 +1055,9 @@
                             <i class="fa-solid fa-rectangle-ad"></i>
                             <div class="profile-menu-text">My ads (${myAds.length})</div>
                         </div>
-                        <div class="profile-menu-card" onclick="alert('Make money feature coming soon!')">
-                            <i class="fa-solid fa-money-bill-trend-up"></i>
-                            <div class="profile-menu-text">Make money</div>
+                        <div class="profile-menu-card" onclick="openModal('disputeModal'); closeModal('accountModal');">
+                            <i class="fa-solid fa-triangle-exclamation" style="color: #d9534f;"></i>
+                            <div class="profile-menu-text">Dispute / Report</div>
                         </div>
                         <div class="profile-menu-card" onclick="alert('Feedback sent successfully')">
                             <i class="fa-solid fa-face-smile"></i>
@@ -1178,14 +1249,12 @@
             currentOpenAdId = id;
             const ad = allAds.find(a => a.id === id);
             if(ad) {
-                // Increment view count in firestore
                 try {
                     await updateDoc(doc(db, "ads", id), {
                         views: increment(1)
                     });
                 } catch(e) {}
 
-                // Add to recently viewed
                 if(!recentlyViewed.includes(id)) {
                     recentlyViewed.unshift(id);
                     if(recentlyViewed.length > 4) recentlyViewed.pop();
