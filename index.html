@@ -37,7 +37,7 @@
         body.dark-mode .preloader-text { color: #aaa; }
         @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-15px); } }
 
-        /* Header - Strictly Cleaned & Simplified */
+        /* Header */
         header { 
             background-color: var(--primary); 
             padding: 10px 15px; 
@@ -223,7 +223,7 @@
         <div class="preloader-text" data-bn="শান্তির ছায়ায় কেনা-বেচা, Baza.com.bd লোড হচ্ছে..." data-en="Safe Buying & Selling, Baza.com.bd is loading...">শান্তির ছায়ায় কেনা-বেচা, Baza.com.bd লোড হচ্ছে...</div>
     </div>
 
-    <!-- Header (Strictly Cleaned & Simplified) -->
+    <!-- Header -->
     <header>
         <a class="logo" onclick="selectCategory('all')">
             🌳 Baza<span>.com.bd</span>
@@ -370,7 +370,7 @@
         </div>
     </div>
 
-    <!-- Dispute / Grievance Modal -->
+    <!-- Dispute Modal -->
     <div class="modal" id="disputeModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('disputeModal')">&times;</span>
@@ -457,6 +457,7 @@
         </div>
     </div>
 
+    <!-- Post Ad Modal -->
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
@@ -540,6 +541,7 @@
         </div>
     </div>
 
+    <!-- Account Modal -->
     <div class="modal" id="accountModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('accountModal')">&times;</span>
@@ -547,6 +549,7 @@
         </div>
     </div>
 
+    <!-- Wishlist Modal -->
     <div class="modal" id="wishlistModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('wishlistModal')">&times;</span>
@@ -556,6 +559,7 @@
         </div>
     </div>
 
+    <!-- Settings Modal -->
     <div class="modal" id="settingsModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('settingsModal')">&times;</span>
@@ -859,14 +863,112 @@
             'jobs': ['সকল', 'সেলস ও মার্কেটিং', 'অফিস স্টাফ']
         };
 
+        // বাংলাদেশের ৮টি বিভাগ, জেলা এবং থানাগুলোর পূর্ণাঙ্গ ডাটা স্ট্রাকচার
         const bdLocations = [
             {
                 division: "Dhaka",
-                districts: [{ district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi"] }]
+                districts: [
+                    { district: "Dhaka", thanas: ["Gulshan", "Banani", "Mirpur", "Uttara", "Dhanmondi", "Tejgaon", "Motijheel"] },
+                    { district: "Gazipur", thanas: ["Tongi", "Kaliakair", "Sreepur", "Gazipur Sadar", "Kapasia"] },
+                    { district: "Narayanganj", thanas: ["Araihat", "Bandar", "Narayanganj Sadar", "Rupganj", "Sonargaon"] },
+                    { district: "Tangail", thanas: ["Basail", "Bhuapur", "Delduar", "Ghatail", "Kalihati", "Madhupur", "Mirzapur", "Sakhipur", "Tangail Sadar"] },
+                    { district: "Narsingdi", thanas: ["Belabo", "Monohardi", "Narsingdi Sadar", "Palash", "Raipura", "Shibpur"] },
+                    { district: "Manikganj", thanas: ["Daulatpur", "Ghior", "Harirampur", "Manikganj Sadar", "Saturia", "Shivalaya", "Singair"] },
+                    { district: "Munshiganj", thanas: ["Gazaria", "Lohajang", "Munshiganj Sadar", "Sirajdikhan", "Sreenagar", "Tongibari"] },
+                    { district: "Faridpur", thanas: ["Alfadanga", "Bhanga", "Boalmari", "Charbhadrasan", "Faridpur Sadar", "Madhukhali", "Nagarkanda", "Sadarpur", "Saltha"] },
+                    { district: "Gopalganj", thanas: ["Gopalganj Sadar", "Kashiani", "Kotalipara", "Muksudpur", "Tungipara"] },
+                    { district: "Madaripur", thanas: ["Kalkini", "Madaripur Sadar", "Rajoir", "Shibchar"] },
+                    { district: "Rajbari", thanas: ["Baliakandi", "Goalandaghat", "Pangsha", "Rajbari Sadar", "Kalukhali"] },
+                    { district: "Shariatpur", thanas: ["Bhedarganj", "Damudya", "Gosairhat", "Naria", "Shariatpur Sadar", "Zajira"] },
+                    { district: "Kishoreganj", thanas: ["Austagram", "Bajitpur", "Bhairab", "Hossainpur", "Itna", "Karimganj", "Katiadi", "Kishoreganj Sadar", "Kuliarchar", "Mithamain", "Nikli", "Tarail"] }
+                ]
             },
             {
                 division: "Chattogram",
-                districts: [{ district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Kotwali", "Khulshi", "Panchlaish"] }]
+                districts: [
+                    { district: "Chattogram", thanas: ["EPZ", "Double Mooring", "Kotwali", "Khulshi", "Panchlaish", "Pahartali", "Bakalia", "Bayazid", "Chandgaon", "Halishahar"] },
+                    { district: "Cox's Bazar", thanas: ["Chakaria", "Kutubdia", "Teknaf", "Ukhia", "Cox's Bazar Sadar", "Pekua", "Ramu", "Moheshkhali"] },
+                    { district: "Cumilla", thanas: ["Barura", "Brahmanpara", "Burichong", "Chandina", "Chauddagram", "Daudkandi", "Homna", "Laksam", "Muradnagar", "Nangalkot", "Cumilla Sadar", "Meghna", "Titas"] },
+                    { district: "Noakhali", thanas: ["Begumganj", "Chatkhil", "Companiganj", "Hatia", "Kabirhat", "Noakhali Sadar", "Senbagh", "Subarnachar", "Sonaimuri"] },
+                    { district: "Feni", thanas: ["Chhagalnaiya", "Daganbhuiyan", "Feni Sadar", "Parshuram", "Sonagazi", "Fulgazi"] },
+                    { district: "Brahmanbaria", thanas: ["Akhaura", "Bancharampur", "Brahmanbaria Sadar", "Kasba", "Nabinagar", "Nasirnagar", "Sarail", "Ashuganj", "Bijoynagar"] },
+                    { district: "Chandpur", thanas: ["Chandpur Sadar", "Faridganj", "Haimchar", "Haziganj", "Kachua", "Matlab Dakshin", "Matlab Uttar", "Shahrasti"] },
+                    { district: "Lakshmipur", thanas: ["Kamalnagar", "Lakshmipur Sadar", "Raipur", "Ramganj", "Ramgati"] },
+                    { district: "Noakhali", thanas: ["Begumganj", "Chatkhil", "Companiganj", "Hatia", "Kabirhat", "Noakhali Sadar", "Senbagh", "Subarnachar", "Sonaimuri"] },
+                    { district: "Bandarban", thanas: ["Ali Kadam", "Bandarban Sadar", "Lama", "Naikhongchhari", "Rowangchhari", "Ruma", "Thanchi"] },
+                    { district: "Khagrachari", thanas: ["Dighinala", "Guimara", "Khagrachari Sadar", "Lakshmichhari", "Mahalchhari", "Manaikchhari", "Matiranga", "Panchhari", "Ramgarh"] },
+                    { district: "Rangamati", thanas: ["Bagaichhari", "Barkal", "Kawkhali", "Belaichhari", "Kaptai", "Juraichhari", "Langadu", "Naniarchar", "Rajasthali", "Rangamati Sadar"] }
+                ]
+            },
+            {
+                division: "Rajshahi",
+                districts: [
+                    { district: "Rajshahi", thanas: ["Bagha", "Bagmara", "Charghat", "Durgapur", "Godagari", "Mohanpur", "Paba", "Puthia", "Tanore", "Boalia", "Rajpara", "Matihar", "Shah Makhdum"] },
+                    { district: "Bogra", thanas: ["Adamdighi", "Bogra Sadar", "Dhunat", "Dhupchanchia", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Sherpur", "Shibganj", "Sonatala"] },
+                    { district: "Pabna", as: ["Atgharia", "Bera", "Bhangura", "Chatmohar", "Faridpur", "Ishwardi", "Pabna Sadar", "Santhia", "Sujanagar"] },
+                    { district: "Sirajganj", thanas: ["Belkuchi", "Chauhali", "Kamarkhanda", "Kazipur", "Royganj", "Shahjadpur", "Sirajganj Sadar", "Tarash", "Ullahpara"] },
+                    { district: "Naogaon", thanas: ["Atrai", "Badalgachhi", "Dhamoirhat", "Manda", "Mahadevapur", "Naogaon Sadar", "Niamatpur", "Patnitala", "Porsha", "Raninagar", "Sapahar"] },
+                    { district: "Natore", thanas: ["Bagatipara", "Baraigram", "Gurudaspur", "Lalpur", "Natore Sadar", "Singra"] },
+                    { district: "Chapainawabganj", thanas: ["Bholahat", "Gomastapur", "Nachole", "Chapainawabganj Sadar", "Shibganj"] },
+                    { district: "Joypurhat", thanas: ["Akkelpur", "Joypurhat Sadar", "Kalai", "Khetlal", "Panchbibi"] }
+                ]
+            },
+            {
+                division: "Khulna",
+                districts: [
+                    { district: "Khulna", thanas: ["Batiaghata", "Dacope", "Dighalia", "Dumuria", "Koira", "Paikgachha", "Phultala", "Rupsha", "Terokhada", "Sonadanga", "Khalishpur", "Daulatpur", "Khan Jahan Ali"] },
+                    { district: "Jashore", thanas: ["Abhaynagar", "Bagherpara", "Chaugachha", "Jhikargachha", "Keshabpur", "Jashore Sadar", "Sharsha", "Monirampur"] },
+                    { district: "Satkhira", thanas: ["Assasuni", "Debhata", "Kalaroa", "Kaliganj", "Satkhira Sadar", "Shyamnagar", "Tala"] },
+                    { district: "Kushtia", thanas: ["Bheramara", "Daulatpur", "Khoksa", "Kumarkhali", "Kushtia Sadar", "Mirpur"] },
+                    { district: "Jhenaidah", thanas: ["Harinakunda", "Jhenaidah Sadar", "Kaliganj", "Kotchandpur", "Maheshpur", "Shailkupa"] },
+                    { district: "Magura", thanas: ["Magura Sadar", "Mohammadpur", "Shalikha", "Sreepur"] },
+                    { district: "Narail", thanas: ["Kalia", "Lohagara", "Narail Sadar"] },
+                    { district: "Bagerhat", thanas: ["Bagerhat Sadar", "Chitalmari", "Fakirhat", "Kachua", "Mollahat", "Mongla", "Morrelganj", "Rampal", "Sarankhola"] },
+                    { district: "Chuadanga", thanas: ["Alamdanga", "Chuadanga Sadar", "Damurhuda", " জীবননগর"] },
+                    { district: "Meherpur", thanas: ["Gangni", "Meherpur Sadar", "Mujibnagar"] }
+                ]
+            },
+            {
+                division: "Barishal",
+                districts: [
+                    { district: "Barishal", thanas: ["Agailjhara", "Babuganj", "Bakerganj", "Banaripara", "Gaurnadi", "Hizla", "Barishal Sadar", "Mehendiganj", "Muladi", "Wazirpur"] },
+                    { district: "Bhola", thanas: ["Bhola Sadar", "Burhanuddin", "Char Fasson", "Daulatkhan", "Lalmohan", "Manpura", "Tazumuddin"] },
+                    { district: "Patuakhali", thanas: ["Bauphal", "Dashmina", "Dumki", "Galachipa", "Khepupara", "Patuakhali Sadar", "Rangabali"] },
+                    { district: "Pirojpur", thanas: ["Bhandaria", "Kawkhali", "Mathbaria", "Nazirpur", "Pirojpur Sadar", "Nesarabad", "Zianagar"] },
+                    { district: "Barguna", thanas: ["Amtali", "Bamna", "Barguna Sadar", "Betagi", "Patharghata", "Taltali"] },
+                    { district: "Jhalokati", thanas: ["Jhalokati Sadar", "Kathalia", "Nalchity", "Rajapur"] }
+                ]
+            },
+            {
+                division: "Sylhet",
+                districts: [
+                    { district: "Sylhet", thanas: ["Balaganj", "Beanibazar", "Bishwanath", "Companiganj", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Sylhet Sadar", "Zakiganj"] },
+                    { district: "Moulvibazar", thanas: ["Barlekha", "Juri", "Kamalganj", "Kulaura", "Moulvibazar Sadar", "Rajnagar", "Sreemangal"] },
+                    { district: "Habiganj", thanas: ["Ajmiriganj", "Bahubal", "Baniachang", "Chunarughat", "Habiganj Sadar", "Lakhai", "Madhabpur", "Nabiganj", "Shayestaganj"] },
+                    { district: "Sunamganj", thanas: ["Bishwamvarpur", "Chhatak", "Derai", "Dharamapasha", "Dowarabazar", "Jagannathpur", "Jamalganj", "Sullah", "Sunamganj Sadar", "Tahirpur", "South Sunamganj"] }
+                ]
+            },
+            {
+                division: "Rangpur",
+                districts: [
+                    { district: "Rangpur", thanas: ["Badarganj", "Gangachara", "Kaunia", "Rangpur Sadar", "Mithapukur", "Pirgachha", "Pirganj", "Taraganj"] },
+                    { district: "Dinajpur", thanas: ["Birampur", "Birganj", "Biral", "Bochaganj", "Chirirbandar", "Dinajpur Sadar", "Ghoraghat", "Hakimpur", "Kaharole", "Khansama", "Nawabganj", "Parbatipur"] },
+                    { district: "Gaibandha", thanas: ["Fulchhari", "Gaibandha Sadar", "Gobindaganj", "Palashbari", "Sadullapur", "Saghata", "Sundarganj"] },
+                    { district: "Kurigram", thanas: ["Bhurungamari", "Char Rajibpur", "Chilmari", "Kurigram Sadar", "Nageshwari", "Phulbari", "Rajarhat", "Roumari", "Ulipur"] },
+                    { district: "Lalmonirhat", thanas: ["Aditmari", "Hatibandha", "Kaliganj", "Lalmonirhat Sadar", "Patgram"] },
+                    { district: "Nilphamari", thanas: ["Dimla", "Jaldhaka", "Kishoreganj", "Nilphamari Sadar", "Saidpur", "Jaldhaka"] },
+                    { district: "Panchagarh", thanas: ["Atwari", "Boda", "Debiganj", "Panchagarh Sadar", "Tetulia"] },
+                    { district: "Thakurgaon", thanas: ["Baliadangi", "Haripur", "Ranisankail", "Thakurgaon Sadar", "Pirganj"] }
+                ]
+            },
+            {
+                division: "Mymensingh",
+                districts: [
+                    { district: "Mymensingh", thanas: ["Bhaluka", "Dhobaura", "Fulbaria", "Gaffargaon", "Gauripur", "Haluaghat", "Ishwarganj", "Mymensingh Sadar", "Muktagachha", "Nandail", "Trishal"] },
+                    { district: "Jamalpur", thanas: ["Baksiganj", "Dewanganj", "Islampur", "Jamalpur Sadar", "Madarganj", "Melandaha", "Sarishabari"] },
+                    { district: "Netrokona", thanas: ["Atpara", "Barhatta", "Durgapur", "Kalmakanda", "Kendua", "Khaliajuri", "Madan", "Mohanganj", "Netrokona Sadar", "Purbadhala"] },
+                    { district: "Sherpur", thanas: ["Jhenaigati", "Nakla", "Nalitabari", "Sherpur Sadar", "Sreebordi"] }
+                ]
             }
         ];
 
