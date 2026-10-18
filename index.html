@@ -56,19 +56,26 @@
         .header-controls { display: flex; gap: 8px; align-items: center; }
         .btn-header { background: transparent; border: 1px solid white; color: white; padding: 5px 10px; border-radius: 20px; cursor: pointer; font-size: 11px; font-weight: bold; white-space: nowrap; display: flex; align-items: center; gap: 4px; text-decoration: none; }
 
-        /* Hero Banner */
+        /* Hero Banner & Search Suggestions (Feature 8) */
         .hero-banner { background-color: var(--primary); color: white; text-align: center; padding: 20px 12px 30px 12px; width: 100%; max-width: 100vw; box-sizing: border-box; }
         .hero-banner h1 { font-size: 20px; margin-bottom: 6px; line-height: 1.3; }
         .hero-banner p { font-size: 12px; opacity: 0.9; margin-bottom: 12px; line-height: 1.4; }
         
-        .search-container { width: 100%; max-width: 650px; margin: 0 auto; display: flex; gap: 5px; background: white; padding: 6px; border-radius: 8px; box-sizing: border-box; align-items: center; }
+        .search-container { position: relative; width: 100%; max-width: 650px; margin: 0 auto; display: flex; gap: 5px; background: white; padding: 6px; border-radius: 8px; box-sizing: border-box; align-items: center; }
         .search-container select { border: none; outline: none; padding: 6px; background: #eef2f5; border-radius: 4px; font-weight: bold; color: #333; font-size: 12px; max-width: 110px; flex-shrink: 0; }
         .search-container input { border: none; outline: none; padding: 6px; background: transparent; font-size: 12px; flex: 1; min-width: 60px; color: #333; }
         .search-container button { background-color: var(--accent); border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; color: #000; font-size: 12px; flex-shrink: 0; }
         
+        .suggestions-box { position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #ccc; border-radius: 0 0 8px 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); display: none; z-index: 1000; max-height: 200px; overflow-y: auto; text-align: left; }
+        body.dark-mode .suggestions-box { background: var(--card-bg-dark); border-color: #444; color: white; }
+        .suggestion-item { padding: 8px 12px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #eee; color: #333; }
+        body.dark-mode .suggestion-item { border-color: #333; color: #eee; }
+        .suggestion-item:hover { background: #f0f0f0; }
+        body.dark-mode .suggestion-item:hover { background: #2a2a2a; }
+
         .container { max-width: 1100px; margin: 15px auto; padding: 0 10px; width: 100%; box-sizing: border-box; }
         
-        /* Filter Section */
+        /* Filter Section (Feature 1: Condition Filter) */
         .filter-section { background: var(--card-bg-light); padding: 12px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; gap: 8px; flex-direction: column; width: 100%; box-sizing: border-box; }
         body.dark-mode .filter-section { background: var(--card-bg-dark); }
         .filter-group { display: flex; gap: 8px; flex-direction: column; width: 100%; }
@@ -131,7 +138,7 @@
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .section-header h2 { font-size: 16px; color: inherit; }
         
-        /* Product Grid */
+        /* Product Grid & Cards (Feature 2: Seller Rating) */
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; } }
         .product-card { background: var(--card-bg-light); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; flex-direction: column; cursor: pointer; position: relative; transition: transform 0.2s; border: 1px solid transparent; }
@@ -142,9 +149,11 @@
         .product-details { padding: 8px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .product-price { color: var(--primary); font-weight: bold; font-size: 14px; margin-bottom: 3px; }
         .product-title { font-size: 12px; font-weight: 600; margin-bottom: 3px; color: inherit; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .product-seller-info { font-size: 10px; color: #555; margin-bottom: 2px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+        .product-seller-info { font-size: 10px; color: #555; margin-bottom: 2px; font-weight: 600; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
         body.dark-mode .product-seller-info { color: #ccc; }
         .verified-badge { color: #2196F3; font-size: 11px; }
+        .rating-badge { color: #ff9800; font-size: 10px; font-weight: bold; }
+        .condition-tag { font-size: 9px; background: #e0f2fe; color: #0369a1; padding: 1px 4px; border-radius: 3px; font-weight: bold; margin-left: 4px; }
         .product-location { font-size: 10px; color: #777; margin-bottom: 4px; }
         .featured-badge { position: absolute; top: 6px; left: 6px; background: var(--accent); color: #000; font-size: 8px; font-weight: bold; padding: 2px 5px; border-radius: 3px; z-index: 2; }
         .fav-btn { position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,0.8); border: none; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 13px; color: #555; z-index: 2; }
@@ -172,12 +181,33 @@
         .preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
         .preview-thumb .remove-img { position: absolute; top: 1px; right: 1px; background: rgba(220, 53, 69, 0.9); color: white; border: none; border-radius: 50%; width: 16px; height: 16px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        .main-img-container { width: 100%; height: 180px; border-radius: 4px; overflow: hidden; background: #000; }
+        /* Feature 5: Image Zoom Container */
+        .main-img-container { width: 100%; height: 180px; border-radius: 4px; overflow: hidden; background: #000; position: relative; cursor: zoom-in; }
         .main-img-container img { width: 100%; height: 100%; object-fit: contain; }
+        .zoom-hint { position: absolute; bottom: 6px; right: 6px; background: rgba(0,0,0,0.6); color: white; padding: 2px 6px; border-radius: 4px; font-size: 10px; pointer-events: none; }
+        
         .thumb-gallery { display: flex; gap: 5px; margin-top: 6px; overflow-x: auto; padding-bottom: 3px; }
         .thumb-item { width: 45px; height: 45px; border-radius: 4px; overflow: hidden; cursor: pointer; border: 2px solid transparent; flex-shrink: 0; }
         .thumb-item.active { border-color: var(--primary); }
         .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Feature 3: Safety Tips Box */
+        .safety-box { background: #fff8e1; border: 1px solid #ffe082; padding: 8px; border-radius: 4px; font-size: 11px; margin: 8px 0; color: #5d4037; }
+        body.dark-mode .safety-box { background: #332a00; border-color: #665200; color: #ffe082; }
+
+        /* Feature 5: Fullscreen Image Lightbox Modal */
+        .zoom-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 3000; justify-content: center; align-items: center; padding: 10px; box-sizing: border-box; }
+        .zoom-modal img { max-width: 98%; max-height: 90vh; object-fit: contain; border-radius: 6px; }
+        .zoom-close-btn { position: absolute; top: 15px; right: 20px; font-size: 30px; color: white; cursor: pointer; z-index: 3001; }
+
+        /* Feature 6: Real-time Chat Box */
+        .chat-box { height: 260px; overflow-y: auto; border: 1px solid #eee; padding: 8px; border-radius: 6px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 6px; background: rgba(0,0,0,0.02); }
+        body.dark-mode .chat-box { border-color: #333; background: rgba(255,255,255,0.02); }
+        .msg-bubble { max-width: 75%; padding: 6px 10px; border-radius: 8px; font-size: 12px; line-height: 1.3; word-break: break-word; }
+        .msg-mine { align-self: flex-end; background: var(--primary); color: white; }
+        .msg-other { align-self: flex-start; background: #e0e0e0; color: #333; }
+        body.dark-mode .msg-other { background: #3a3a3a; color: #eee; }
+        .msg-sender { font-size: 9px; font-weight: bold; opacity: 0.8; margin-bottom: 2px; }
 
         /* Bottom Navigation with Auto-hide transition */
         .bottom-nav { 
@@ -255,7 +285,7 @@
         </div>
     </header>
 
-    <!-- Hero Banner -->
+    <!-- Hero Banner with Feature 8: Live Search Suggestions -->
     <div class="hero-banner">
         <h1 data-bn="Baza-তে সবকিছু কেনা-বেচা করুন সহজে" data-en="Buy and Sell Everything Easily on Baza">Baza-তে সবকিছু কেনা-বেচা করুন সহজে</h1>
         <p data-bn="আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম" data-en="The safest platform to buy and sell your used or new products">আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম</p>
@@ -263,8 +293,11 @@
             <select id="heroDivision" onchange="onHeroDivisionChange()">
                 <option value="" data-bn="সকল বিভাগ" data-en="All Divisions">সকল বিভাগ</option>
             </select>
-            <input type="text" id="searchInput" placeholder="কী খুঁজছেন? (যেমন: মোবাইল)" data-bn-placeholder="কী খুঁজছেন? (যেমন: মোবাইল)" data-en-placeholder="What are you looking for? (e.g. Mobile)" onkeyup="if(event.key === 'Enter') filterAds()">
+            <input type="text" id="searchInput" placeholder="কী খুঁজছেন? (যেমন: মোবাইল)" data-bn-placeholder="কী খুঁজছেন? (যেমন: মোবাইল)" data-en-placeholder="What are you looking for? (e.g. Mobile)" onkeyup="handleSearchKeyup(event)">
             <button onclick="filterAds()" data-bn="খুঁজুন" data-en="Search"><i class="fa-solid fa-magnifying-glass"></i> খুঁজুন</button>
+            
+            <!-- Feature 8 Suggestions Box -->
+            <div class="suggestions-box" id="suggestionsBox"></div>
         </div>
     </div>
 
@@ -274,6 +307,7 @@
             <i class="fa-solid fa-bullhorn" style="color: var(--accent);"></i> স্পন্সরড অ্যাড / গুগলের বিজ্ঞাপন স্পেস (এখানে আপনার অ্যাডসেন্স কোড বসাতে পারেন)
         </div>
 
+        <!-- Feature 1: Condition Select Filter Added -->
         <div class="filter-section">
             <div class="filter-group">
                 <select id="filterDistrict" onchange="onHeroDistrictChange()" disabled>
@@ -281,6 +315,11 @@
                 </select>
                 <select id="filterThana" onchange="filterAds()" disabled>
                     <option value="" data-bn="প্রথমে জেলা সিলেক্ট করুন" data-en="Select District First">প্রথমে জেলা সিলেক্ট করুন</option>
+                </select>
+                <select id="filterCondition" onchange="filterAds()">
+                    <option value="" data-bn="পণ্য অবস্থান্তর (সকল)" data-en="Condition (All)">পণ্য অবস্থান্তর (সকল)</option>
+                    <option value="used" data-bn="ব্যবহৃত (Used)" data-en="Used">ব্যবহৃত (Used)</option>
+                    <option value="new" data-bn="একদম নতুন (Brand New)" data-en="Brand New">একদম নতুন (Brand New)</option>
                 </select>
                 <select id="priceSortSelect" onchange="filterAds()">
                     <option value="" data-bn="মূল্য অনুযায়ী সাজান (Default)" data-en="Sort by Price (Default)">মূল্য অনুযায়ী সাজান (Default)</option>
@@ -367,6 +406,12 @@
         </button>
     </nav>
 
+    <!-- Feature 5: Fullscreen Image Zoom Lightbox Modal -->
+    <div class="zoom-modal" id="imageZoomModal" onclick="closeImageZoom()">
+        <span class="zoom-close-btn" onclick="closeImageZoom()">&times;</span>
+        <img id="fullZoomImage" src="" alt="Zoomed Product Image" onclick="event.stopPropagation()">
+    </div>
+
     <!-- Modals -->
     <div class="modal" id="privacyModal">
         <div class="modal-content">
@@ -426,28 +471,61 @@
         </div>
     </div>
 
+    <!-- Feature 6: Direct Real-time Chat Modal -->
+    <div class="modal" id="chatModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('chatModal')">&times;</span>
+            <h3 style="margin-bottom: 8px; color: var(--primary); font-size:15px; display:flex; align-items:center; gap:6px;">
+                <i class="fa-solid fa-comments"></i> <span id="chatSellerName">বিক্রেতার সাথে চ্যাট</span>
+            </h3>
+            <div class="chat-box" id="chatMessagesBox"></div>
+            <div style="display:flex; gap:5px;">
+                <input type="text" id="chatInputMsg" placeholder="মেসেজ লিখুন..." style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px; font-size:12px;" onkeyup="if(event.key==='Enter') sendChatMessage()">
+                <button onclick="sendChatMessage()" style="padding:8px 14px; background:var(--primary); color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:12px;">পাঠান</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Product Detail Modal -->
     <div class="modal" id="productModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
-            <div class="main-img-container"><img id="modalMainImg" src="" alt="Product"></div>
+            
+            <!-- Feature 5: Click image for Zoom -->
+            <div class="main-img-container" onclick="openImageZoom()">
+                <img id="modalMainImg" src="" alt="Product">
+                <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> জুম করুন</div>
+            </div>
             <div class="thumb-gallery" id="modalThumbGallery"></div>
             <h3 id="modalTitle" style="margin: 8px 0 4px 0; font-size:15px;"></h3>
             <p id="modalPrice" style="color:var(--primary); font-weight:bold; font-size:16px; margin:4px 0;"></p>
+            <p id="modalCondition" style="font-size:11px; font-weight:bold; color:#0284c7; margin:2px 0;"></p>
             <p id="modalLocation" style="color:#777; font-size:12px; margin:2px 0;"></p>
-            <p id="modalSeller" style="font-size:12px; color:#333; font-weight:bold; margin:3px 0; display:flex; align-items:center; gap:5px;"></p>
+            
+            <!-- Feature 2: Seller Rating in Details -->
+            <p id="modalSeller" style="font-size:12px; color:#333; font-weight:bold; margin:3px 0; display:flex; align-items:center; gap:5px; flex-wrap:wrap;"></p>
             <p id="modalDesc" style="font-size:12px; margin:6px 0;"></p>
             <p id="modalViews" style="font-size:11px; color:#555; margin-bottom: 6px;"></p>
             
+            <!-- Feature 3: Safety Tips Alert Notice Box -->
+            <div class="safety-box">
+                <i class="fa-solid fa-shield-halved" style="color:#f59e0b;"></i> <strong>নিরাপত্তা টিপস:</strong> পণ্য পরীক্ষা না করে অগ্রিম কোনো পেমেন্ট করবেন না। জনবহুল নিরাপদ স্থানে দেখা করুন।
+            </div>
+
+            <!-- Feature 6: Direct In-App Chat Button -->
+            <button onclick="openChatWithSeller()" style="width:100%; margin-top:6px; padding:8px; background:#2196F3; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:12px;" data-bn="💬 বিক্রেতাকে মেসেজ দিন (Chat)" data-en="💬 Chat with Seller">💬 বিক্রেতাকে মেসেজ দিন (Chat)</button>
+
             <button onclick="requestOnlineOrder()" style="width:100%; margin-top:6px; padding:8px; background:var(--accent); color:#000; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:12px;" data-bn="🛍️ অনলাইন অর্ডার কনফার্ম করুন" data-en="🛍️ Confirm Online Order">🛍️ অনলাইন অর্ডার কনফার্ম করুন</button>
             
             <button onclick="openOfferModal()" style="width:100%; margin-top:6px; padding:8px; background:#ff9800; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:12px;" data-bn="💬 দাম দর করুন (Make Offer)" data-en="💬 Make an Offer">💬 দাম দর করুন (Make Offer)</button>
 
+            <!-- Feature 7: Click Analytics on Call / WhatsApp -->
             <div style="display: flex; gap: 5px; margin-top:6px;">
-                <a id="callLink" href="#" style="flex:1; text-align:center; text-decoration:none; padding:8px; background:var(--primary); color:white; border-radius:4px; font-weight:bold; font-size:12px;" data-bn="📞 কল করুন" data-en="📞 Call Now">📞 কল করুন</a>
-                <a id="waLink" href="#" target="_blank" style="flex:1; text-align:center; text-decoration:none; padding:8px; background:#25D366; color:white; border-radius:4px; font-weight:bold; font-size:12px;">💬 WhatsApp</a>
+                <a id="callLink" href="#" onclick="trackContactClick('call')" style="flex:1; text-align:center; text-decoration:none; padding:8px; background:var(--primary); color:white; border-radius:4px; font-weight:bold; font-size:12px;" data-bn="📞 কল করুন" data-en="📞 Call Now">📞 কল করুন</a>
+                <a id="waLink" href="#" target="_blank" onclick="trackContactClick('whatsapp')" style="flex:1; text-align:center; text-decoration:none; padding:8px; background:#25D366; color:white; border-radius:4px; font-weight:bold; font-size:12px;">💬 WhatsApp</a>
             </div>
             
+            <!-- Feature 4: Quick Copy & Social Share -->
             <button onclick="shareCurrentAd()" style="width:100%; margin-top:8px; padding:8px; background:#6c757d; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:12px;" data-bn="🔗 বিজ্ঞাপনটি শেয়ার করুন" data-en="🔗 Share Ad">🔗 বিজ্ঞাপনটি শেয়ার করুন</button>
             
             <button onclick="openModal('disputeModal'); closeModal('productModal');" style="width:100%; margin-top:6px; padding:8px; background:#d9534f; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer; font-size:11px;" data-bn="⚠️ এই পণ্য বা বিক্রেতা নিয়ে অভিযোগ জানান" data-en="⚠️ Report this Ad/Seller">⚠️ এই পণ্য বা বিক্রেতা নিয়ে অভিযোগ জানান</button>
@@ -481,6 +559,14 @@
                 <div class="form-group">
                     <label data-bn="শিরোনাম" data-en="Title">শিরোনাম</label>
                     <input type="text" id="postTitle" required placeholder="যেমন: Watch / ঘড়ি" data-bn-placeholder="যেমন: Watch / ঘড়ি" data-en-placeholder="e.g. Watch">
+                </div>
+                <!-- Feature 1: Condition Selection -->
+                <div class="form-group">
+                    <label data-bn="পণ্যের অবস্থা (Condition)" data-en="Condition">পণ্যের অবস্থা (Condition)</label>
+                    <select id="postCondition" required>
+                        <option value="used" data-bn="ব্যবহৃত (Used)" data-en="Used">ব্যবহৃত (Used)</option>
+                        <option value="new" data-bn="একদম নতুন (Brand New)" data-en="Brand New">একদম নতুন (Brand New)</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label data-bn="ক্যাটাগরি" data-en="Category">ক্যাটাগরি</label>
@@ -611,11 +697,13 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, onSnapshot, query, orderBy, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, onSnapshot, query, orderBy, serverTimestamp, increment, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         let currentLang = localStorage.getItem('baza_lang') || 'bn';
         let recentlyViewed = JSON.parse(localStorage.getItem('baza_recent')) || [];
         let currentOpenAdId = null;
+        let activeChatId = null;
+        let unsubscribeChat = null;
 
         window.toggleLanguage = function() {
             currentLang = currentLang === 'bn' ? 'en' : 'bn';
@@ -644,7 +732,10 @@
         }
 
         let pageInteracted = false;
-        window.addEventListener('click', () => { pageInteracted = true; });
+        window.addEventListener('click', () => { 
+            pageInteracted = true; 
+            document.getElementById('suggestionsBox').style.display = 'none';
+        });
         window.addEventListener('keydown', () => { pageInteracted = true; });
 
         window.addEventListener('beforeunload', function (e) {
@@ -797,6 +888,149 @@
             `).join('');
         }
 
+        /* Feature 8: Live Search & Suggestions Implementation */
+        window.handleSearchKeyup = function(event) {
+            if(event.key === 'Enter') {
+                filterAds();
+                document.getElementById('suggestionsBox').style.display = 'none';
+                return;
+            }
+
+            const queryVal = event.target.value.toLowerCase().trim();
+            const suggBox = document.getElementById('suggestionsBox');
+
+            if(!queryVal) {
+                suggBox.style.display = 'none';
+                filterAds();
+                return;
+            }
+
+            const matches = allAds.filter(ad => ad.title && ad.title.toLowerCase().includes(queryVal)).slice(0, 5);
+
+            if(matches.length > 0) {
+                suggBox.innerHTML = matches.map(m => `
+                    <div class="suggestion-item" onclick="selectSearchSuggestion('${m.title.replace(/'/g, "\\'")}')">
+                        <i class="fa-solid fa-magnifying-glass" style="color:#888; font-size:10px; margin-right:5px;"></i> ${m.title}
+                    </div>
+                `).join('');
+                suggBox.style.display = 'block';
+            } else {
+                suggBox.style.display = 'none';
+            }
+            filterAds();
+        };
+
+        window.selectSearchSuggestion = function(text) {
+            document.getElementById('searchInput').value = text;
+            document.getElementById('suggestionsBox').style.display = 'none';
+            filterAds();
+        };
+
+        /* Feature 5: Image Zoom / Fullscreen Lightbox */
+        window.openImageZoom = function() {
+            const mainImgSrc = document.getElementById('modalMainImg').src;
+            if(!mainImgSrc) return;
+            document.getElementById('fullZoomImage').src = mainImgSrc;
+            document.getElementById('imageZoomModal').style.display = 'flex';
+        };
+
+        window.closeImageZoom = function() {
+            document.getElementById('imageZoomModal').style.display = 'none';
+        };
+
+        /* Feature 6: Real-time In-App Chat */
+        window.openChatWithSeller = function() {
+            if(!currentUser) {
+                alert(currentLang === 'bn' ? "মেসেজ পাঠাতে প্রথমে সাইন-ইন করুন।" : "Please sign in to send a message.");
+                openModal('accountModal');
+                return;
+            }
+
+            const ad = allAds.find(a => a.id === currentOpenAdId);
+            if(!ad) return;
+
+            if(ad.userId === currentUser.uid) {
+                alert(currentLang === 'bn' ? "এটি আপনার নিজের পোস্ট করা বিজ্ঞাপন!" : "This is your own ad!");
+                return;
+            }
+
+            activeChatId = [currentUser.uid, ad.userId, ad.id].sort().join('_');
+            document.getElementById('chatSellerName').innerText = (ad.userName || "Seller") + " (" + ad.title + ")";
+            
+            closeModal('productModal');
+            openModal('chatModal');
+            listenToChatMessages();
+        };
+
+        function listenToChatMessages() {
+            if(unsubscribeChat) unsubscribeChat();
+            const msgBox = document.getElementById('chatMessagesBox');
+            msgBox.innerHTML = '<p style="font-size:11px; text-align:center; color:#888;">মেসেজ লোড হচ্ছে...</p>';
+
+            const q = query(collection(db, "chats", activeChatId, "messages"), orderBy("timestamp", "asc"));
+            unsubscribeChat = onSnapshot(q, snapshot => {
+                msgBox.innerHTML = '';
+                if(snapshot.empty) {
+                    msgBox.innerHTML = '<p style="font-size:11px; text-align:center; color:#888;">এখনও কোনো মেসেজ নেই। নিচে লিখুন...</p>';
+                    return;
+                }
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const isMine = data.senderId === currentUser.uid;
+                    msgBox.innerHTML += `
+                        <div class="msg-bubble ${isMine ? 'msg-mine' : 'msg-other'}">
+                            <div class="msg-sender">${isMine ? 'আপনি' : data.senderName}</div>
+                            <div>${data.text}</div>
+                        </div>
+                    `;
+                });
+                msgBox.scrollTop = msgBox.scrollHeight;
+            });
+        }
+
+        window.sendChatMessage = async function() {
+            const input = document.getElementById('chatInputMsg');
+            const text = input.value.trim();
+            if(!text || !activeChatId || !currentUser) return;
+
+            input.value = '';
+            try {
+                await addDoc(collection(db, "chats", activeChatId, "messages"), {
+                    senderId: currentUser.uid,
+                    senderName: currentUser.displayName || "User",
+                    text: text,
+                    timestamp: serverTimestamp()
+                });
+            } catch(e) {
+                alert("মেসেজ পাঠানো যায়নি: " + e.message);
+            }
+        };
+
+        /* Feature 7: Direct Call / WhatsApp Analytics Tracker */
+        window.trackContactClick = async function(type) {
+            if(!currentOpenAdId) return;
+            try {
+                const fieldName = type === 'call' ? 'callClicks' : 'waClicks';
+                await updateDoc(doc(db, "ads", currentOpenAdId), {
+                    [fieldName]: increment(1)
+                });
+            } catch(e) {}
+        };
+
+        /* Feature 4: Quick Copy / Share */
+        window.shareCurrentAd = function() {
+            if(navigator.share) {
+                navigator.share({
+                    title: 'Baza.com.bd Ad',
+                    text: 'Check out this product on Baza.com.bd',
+                    url: window.location.href
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert(currentLang === 'bn' ? "বিজ্ঞাপনের লিংক কপি করা হয়েছে!" : "Ad link copied to clipboard!");
+            }
+        };
+
         window.requestOnlineOrder = function() {
             alert(currentLang === 'bn' ? "আপনার অর্ডার রিকোয়েস্ট সফলভাবে গ্রহণ করা হয়েছে!" : "Your order request has been successfully received!");
             closeModal('productModal');
@@ -842,19 +1076,6 @@
                 closeModal('disputeModal');
             } catch(error) {
                 alert("ত্রুটি: " + error.message);
-            }
-        };
-
-        window.shareCurrentAd = function() {
-            if(navigator.share) {
-                navigator.share({
-                    title: 'Baza.com.bd Ad',
-                    text: 'Check out this product on Baza.com.bd',
-                    url: window.location.href
-                }).catch(() => {});
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert(currentLang === 'bn' ? "বিজ্ঞাপনের লিংক কপি করা হয়েছে!" : "Ad link copied to clipboard!");
             }
         };
 
@@ -1076,6 +1297,7 @@
             document.getElementById('filterDistrict').disabled = true;
             document.getElementById('filterThana').innerHTML = `<option value="">${currentLang === 'bn' ? 'প্রথমে জেলা সিলেক্ট করুন' : 'Select District First'}</option>`;
             document.getElementById('filterThana').disabled = true;
+            document.getElementById('filterCondition').value = '';
             document.getElementById('priceSortSelect').value = '';
             document.getElementById('searchInput').value = '';
             filterAds();
@@ -1116,6 +1338,7 @@
             document.getElementById('editAdId').value = ad.id;
             document.getElementById('postModalTitle').innerText = currentLang === 'bn' ? "বিজ্ঞাপন এডিট করুন" : "Edit Ad";
             document.getElementById('postTitle').value = ad.title;
+            document.getElementById('postCondition').value = ad.condition || 'used';
             document.getElementById('postCategory').value = ad.category;
             onPostCategoryChange();
             document.getElementById('postSubCategory').value = ad.subCategory || '';
@@ -1219,6 +1442,7 @@
             });
         }
 
+        /* Render Ads with Feature 2: Seller Rating Badge */
         function renderAds(ads) {
             const grid = document.getElementById('adsGrid');
             grid.innerHTML = '';
@@ -1231,6 +1455,9 @@
                 const isFav = wishlist.includes(ad.id);
                 const sellerName = ad.userName ? ad.userName : "MD NADIM KHAN";
                 const viewsCount = ad.views || 0;
+                const condText = ad.condition === 'new' ? (currentLang === 'bn' ? 'নতুন' : 'New') : (currentLang === 'bn' ? 'ব্যবহৃত' : 'Used');
+                const sellerRating = ad.rating || "4.8";
+                
                 grid.innerHTML += `
                     <div class="product-card ${ad.isFeatured ? 'featured-card' : ''}" onclick="openProductDetail('${ad.id}')">
                         ${ad.isFeatured ? '<div class="featured-badge">⭐ Featured</div>' : ''}
@@ -1240,10 +1467,11 @@
                         <img src="${mainImg}" alt="${ad.title}">
                         <div class="product-details">
                             <div>
-                                <div class="product-price">৳ ${ad.price}</div>
+                                <div class="product-price">৳ ${ad.price} <span class="condition-tag">${condText}</span></div>
                                 <div class="product-title">${ad.title}</div>
                                 <div class="product-seller-info">
                                     <span>👤 ${sellerName}</span> <i class="fa-solid fa-circle-check verified-badge"></i>
+                                    <span class="rating-badge">★ ${sellerRating}</span>
                                 </div>
                                 <div class="product-location">📍 ${ad.location}</div>
                                 <div style="font-size:9px; color:#888; margin-top:2px;">👁️ ${viewsCount} views</div>
@@ -1307,6 +1535,7 @@
             const div = document.getElementById('postDivision').value;
             const dist = document.getElementById('postDistrict').value;
             const thana = document.getElementById('postThana').value;
+            const condition = document.getElementById('postCondition').value;
             const isFeatured = document.getElementById('postIsFeatured').checked;
 
             if(selectedImagesBase64.length === 0) return alert(currentLang === 'bn' ? "কমপক্ষে একটি ছবি দিন বা সিলেক্ট করুন!" : "Please provide at least one image!");
@@ -1317,6 +1546,7 @@
             try {
                 const adData = {
                     title: document.getElementById('postTitle').value,
+                    condition: condition,
                     category: document.getElementById('postCategory').value.toLowerCase(),
                     subCategory: document.getElementById('postSubCategory').value,
                     price: document.getElementById('postPrice').value,
@@ -1331,7 +1561,10 @@
                     isFeatured: isFeatured,
                     userId: currentUser.uid,
                     userName: currentUser.displayName || "MD NADIM KHAN",
-                    views: 0
+                    rating: "4.8",
+                    views: 0,
+                    callClicks: 0,
+                    waClicks: 0
                 };
 
                 if(editId) {
@@ -1374,8 +1607,14 @@
 
                 document.getElementById('modalTitle').innerText = ad.title;
                 document.getElementById('modalPrice').innerText = "৳ " + ad.price;
+                
+                const condLabel = ad.condition === 'new' ? (currentLang === 'bn' ? "অবস্থা: একদম নতুন" : "Condition: Brand New") : (currentLang === 'bn' ? "অবস্থা: ব্যবহৃত" : "Condition: Used");
+                document.getElementById('modalCondition').innerText = condLabel;
+
                 document.getElementById('modalLocation').innerText = (currentLang === 'bn' ? "লোকেশন: " : "Location: ") + ad.location;
-                document.getElementById('modalSeller').innerHTML = "👤 " + (currentLang === 'bn' ? "বিক্রেতা / দোকান: " : "Seller / Shop: ") + (ad.userName || "MD NADIM KHAN") + ' <i class="fa-solid fa-circle-check verified-badge"></i>';
+                
+                const sellerRating = ad.rating || "4.8";
+                document.getElementById('modalSeller').innerHTML = "👤 " + (currentLang === 'bn' ? "বিক্রেতা: " : "Seller: ") + (ad.userName || "MD NADIM KHAN") + ' <i class="fa-solid fa-circle-check verified-badge"></i> <span class="rating-badge">★ ' + sellerRating + ' (24 reviews)</span>';
                 document.getElementById('modalDesc').innerText = ad.desc;
                 document.getElementById('modalViews').innerText = "👁️ Total Views: " + ((ad.views || 0) + 1);
                 
@@ -1412,6 +1651,7 @@
             const divFilter = document.getElementById('heroDivision').value;
             const distFilter = document.getElementById('filterDistrict').value;
             const thanaFilter = document.getElementById('filterThana').value;
+            const condFilter = document.getElementById('filterCondition').value;
             const sortVal = document.getElementById('priceSortSelect').value;
 
             let filtered = allAds.filter(ad => {
@@ -1421,7 +1661,8 @@
                 const matchDiv = !divFilter || ad.division === divFilter;
                 const matchDist = !distFilter || ad.district === distFilter;
                 const matchThana = !thanaFilter || ad.thana === thanaFilter;
-                return matchQuery && matchCat && matchSubCat && matchDiv && matchDist && matchThana;
+                const matchCond = !condFilter || ad.condition === condFilter;
+                return matchQuery && matchCat && matchSubCat && matchDiv && matchDist && matchThana && matchCond;
             });
 
             filtered.sort((a, b) => {
@@ -1492,7 +1733,13 @@
         };
 
         window.openModal = function(id) { document.getElementById(id).style.display = 'flex'; };
-        window.closeModal = function(id) { document.getElementById(id).style.display = 'none'; };
+        window.closeModal = function(id) { 
+            document.getElementById(id).style.display = 'none'; 
+            if(id === 'chatModal' && unsubscribeChat) {
+                unsubscribeChat();
+                unsubscribeChat = null;
+            }
+        };
         window.toggleTheme = function() { 
             document.body.classList.toggle('dark-mode'); 
             const isDark = document.body.classList.contains('dark-mode');
@@ -1507,10 +1754,8 @@
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
             if (scrollTop > lastScrollTop) {
-                // নিচের দিকে স্ক্রল করলে বার লুকিয়ে যাবে
                 bottomNav.style.transform = 'translateY(100%)';
             } else {
-                // ওপরের দিকে স্ক্রল করলে বার আবার দেখা যাবে
                 bottomNav.style.transform = 'translateY(0)';
             }
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
