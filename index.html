@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MD NADIM KHAN - Profile & Baza.com.bd</title>
+    
+    <!-- Open Graph & Social Media Share Meta Tags -->
+    <link rel="canonical" href="https://nadimtelecom.github.io/baza.com.bd/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Baza.com.bd - নিরাপদ কেনা-বেচা" />
+    <meta property="og:description" content="আপনার ব্যবহৃত বা নতুন পণ্য কেনা-বেচার সবচেয়ে নিরাপদ প্ল্যাটফর্ম।" />
+    <meta property="og:url" content="https://nadimtelecom.github.io/baza.com.bd/" />
+    <meta property="og:image" content="https://nadimtelecom.github.io/baza.com.bd/preview-logo.png" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -205,7 +214,6 @@
         body.dark-mode .msg-other { background: #3a3a3a; color: #eee; }
         .msg-sender { font-size: 9px; font-weight: bold; opacity: 0.8; margin-bottom: 2px; }
 
-        /* Auto-category suggestion badge */
         .auto-cat-hint { font-size: 10px; color: var(--primary); font-weight: bold; margin-top: 3px; display: none; }
 
         .bottom-nav { 
@@ -537,7 +545,7 @@
         </div>
     </div>
 
-    <!-- Post Ad Modal (With Auto Category Suggestion) -->
+    <!-- Post Ad Modal -->
     <div class="modal" id="postAdModal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('postAdModal')">&times;</span>
@@ -546,7 +554,7 @@
                 <input type="hidden" id="editAdId" value="">
                 <div class="form-group">
                     <label data-bn="শিরোনাম" data-en="Title">শিরোনাম</label>
-                    <input type="text" id="postTitle" required placeholder="যেমন: Fridge, Mobile, Bike, Sofa" data-bn-placeholder="যেমন: Fridge, Mobile, Bike, Sofa" data-en-placeholder="e.g. Fridge, Mobile, Bike, Sofa" oninput="autoDetectCategory(this.value)">
+                    <input type="text" id="postTitle" required placeholder="যেমন: Fridge, Mobile, Bike, Sofa" oninput="autoDetectCategory(this.value)">
                     <div id="autoCatHint" class="auto-cat-hint"></div>
                 </div>
                 <div class="form-group">
@@ -585,7 +593,7 @@
                 </div>
                 <div class="form-group">
                     <label data-bn="মূল্য (টাকা)" data-en="Price (BDT)">মূল্য (টাকা)</label>
-                    <input type="text" id="postPrice" required placeholder="যেমন: 2500" data-bn-placeholder="যেমন: 2500" data-en-placeholder="e.g. 2500">
+                    <input type="text" id="postPrice" required placeholder="যেমন: 2500">
                 </div>
                 <div class="form-group">
                     <label data-bn="ফোন নম্বর" data-en="Phone Number">ফোন নম্বর</label>
@@ -685,7 +693,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, onSnapshot, query, orderBy, serverTimestamp, increment, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, onSnapshot, query, orderBy, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         let currentLang = localStorage.getItem('baza_lang') || 'bn';
         let recentlyViewed = JSON.parse(localStorage.getItem('baza_recent')) || [];
@@ -727,14 +735,6 @@
         });
         window.addEventListener('keydown', () => { pageInteracted = true; });
 
-        window.addEventListener('beforeunload', function (e) {
-            if (pageInteracted) {
-                e.preventDefault();
-                e.returnValue = ''; 
-                return '';
-            }
-        });
-
         const firebaseConfig = {
             apiKey: "AIzaSyCFAZIX-TS2_gyWFP0IEurYTxZVGb1_3qg",
             authDomain: "baza-30f91.firebaseapp.com",
@@ -766,6 +766,13 @@
                 setTimeout(() => preloader.style.display = 'none', 500);
             }, 600);
             updateWishlistCount();
+            
+            // Check if URL has a specific product query parameter to auto-open it
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+            if(postId && allAds.length > 0) {
+                openProductDetail(postId);
+            }
         });
 
         window.highlightNav = function(element) {
@@ -877,7 +884,6 @@
             `).join('');
         }
 
-        /* Smart Auto Category Selection Feature */
         const categoryKeywordsMap = [
             {
                 category: 'furniture',
@@ -1086,16 +1092,20 @@
             } catch(e) {}
         };
 
+        // নির্দিষ্ট পোস্ট শেয়ার করার জন্য ডায়নামিক লিংক ফাংশন
         window.shareCurrentAd = function() {
+            if(!currentOpenAdId) return;
+            let shareUrl = `https://nadimtelecom.github.io/baza.com.bd/?id=${currentOpenAdId}`;
+            
             if(navigator.share) {
                 navigator.share({
                     title: 'Baza.com.bd Ad',
-                    text: 'Check out this product on Baza.com.bd',
-                    url: window.location.href
+                    text: 'এই পণ্যটি দেখতে ক্লিক করুন:',
+                    url: shareUrl
                 }).catch(() => {});
             } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert(currentLang === 'bn' ? "বিজ্ঞাপনের লিংক কপি করা হয়েছে!" : "Ad link copied to clipboard!");
+                navigator.clipboard.writeText(shareUrl);
+                alert(currentLang === 'bn' ? "নির্দিষ্ট বিজ্ঞাপনটির লিংক কপি করা হয়েছে!" : "Specific ad link copied!");
             }
         };
 
@@ -1505,6 +1515,13 @@
                 if(currentUser) renderAuthUI();
                 renderWishlistModal();
                 renderRecentlyViewed();
+
+                // Check URL parameter after loading ads
+                const urlParams = new URLSearchParams(window.location.search);
+                const postId = urlParams.get('id');
+                if(postId) {
+                    openProductDetail(postId);
+                }
             }, error => {
                 console.error("Firestore Error: ", error);
             });
@@ -1815,13 +1832,11 @@
             document.getElementById('themeSettingLabel').innerText = isDark ? 'Dark' : 'Light';
         };
 
-        /* Auto-hide Bottom Navigation on Scroll */
         let lastScrollTop = 0;
         const bottomNav = document.getElementById('bottom-nav');
 
         window.addEventListener('scroll', function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
             if (scrollTop > lastScrollTop) {
                 bottomNav.style.transform = 'translateY(100%)';
             } else {
